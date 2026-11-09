@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_26_slicer",
   "position": {
-    "x": 1267,
+    "x": 957,
     "y": 304,
     "z": 2600,
-    "width": 320,
+    "width": 300,
     "height": 58,
     "tabOrder": 2600
   },
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "CCAA"
+                      "Entity": "Métrica del mapa"
                     }
                   },
-                  "Property": "nombre"
+                  "Property": "Métrica"
                 }
               },
-              "queryRef": "CCAA.nombre",
-              "nativeQueryRef": "nombre"
+              "queryRef": "Métrica del mapa.Métrica",
+              "nativeQueryRef": "Métrica"
             }
           ]
         }
@@ -60,7 +60,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Comunidad autónoma'"
+                  "Value": "'Métrica del mapa'"
                 }
               }
             },
@@ -108,6 +108,26 @@
             }
           }
         }
+      ],
+      "selection": [
+        {
+          "properties": {
+            "singleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "strictSingleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -126,7 +146,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "ccaa",
+      "groupName": "metrica",
       "fieldChanges": true,
       "filterChanges": true
     }

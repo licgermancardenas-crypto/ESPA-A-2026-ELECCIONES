@@ -1,7 +1,7 @@
 table Medidas
 
 	measure Corte =
-			"Datos a 09/11/2026 21:58 · Fuentes: INE, Eurostat, Congreso"
+			"Datos a 09/11/2026 22:31 · Fuentes: INE, Eurostat, Congreso"
 		displayFolder: Formato
 
 	measure 'Población' =
@@ -199,11 +199,98 @@ table Medidas
 		displayFolder: Formato
 		dataCategory: ImageUrl
 
+	measure 'SVG región municipios' =
+			VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+			VAR cc = SELECTEDVALUE(CCAA[ccaa_ine])
+			VAR ancho = SELECTEDVALUE(CCAA[lienzo_ancho])
+			VAR alto = SELECTEDVALUE(CCAA[lienzo_alto])
+			VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = cc), "@c",
+			    VAR v = SWITCH(idm, 1, DIVIDE(Municipios[pob_actual] - Municipios[pob_hace10], Municipios[pob_hace10]), 2, DIVIDE(Municipios[pob_actual], Municipios[area_km2]), 3, Municipios[pob_actual], 4, RELATED(Provincias[pib_pc]), 5, RELATED(CCAA[paro]))
+			    RETURN IF(ISBLANK(v), "#E4E0EC", SWITCH(idm, 1, SWITCH(TRUE(), v < -0.1, "#8A5A00", v < -0.05, "#C98A12", v < 0, "#F2D58C", v < 0.05, "#CDBFE6", v < 0.1, "#8E73C4", "#4B2F8A"), 2, SWITCH(TRUE(), v < 10, "#F3EFF9", v < 25, "#D9CDEE", v < 100, "#B19DDA", v < 300, "#8467BD", v < 1000, "#5B3F99", "#2E1B5E"), 3, SWITCH(TRUE(), v < 1000, "#F3EFF9", v < 5000, "#D9CDEE", v < 20000, "#B19DDA", v < 100000, "#8467BD", v < 500000, "#5B3F99", "#2E1B5E"), 4, SWITCH(TRUE(), v < 22000, "#FFF6DD", v < 25000, "#F8DE9A", v < 28000, "#E9B949", v < 32000, "#C98A12", v < 36000, "#8A5A00", "#5C3B00"), 5, SWITCH(TRUE(), v < 0.07, "#EAF4F2", v < 0.09, "#BFE0DA", v < 0.11, "#7CC2B6", v < 0.13, "#2E9C8F", v < 0.15, "#1F6E66", "#0E3F3A"), 33, SWITCH(TRUE(), v < 500000, "#F3EFF9", v < 1000000, "#D9CDEE", v < 2000000, "#B19DDA", v < 4000000, "#8467BD", v < 7000000, "#5B3F99", "#2E1B5E"))))
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])),
+			    VAR col = [@c]
+			    RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Municipios[path_ccaa] & "'/>", "") & "</g>", "")
+			VAR leyenda = "<g transform='translate(10," & (alto + 24) & ")'>" & SWITCH(idm, 1, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Variación de población 10 años</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; −10 %</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>−10 a −5 %</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#F2D58C' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>−5 a 0 %</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#CDBFE6' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>0 a 5 %</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#8E73C4' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>5 a 10 %</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#4B2F8A' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 10 %</text>", 2, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Densidad (hab./km²)</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 10</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>10–25</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–100</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–300</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>300–1.000</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 1.000</text>", 3, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Población</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 1.000</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>1–5 mil</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>5–20 mil</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>20–100 mil</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–500 mil</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 500 mil</text>", 4, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>PIB per cápita (provincia)</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#FFF6DD' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 22 k€</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#F8DE9A' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>22–25 k€</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#E9B949' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–28 k€</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>28–32 k€</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>32–36 k€</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#5C3B00' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 36 k€</text>", 5, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Tasa de paro EPA (CCAA)</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#EAF4F2' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 7 %</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#BFE0DA' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>7–9 %</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#7CC2B6' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>9–11 %</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#2E9C8F' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>11–13 %</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#1F6E66' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>13–15 %</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#0E3F3A' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 15 %</text>", 33, "<text x='0' y='16' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Población</text><rect x='0' y='30' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='30' y='43' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 0,5 M</text><rect x='0' y='52' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='30' y='65' font-family='Segoe UI' font-size='13' fill='#1D1631'>0,5–1 M</text><rect x='0' y='74' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='30' y='87' font-family='Segoe UI' font-size='13' fill='#1D1631'>1–2 M</text><rect x='0' y='96' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='30' y='109' font-family='Segoe UI' font-size='13' fill='#1D1631'>2–4 M</text><rect x='0' y='118' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='30' y='131' font-family='Segoe UI' font-size='13' fill='#1D1631'>4–7 M</text><rect x='0' y='140' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='30' y='153' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 7 M</text>") & "</g>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & MAX(ancho, 320) & " " & (alto + 175) & "'>"
+			    & "<g stroke='#FFFFFF' stroke-width='0.5' stroke-linejoin='round'>" & grupos & "</g>" & leyenda & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Formato
+		dataCategory: ImageUrl
+
 	measure 'SVG España' =
-			SWITCH(SELECTEDVALUE('Nivel del mapa'[id], 2),
-			    1, [SVG España comunidades],
-			    3, [SVG España municipios],
+			VAR nivel = SELECTEDVALUE('Nivel del mapa'[id], 2)
+			RETURN SWITCH(TRUE(),
+			    nivel = 1, [SVG España comunidades],
+			    nivel = 3 && HASONEVALUE(CCAA[ccaa_ine]), [SVG región municipios],
+			    nivel = 3, [SVG España municipios],
 			    [SVG España provincias])
+		displayFolder: Formato
+		dataCategory: ImageUrl
+
+	measure 'Votos (regional)' =
+			CALCULATE(SUM('Elecciones regionales'[votos]), 'Elecciones regionales'[nivel] = "territorio")
+		formatString: #,0
+		displayFolder: Elecciones
+
+	measure '% voto (regional)' =
+			DIVIDE([Votos (regional)], CALCULATE([Votos (regional)], REMOVEFILTERS('Elecciones regionales'[candidatura])))
+		formatString: 0.0%
+		displayFolder: Elecciones
+
+	measure 'Escaños (regional)' =
+			CALCULATE(SUM('Elecciones regionales'[escanos]), 'Elecciones regionales'[nivel] = "territorio")
+		formatString: 0
+		displayFolder: Elecciones
+
+	measure 'Censo (regional)' =
+			CALCULATE(SUM('Participación regional'[censo]), 'Participación regional'[nivel] = "territorio")
+		formatString: #,0
+		displayFolder: Elecciones
+
+	measure 'Votantes (regional)' =
+			CALCULATE(SUM('Participación regional'[votantes]), 'Participación regional'[nivel] = "territorio")
+		formatString: #,0
+		displayFolder: Elecciones
+
+	measure 'Participación (regional)' =
+			DIVIDE([Votantes (regional)], [Censo (regional)])
+		formatString: 0.0%
+		displayFolder: Elecciones
+
+	measure 'Ganador (regional)' =
+			VAR t = ADDCOLUMNS(VALUES('Elecciones regionales'[candidatura]), "@v", [Votos (regional)])
+			RETURN MAXX(TOPN(1, t, [@v], DESC), 'Elecciones regionales'[candidatura])
+		displayFolder: Elecciones
+
+	measure 'Convocatoria elegida' =
+			SELECTEDVALUE(Convocatorias[Convocatoria], "Elegí una convocatoria")
+		displayFolder: Formato
+
+	measure 'Color partido' =
+			VAR p = UPPER(SELECTEDVALUE('Elecciones regionales'[candidatura])) RETURN SWITCH(TRUE(), LEFT(p, 7) = "EAJ-PNV", "#2E7D32", LEFT(p, 3) = "EAJ", "#2E7D32", LEFT(p, 3) = "PNV", "#2E7D32", LEFT(p, 8) = "EH BILDU", "#00A39A", LEFT(p, 5) = "BILDU", "#00A39A", LEFT(p, 2) = "EH", "#00A39A", LEFT(p, 2) = "HB", "#00A39A", LEFT(p, 6) = "AMAIUR", "#00A39A", LEFT(p, 3) = "PSE", "#E30613", LEFT(p, 4) = "PSOE", "#E30613", LEFT(p, 3) = "PSC", "#E30613", LEFT(p, 2) = "PP", "#1E5BA8", LEFT(p, 2) = "AP", "#1E5BA8", LEFT(p, 2) = "CP", "#1E5BA8", LEFT(p, 3) = "UPN", "#1E5BA8", LEFT(p, 7) = "PODEMOS", "#6B2C91", LEFT(p, 10) = "ELKARREKIN", "#6B2C91", LEFT(p, 5) = "SUMAR", "#E5007E", LEFT(p, 3) = "VOX", "#5AC035", LEFT(p, 2) = "EA", "#8DB600", LEFT(p, 2) = "EE", "#B71C1C", LEFT(p, 2) = "EB", "#9C2B2B", LEFT(p, 2) = "IU", "#9C2B2B", LEFT(p, 3) = "PCE", "#9C2B2B", LEFT(p, 3) = "UCD", "#F28C28", LEFT(p, 3) = "C´S", "#EB6109", LEFT(p, 2) = "CS", "#EB6109", LEFT(p, 10) = "CIUDADANOS", "#EB6109", LEFT(p, 2) = "UA", "#4E6B8A", "#9A93AD")
+		displayFolder: Formato
+
+	measure 'SVG Euskadi ganador' =
+			VAR ancho = LOOKUPVALUE(CCAA[lienzo_ancho], CCAA[ccaa_ine], "16")
+			VAR alto = LOOKUPVALUE(CCAA[lienzo_alto], CCAA[ccaa_ine], "16")
+			VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = "16"), "@g",
+			    CALCULATE(SELECTEDVALUE('Participación regional'[ganador]), 'Participación regional'[nivel] = "municipio"))
+			VAR formas = CONCATENATEX(t,
+			    VAR g = UPPER([@g])
+			    VAR c = IF(ISBLANK([@g]), "#E4E0EC", SWITCH(TRUE(), LEFT(g, 7) = "EAJ-PNV", "#2E7D32", LEFT(g, 3) = "EAJ", "#2E7D32", LEFT(g, 3) = "PNV", "#2E7D32", LEFT(g, 8) = "EH BILDU", "#00A39A", LEFT(g, 5) = "BILDU", "#00A39A", LEFT(g, 2) = "EH", "#00A39A", LEFT(g, 2) = "HB", "#00A39A", LEFT(g, 6) = "AMAIUR", "#00A39A", LEFT(g, 3) = "PSE", "#E30613", LEFT(g, 4) = "PSOE", "#E30613", LEFT(g, 3) = "PSC", "#E30613", LEFT(g, 2) = "PP", "#1E5BA8", LEFT(g, 2) = "AP", "#1E5BA8", LEFT(g, 2) = "CP", "#1E5BA8", LEFT(g, 3) = "UPN", "#1E5BA8", LEFT(g, 7) = "PODEMOS", "#6B2C91", LEFT(g, 10) = "ELKARREKIN", "#6B2C91", LEFT(g, 5) = "SUMAR", "#E5007E", LEFT(g, 3) = "VOX", "#5AC035", LEFT(g, 2) = "EA", "#8DB600", LEFT(g, 2) = "EE", "#B71C1C", LEFT(g, 2) = "EB", "#9C2B2B", LEFT(g, 2) = "IU", "#9C2B2B", LEFT(g, 3) = "PCE", "#9C2B2B", LEFT(g, 3) = "UCD", "#F28C28", LEFT(g, 3) = "C´S", "#EB6109", LEFT(g, 2) = "CS", "#EB6109", LEFT(g, 10) = "CIUDADANOS", "#EB6109", LEFT(g, 2) = "UA", "#4E6B8A", "#9A93AD"))
+			    RETURN "<path d='" & Municipios[path_ccaa] & "' fill='" & c & "'/>", "")
+			VAR partidos = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(t, NOT ISBLANK([@g])), "@g", [@g])),
+			    "@n", COUNTROWS(FILTER(t, [@g] = EARLIER([@g]))))
+			VAR ley = CONCATENATEX(TOPN(8, partidos, [@n], DESC),
+			    VAR g = UPPER([@g])
+			    VAR i = RANKX(partidos, [@n], , DESC, Dense)
+			    RETURN "<rect x='10' y='" & (alto + 10 + i * 24) & "' width='22' height='16' rx='3' fill='" & SWITCH(TRUE(), LEFT(g, 7) = "EAJ-PNV", "#2E7D32", LEFT(g, 3) = "EAJ", "#2E7D32", LEFT(g, 3) = "PNV", "#2E7D32", LEFT(g, 8) = "EH BILDU", "#00A39A", LEFT(g, 5) = "BILDU", "#00A39A", LEFT(g, 2) = "EH", "#00A39A", LEFT(g, 2) = "HB", "#00A39A", LEFT(g, 6) = "AMAIUR", "#00A39A", LEFT(g, 3) = "PSE", "#E30613", LEFT(g, 4) = "PSOE", "#E30613", LEFT(g, 3) = "PSC", "#E30613", LEFT(g, 2) = "PP", "#1E5BA8", LEFT(g, 2) = "AP", "#1E5BA8", LEFT(g, 2) = "CP", "#1E5BA8", LEFT(g, 3) = "UPN", "#1E5BA8", LEFT(g, 7) = "PODEMOS", "#6B2C91", LEFT(g, 10) = "ELKARREKIN", "#6B2C91", LEFT(g, 5) = "SUMAR", "#E5007E", LEFT(g, 3) = "VOX", "#5AC035", LEFT(g, 2) = "EA", "#8DB600", LEFT(g, 2) = "EE", "#B71C1C", LEFT(g, 2) = "EB", "#9C2B2B", LEFT(g, 2) = "IU", "#9C2B2B", LEFT(g, 3) = "PCE", "#9C2B2B", LEFT(g, 3) = "UCD", "#F28C28", LEFT(g, 3) = "C´S", "#EB6109", LEFT(g, 2) = "CS", "#EB6109", LEFT(g, 10) = "CIUDADANOS", "#EB6109", LEFT(g, 2) = "UA", "#4E6B8A", "#9A93AD") & "'/>"
+			        & "<text x='40' y='" & (alto + 23 + i * 24) & "' font-family='Segoe UI' font-size='14' fill='#1D1631'>"
+			        & SUBSTITUTE(SUBSTITUTE(SUBSTITUTE([@g], "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " · " & [@n] & IF([@n] = 1, " municipio", " municipios") & "</text>", "", [@n], DESC)
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & ancho & " " & (alto + 230) & "'>"
+			    & "<text x='10' y='" & (alto + 22) & "' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Partido más votado por municipio</text>"
+			    & "<g stroke='#FFFFFF' stroke-width='0.8' stroke-linejoin='round'>" & formas & "</g>" & ley & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
 		displayFolder: Formato
 		dataCategory: ImageUrl
 

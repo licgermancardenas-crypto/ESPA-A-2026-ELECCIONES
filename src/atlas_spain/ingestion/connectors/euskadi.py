@@ -71,12 +71,15 @@ def parse_csv(raw: bytes) -> pd.DataFrame:
     lines = [ln for ln in text.splitlines() if ln.strip()]
     sep = ";" if lines[0].count(";") >= lines[0].count(",") else ","
     rows = [ln.split(sep) for ln in lines]
-    r0 = [c.strip() for c in rows[0]]
-    dos_cabeceras = (not r0[0]) or _norm(r0[0]).startswith("LISTADO")
+    # La cabecera de métricas es la primera fila que empieza por TH/ÁMBITO (puede haber títulos antes).
+    h = next(i for i, r in enumerate(rows) if _norm(r[0]).strip('"') in ("TH", "AMBITO"))
+    metricas_fila = [c.strip() for c in rows[h]]
+    dos_cabeceras = h > 0 and any(_norm(m).startswith("V. CANDIDATURA") for m in metricas_fila)
+    r0 = [c.strip() for c in rows[h - 1]] if dos_cabeceras else metricas_fila
     if dos_cabeceras:
-        partidos, metricas, datos = r0, [c.strip() for c in rows[1]], rows[2:]
+        partidos, metricas, datos = r0, metricas_fila, rows[h + 1:]
     else:
-        metricas, datos = r0, rows[1:]
+        metricas, datos = r0, rows[h + 1:]
         partidos = [""] * len(metricas)
         # en el formato antiguo todo lo posterior a la abstención son partidos (votos)
         corte = max(i for i, m in enumerate(metricas) if _norm(m) in ("ABSTENCION", "ABSTENCIONES")) + 1

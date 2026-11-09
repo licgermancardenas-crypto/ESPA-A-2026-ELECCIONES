@@ -1,0 +1,117 @@
+table 'Participación regional'
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+		isHidden
+
+	column tipo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: tipo
+		isHidden
+
+	column anyo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: anyo
+
+	column nivel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nivel
+
+	column provincia_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provincia_ine
+		isHidden
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+		isHidden
+
+	column censo
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: censo
+
+	column votantes
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votantes
+
+	column nulos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: nulos
+
+	column blancos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: blancos
+
+	column validos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: validos
+
+	column votos_candidaturas
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos_candidaturas
+
+	column turnout
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: turnout
+
+	column ganador
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ganador
+
+	column cuota_ganador
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: cuota_ganador
+
+	column convocatoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: convocatoria
+
+	column orden
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: orden
+		isHidden
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	partition 'Participación regional' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "participacion_regional.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"tipo", type text}, {"anyo", Int64.Type}, {"nivel", type text}, {"provincia_ine", type text}, {"municipio_ine", type text}, {"censo", Int64.Type}, {"votantes", Int64.Type}, {"nulos", Int64.Type}, {"blancos", Int64.Type}, {"validos", Int64.Type}, {"votos_candidaturas", Int64.Type}, {"turnout", type number}, {"ganador", type text}, {"cuota_ganador", type number}, {"convocatoria", type text}, {"orden", Int64.Type}, {"geo_id", type text}}, "en-US")
+				in
+				    Tipos
+

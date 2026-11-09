@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p06_censo_15_card",
   "position": {
-    "x": 574,
+    "x": 222,
     "y": 96,
     "z": 1500,
     "width": 340,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Electores / población"
+                  "Property": "Electores Andalucía 2026"
                 }
               },
-              "queryRef": "Medidas.Electores / población",
-              "nativeQueryRef": "Electores / población",
-              "displayName": "Electores / población"
+              "queryRef": "Medidas.Electores Andalucía 2026",
+              "nativeQueryRef": "Electores residentes (CER)",
+              "displayName": "Electores residentes (CER)"
             }
           ]
         }

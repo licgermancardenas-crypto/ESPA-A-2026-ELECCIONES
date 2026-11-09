@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'⚙   Datos y calidad'"
+                  "Value": "'✔   Censo electoral'"
                 }
               }
             },
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p07_operaciones'"
+                  "Value": "'p06_censo'"
                 }
               }
             }

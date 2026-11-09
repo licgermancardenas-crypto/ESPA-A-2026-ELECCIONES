@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_15_card",
   "position": {
-    "x": 496,
+    "x": 222,
     "y": 96,
     "z": 1500,
     "width": 262,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Variación población 10 años"
+                  "Property": "Población"
                 }
               },
-              "queryRef": "Medidas.Variación población 10 años",
-              "nativeQueryRef": "Variación 2015–2025",
-              "displayName": "Variación 2015–2025"
+              "queryRef": "Medidas.Población",
+              "nativeQueryRef": "Población",
+              "displayName": "Población"
             }
           ]
         }

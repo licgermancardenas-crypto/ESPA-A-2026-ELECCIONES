@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p05_economia_16_card",
   "position": {
-    "x": 916,
+    "x": 574,
     "y": 96,
     "z": 1600,
     "width": 330,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Tasa de paro"
+                  "Property": "PIB per cápita"
                 }
               },
-              "queryRef": "Medidas.Tasa de paro",
-              "nativeQueryRef": "Paro EPA",
-              "displayName": "Paro EPA"
+              "queryRef": "Medidas.PIB per cápita",
+              "nativeQueryRef": "PIB per cápita",
+              "displayName": "PIB per cápita"
             }
           ]
         }

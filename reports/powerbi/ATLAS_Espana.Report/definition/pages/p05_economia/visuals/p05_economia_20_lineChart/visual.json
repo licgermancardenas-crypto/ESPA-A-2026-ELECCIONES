@@ -3,10 +3,10 @@
   "name": "p05_economia_20_lineChart",
   "position": {
     "x": 794,
-    "y": 536,
+    "y": 166,
     "z": 2000,
     "width": 794,
-    "height": 354,
+    "height": 360,
     "tabOrder": 2000
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "PIB provincia"
+                      "Entity": "Paro"
                     }
                   },
-                  "Property": "anyo"
+                  "Property": "trimestre"
                 }
               },
-              "queryRef": "PIB provincia.anyo",
-              "nativeQueryRef": "anyo"
+              "queryRef": "Paro.trimestre",
+              "nativeQueryRef": "trimestre"
             }
           ]
         },
@@ -41,12 +41,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "PIB per cápita (serie)"
+                  "Property": "Tasa de paro (serie)"
                 }
               },
-              "queryRef": "Medidas.PIB per cápita (serie)",
-              "nativeQueryRef": "PIB pc",
-              "displayName": "PIB pc"
+              "queryRef": "Medidas.Tasa de paro (serie)",
+              "nativeQueryRef": "Paro",
+              "displayName": "Paro"
             }
           ]
         }
@@ -74,7 +74,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E0A526'"
+                      "Value": "'#2E9C8F'"
                     }
                   }
                 }
@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PIB per cápita medio de las provincias (sin ponderar)'"
+                  "Value": "'Tasa de paro EPA (promedio de las comunidades seleccionadas)'"
                 }
               }
             }

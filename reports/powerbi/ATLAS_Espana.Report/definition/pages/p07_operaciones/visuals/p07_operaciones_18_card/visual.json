@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_18_card",
   "position": {
-    "x": 1142,
+    "x": 912,
     "y": 96,
     "z": 1800,
     "width": 218,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Controles OK"
+                  "Property": "Filas procesadas"
                 }
               },
-              "queryRef": "Medidas.Controles OK",
-              "nativeQueryRef": "Controles OK",
-              "displayName": "Controles OK"
+              "queryRef": "Medidas.Filas procesadas",
+              "nativeQueryRef": "Filas procesadas",
+              "displayName": "Filas procesadas"
             }
           ]
         }

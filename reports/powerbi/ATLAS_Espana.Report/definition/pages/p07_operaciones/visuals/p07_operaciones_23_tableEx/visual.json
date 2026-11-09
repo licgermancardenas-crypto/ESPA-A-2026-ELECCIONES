@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_23_tableEx",
   "position": {
-    "x": 914,
+    "x": 222,
     "y": 590,
     "z": 2300,
-    "width": 674,
+    "width": 680,
     "height": 300,
     "tabOrder": 2300
   },
@@ -20,43 +20,43 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calidad"
+                      "Entity": "Ejecuciones"
                     }
                   },
-                  "Property": "control"
+                  "Property": "source_id"
                 }
               },
-              "queryRef": "Calidad.control",
-              "nativeQueryRef": "Control",
-              "displayName": "Control"
+              "queryRef": "Ejecuciones.source_id",
+              "nativeQueryRef": "Fuente",
+              "displayName": "Fuente"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calidad"
+                      "Entity": "Ejecuciones"
                     }
                   },
-                  "Property": "dimension"
+                  "Property": "inicio"
                 }
               },
-              "queryRef": "Calidad.dimension",
-              "nativeQueryRef": "Dimensión",
-              "displayName": "Dimensión"
+              "queryRef": "Ejecuciones.inicio",
+              "nativeQueryRef": "Inicio",
+              "displayName": "Inicio"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calidad"
+                      "Entity": "Ejecuciones"
                     }
                   },
                   "Property": "estado"
                 }
               },
-              "queryRef": "Calidad.estado",
+              "queryRef": "Ejecuciones.estado",
               "nativeQueryRef": "Estado",
               "displayName": "Estado"
             },
@@ -65,15 +65,30 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Calidad"
+                      "Entity": "Ejecuciones"
                     }
                   },
-                  "Property": "detalle"
+                  "Property": "procesados"
                 }
               },
-              "queryRef": "Calidad.detalle",
-              "nativeQueryRef": "Detalle",
-              "displayName": "Detalle"
+              "queryRef": "Ejecuciones.procesados",
+              "nativeQueryRef": "Filas",
+              "displayName": "Filas"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Ejecuciones"
+                    }
+                  },
+                  "Property": "duracion_s"
+                }
+              },
+              "queryRef": "Ejecuciones.duracion_s",
+              "nativeQueryRef": "Seg.",
+              "displayName": "Seg."
             }
           ]
         }
@@ -168,7 +183,7 @@
                           "Entity": "Medidas"
                         }
                       },
-                      "Property": "Color estado control"
+                      "Property": "Color estado ejecución"
                     }
                   }
                 }
@@ -183,7 +198,7 @@
                 }
               }
             ],
-            "metadata": "Calidad.estado"
+            "metadata": "Ejecuciones.estado"
           }
         }
       ],
@@ -239,7 +254,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Controles de calidad (último run)'"
+                  "Value": "'Ejecuciones de ingesta'"
                 }
               }
             }

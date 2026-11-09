@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03_ciudad_22_card",
   "position": {
-    "x": 1345,
+    "x": 1097,
     "y": 250,
     "z": 2200,
     "width": 240,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Brecha de renta entre secciones"
+                  "Property": "% 65 y más"
                 }
               },
-              "queryRef": "Medidas.Brecha de renta entre secciones",
-              "nativeQueryRef": "Más rica / más pobre (acotado INE)",
-              "displayName": "Más rica / más pobre (acotado INE)"
+              "queryRef": "Medidas.% 65 y más",
+              "nativeQueryRef": "Población de 65+",
+              "displayName": "Población de 65+"
             }
           ]
         }

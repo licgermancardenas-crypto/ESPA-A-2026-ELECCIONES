@@ -1,0 +1,83 @@
+table 'Elecciones regionales'
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+		isHidden
+
+	column tipo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: tipo
+		isHidden
+
+	column anyo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: anyo
+
+	column nivel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nivel
+
+	column provincia_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provincia_ine
+		isHidden
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+		isHidden
+
+	column candidatura
+		dataType: string
+		summarizeBy: none
+		sourceColumn: candidatura
+
+	column votos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos
+		isHidden
+
+	column escanos
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: escanos
+		isHidden
+
+	column convocatoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: convocatoria
+
+	column orden
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: orden
+		isHidden
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	partition 'Elecciones regionales' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "elecciones_regionales.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"tipo", type text}, {"anyo", Int64.Type}, {"nivel", type text}, {"provincia_ine", type text}, {"municipio_ine", type text}, {"candidatura", type text}, {"votos", Int64.Type}, {"escanos", Int64.Type}, {"convocatoria", type text}, {"orden", Int64.Type}, {"geo_id", type text}}, "en-US")
+				in
+				    Tipos
+

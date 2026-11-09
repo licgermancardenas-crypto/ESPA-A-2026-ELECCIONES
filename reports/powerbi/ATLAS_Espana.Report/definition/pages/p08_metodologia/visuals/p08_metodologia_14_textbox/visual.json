@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p08_metodologia_14_textbox",
   "position": {
-    "x": 222,
-    "y": 100,
+    "x": 10,
+    "y": 470,
     "z": 1400,
-    "width": 1360,
-    "height": 780,
+    "width": 180,
+    "height": 260,
     "tabOrder": 1400
   },
   "visual": {
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Fuentes",
+                    "value": "Estado",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
+                      "fontSize": "9pt",
+                      "color": "#E0A526",
                       "fontWeight": "bold"
                     }
                   }
@@ -32,11 +32,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Padrón municipal (INE, 1996–2025), Contabilidad Regional (INE), EPA (INE), censo electoral (INE-OCE), cartografía de secciones censales (INE, 1-ene-2024). Todas descargadas por API o fichero oficial y trazables por ejecución.",
+                    "value": "Resultados electorales oficiales: pendientes de carga (Infoelectoral exige descarga manual).",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
                     }
                   }
                 ]
@@ -44,11 +44,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Población provincial y autonómica",
+                    "value": "Cómo navegar",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
+                      "fontSize": "9pt",
+                      "color": "#E0A526",
                       "fontWeight": "bold"
                     }
                   }
@@ -57,11 +57,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "El INE congeló sus tablas provinciales y autonómicas en 2021. De 2022 en adelante ATLAS suma los municipios; en 1996–2021 esa suma coincide con la cifra oficial en 1.299 de 1.300 casos (Almería 1996: −76 habitantes).",
+                    "value": "• Ctrl+clic en los botones en Power BI Desktop",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
                     }
                   }
                 ]
@@ -69,12 +69,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Mapas",
+                    "value": "• Clic en barras o filas: filtra la página",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
-                      "fontWeight": "bold"
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
                     }
                   }
                 ]
@@ -82,86 +81,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Límites obtenidos disolviendo las secciones censales del INE (no las líneas límite jurídicas del IGN). Canarias se muestra en recuadro a escala 0,85. Las zonas en blanco son terrenos sin municipio (p. ej. Bardenas Reales).",
+                    "value": "• Segmentador de comunidad: resalta en los mapas",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "PIB per cápita",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
-                      "fontWeight": "bold"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Dato provincial del INE. Las comunidades uniprovinciales solo se publican como CCAA y se asignan a su provincia. El agregado 'ponderado' pondera por población actual.",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Mapa de ciudad",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
-                      "fontWeight": "bold"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Secciones y distritos del seccionado INE 2024. Renta neta media por persona, población y % de 65+ del Atlas de Distribución de Renta de los Hogares (INE, año 2024). El INE acota los extremos por confidencialidad: las secciones con renta ≥ 40.089 € o ≤ 5.828 € se publican con ese valor de corte.",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Lo que todavía no está",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "13pt",
-                      "color": "#1D1631",
-                      "fontWeight": "bold"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Resultados electorales (Infoelectoral bloquea la descarga automática: carga manual pendiente), autonómicas, continuidad de partidos, índices compuestos y modelos predictivos. Ver PROJECT_STATUS.md.",
-                    "textStyle": {
-                      "fontFamily": "Segoe UI",
-                      "fontSize": "11pt",
-                      "color": "#1D1631"
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
                     }
                   }
                 ]
@@ -178,25 +102,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "false"
                 }
               }
             }

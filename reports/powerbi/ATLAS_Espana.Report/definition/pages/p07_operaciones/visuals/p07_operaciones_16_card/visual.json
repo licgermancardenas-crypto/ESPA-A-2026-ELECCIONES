@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_16_card",
   "position": {
-    "x": 682,
+    "x": 452,
     "y": 96,
     "z": 1600,
     "width": 218,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Fuentes con conector"
+                  "Property": "Fuentes disponibles"
                 }
               },
-              "queryRef": "Medidas.Fuentes con conector",
-              "nativeQueryRef": "Con conector",
-              "displayName": "Con conector"
+              "queryRef": "Medidas.Fuentes disponibles",
+              "nativeQueryRef": "Responden",
+              "displayName": "Responden"
             }
           ]
         }

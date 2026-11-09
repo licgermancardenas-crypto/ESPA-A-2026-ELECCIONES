@@ -90,6 +90,31 @@ def geometria():
     return g, nivel("CPRO"), nivel("CCA"), lienzo
 
 
+def geometria_regiones() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Trazos municipales en un lienzo de 1000 px por comunidad (zoom regional)."""
+    import gc
+    import pyarrow.parquet as pq
+    from atlas_spain.geo.build_geo import _dissolve
+    fichero = next((paths.DATA / "gold" / "geo").glob("secciones_*.parquet"))
+    ccaas = sorted(pq.read_table(fichero, columns=["CCA"]).column("CCA").unique().to_pylist())
+    filas, lienzos = [], []
+    for cca in ccaas:
+        sec = gpd.read_parquet(fichero, filters=[("CCA", "==", cca)]).to_crs(PROY)
+        mun = _dissolve(sec, "CUMUN")
+        a0, b0, a1, b1 = mun.total_bounds
+        k = ANCHO / max(a1 - a0, b1 - b0)
+        simp = shapely.coverage_simplify(mun.geometry.values, tolerance=1.0 / k)
+        for cod, gm, orig in zip(mun.CUMUN, simp, mun.geometry):
+            pt = orig.representative_point()
+            x, y = (pt.x - a0) * k, (b1 - pt.y) * k
+            filas.append((cod, trazo(gm, a0, b1, k) or f"M{x - 1.5:.0f} {y - 1.5:.0f}h3v3h-3Z", round(x), round(y)))
+        lienzos.append((cca, int(np.ceil((a1 - a0) * k)), int(np.ceil((b1 - b0) * k))))
+        del sec, mun
+        gc.collect()
+    return (pd.DataFrame(filas, columns=["municipio_ine", "path_ccaa", "x_ccaa", "y_ccaa"]).set_index("municipio_ine"),
+            pd.DataFrame(lienzos, columns=["ccaa_ine", "ancho", "alto"]).set_index("ccaa_ine"))
+
+
 def geometria_ciudades(min_secciones: int = 5) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Lienzo propio por municipio (1000 px en su lado mayor) con secciones y distritos.
 
@@ -177,6 +202,19 @@ def exportar() -> dict:
                                       status as estado, detail as detalle
                                from ops.quality_results
                                where run_id = (select arg_max(run_id, run_at) from ops.quality_results)""")
+        hay_reg = con.execute("""select count(*) from information_schema.tables
+                                 where table_schema='gold' and table_name='fact_regional_results'""").fetchone()[0]
+        if hay_reg:
+            res_reg = _sql(con, """
+                select election_id, tipo, anyo, nivel, provincia_ine, municipio_ine, candidatura,
+                       votos, coalesce(escanos, 0) as escanos
+                from gold.fact_regional_results where nivel in ('territorio', 'municipio') and votos > 0""")
+            part_reg = _sql(con, """
+                select election_id, tipo, anyo, nivel, provincia_ine, municipio_ine, censo, votantes, nulos, blancos,
+                       validos, votos_candidaturas, turnout, ganador, cuota_ganador
+                from gold.regional_turnout where nivel in ('territorio', 'municipio')""")
+        else:
+            res_reg = part_reg = pd.DataFrame()
         adrh_glob = f"{paths.BRONZE.as_posix()}/INE-ADRH/parquet/*/*.parquet"
         adrh = _sql(con, f"""
             with b as (
@@ -210,6 +248,9 @@ def exportar() -> dict:
     # municipios demasiado pequeños para el lienzo: marcador de 2 px en su posición
     vacio = M["path"].fillna("") == ""
     M.loc[vacio, "path"] = [f"M{x - 1:.0f} {y - 1:.0f}h2v2h-2Z" for x, y in zip(M.loc[vacio, "x"], M.loc[vacio, "y"])]
+    R, LR = geometria_regiones()
+    for c in ("path_ccaa", "x_ccaa", "y_ccaa"):
+        M[c] = R[c].reindex(M.index).values
     S, D, L = geometria_ciudades()
     L = L.set_index("municipio_ine")
     M["lienzo_ancho"] = L["ancho"].reindex(M.index).values
@@ -269,6 +310,8 @@ def exportar() -> dict:
     A["n_municipios"] = M.groupby("ccaa_ine").size().reindex(A.index).values
     for c in ("path", "cx", "cy"):
         A[c] = ccaa[c].values
+    A["lienzo_ancho"] = LR["ancho"].reindex(A.index).values
+    A["lienzo_alto"] = LR["alto"].reindex(A.index).values
     pp = P.dropna(subset=["pib_pc"]).assign(w=lambda d: d.pib_pc * d.pob_actual).groupby("ccaa_ine")[["w", "pob_actual"]].sum()
     A["pib_pc"] = (pp["w"] / pp["pob_actual"]).round(0).reindex(A.index).values
 
@@ -283,12 +326,25 @@ def exportar() -> dict:
     serie["provincia_ine"] = np.where(serie.nivel.isin(["provincia", "municipio"]), serie.geo_id.str[6:8], "")
     serie["municipio_ine"] = np.where(serie.nivel == "municipio", serie.geo_id.str[6:], "")
 
+    if not res_reg.empty:
+        def etiqueta(e):
+            t, yy = e.split("-")[1][0], int(e.split("-")[1][1:])
+            anyo = 1900 + yy if yy > 50 else 2000 + yy
+            return ("Parlamento Vasco " if t == "P" else "Congreso (en Euskadi) ") + str(anyo)
+        for df in (res_reg, part_reg):
+            df["convocatoria"] = df["election_id"].map(etiqueta)
+            df["orden"] = df["anyo"].astype(int) * 10 + (df["tipo"] == "congreso").astype(int)
+            df["geo_id"] = np.where(df["nivel"] == "territorio", "ES-PR-" + df["provincia_ine"].astype(str),
+                                    "ES-MU-" + df["municipio_ine"].astype(str))
+        res_reg["municipio_ine"] = res_reg["municipio_ine"].where(res_reg["nivel"] == "municipio", None)
+        part_reg["municipio_ine"] = part_reg["municipio_ine"].where(part_reg["nivel"] == "municipio", None)
     salidas = {"municipios.csv": M.reset_index(drop=True), "provincias.csv": P.reset_index(drop=True),
                "ccaa.csv": A.reset_index(drop=True), "poblacion_serie.csv": serie,
                "pib_provincia.csv": pib_serie[["provincia_ine", "anyo", "pib_pc"]],
                "paro_ccaa.csv": paro[["ccaa_ine", "anyo", "periodo", "trimestre", "tasa_paro"]],
                "fuentes.csv": fuentes, "ejecuciones.csv": ejec, "calidad.csv": calidad,
-               "secciones.csv": S, "distritos.csv": D}
+               "secciones.csv": S, "distritos.csv": D,
+               "elecciones_regionales.csv": res_reg, "participacion_regional.csv": part_reg}
     for nombre, df in salidas.items():
         df.to_csv(SALIDA / nombre, index=False, encoding="utf-8")
     params = {"anyo_actual": y1, "anyo_base": y0, "anyo_adrh": anyo_adrh, "lienzo": {"alto": lienzo["alto"]},

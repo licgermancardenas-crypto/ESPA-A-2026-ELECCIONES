@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'€   Economía'"
+                  "Value": "'≋   Demografía'"
                 }
               }
             },
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p05_economia'"
+                  "Value": "'p04_demografia'"
                 }
               }
             }

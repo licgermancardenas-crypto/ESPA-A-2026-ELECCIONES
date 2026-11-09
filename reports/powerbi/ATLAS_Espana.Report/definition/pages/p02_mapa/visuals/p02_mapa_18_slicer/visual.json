@@ -3,7 +3,7 @@
   "name": "p02_mapa_18_slicer",
   "position": {
     "x": 1097,
-    "y": 224,
+    "y": 158,
     "z": 1800,
     "width": 490,
     "height": 58,
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "CCAA"
+                      "Entity": "Métrica del mapa"
                     }
                   },
-                  "Property": "nombre"
+                  "Property": "Métrica"
                 }
               },
-              "queryRef": "CCAA.nombre",
-              "nativeQueryRef": "nombre"
+              "queryRef": "Métrica del mapa.Métrica",
+              "nativeQueryRef": "Métrica"
             }
           ]
         }
@@ -60,7 +60,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Comunidad autónoma'"
+                  "Value": "'Métrica del mapa'"
                 }
               }
             },
@@ -108,6 +108,26 @@
             }
           }
         }
+      ],
+      "selection": [
+        {
+          "properties": {
+            "singleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "strictSingleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -126,7 +146,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "ccaa",
+      "groupName": "metrica",
       "fieldChanges": true,
       "filterChanges": true
     }

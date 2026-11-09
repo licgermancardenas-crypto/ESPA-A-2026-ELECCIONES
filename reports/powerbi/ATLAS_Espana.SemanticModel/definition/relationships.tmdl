@@ -10,6 +10,18 @@ relationship rel_sec_mun
 	fromColumn: Secciones.municipio_ine
 	toColumn: Municipios.municipio_ine
 
+relationship rel_reg_conv
+	fromColumn: 'Elecciones regionales'.election_id
+	toColumn: Convocatorias.election_id
+
+relationship rel_part_conv
+	fromColumn: 'Participación regional'.election_id
+	toColumn: Convocatorias.election_id
+
+relationship rel_part_mun
+	fromColumn: 'Participación regional'.municipio_ine
+	toColumn: Municipios.municipio_ine
+
 relationship rel_dis_mun
 	fromColumn: 'Distritos ciudad'.municipio_ine
 	toColumn: Municipios.municipio_ine

@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_17_card",
   "position": {
-    "x": 912,
+    "x": 682,
     "y": 96,
     "z": 1700,
     "width": 218,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Filas procesadas"
+                  "Property": "Fuentes con conector"
                 }
               },
-              "queryRef": "Medidas.Filas procesadas",
-              "nativeQueryRef": "Filas procesadas",
-              "displayName": "Filas procesadas"
+              "queryRef": "Medidas.Fuentes con conector",
+              "nativeQueryRef": "Con conector",
+              "displayName": "Con conector"
             }
           ]
         }

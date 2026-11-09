@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_18_card",
   "position": {
-    "x": 1318,
+    "x": 1044,
     "y": 96,
     "z": 1800,
     "width": 262,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Municipios"
+                  "Property": "Provincias"
                 }
               },
-              "queryRef": "Medidas.Municipios",
-              "nativeQueryRef": "Municipios",
-              "displayName": "Municipios"
+              "queryRef": "Medidas.Provincias",
+              "nativeQueryRef": "Provincias",
+              "displayName": "Provincias"
             }
           ]
         }

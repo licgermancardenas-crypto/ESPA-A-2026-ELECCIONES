@@ -1,0 +1,25 @@
+table Convocatorias
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: [election_id]
+		isHidden
+
+	column Convocatoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: [Convocatoria]
+		sortByColumn: orden
+
+	column orden
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: [orden]
+		isHidden
+
+	partition Convocatorias = calculated
+		mode: import
+		source =
+				DISTINCT(SELECTCOLUMNS('Participación regional', "election_id", [election_id], "Convocatoria", [convocatoria], "orden", [orden]))
+

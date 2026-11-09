@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'≋   Demografía'"
+                  "Value": "'☑   Elecciones País Vasco'"
                 }
               }
             },
@@ -65,7 +65,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FFFFFF'"
+                      "Value": "'#D9D2EA'"
                     }
                   }
                 }
@@ -124,7 +124,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#5B3F99'"
+                      "Value": "'#2A2147'"
                     }
                   }
                 }
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p04_demografia'"
+                  "Value": "'p03b_euskadi'"
                 }
               }
             }

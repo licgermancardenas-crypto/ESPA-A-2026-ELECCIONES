@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_22_card",
   "position": {
-    "x": 1044,
+    "x": 770,
     "y": 200,
     "z": 2200,
     "width": 262,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Fuentes disponibles"
+                  "Property": "PIB per cápita"
                 }
               },
-              "queryRef": "Medidas.Fuentes disponibles",
-              "nativeQueryRef": "Fuentes disponibles",
-              "displayName": "Fuentes disponibles"
+              "queryRef": "Medidas.PIB per cápita",
+              "nativeQueryRef": "PIB per cápita (ponderado)",
+              "displayName": "PIB per cápita (ponderado)"
             }
           ]
         }

@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p04_demografia_15_slicer",
   "position": {
-    "x": 572,
+    "x": 222,
     "y": 96,
     "z": 1500,
     "width": 340,
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Municipios"
+                      "Entity": "CCAA"
                     }
                   },
-                  "Property": "tamano"
+                  "Property": "nombre"
                 }
               },
-              "queryRef": "Municipios.tamano",
-              "nativeQueryRef": "tamano"
+              "queryRef": "CCAA.nombre",
+              "nativeQueryRef": "nombre"
             }
           ]
         }
@@ -60,7 +60,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tamaño del municipio'"
+                  "Value": "'Comunidad autónoma'"
                 }
               }
             },
@@ -126,7 +126,7 @@
       ]
     },
     "syncGroup": {
-      "groupName": "tamano",
+      "groupName": "ccaa",
       "fieldChanges": true,
       "filterChanges": true
     }

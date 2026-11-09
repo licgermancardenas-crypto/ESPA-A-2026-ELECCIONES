@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p04_demografia_18_card",
   "position": {
-    "x": 906,
+    "x": 564,
     "y": 164,
     "z": 1800,
     "width": 330,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Municipios que pierden población"
+                  "Property": "Variación población 10 años"
                 }
               },
-              "queryRef": "Medidas.Municipios que pierden población",
-              "nativeQueryRef": "Municipios en retroceso",
-              "displayName": "Municipios en retroceso"
+              "queryRef": "Medidas.Variación población 10 años",
+              "nativeQueryRef": "Variación 10 años",
+              "displayName": "Variación 10 años"
             }
           ]
         }

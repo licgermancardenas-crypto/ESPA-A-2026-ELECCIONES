@@ -110,6 +110,33 @@ Filas (estimadas): 712.392
 | `geo_name` | VARCHAR |  |
 | `parent_geo_id` | VARCHAR | geo_id del nivel superior. |
 
+## `gold.fact_regional_results`
+
+_Sin descripción._
+
+Filas (estimadas): 530.486
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `tipo` | VARCHAR |  |
+| `anyo` | INTEGER | Año de referencia (Padrón: población a 1 de enero de ese año). |
+| `nivel` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `seccion_geo_id` | VARCHAR |  |
+| `provincia_ine` | VARCHAR |  |
+| `municipio_ine` | VARCHAR |  |
+| `candidatura` | VARCHAR |  |
+| `votos` | BIGINT |  |
+| `escanos` | INTEGER |  |
+| `censo` | BIGINT | Censo electoral de escrutinio (incluye CERA en ámbitos supramunicipales). |
+| `votantes` | BIGINT | Blancos + nulos + votos a candidaturas. |
+| `nulos` | BIGINT |  |
+| `blancos` | BIGINT |  |
+| `validos` | BIGINT |  |
+| `votos_candidaturas` | BIGINT |  |
+| `_execution_id` | VARCHAR | Ejecución de ingesta que produjo la fila (linaje). |
+
 ## `gold.geo_boundaries`
 
 Geometrías simplificadas (WKB, EPSG:4326) por geo_id y año del seccionado.
@@ -125,6 +152,33 @@ Filas (estimadas): 55.140
 | `lon` | DOUBLE |  |
 | `lat` | DOUBLE |  |
 | `geometry_wkb` | BLOB | Geometría simplificada en WKB (EPSG:4326). |
+
+## `gold.regional_turnout`
+
+_Sin descripción._
+
+Filas (estimadas): 38.805
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `tipo` | VARCHAR |  |
+| `anyo` | INTEGER | Año de referencia (Padrón: población a 1 de enero de ese año). |
+| `nivel` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `seccion_geo_id` | VARCHAR |  |
+| `provincia_ine` | VARCHAR |  |
+| `municipio_ine` | VARCHAR |  |
+| `censo` | BIGINT | Censo electoral de escrutinio (incluye CERA en ámbitos supramunicipales). |
+| `votantes` | BIGINT | Blancos + nulos + votos a candidaturas. |
+| `nulos` | BIGINT |  |
+| `blancos` | BIGINT |  |
+| `validos` | BIGINT |  |
+| `votos_candidaturas` | BIGINT |  |
+| `turnout` | DOUBLE | Votantes / censo. |
+| `suma_votos_partidos` | HUGEINT |  |
+| `ganador` | VARCHAR |  |
+| `cuota_ganador` | DOUBLE |  |
 
 ## `silver.dim_municipality`
 
@@ -212,7 +266,7 @@ Filas (estimadas): 52
 
 Ficheros escritos por cada ejecución, con hash SHA-256.
 
-Filas (estimadas): 145
+Filas (estimadas): 572
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -229,7 +283,7 @@ Filas (estimadas): 145
 
 Log de ejecuciones de ingesta (Data Operations Center).
 
-Filas (estimadas): 18
+Filas (estimadas): 21
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -251,7 +305,7 @@ Filas (estimadas): 18
 
 Resultados de los controles de calidad por run.
 
-Filas (estimadas): 59
+Filas (estimadas): 152
 
 | Columna | Tipo | Descripción |
 |---|---|---|

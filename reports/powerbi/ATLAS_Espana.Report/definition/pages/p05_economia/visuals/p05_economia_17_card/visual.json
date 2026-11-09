@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p05_economia_17_card",
   "position": {
-    "x": 1258,
+    "x": 916,
     "y": 96,
     "z": 1700,
     "width": 330,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Trimestre EPA"
+                  "Property": "Tasa de paro"
                 }
               },
-              "queryRef": "Medidas.Trimestre EPA",
-              "nativeQueryRef": "Último trimestre",
-              "displayName": "Último trimestre"
+              "queryRef": "Medidas.Tasa de paro",
+              "nativeQueryRef": "Paro EPA",
+              "displayName": "Paro EPA"
             }
           ]
         }

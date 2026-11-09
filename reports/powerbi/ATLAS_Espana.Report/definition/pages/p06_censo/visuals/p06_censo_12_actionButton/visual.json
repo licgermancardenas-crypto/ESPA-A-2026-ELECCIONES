@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'ℹ   Metodología'"
+                  "Value": "'⚙   Datos y calidad'"
                 }
               }
             },
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p08_metodologia'"
+                  "Value": "'p07_operaciones'"
                 }
               }
             }

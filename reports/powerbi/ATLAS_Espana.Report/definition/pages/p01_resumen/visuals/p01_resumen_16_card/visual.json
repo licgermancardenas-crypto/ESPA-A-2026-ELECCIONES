@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_16_card",
   "position": {
-    "x": 770,
+    "x": 496,
     "y": 96,
     "z": 1600,
     "width": 262,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Comunidades"
+                  "Property": "Variación población 10 años"
                 }
               },
-              "queryRef": "Medidas.Comunidades",
-              "nativeQueryRef": "CCAA y ciudades autónomas",
-              "displayName": "CCAA y ciudades autónomas"
+              "queryRef": "Medidas.Variación población 10 años",
+              "nativeQueryRef": "Variación 2015–2025",
+              "displayName": "Variación 2015–2025"
             }
           ]
         }

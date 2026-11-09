@@ -62,6 +62,23 @@ ESCALAS_CIUDAD = {
 }
 SIN_DATO = "#E4E0EC"
 
+# Color por siglas (prefijos). Es solo identidad visual: no agrega votos entre siglas distintas.
+COLORES_PARTIDO = [
+    ("EAJ-PNV", "#2E7D32"), ("EAJ", "#2E7D32"), ("PNV", "#2E7D32"),
+    ("EH BILDU", "#00A39A"), ("BILDU", "#00A39A"), ("EH", "#00A39A"), ("HB", "#00A39A"), ("AMAIUR", "#00A39A"),
+    ("PSE", "#E30613"), ("PSOE", "#E30613"), ("PSC", "#E30613"),
+    ("PP", "#1E5BA8"), ("AP", "#1E5BA8"), ("CP", "#1E5BA8"), ("UPN", "#1E5BA8"),
+    ("PODEMOS", "#6B2C91"), ("ELKARREKIN", "#6B2C91"), ("SUMAR", "#E5007E"), ("VOX", "#5AC035"),
+    ("EA", "#8DB600"), ("EE", "#B71C1C"), ("EB", "#9C2B2B"), ("IU", "#9C2B2B"), ("PCE", "#9C2B2B"),
+    ("UCD", "#F28C28"), ("C´S", "#EB6109"), ("CS", "#EB6109"), ("CIUDADANOS", "#EB6109"), ("UA", "#4E6B8A"),
+]
+
+
+def dax_color_partido(expr: str) -> str:
+    ramas = ", ".join(f'LEFT({expr}, {len(k)}) = "{k}", "{c}"' for k, c in COLORES_PARTIDO)
+    return 'SWITCH(TRUE(), ' + ramas + ', "#9A93AD")'
+
+
 
 def dax_color(idm_var: str, v: str, escalas: dict = ESCALAS) -> str:
     ramas = []
@@ -117,6 +134,8 @@ def medidas(P) -> list:
     PREF_CCAA = g(1.4) + ' & formas & "</g>" & etiquetas & '
     PREF_PROV = g(0.8) + """ & formas & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.7' stroke-width='1.4'>" & ccaa & "</g>" & """
     PREF_MUN = g(0.15) + """ & grupos & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & prov & "</g>" & """
+    LEY_REGION = ("\"<g transform='translate(10,\" & (alto + 24) & \")'>\" & "
+                  + leyenda_dax(0, 16, ESCALAS, "idm") + ' & "</g>"')
     LEY_CIUDAD = ("\"<g transform='translate(10,\" & (alto + 24) & \")'>\" & "
                   + leyenda_dax(0, 16, ESCALAS_CIUDAD, "idk") + ' & "</g>"')
     m = [
@@ -207,11 +226,64 @@ def medidas(P) -> list:
             VAR leyenda = {ley}
             {svg_envolver(alto, PREF_MUN + caja_svg + ' & leyenda')}""",
          None, F, {"dataCategory": "ImageUrl"}),
+        ("SVG región municipios", f"""
+            VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+            VAR cc = SELECTEDVALUE(CCAA[ccaa_ine])
+            VAR ancho = SELECTEDVALUE(CCAA[lienzo_ancho])
+            VAR alto = SELECTEDVALUE(CCAA[lienzo_alto])
+            VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = cc), "@c",
+                VAR v = {dax_valor_fila("Municipios", "mun")}
+                RETURN {dax_color("idm", "v")})
+            VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])),
+                VAR col = [@c]
+                RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Municipios[path_ccaa] & "'/>", "") & "</g>", "")
+            VAR leyenda = {LEY_REGION}
+            VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & MAX(ancho, 320) & " " & (alto + 175) & "'>"
+                & "<g stroke='#FFFFFF' stroke-width='0.5' stroke-linejoin='round'>" & grupos & "</g>" & leyenda & "</svg>"
+            RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")""",
+         None, F, {"dataCategory": "ImageUrl"}),
         ("SVG España", """
-            SWITCH(SELECTEDVALUE('Nivel del mapa'[id], 2),
-                1, [SVG España comunidades],
-                3, [SVG España municipios],
+            VAR nivel = SELECTEDVALUE('Nivel del mapa'[id], 2)
+            RETURN SWITCH(TRUE(),
+                nivel = 1, [SVG España comunidades],
+                nivel = 3 && HASONEVALUE(CCAA[ccaa_ine]), [SVG región municipios],
+                nivel = 3, [SVG España municipios],
                 [SVG España provincias])""", None, F, {"dataCategory": "ImageUrl"}),
+        # ---- elecciones regionales (Open Data Euskadi)
+        ("Votos (regional)", "CALCULATE(SUM('Elecciones regionales'[votos]), 'Elecciones regionales'[nivel] = \"territorio\")", MIL, "Elecciones"),
+        ("% voto (regional)", """
+            DIVIDE([Votos (regional)], CALCULATE([Votos (regional)], REMOVEFILTERS('Elecciones regionales'[candidatura])))""", PCT, "Elecciones"),
+        ("Escaños (regional)", "CALCULATE(SUM('Elecciones regionales'[escanos]), 'Elecciones regionales'[nivel] = \"territorio\")", "0", "Elecciones"),
+        ("Censo (regional)", "CALCULATE(SUM('Participación regional'[censo]), 'Participación regional'[nivel] = \"territorio\")", MIL, "Elecciones"),
+        ("Votantes (regional)", "CALCULATE(SUM('Participación regional'[votantes]), 'Participación regional'[nivel] = \"territorio\")", MIL, "Elecciones"),
+        ("Participación (regional)", "DIVIDE([Votantes (regional)], [Censo (regional)])", PCT, "Elecciones"),
+        ("Ganador (regional)", """
+            VAR t = ADDCOLUMNS(VALUES('Elecciones regionales'[candidatura]), "@v", [Votos (regional)])
+            RETURN MAXX(TOPN(1, t, [@v], DESC), 'Elecciones regionales'[candidatura])""", None, "Elecciones"),
+        ("Convocatoria elegida", "SELECTEDVALUE(Convocatorias[Convocatoria], \"Elegí una convocatoria\")", None, F),
+        ("Color partido", f"VAR p = UPPER(SELECTEDVALUE('Elecciones regionales'[candidatura])) RETURN {dax_color_partido('p')}", None, F),
+        ("SVG Euskadi ganador", f"""
+            VAR ancho = LOOKUPVALUE(CCAA[lienzo_ancho], CCAA[ccaa_ine], "16")
+            VAR alto = LOOKUPVALUE(CCAA[lienzo_alto], CCAA[ccaa_ine], "16")
+            VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = "16"), "@g",
+                CALCULATE(SELECTEDVALUE('Participación regional'[ganador]), 'Participación regional'[nivel] = "municipio"))
+            VAR formas = CONCATENATEX(t,
+                VAR g = UPPER([@g])
+                VAR c = IF(ISBLANK([@g]), "{SIN_DATO}", {dax_color_partido('g')})
+                RETURN "<path d='" & Municipios[path_ccaa] & "' fill='" & c & "'/>", "")
+            VAR partidos = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(t, NOT ISBLANK([@g])), "@g", [@g])),
+                "@n", COUNTROWS(FILTER(t, [@g] = EARLIER([@g]))))
+            VAR ley = CONCATENATEX(TOPN(8, partidos, [@n], DESC),
+                VAR g = UPPER([@g])
+                VAR i = RANKX(partidos, [@n], , DESC, Dense)
+                RETURN "<rect x='10' y='" & (alto + 10 + i * 24) & "' width='22' height='16' rx='3' fill='" & {dax_color_partido('g')} & "'/>"
+                    & "<text x='40' y='" & (alto + 23 + i * 24) & "' font-family='Segoe UI' font-size='14' fill='#1D1631'>"
+                    & SUBSTITUTE(SUBSTITUTE(SUBSTITUTE([@g], "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " · " & [@n] & IF([@n] = 1, " municipio", " municipios") & "</text>", "", [@n], DESC)
+            VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & ancho & " " & (alto + 230) & "'>"
+                & "<text x='10' y='" & (alto + 22) & "' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Partido más votado por municipio</text>"
+                & "<g stroke='#FFFFFF' stroke-width='0.8' stroke-linejoin='round'>" & formas & "</g>" & ley & "</svg>"
+            RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")""",
+         None, F, {"dataCategory": "ImageUrl"}),
         ("Título mapa nivel", """
             "Mapa por " & LOWER(SELECTEDVALUE('Nivel del mapa'[Nivel], "Provincia")) & " · " &
             SELECTEDVALUE('Métrica del mapa'[Métrica], "Variación de población 10 años")""", None, F),
@@ -264,9 +336,9 @@ def modelo(P) -> dict[str, str]:
     T["CCAA"] = tabla_csv("CCAA", "ccaa.csv", [
         ("geo_id", "string", None), ("ccaa_ine", "string", None), ("nombre", "string", None),
         ("pob_actual", "int64", MIL), ("pob_hace10", "int64", MIL), ("area_km2", "double", "#,0"),
-        ("paro", "double", PCT), ("paro_trimestre", "string", None), ("pib_pc", "double", "#,0 €"), ("n_provincias", "int64", "0"),
+        ("paro", "double", PCT), ("paro_trimestre", "string", None), ("pib_pc", "double", "#,0 €"), ("lienzo_ancho", "int64", None), ("lienzo_alto", "int64", None), ("n_provincias", "int64", "0"),
         ("n_municipios", "int64", MIL), ("path", "string", None), ("cx", "int64", None), ("cy", "int64", None)],
-        ocultas=("geo_id", "path", "cx", "cy", "pob_actual", "pob_hace10"),
+        ocultas=("geo_id", "path", "cx", "cy", "pob_actual", "pob_hace10", "lienzo_ancho", "lienzo_alto"),
         extra_col={"ccaa_ine": {"isKey": ""}, "nombre": {"sortByColumn": "ccaa_ine"}})
     T["Provincias"] = tabla_csv("Provincias", "provincias.csv", [
         ("geo_id", "string", None), ("provincia_ine", "string", None), ("nombre", "string", None), ("ccaa_ine", "string", None),
@@ -282,9 +354,9 @@ def modelo(P) -> dict[str, str]:
         ("path", "string", None), ("x", "double", None), ("y", "double", None), ("lon", "double", "0.000"),
         ("lat", "double", "0.000"), ("tamano", "string", None), ("nombre_completo", "string", None),
         ("lienzo_ancho", "int64", None), ("lienzo_alto", "int64", None), ("n_secciones", "int64", "0"),
-        ("renta_pp", "double", "#,0 €")],
+        ("renta_pp", "double", "#,0 €"), ("path_ccaa", "string", None), ("x_ccaa", "int64", None), ("y_ccaa", "int64", None)],
         ocultas=("geo_id", "path", "x", "y", "provincia_ine", "ccaa_ine", "pob_actual", "pob_hace10",
-                 "electores_and_2026", "lon", "lat", "lienzo_ancho", "lienzo_alto"),
+                 "electores_and_2026", "lon", "lat", "lienzo_ancho", "lienzo_alto", "path_ccaa", "x_ccaa", "y_ccaa"),
         extra_col={"municipio_ine": {"isKey": ""}, "lon": {"dataCategory": "Longitude"},
                    "lat": {"dataCategory": "Latitude"}})
     T["Secciones"] = tabla_csv("Secciones", "secciones.csv", [
@@ -295,6 +367,24 @@ def modelo(P) -> dict[str, str]:
     T["Distritos ciudad"] = tabla_csv("Distritos ciudad", "distritos.csv", [
         ("cudis", "string", None), ("municipio_ine", "string", None), ("path", "string", None),
         ("x", "int64", None), ("y", "int64", None)], oculta_tabla=True)
+    T["Elecciones regionales"] = tabla_csv("Elecciones regionales", "elecciones_regionales.csv", [
+        ("election_id", "string", None), ("tipo", "string", None), ("anyo", "int64", "0"), ("nivel", "string", None),
+        ("provincia_ine", "string", None), ("municipio_ine", "string", None), ("candidatura", "string", None),
+        ("votos", "int64", MIL), ("escanos", "int64", "0"), ("convocatoria", "string", None), ("orden", "int64", None),
+        ("geo_id", "string", None)],
+        ocultas=("election_id", "tipo", "provincia_ine", "municipio_ine", "orden", "geo_id", "votos", "escanos"))
+    T["Participación regional"] = tabla_csv("Participación regional", "participacion_regional.csv", [
+        ("election_id", "string", None), ("tipo", "string", None), ("anyo", "int64", "0"), ("nivel", "string", None),
+        ("provincia_ine", "string", None), ("municipio_ine", "string", None), ("censo", "int64", MIL),
+        ("votantes", "int64", MIL), ("nulos", "int64", MIL), ("blancos", "int64", MIL), ("validos", "int64", MIL),
+        ("votos_candidaturas", "int64", MIL), ("turnout", "double", PCT), ("ganador", "string", None),
+        ("cuota_ganador", "double", PCT), ("convocatoria", "string", None), ("orden", "int64", None), ("geo_id", "string", None)],
+        ocultas=("election_id", "tipo", "provincia_ine", "municipio_ine", "orden", "geo_id"))
+    T["Convocatorias"] = tabla_calculada("Convocatorias",
+        "DISTINCT(SELECTCOLUMNS('Participación regional', \"election_id\", [election_id], \"Convocatoria\", [convocatoria], \"orden\", [orden]))",
+        [("election_id", "string", None, {"isHidden": True}),
+         ("Convocatoria", "string", None, {"sortByColumn": "orden"}),
+         ("orden", "int64", None, {"isHidden": True})])
     T["Serie población"] = tabla_csv("Serie población", "poblacion_serie.csv", [
         ("geo_id", "string", None), ("nivel", "string", None), ("nombre", "string", None), ("anyo", "int64", "0"),
         ("poblacion", "int64", MIL), ("origen", "string", None), ("ccaa_ine", "string", None),
@@ -336,6 +426,9 @@ def modelo(P) -> dict[str, str]:
     rels = [("rel_prov_ccaa", "Provincias.ccaa_ine", "CCAA.ccaa_ine"),
             ("rel_mun_prov", "Municipios.provincia_ine", "Provincias.provincia_ine"),
             ("rel_sec_mun", "Secciones.municipio_ine", "Municipios.municipio_ine"),
+            ("rel_reg_conv", "'Elecciones regionales'.election_id", "Convocatorias.election_id"),
+            ("rel_part_conv", "'Participación regional'.election_id", "Convocatorias.election_id"),
+            ("rel_part_mun", "'Participación regional'.municipio_ine", "Municipios.municipio_ine"),
             ("rel_dis_mun", "'Distritos ciudad'.municipio_ine", "Municipios.municipio_ine"),
             ("rel_serie_ccaa", "'Serie población'.ccaa_ine", "CCAA.ccaa_ine"),
             ("rel_pib_prov", "'PIB provincia'.provincia_ine", "Provincias.provincia_ine"),
@@ -356,7 +449,7 @@ def modelo(P) -> dict[str, str]:
 
 # ───────────────────────── informe ─────────────────────────
 NAV = [("p01_resumen", "Resumen España", "◉"), ("p02_mapa", "Mapa de España", "▦"),
-       ("p03_ciudad", "Mapa de ciudad", "▩"), ("p04_demografia", "Demografía", "≋"),
+       ("p03_ciudad", "Mapa de ciudad", "▩"), ("p03b_euskadi", "Elecciones País Vasco", "☑"), ("p04_demografia", "Demografía", "≋"),
        ("p05_economia", "Economía", "€"), ("p06_censo", "Censo electoral", "✔"),
        ("p07_operaciones", "Datos y calidad", "⚙"), ("p08_metodologia", "Metodología", "ℹ")]
 
@@ -450,6 +543,22 @@ def informe(P) -> dict:
           [(C("Secciones", "cusec"), "Sección"), (C("Secciones", "cudis"), "Distrito"), (C("Secciones", "renta_pp"), "Renta pp"),
            (C("Secciones", "poblacion"), "Población"), (C("Secciones", "pct_65"), "65+")],
           "Secciones censales", sort=[(C("Secciones", "renta_pp"), "Descending")], size=9)
+    pags.append(pg)
+
+    # 3b elecciones País Vasco (Open Data Euskadi)
+    pg = nueva("p03b_euskadi", "Elecciones en el País Vasco",
+               "Parlamento Vasco 1980–2024 y Congreso 2023 en la CAPV · Open Data Euskadi (resultados oficiales hasta mesa)")
+    pg.segmentador(X0, 92, 360, 58, C("Convocatorias", "Convocatoria"), "Convocatoria", unico=True,
+                   presel="Parlamento Vasco 2024")
+    tarjetas(pg, 92, [("Participación (regional)", "Participación"), ("Votantes (regional)", "Votantes"),
+                      ("Censo (regional)", "Censo"), ("Ganador (regional)", "Más votado")], w=240, h=58, x=X0 + 372)
+    pg.imagen(X0, 160, 640, 730, "SVG Euskadi ganador")
+    barras(pg, X0 + 652, 160, 714, 400, C("Elecciones regionales", "candidatura"), Me("% voto (regional)"),
+           "Porcentaje de voto por candidatura", fx="Color partido", nombre_val="% voto")
+    tabla(pg, X0 + 652, 570, 714, 320,
+          [(C("Elecciones regionales", "candidatura"), "Candidatura"), (Me("Votos (regional)"), "Votos"),
+           (Me("% voto (regional)"), "% voto"), (Me("Escaños (regional)"), "Escaños")],
+          "Resultados (escaños solo cuando la fuente los publica)", sort=[(Me("Votos (regional)"), "Descending")], size=9)
     pags.append(pg)
 
     # 4 demografía
