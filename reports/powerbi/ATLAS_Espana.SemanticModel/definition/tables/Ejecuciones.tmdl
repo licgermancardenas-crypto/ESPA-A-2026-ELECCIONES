@@ -1,0 +1,71 @@
+table Ejecuciones
+
+	column execution_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: execution_id
+
+	column source_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: source_id
+
+	column dataset
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset
+
+	column inicio
+		dataType: string
+		summarizeBy: none
+		sourceColumn: inicio
+
+	column estado
+		dataType: string
+		summarizeBy: none
+		sourceColumn: estado
+
+	column descargados
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: descargados
+
+	column procesados
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: procesados
+
+	column errores
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: errores
+
+	column duracion_s
+		dataType: double
+		formatString: #,0.0
+		summarizeBy: none
+		sourceColumn: duracion_s
+
+	column detalle
+		dataType: string
+		summarizeBy: none
+		sourceColumn: detalle
+
+	column version
+		dataType: string
+		summarizeBy: none
+		sourceColumn: version
+
+	partition Ejecuciones = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "ejecuciones.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"execution_id", type text}, {"source_id", type text}, {"dataset", type text}, {"inicio", type text}, {"estado", type text}, {"descargados", Int64.Type}, {"procesados", Int64.Type}, {"errores", Int64.Type}, {"duracion_s", type number}, {"detalle", type text}, {"version", type text}}, "en-US")
+				in
+				    Tipos
+

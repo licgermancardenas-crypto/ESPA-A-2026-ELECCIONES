@@ -52,8 +52,17 @@ atlas quality                         # solo controles de calidad
 atlas status                          # Data Operations Center en consola
 python -m atlas_spain.dictionary      # regenera DATA_DICTIONARY.md
 uvicorn atlas_spain.api.main:app      # API en http://localhost:8000/docs
+atlas powerbi                         # tablero Power BI -> reports/powerbi/ATLAS_Espana.pbip
 pytest                                # tests (los de red se omiten por defecto)
 ```
+
+### Tablero de Power BI
+
+`atlas powerbi` exporta los CSV (`reports/powerbi/datos/`) y genera un proyecto PBIP con 8 páginas:
+resumen, mapa provincial, mapa municipal, demografía, economía, censo electoral, datos y calidad, y
+metodología. Los mapas los dibuja DAX en SVG (sin visuales personalizados). Al abrir el `.pbip` en
+Power BI Desktop, pulsá **Actualizar** para cargar los datos (o `powershell -File
+src/atlas_spain/viz/powerbi_refrescar.ps1`). Validación por DAX: `src/atlas_spain/viz/powerbi_consultar.ps1`.
 
 ### Resultados electorales oficiales (Infoelectoral)
 

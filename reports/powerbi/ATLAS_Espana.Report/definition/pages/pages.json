@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "p01_resumen",
+    "p02_provincias",
+    "p03_municipios",
+    "p04_demografia",
+    "p05_economia",
+    "p06_censo",
+    "p07_operaciones",
+    "p08_metodologia"
+  ],
+  "activePageName": "p01_resumen"
+}

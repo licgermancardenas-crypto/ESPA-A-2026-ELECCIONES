@@ -1,7 +1,7 @@
 # PROJECT STATUS — ATLAS SPAIN
 
 Actualizado: 9 de noviembre de 2026 · Fase: **cimientos de datos (pasos 1–6 del roadmap, parciales)**.
-Frontend y Atlas AI todavía no están construidos.
+Frontend web y Atlas AI todavía no están construidos; hay un tablero de Power BI sobre los datos reales.
 
 ## 1. Resumen en una línea
 
@@ -25,6 +25,7 @@ bajar los ZIP a mano.
 | Índices: ENP, Rae, Gallagher, Pedersen, Butler, margen, competitividad, dominio, eficiencia, votos sin escaño | ✅ (Python + SQL) | `electoral/indices.py`, `gold.election_indices` |
 | Data Quality Center (completitud, validez, consistencia, frescura, cobertura, fiabilidad) + reconciliación D'Hondt vs escaños oficiales | ✅ | `quality/checks.py`, `ops.quality_results` |
 | API FastAPI de solo lectura (fuentes, operaciones, calidad, territorios, SQL Explorer con bloqueo de escrituras) | ✅ | `api/main.py` |
+| Tablero Power BI (PBIP generado por código, 8 páginas, mapas SVG por DAX), validado en Power BI Desktop | ✅ | `viz/powerbi_*.py`, `reports/powerbi/ATLAS_Espana.pbip` |
 | Docker Compose (etl, api, postgis opcional) | ✅ escrito, **no probado** (no hay Docker en la máquina) | `docker-compose.yml` |
 | Tests automatizados | ✅ 42 tests unitarios + 15 tests dbt | `tests/`, `dbt/models/schema.yml` |
 | Documentación | ✅ | README, DATA_DISCOVERY_REPORT, DATA_DICTIONARY, docs/METHODOLOGY |

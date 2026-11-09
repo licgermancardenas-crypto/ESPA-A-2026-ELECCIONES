@@ -1,0 +1,22 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["CarpetaDatos", "CCAA", "Provincias", "Municipios", "Serie población", "PIB provincia", "Paro", "Fuentes", "Ejecuciones", "Calidad", "Métrica del mapa", "Medidas"]
+
+ref table CCAA
+ref table Provincias
+ref table Municipios
+ref table 'Serie población'
+ref table 'PIB provincia'
+ref table Paro
+ref table Fuentes
+ref table Ejecuciones
+ref table Calidad
+ref table 'Métrica del mapa'
+ref table Medidas

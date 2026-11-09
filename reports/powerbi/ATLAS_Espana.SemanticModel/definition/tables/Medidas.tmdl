@@ -1,0 +1,192 @@
+table Medidas
+
+	measure Corte =
+			"Datos a 09/11/2026 20:13 · Fuentes: INE, Eurostat, Congreso"
+		displayFolder: Formato
+
+	measure 'Población' =
+			SUM(Municipios[pob_actual])
+		formatString: #,0
+		displayFolder: Demografía
+
+	measure 'Población hace 10 años' =
+			SUM(Municipios[pob_hace10])
+		formatString: #,0
+		displayFolder: Demografía
+
+	measure 'Variación población 10 años' =
+			VAR conAmbos = FILTER(Municipios, NOT ISBLANK(Municipios[pob_hace10]) && NOT ISBLANK(Municipios[pob_actual]))
+			VAR a = SUMX(conAmbos, Municipios[pob_actual])
+			VAR b = SUMX(conAmbos, Municipios[pob_hace10])
+			RETURN DIVIDE(a - b, b)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Demografía
+
+	measure Densidad =
+			DIVIDE([Población], SUM(Municipios[area_km2]))
+		formatString: #,0.0
+		displayFolder: Demografía
+
+	measure Municipios =
+			COUNTROWS(Municipios)
+		formatString: #,0
+		displayFolder: Demografía
+
+	measure 'Municipios que pierden población' =
+			COUNTROWS(FILTER(Municipios, Municipios[pob_actual] < Municipios[pob_hace10]))
+		formatString: #,0
+		displayFolder: Demografía
+
+	measure '% municipios que pierden población' =
+			DIVIDE([Municipios que pierden población], [Municipios])
+		formatString: 0.0%
+		displayFolder: Demografía
+
+	measure Provincias =
+			DISTINCTCOUNT(Municipios[provincia_ine])
+		formatString: 0
+		displayFolder: Demografía
+
+	measure Comunidades =
+			DISTINCTCOUNT(Municipios[ccaa_ine])
+		formatString: 0
+		displayFolder: Demografía
+
+	measure 'Población (serie)' =
+			SUM('Serie población'[poblacion])
+		formatString: #,0
+		displayFolder: Demografía
+
+	measure 'Año actual' =
+			2025
+		formatString: 0
+		displayFolder: Demografía
+
+	measure 'PIB per cápita' =
+			VAR t = FILTER(Provincias, NOT ISBLANK(Provincias[pib_pc]))
+			RETURN DIVIDE(SUMX(t, Provincias[pib_pc] * Provincias[pob_actual]), SUMX(t, Provincias[pob_actual]))
+		formatString: #,0 €
+		displayFolder: Economía
+
+	measure 'PIB per cápita (serie)' =
+			AVERAGE('PIB provincia'[pib_pc])
+		formatString: #,0 €
+		displayFolder: Economía
+
+	measure 'Tasa de paro' =
+			VAR ult = CALCULATE(MAX(Paro[trimestre]), ALL(Paro))
+			RETURN IF(HASONEVALUE(CCAA[ccaa_ine]),
+			    CALCULATE(AVERAGE(Paro[tasa_paro]), Paro[trimestre] = ult) / 100,
+			    CALCULATE(AVERAGE(Paro[tasa_paro]), Paro[trimestre] = ult, Paro[ccaa_ine] = "00", REMOVEFILTERS(CCAA)) / 100)
+		formatString: 0.0%
+		displayFolder: Economía
+
+	measure 'Tasa de paro (serie)' =
+			AVERAGE(Paro[tasa_paro]) / 100
+		formatString: 0.0%
+		displayFolder: Economía
+
+	measure 'Trimestre EPA' =
+			CALCULATE(MAX(Paro[trimestre]), ALL(Paro))
+		displayFolder: Economía
+
+	measure 'Electores Andalucía 2026' =
+			SUM(Municipios[electores_and_2026])
+		formatString: #,0
+		displayFolder: Electoral
+
+	measure 'Electores / población' =
+			VAR t = FILTER(Municipios, NOT ISBLANK(Municipios[electores_and_2026]))
+			RETURN DIVIDE(SUMX(t, Municipios[electores_and_2026]), SUMX(t, Municipios[pob_actual]))
+		formatString: 0.0%
+		displayFolder: Electoral
+
+	measure 'Fuentes catalogadas' =
+			COUNTROWS(Fuentes)
+		formatString: 0
+		displayFolder: Operaciones
+
+	measure 'Fuentes disponibles' =
+			COUNTROWS(FILTER(Fuentes, Fuentes[estado] = "disponible"))
+		formatString: 0
+		displayFolder: Operaciones
+
+	measure 'Fuentes con conector' =
+			COUNTROWS(FILTER(Fuentes, Fuentes[conector] <> "—"))
+		formatString: 0
+		displayFolder: Operaciones
+
+	measure 'Filas procesadas' =
+			SUM(Ejecuciones[procesados])
+		formatString: #,0
+		displayFolder: Operaciones
+
+	measure 'Controles OK' =
+			COUNTROWS(FILTER(Calidad, Calidad[estado] = "pass"))
+		formatString: 0
+		displayFolder: Operaciones
+
+	measure 'Controles con fallo' =
+			COUNTROWS(FILTER(Calidad, Calidad[estado] = "fail"))
+		formatString: 0
+		displayFolder: Operaciones
+
+	measure 'Color estado fuente' =
+			SWITCH(SELECTEDVALUE(Fuentes[estado]), "disponible", "#D7EFE9", "bloqueado_antibot", "#F6D1D1", "#FBEBC8")
+		displayFolder: Formato
+
+	measure 'Color estado control' =
+			SWITCH(SELECTEDVALUE(Calidad[estado]), "pass", "#D7EFE9", "fail", "#F6D1D1", "warn", "#FBEBC8", "#EEEAF4")
+		displayFolder: Formato
+
+	measure 'Color estado ejecución' =
+			SWITCH(SELECTEDVALUE(Ejecuciones[estado]), "success", "#D7EFE9", "partial", "#FBEBC8", "#F6D1D1")
+		displayFolder: Formato
+
+	measure 'Título mapa' =
+			"Mapa · " & SELECTEDVALUE('Métrica del mapa'[Métrica], "Variación de población 10 años")
+		displayFolder: Formato
+
+	measure 'SVG España provincias' =
+			VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+			VAR sel = VALUES(CCAA[ccaa_ine])
+			VAR todo = NOT ISFILTERED(CCAA[ccaa_ine]) && NOT ISFILTERED(CCAA[nombre])
+			VAR formas = CONCATENATEX(ALL(Provincias),
+			    VAR v = SWITCH(idm, 1, DIVIDE(Provincias[pob_actual] - Provincias[pob_hace10], Provincias[pob_hace10]), 2, DIVIDE(Provincias[pob_actual], Provincias[area_km2]), 3, Provincias[pob_actual], 4, Provincias[pib_pc], 5, RELATED(CCAA[paro]))
+			    VAR c = IF(todo || Provincias[ccaa_ine] IN sel, IF(ISBLANK(v), "#E4E0EC", SWITCH(idm, 1, SWITCH(TRUE(), v < -0.1, "#8A5A00", v < -0.05, "#C98A12", v < 0, "#F2D58C", v < 0.05, "#CDBFE6", v < 0.1, "#8E73C4", "#4B2F8A"), 2, SWITCH(TRUE(), v < 10, "#F3EFF9", v < 25, "#D9CDEE", v < 100, "#B19DDA", v < 300, "#8467BD", v < 1000, "#5B3F99", "#2E1B5E"), 3, SWITCH(TRUE(), v < 1000, "#F3EFF9", v < 5000, "#D9CDEE", v < 20000, "#B19DDA", v < 100000, "#8467BD", v < 500000, "#5B3F99", "#2E1B5E"), 4, SWITCH(TRUE(), v < 22000, "#FFF6DD", v < 25000, "#F8DE9A", v < 28000, "#E9B949", v < 32000, "#C98A12", v < 36000, "#8A5A00", "#5C3B00"), 5, SWITCH(TRUE(), v < 0.07, "#EAF4F2", v < 0.09, "#BFE0DA", v < 0.11, "#7CC2B6", v < 0.13, "#2E9C8F", v < 0.15, "#1F6E66", "#0E3F3A"))), "#EEEBF3")
+			    RETURN "<path d='" & Provincias[path] & "' fill='" & c & "'/>", "")
+			VAR ccaa = CONCATENATEX(ALL(CCAA), "<path d='" & CCAA[path] & "'/>", "")
+			VAR leyenda = SWITCH(idm, 1, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Variación de población 10 años</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; −10 %</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>−10 a −5 %</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#F2D58C' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>−5 a 0 %</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#CDBFE6' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>0 a 5 %</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#8E73C4' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>5 a 10 %</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#4B2F8A' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 10 %</text>", 2, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Densidad (hab./km²)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 10</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>10–25</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–100</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–300</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>300–1.000</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 1.000</text>", 3, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Población</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 1.000</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>1–5 mil</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>5–20 mil</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>20–100 mil</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–500 mil</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 500 mil</text>", 4, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>PIB per cápita (provincia)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#FFF6DD' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 22 k€</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#F8DE9A' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>22–25 k€</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#E9B949' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–28 k€</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>28–32 k€</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>32–36 k€</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#5C3B00' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 36 k€</text>", 5, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Tasa de paro EPA (CCAA)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#EAF4F2' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 7 %</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#BFE0DA' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>7–9 %</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#7CC2B6' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>9–11 %</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#2E9C8F' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>11–13 %</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#1F6E66' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>13–15 %</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#0E3F3A' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 15 %</text>")
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 945'>" & "<g stroke='#FFFFFF' stroke-width='0.8' stroke-linejoin='round'>" & formas & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.7' stroke-width='1.4'>" & ccaa & "</g>" & "<path d='M395 945 395 804 4 804 4 945Z' fill='none' stroke='#6B6480' stroke-width='1' stroke-dasharray='5 4'/><text x='14' y='937' font-family='Segoe UI' font-size='12' fill='#6B6480'>Canarias (escala 0,85)</text>" & leyenda & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Formato
+		dataCategory: ImageUrl
+
+	measure 'SVG España municipios' =
+			VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+			VAR sel = VALUES(CCAA[ccaa_ine])
+			VAR todo = NOT ISFILTERED(CCAA[ccaa_ine]) && NOT ISFILTERED(CCAA[nombre])
+			VAR t = ADDCOLUMNS(ALL(Municipios), "@c",
+			    VAR v = SWITCH(idm, 1, DIVIDE(Municipios[pob_actual] - Municipios[pob_hace10], Municipios[pob_hace10]), 2, DIVIDE(Municipios[pob_actual], Municipios[area_km2]), 3, Municipios[pob_actual], 4, RELATED(Provincias[pib_pc]), 5, RELATED(CCAA[paro]))
+			    RETURN IF(todo || Municipios[ccaa_ine] IN sel, IF(ISBLANK(v), "#E4E0EC", SWITCH(idm, 1, SWITCH(TRUE(), v < -0.1, "#8A5A00", v < -0.05, "#C98A12", v < 0, "#F2D58C", v < 0.05, "#CDBFE6", v < 0.1, "#8E73C4", "#4B2F8A"), 2, SWITCH(TRUE(), v < 10, "#F3EFF9", v < 25, "#D9CDEE", v < 100, "#B19DDA", v < 300, "#8467BD", v < 1000, "#5B3F99", "#2E1B5E"), 3, SWITCH(TRUE(), v < 1000, "#F3EFF9", v < 5000, "#D9CDEE", v < 20000, "#B19DDA", v < 100000, "#8467BD", v < 500000, "#5B3F99", "#2E1B5E"), 4, SWITCH(TRUE(), v < 22000, "#FFF6DD", v < 25000, "#F8DE9A", v < 28000, "#E9B949", v < 32000, "#C98A12", v < 36000, "#8A5A00", "#5C3B00"), 5, SWITCH(TRUE(), v < 0.07, "#EAF4F2", v < 0.09, "#BFE0DA", v < 0.11, "#7CC2B6", v < 0.13, "#2E9C8F", v < 0.15, "#1F6E66", "#0E3F3A"))), "#EEEBF3"))
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])),
+			    VAR col = [@c]
+			    RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Municipios[path] & "'/>", "") & "</g>", "")
+			VAR prov = CONCATENATEX(ALL(Provincias), "<path d='" & Provincias[path] & "'/>", "")
+			VAR leyenda = SWITCH(idm, 1, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Variación de población 10 años</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; −10 %</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>−10 a −5 %</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#F2D58C' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>−5 a 0 %</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#CDBFE6' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>0 a 5 %</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#8E73C4' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>5 a 10 %</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#4B2F8A' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 10 %</text>", 2, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Densidad (hab./km²)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 10</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>10–25</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–100</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–300</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>300–1.000</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 1.000</text>", 3, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Población</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#F3EFF9' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 1.000</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#D9CDEE' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>1–5 mil</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#B19DDA' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>5–20 mil</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#8467BD' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>20–100 mil</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#5B3F99' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>100–500 mil</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#2E1B5E' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 500 mil</text>", 4, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>PIB per cápita (provincia)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#FFF6DD' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 22 k€</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#F8DE9A' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>22–25 k€</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#E9B949' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>25–28 k€</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#C98A12' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>28–32 k€</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#8A5A00' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>32–36 k€</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#5C3B00' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 36 k€</text>", 5, "<text x='720' y='770' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631'>Tasa de paro EPA (CCAA)</text><rect x='720' y='784' width='22' height='16' rx='3' fill='#EAF4F2' stroke='#FFFFFF'/><text x='750' y='797' font-family='Segoe UI' font-size='13' fill='#1D1631'>&lt; 7 %</text><rect x='720' y='806' width='22' height='16' rx='3' fill='#BFE0DA' stroke='#FFFFFF'/><text x='750' y='819' font-family='Segoe UI' font-size='13' fill='#1D1631'>7–9 %</text><rect x='720' y='828' width='22' height='16' rx='3' fill='#7CC2B6' stroke='#FFFFFF'/><text x='750' y='841' font-family='Segoe UI' font-size='13' fill='#1D1631'>9–11 %</text><rect x='720' y='850' width='22' height='16' rx='3' fill='#2E9C8F' stroke='#FFFFFF'/><text x='750' y='863' font-family='Segoe UI' font-size='13' fill='#1D1631'>11–13 %</text><rect x='720' y='872' width='22' height='16' rx='3' fill='#1F6E66' stroke='#FFFFFF'/><text x='750' y='885' font-family='Segoe UI' font-size='13' fill='#1D1631'>13–15 %</text><rect x='720' y='894' width='22' height='16' rx='3' fill='#0E3F3A' stroke='#FFFFFF'/><text x='750' y='907' font-family='Segoe UI' font-size='13' fill='#1D1631'>&gt; 15 %</text>")
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 945'>" & "<g stroke='#FFFFFF' stroke-width='0.15'>" & grupos & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & prov & "</g>" & "<path d='M395 945 395 804 4 804 4 945Z' fill='none' stroke='#6B6480' stroke-width='1' stroke-dasharray='5 4'/><text x='14' y='937' font-family='Segoe UI' font-size='12' fill='#6B6480'>Canarias (escala 0,85)</text>" & leyenda & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Formato
+		dataCategory: ImageUrl
+
+	column Value
+		dataType: string
+		summarizeBy: none
+		sourceColumn: [Value]
+		isHidden
+
+	partition Medidas = calculated
+		mode: import
+		source =
+				{BLANK()}
+

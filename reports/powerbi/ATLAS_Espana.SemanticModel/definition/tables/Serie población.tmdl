@@ -1,0 +1,63 @@
+table 'Serie población'
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	column nivel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nivel
+
+	column nombre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nombre
+
+	column anyo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: anyo
+
+	column poblacion
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: poblacion
+
+	column origen
+		dataType: string
+		summarizeBy: none
+		sourceColumn: origen
+
+	column ccaa_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ccaa_ine
+		isHidden
+
+	column provincia_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provincia_ine
+		isHidden
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+		isHidden
+
+	partition 'Serie población' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "poblacion_serie.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"nivel", type text}, {"nombre", type text}, {"anyo", Int64.Type}, {"poblacion", Int64.Type}, {"origen", type text}, {"ccaa_ine", type text}, {"provincia_ine", type text}, {"municipio_ine", type text}}, "en-US")
+				in
+				    Tipos
+

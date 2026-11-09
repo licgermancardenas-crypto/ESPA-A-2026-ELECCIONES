@@ -1,0 +1,91 @@
+table CCAA
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	column ccaa_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ccaa_ine
+		isKey
+
+	column nombre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nombre
+		sortByColumn: ccaa_ine
+
+	column pob_actual
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: pob_actual
+		isHidden
+
+	column pob_hace10
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: pob_hace10
+		isHidden
+
+	column area_km2
+		dataType: double
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: area_km2
+
+	column paro
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: paro
+
+	column paro_trimestre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: paro_trimestre
+
+	column n_provincias
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: n_provincias
+
+	column n_municipios
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: n_municipios
+
+	column path
+		dataType: string
+		summarizeBy: none
+		sourceColumn: path
+		isHidden
+
+	column cx
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: cx
+		isHidden
+
+	column cy
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: cy
+		isHidden
+
+	partition CCAA = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "ccaa.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"paro", type number}, {"paro_trimestre", type text}, {"n_provincias", Int64.Type}, {"n_municipios", Int64.Type}, {"path", type text}, {"cx", Int64.Type}, {"cy", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

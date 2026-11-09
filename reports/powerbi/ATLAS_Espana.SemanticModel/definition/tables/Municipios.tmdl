@@ -1,0 +1,107 @@
+table Municipios
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+		isKey
+
+	column provincia_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: provincia_ine
+		isHidden
+
+	column ccaa_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ccaa_ine
+		isHidden
+
+	column nombre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nombre
+
+	column pob_actual
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: pob_actual
+		isHidden
+
+	column pob_hace10
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: pob_hace10
+		isHidden
+
+	column area_km2
+		dataType: double
+		formatString: #,0.0
+		summarizeBy: none
+		sourceColumn: area_km2
+
+	column electores_and_2026
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: electores_and_2026
+		isHidden
+
+	column path
+		dataType: string
+		summarizeBy: none
+		sourceColumn: path
+		isHidden
+
+	column x
+		dataType: double
+		summarizeBy: none
+		sourceColumn: x
+		isHidden
+
+	column y
+		dataType: double
+		summarizeBy: none
+		sourceColumn: y
+		isHidden
+
+	column lon
+		dataType: double
+		formatString: 0.000
+		summarizeBy: none
+		sourceColumn: lon
+		isHidden
+		dataCategory: Longitude
+
+	column lat
+		dataType: double
+		formatString: 0.000
+		summarizeBy: none
+		sourceColumn: lat
+		isHidden
+		dataCategory: Latitude
+
+	column tamano
+		dataType: string
+		summarizeBy: none
+		sourceColumn: tamano
+
+	partition Municipios = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "municipios.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"municipio_ine", type text}, {"provincia_ine", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"electores_and_2026", Int64.Type}, {"path", type text}, {"x", type number}, {"y", type number}, {"lon", type number}, {"lat", type number}, {"tamano", type text}}, "en-US")
+				in
+				    Tipos
+

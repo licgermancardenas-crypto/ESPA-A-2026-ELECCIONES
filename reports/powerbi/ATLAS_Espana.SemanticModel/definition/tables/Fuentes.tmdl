@@ -1,0 +1,77 @@
+table Fuentes
+
+	column source_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: source_id
+
+	column organismo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: organismo
+
+	column dataset
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset
+
+	column categoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: categoria
+
+	column granularidad
+		dataType: string
+		summarizeBy: none
+		sourceColumn: granularidad
+
+	column cobertura_historica
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cobertura_historica
+
+	column frecuencia
+		dataType: string
+		summarizeBy: none
+		sourceColumn: frecuencia
+
+	column licencia
+		dataType: string
+		summarizeBy: none
+		sourceColumn: licencia
+
+	column estado
+		dataType: string
+		summarizeBy: none
+		sourceColumn: estado
+
+	column http_status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: http_status
+
+	column metodo_extraccion
+		dataType: string
+		summarizeBy: none
+		sourceColumn: metodo_extraccion
+
+	column conector
+		dataType: string
+		summarizeBy: none
+		sourceColumn: conector
+
+	column ultima_extraccion_estado
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ultima_extraccion_estado
+
+	partition Fuentes = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "fuentes.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"source_id", type text}, {"organismo", type text}, {"dataset", type text}, {"categoria", type text}, {"granularidad", type text}, {"cobertura_historica", type text}, {"frecuencia", type text}, {"licencia", type text}, {"estado", type text}, {"http_status", type text}, {"metodo_extraccion", type text}, {"conector", type text}, {"ultima_extraccion_estado", type text}}, "en-US")
+				in
+				    Tipos
+

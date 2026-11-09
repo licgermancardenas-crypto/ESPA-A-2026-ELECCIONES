@@ -7,6 +7,7 @@
     atlas build                      construye silver/gold (dbt) y calcula índices
     atlas quality                    ejecuta los controles de calidad
     atlas status                     resumen de ejecuciones (Data Operations Center)
+    atlas powerbi                    exporta datos y genera el tablero de Power BI (PBIP)
 """
 
 from __future__ import annotations
@@ -89,6 +90,12 @@ def cmd_quality(args) -> int:
     return checks.main()
 
 
+def cmd_powerbi(args) -> int:
+    from atlas_spain.viz.powerbi_proyecto import generar
+    generar(con_datos=not args.sin_datos)
+    return 0
+
+
 def cmd_status(args) -> int:
     from atlas_spain.warehouse import connect
     con = connect(read_only=True)
@@ -117,10 +124,12 @@ def main(argv=None) -> int:
     b = sub.add_parser("build")
     b.add_argument("--skip-geo", action="store_true", help="no recalcular geometrías")
     sub.add_parser("quality")
+    pb = sub.add_parser("powerbi", help="genera reports/powerbi/ATLAS_Espana.pbip")
+    pb.add_argument("--sin-datos", action="store_true")
     sub.add_parser("status")
     args = p.parse_args(argv)
     return {"registry": cmd_registry, "ingest": cmd_ingest, "build": cmd_build,
-            "quality": cmd_quality, "status": cmd_status}[args.cmd](args)
+            "quality": cmd_quality, "status": cmd_status, "powerbi": cmd_powerbi}[args.cmd](args)
 
 
 if __name__ == "__main__":

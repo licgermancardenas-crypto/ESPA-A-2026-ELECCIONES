@@ -1,0 +1,19 @@
+relationship rel_prov_ccaa
+	fromColumn: Provincias.ccaa_ine
+	toColumn: CCAA.ccaa_ine
+
+relationship rel_mun_prov
+	fromColumn: Municipios.provincia_ine
+	toColumn: Provincias.provincia_ine
+
+relationship rel_serie_ccaa
+	fromColumn: 'Serie población'.ccaa_ine
+	toColumn: CCAA.ccaa_ine
+
+relationship rel_pib_prov
+	fromColumn: 'PIB provincia'.provincia_ine
+	toColumn: Provincias.provincia_ine
+
+relationship rel_paro_ccaa
+	fromColumn: Paro.ccaa_ine
+	toColumn: CCAA.ccaa_ine

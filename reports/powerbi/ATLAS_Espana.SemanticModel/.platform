@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "ATLAS_Espana"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7ed569b2-0242-4be7-bc12-85813a45a2ee"
+  }
+}

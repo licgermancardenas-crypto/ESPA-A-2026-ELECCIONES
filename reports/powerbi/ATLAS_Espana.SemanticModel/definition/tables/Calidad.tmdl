@@ -1,0 +1,48 @@
+table Calidad
+
+	column control
+		dataType: string
+		summarizeBy: none
+		sourceColumn: control
+
+	column dimension
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dimension
+
+	column dataset
+		dataType: string
+		summarizeBy: none
+		sourceColumn: dataset
+
+	column valor
+		dataType: double
+		formatString: #,0.###
+		summarizeBy: none
+		sourceColumn: valor
+
+	column umbral
+		dataType: string
+		summarizeBy: none
+		sourceColumn: umbral
+
+	column estado
+		dataType: string
+		summarizeBy: none
+		sourceColumn: estado
+
+	column detalle
+		dataType: string
+		summarizeBy: none
+		sourceColumn: detalle
+
+	partition Calidad = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "calidad.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"control", type text}, {"dimension", type text}, {"dataset", type text}, {"valor", type number}, {"umbral", type text}, {"estado", type text}, {"detalle", type text}}, "en-US")
+				in
+				    Tipos
+

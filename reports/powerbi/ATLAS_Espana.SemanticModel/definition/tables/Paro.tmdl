@@ -1,0 +1,40 @@
+table Paro
+
+	column ccaa_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ccaa_ine
+		isHidden
+
+	column anyo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: anyo
+
+	column periodo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: periodo
+
+	column trimestre
+		dataType: string
+		summarizeBy: none
+		sourceColumn: trimestre
+
+	column tasa_paro
+		dataType: double
+		formatString: 0.00
+		summarizeBy: none
+		sourceColumn: tasa_paro
+
+	partition Paro = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "paro_ccaa.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"ccaa_ine", type text}, {"anyo", Int64.Type}, {"periodo", type text}, {"trimestre", type text}, {"tasa_paro", type number}}, "en-US")
+				in
+				    Tipos
+
