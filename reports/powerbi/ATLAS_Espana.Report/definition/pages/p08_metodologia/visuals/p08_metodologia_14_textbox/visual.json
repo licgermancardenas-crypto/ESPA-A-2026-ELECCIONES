@@ -119,6 +119,31 @@
               {
                 "textRuns": [
                   {
+                    "value": "Mapa de ciudad",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "13pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Secciones y distritos del seccionado INE 2024. Renta neta media por persona, población y % de 65+ del Atlas de Distribución de Renta de los Hogares (INE, año 2024). El INE acota los extremos por confidencialidad: las secciones con renta ≥ 40.089 € o ≤ 5.828 € se publican con ese valor de corte.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
                     "value": "Lo que todavía no está",
                     "textStyle": {
                       "fontFamily": "Segoe UI",

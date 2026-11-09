@@ -90,6 +90,48 @@ def geometria():
     return g, nivel("CPRO"), nivel("CCA"), lienzo
 
 
+def geometria_ciudades(min_secciones: int = 5) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Lienzo propio por municipio (1000 px en su lado mayor) con secciones y distritos.
+
+    Solo municipios con al menos `min_secciones` secciones (en los demás el zoom no aporta)."""
+    import gc
+    import pyarrow.parquet as pq
+    fichero = next((paths.DATA / "gold" / "geo").glob("secciones_*.parquet"))
+    provincias = sorted(pq.read_table(fichero, columns=["CPRO"]).column("CPRO").unique().to_pylist())
+    from atlas_spain.geo.build_geo import _dissolve
+    filas_s, filas_d, lienzos = [], [], []
+    for cpro in provincias:  # por provincia: la máquina tiene poca RAM
+        sec = gpd.read_parquet(fichero, filters=[("CPRO", "==", cpro)]).to_crs(PROY)
+        n = sec.groupby("CUMUN")["CUSEC"].transform("count")
+        sec = sec[n >= min_secciones]
+        filas_s, filas_d, lienzos = _ciudades(sec, filas_s, filas_d, lienzos, _dissolve)
+        del sec
+        gc.collect()
+    S = pd.DataFrame(filas_s, columns=["cusec", "municipio_ine", "cudis", "path", "x", "y", "area_km2"])
+    D = pd.DataFrame(filas_d, columns=["cudis", "municipio_ine", "path", "x", "y"])
+    L = pd.DataFrame(lienzos, columns=["municipio_ine", "ancho", "alto", "n_secciones"])
+    return S, D, L
+
+
+def _ciudades(sec, filas_s, filas_d, lienzos, _dissolve):
+    for mun, sub in sec.groupby("CUMUN"):
+        a0, b0, a1, b1 = sub.total_bounds
+        k = ANCHO / max(a1 - a0, b1 - b0)
+        tol = 1.1 / k
+        geoms = shapely.coverage_simplify(sub.geometry.values, tolerance=tol)
+        rp = sub.geometry.representative_point()
+        for cusec, cudis, gsec, pt, area in zip(sub.CUSEC, sub.CUDIS, geoms, rp, sub.geometry.area):
+            filas_s.append((cusec, mun, cudis, trazo(gsec, a0, b1, k) or
+                            f"M{(pt.x - a0) * k - 2:.0f} {(b1 - pt.y) * k - 2:.0f}h4v4h-4Z",
+                            round((pt.x - a0) * k), round((b1 - pt.y) * k), round(area / 1e6, 4)))
+        dis = _dissolve(sub, "CUDIS")
+        for cudis, gd in zip(dis.CUDIS, shapely.coverage_simplify(dis.geometry.values, tolerance=tol)):
+            c = gd.representative_point()
+            filas_d.append((cudis, mun, trazo(gd, a0, b1, k), round((c.x - a0) * k), round((b1 - c.y) * k)))
+        lienzos.append((mun, int(np.ceil((a1 - a0) * k)), int(np.ceil((b1 - b0) * k)), len(sub)))
+    return filas_s, filas_d, lienzos
+
+
 # ───────────────────────── tablas ─────────────────────────
 def _sql(con, q):
     return con.execute(q).df()
@@ -135,6 +177,19 @@ def exportar() -> dict:
                                       status as estado, detail as detalle
                                from ops.quality_results
                                where run_id = (select arg_max(run_id, run_at) from ops.quality_results)""")
+        adrh_glob = f"{paths.BRONZE.as_posix()}/INE-ADRH/parquet/*/*.parquet"
+        adrh = _sql(con, f"""
+            with b as (
+                select *, dense_rank() over (partition by parse_dirpath(filename)
+                                             order by _ingested_at desc) as rk
+                from read_parquet('{adrh_glob}', union_by_name = true, filename = true))
+            select coalesce(secciones__cod, distritos__cod, municipios__cod) as codigo,
+                   case when secciones__cod is not null then 'seccion'
+                        when distritos__cod is not null then 'distrito' else 'municipio' end as nivel,
+                   anyo, case filtro_tv when '482:284048' then 'renta neta media por persona'
+                                  when '260:17338' then 'población'
+                                  when '260:366831' then '% población de 65 y más' end as indicador, valor
+            from b where rk = 1 and valor is not null and filtro_tv is not null""") if list(paths.BRONZE.glob("INE-ADRH/parquet/*/*.parquet"))             else pd.DataFrame(columns=["codigo", "nivel", "anyo", "indicador", "valor"])
     finally:
         con.close()
 
@@ -155,9 +210,31 @@ def exportar() -> dict:
     # municipios demasiado pequeños para el lienzo: marcador de 2 px en su posición
     vacio = M["path"].fillna("") == ""
     M.loc[vacio, "path"] = [f"M{x - 1:.0f} {y - 1:.0f}h2v2h-2Z" for x, y in zip(M.loc[vacio, "x"], M.loc[vacio, "y"])]
+    S, D, L = geometria_ciudades()
+    L = L.set_index("municipio_ine")
+    M["lienzo_ancho"] = L["ancho"].reindex(M.index).values
+    M["lienzo_alto"] = L["alto"].reindex(M.index).values
+    M["n_secciones"] = L["n_secciones"].reindex(M.index).fillna(1).astype(int).values
+    if not adrh.empty:
+        piv = adrh.pivot_table(index=["codigo", "nivel"], columns="indicador", values="valor", aggfunc="first")
+        piv.columns = [str(c) for c in piv.columns]
+        def col(df, nombre):
+            return df[nombre] if nombre in df.columns else pd.Series(index=df.index, dtype=float)
+        sec_v = piv.xs("seccion", level="nivel") if "seccion" in piv.index.get_level_values(1) else piv.iloc[0:0]
+        mun_v = piv.xs("municipio", level="nivel") if "municipio" in piv.index.get_level_values(1) else piv.iloc[0:0]
+        S["renta_pp"] = col(sec_v, "renta neta media por persona").reindex(S["cusec"]).values
+        S["poblacion"] = col(sec_v, "población").reindex(S["cusec"]).values
+        S["pct_65"] = (col(sec_v, "% población de 65 y más").reindex(S["cusec"]) / 100).values
+        M["renta_pp"] = col(mun_v, "renta neta media por persona").reindex(M.index).values
+        anyo_adrh = int(adrh["anyo"].max())
+    else:
+        S["renta_pp"] = S["poblacion"] = S["pct_65"] = np.nan
+        M["renta_pp"] = np.nan
+        anyo_adrh = None
     tramos = [(0, 100, "1 · < 100"), (100, 1000, "2 · 100–1.000"), (1000, 5000, "3 · 1.000–5.000"),
               (5000, 20000, "4 · 5.000–20.000"), (20000, 100000, "5 · 20.000–100.000"),
               (100000, 500000, "6 · 100.000–500.000"), (500000, 1e9, "7 · > 500.000")]
+    M["nombre_completo"] = M["nombre"] + " (" + geo["geo_name"].reindex("ES-PR-" + M["provincia_ine"]).values + ")"
     M["tamano"] = pd.cut(M["pob_actual"].fillna(0), [t[0] for t in tramos] + [1e9], labels=[t[2] for t in tramos],
                          right=False).astype(str)
 
@@ -192,6 +269,8 @@ def exportar() -> dict:
     A["n_municipios"] = M.groupby("ccaa_ine").size().reindex(A.index).values
     for c in ("path", "cx", "cy"):
         A[c] = ccaa[c].values
+    pp = P.dropna(subset=["pib_pc"]).assign(w=lambda d: d.pib_pc * d.pob_actual).groupby("ccaa_ine")[["w", "pob_actual"]].sum()
+    A["pib_pc"] = (pp["w"] / pp["pob_actual"]).round(0).reindex(A.index).values
 
     pib_serie = pib.rename(columns={"valor": "pib_pc"})
     pib_serie["provincia_ine"] = pib_serie["geo_id"].str[-2:]
@@ -208,10 +287,11 @@ def exportar() -> dict:
                "ccaa.csv": A.reset_index(drop=True), "poblacion_serie.csv": serie,
                "pib_provincia.csv": pib_serie[["provincia_ine", "anyo", "pib_pc"]],
                "paro_ccaa.csv": paro[["ccaa_ine", "anyo", "periodo", "trimestre", "tasa_paro"]],
-               "fuentes.csv": fuentes, "ejecuciones.csv": ejec, "calidad.csv": calidad}
+               "fuentes.csv": fuentes, "ejecuciones.csv": ejec, "calidad.csv": calidad,
+               "secciones.csv": S, "distritos.csv": D}
     for nombre, df in salidas.items():
         df.to_csv(SALIDA / nombre, index=False, encoding="utf-8")
-    params = {"anyo_actual": y1, "anyo_base": y0, "lienzo": {"alto": lienzo["alto"]},
+    params = {"anyo_actual": y1, "anyo_base": y0, "anyo_adrh": anyo_adrh, "lienzo": {"alto": lienzo["alto"]},
               "caja_canarias": lienzo["caja_canarias"],
               "corte": pd.Timestamp.now(tz="Europe/Madrid").strftime("%d/%m/%Y %H:%M"),
               "largos": {"munis": int(M["path"].str.len().sum()), "prov": int(P["path"].str.len().sum())}}

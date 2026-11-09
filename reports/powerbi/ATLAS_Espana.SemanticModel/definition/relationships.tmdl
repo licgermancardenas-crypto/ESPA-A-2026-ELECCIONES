@@ -6,6 +6,14 @@ relationship rel_mun_prov
 	fromColumn: Municipios.provincia_ine
 	toColumn: Provincias.provincia_ine
 
+relationship rel_sec_mun
+	fromColumn: Secciones.municipio_ine
+	toColumn: Municipios.municipio_ine
+
+relationship rel_dis_mun
+	fromColumn: 'Distritos ciudad'.municipio_ine
+	toColumn: Municipios.municipio_ine
+
 relationship rel_serie_ccaa
 	fromColumn: 'Serie población'.ccaa_ine
 	toColumn: CCAA.ccaa_ine

@@ -1,0 +1,19 @@
+table 'Nivel del mapa'
+
+	column id
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: [id]
+		isHidden
+
+	column Nivel
+		dataType: string
+		summarizeBy: none
+		sourceColumn: [Nivel]
+		sortByColumn: id
+
+	partition 'Nivel del mapa' = calculated
+		mode: import
+		source =
+				DATATABLE("id", INTEGER, "Nivel", STRING, {{1, "Comunidad autónoma"}, {2, "Provincia"}, {3, "Municipio"}})
+

@@ -49,6 +49,12 @@ table CCAA
 		summarizeBy: none
 		sourceColumn: paro_trimestre
 
+	column pib_pc
+		dataType: double
+		formatString: #,0 €
+		summarizeBy: none
+		sourceColumn: pib_pc
+
 	column n_provincias
 		dataType: int64
 		formatString: 0
@@ -85,7 +91,7 @@ table CCAA
 				let
 				    Origen = Csv.Document(File.Contents(CarpetaDatos & "ccaa.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"paro", type number}, {"paro_trimestre", type text}, {"n_provincias", Int64.Type}, {"n_municipios", Int64.Type}, {"path", type text}, {"cx", Int64.Type}, {"cy", Int64.Type}}, "en-US")
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"paro", type number}, {"paro_trimestre", type text}, {"pib_pc", type number}, {"n_provincias", Int64.Type}, {"n_municipios", Int64.Type}, {"path", type text}, {"cx", Int64.Type}, {"cy", Int64.Type}}, "en-US")
 				in
 				    Tipos
 

@@ -116,6 +116,19 @@ def run_checks(con) -> list[Result]:
         R.append(Result("datos_electorales", "completeness", "fact_election_results", None, "presentes", "skip",
                         "Sin ficheros de Infoelectoral (bloqueo anti-bot): ver PROJECT_STATUS.md"))
 
+    # ── electoral autonómico (Open Data Euskadi) ──
+    if _table_exists(con, "gold", "fact_regional_results"):
+        for e, nt, nm, nme in con.execute("""
+            select election_id,
+                   sum(votos) filter (where nivel='territorio'), sum(votos) filter (where nivel='municipio'),
+                   sum(votos) filter (where nivel='mesa')
+            from gold.fact_regional_results group by 1 order by 1""").fetchall():
+            ok = nt is not None and nt == nm == nme
+            R.append(Result("niveles_cuadran", "consistency", f"regional {e}", (nm or 0) - (nt or 0), "=0",
+                            "pass" if ok else "warn",
+                            f"territorio {nt} · municipio {nm} · mesa {nme} (diferencias en la fuente se documentan, no se corrigen)"))
+        R.extend(seat_reconciliation_regional(con))
+
     # ── frescura y fiabilidad de fuentes ──
     if _table_exists(con, "ops", "executions"):
         for sid, status, age_days in con.execute("""
@@ -155,6 +168,37 @@ def seat_reconciliation(con) -> list[Result]:
                           len(mism), "=0", "pass" if not mism else "fail",
                           f"{len(groups)} circunscripciones; discrepancias: {mism[:10]}"))
     return out
+
+
+def seat_reconciliation_regional(con) -> list[Result]:
+    """Recalcula escaños donde la fuente los publica (Congreso y Parlamento Vasco)."""
+    from atlas_spain.electoral.dhondt import dhondt
+    from atlas_spain.electoral.systems import congreso_district
+
+    rows = con.execute("""select election_id, tipo, provincia_ine, candidatura, coalesce(votos, 0), coalesce(escanos, 0),
+                                 coalesce(blancos, 0)
+                          from gold.fact_regional_results where nivel='territorio'""").fetchall()
+    grupos: dict = {}
+    for e, tipo, prov, cand, v, s, b in rows:
+        g = grupos.setdefault((e, tipo, prov), {"v": {}, "s": {}, "b": b})
+        g["v"][cand], g["s"][cand] = v, s
+    comprobadas, difieren = 0, []
+    for (e, tipo, prov), g in grupos.items():
+        total = sum(g["s"].values())
+        if total == 0:
+            continue  # la fuente no publica escaños para esa convocatoria
+        comprobadas += 1
+        res = (congreso_district(g["v"], g["b"], total, prov) if tipo == "congreso"
+               else dhondt(g["v"], total, threshold=0.03, blank_votes=g["b"]))
+        if res.seats != g["s"]:
+            difieren.append(f"{e} {prov}")
+    if not comprobadas:
+        return []
+    return [Result("dhondt_reproduce_escanos_regionales", "consistency", "fact_regional_results", len(difieren), "=0",
+                   "pass" if not difieren else "warn",
+                   f"{comprobadas} circunscripciones con escaños publicados; difieren: {difieren[:10]} "
+                   "(Parlamento Vasco calculado con barrera del 3 %; la barrera legal de convocatorias "
+                   "antiguas no está verificada)")]
 
 
 def main() -> int:

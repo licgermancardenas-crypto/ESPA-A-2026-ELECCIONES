@@ -95,13 +95,42 @@ table Municipios
 		summarizeBy: none
 		sourceColumn: tamano
 
+	column nombre_completo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: nombre_completo
+
+	column lienzo_ancho
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: lienzo_ancho
+		isHidden
+
+	column lienzo_alto
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: lienzo_alto
+		isHidden
+
+	column n_secciones
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: n_secciones
+
+	column renta_pp
+		dataType: double
+		formatString: #,0 €
+		summarizeBy: none
+		sourceColumn: renta_pp
+
 	partition Municipios = m
 		mode: import
 		source =
 				let
 				    Origen = Csv.Document(File.Contents(CarpetaDatos & "municipios.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
 				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
-				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"municipio_ine", type text}, {"provincia_ine", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"electores_and_2026", Int64.Type}, {"path", type text}, {"x", type number}, {"y", type number}, {"lon", type number}, {"lat", type number}, {"tamano", type text}}, "en-US")
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"geo_id", type text}, {"municipio_ine", type text}, {"provincia_ine", type text}, {"ccaa_ine", type text}, {"nombre", type text}, {"pob_actual", Int64.Type}, {"pob_hace10", Int64.Type}, {"area_km2", type number}, {"electores_and_2026", Int64.Type}, {"path", type text}, {"x", type number}, {"y", type number}, {"lon", type number}, {"lat", type number}, {"tamano", type text}, {"nombre_completo", type text}, {"lienzo_ancho", Int64.Type}, {"lienzo_alto", Int64.Type}, {"n_secciones", Int64.Type}, {"renta_pp", type number}}, "en-US")
 				in
 				    Tipos
 

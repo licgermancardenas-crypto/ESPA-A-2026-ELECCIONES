@@ -17,7 +17,7 @@ import sys
 
 from atlas_spain import registry
 from atlas_spain.ingestion import runner
-from atlas_spain.ingestion.connectors import congreso, eurostat, ine_files, ine_tempus, infoelectoral
+from atlas_spain.ingestion.connectors import congreso, euskadi, eurostat, ine_files, ine_tempus, infoelectoral
 
 
 def _infoelectoral_runner(tipo: str):
@@ -38,6 +38,8 @@ def connectors() -> dict:
         reg[sid] = lambda s, **_: runner.run(s, "eurostat", eurostat.extract)
     reg["INE-CODMUN"] = lambda s, **_: runner.run(s, "diccionario_municipios", ine_files.extract_codmun)
     reg["INE-SECCIONADO"] = lambda s, **_: runner.run(s, "seccionado", ine_files.extract_seccionado)
+    reg["EUSKADI-ELEC"] = lambda s, convocatorias=None, **_: runner.run(s, "euskadi", euskadi.extract,
+                                                                        convocatorias=convocatorias)
     reg["CONGRESO-DIP"] = lambda s, **_: runner.run(s, "diputados", congreso.extract)
     for tipo, cfg in infoelectoral.catalog().items():
         reg[cfg["source_id"]] = _infoelectoral_runner(tipo)

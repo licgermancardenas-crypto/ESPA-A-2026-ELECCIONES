@@ -29,6 +29,13 @@ TABLES: dict[str, dict] = {
     "INE-DIRCE": {"tables": [39374], "nult": 40},
     "INE-IPVA-MUN": {"tables": [59060], "nult": 20},
     "INE-EJEC-HIPOT": {"tables": [10744], "nult": 60},
+    # Atlas de Renta: una tabla por provincia; la API exige filtrar el indicador (tv=variable:valor)
+    # para no superar el límite de volumen. Último año publicado (nult=1).
+    "INE-ADRH": {"operation": 353, "nult": 1, "queries": [
+        ("Indicadores de renta media y mediana", "482:284048"),   # renta neta media por persona
+        ("Indicadores demográficos", "260:17338"),               # población
+        ("Indicadores demográficos", "260:366831"),              # % población de 65 y más años
+    ]},
 }
 
 
@@ -73,23 +80,32 @@ CSV_URL = "https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/{tabla}.csv"
 OPS_URL = "https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/{op}"
 
 
-def resolve_tables(cfg: dict) -> list[int]:
+def resolve_tables(cfg: dict) -> list:
+    """Lista de (tabla, filtro_tv | None)."""
     if "tables" in cfg:
-        return cfg["tables"]
+        return [(t, None) for t in cfg["tables"]]
     cat = json.loads(fetch(OPS_URL.format(op=cfg["operation"]), timeout=60).content)
-    return sorted(t["Id"] for t in cat if cfg["name_contains"].lower() in t["Nombre"].lower())
+    queries = cfg.get("queries") or [(cfg["name_contains"], None)]
+    out = []
+    for nombre, tv in queries:
+        out += [(int(t["Id"]), tv) for t in cat if t["Nombre"].lower().startswith(nombre.lower())]
+    return sorted(out, key=lambda x: (x[0], x[1] or ""))
 
 
 def extract(ex: Execution, source_id: str | None = None, tables: list[int] | None = None) -> str | None:
     cfg = TABLES[source_id or ex.source_id]
-    tabs = tables or resolve_tables(cfg)
+    tabs = [(t, None) for t in tables] if tables else resolve_tables(cfg)
     frames = []
-    for t in tabs:
+    for t, tv in tabs:
         try:
-            r = fetch(BASE.format(tabla=t, nult=cfg["nult"]), timeout=120)
-            ex.save_raw(f"tabla_{t}.json", r.content)
+            url = BASE.format(tabla=t, nult=cfg["nult"]) + (f"&tv={tv}" if tv else "")
+            r = fetch(url, timeout=300)
             payload = json.loads(r.content)
+            if isinstance(payload, dict):
+                raise ValueError(f"API: {payload.get('status')}")
+            ex.save_raw(f"tabla_{t}{'_' + tv.replace(':', '-') if tv else ''}.json", r.content)
             df = tidy(payload, t)
+            df["filtro_tv"] = tv
             ex.records_downloaded += len(df)
             frames.append(df)
         except Exception as exc:  # una tabla fallida no tumba el resto
@@ -99,7 +115,8 @@ def extract(ex: Execution, source_id: str | None = None, tables: list[int] | Non
         return "failed"
     # Tablas con metadatos distintos -> un parquet por tabla (esquemas homogéneos)
     for df in frames:
-        ex.save_parquet(f"tabla_{int(df['tabla'].iloc[0])}", df)
+        tv = df["filtro_tv"].iloc[0]
+        ex.save_parquet(f"tabla_{int(df['tabla'].iloc[0])}" + (f"_{tv.replace(':', '-')}" if tv else ""), df)
     return "partial" if ex.errors else None
 
 

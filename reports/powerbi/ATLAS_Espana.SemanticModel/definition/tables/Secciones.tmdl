@@ -1,0 +1,71 @@
+table Secciones
+
+	column cusec
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cusec
+		isKey
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+		isHidden
+
+	column cudis
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cudis
+
+	column path
+		dataType: string
+		summarizeBy: none
+		sourceColumn: path
+		isHidden
+
+	column x
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: x
+		isHidden
+
+	column y
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: y
+		isHidden
+
+	column area_km2
+		dataType: double
+		formatString: #,0.00
+		summarizeBy: none
+		sourceColumn: area_km2
+
+	column renta_pp
+		dataType: double
+		formatString: #,0 €
+		summarizeBy: none
+		sourceColumn: renta_pp
+
+	column poblacion
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: poblacion
+
+	column pct_65
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: pct_65
+
+	partition Secciones = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "secciones.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"cusec", type text}, {"municipio_ine", type text}, {"cudis", type text}, {"path", type text}, {"x", Int64.Type}, {"y", Int64.Type}, {"area_km2", type number}, {"renta_pp", type number}, {"poblacion", Int64.Type}, {"pct_65", type number}}, "en-US")
+				in
+				    Tipos
+

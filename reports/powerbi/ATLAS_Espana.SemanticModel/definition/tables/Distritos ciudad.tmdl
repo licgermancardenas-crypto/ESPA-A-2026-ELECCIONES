@@ -1,0 +1,38 @@
+table 'Distritos ciudad'
+	isHidden
+
+	column cudis
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cudis
+
+	column municipio_ine
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipio_ine
+
+	column path
+		dataType: string
+		summarizeBy: none
+		sourceColumn: path
+
+	column x
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: x
+
+	column y
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: y
+
+	partition 'Distritos ciudad' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "distritos.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"cudis", type text}, {"municipio_ine", type text}, {"path", type text}, {"x", Int64.Type}, {"y", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

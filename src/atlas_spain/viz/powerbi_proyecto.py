@@ -45,13 +45,27 @@ ESCALAS = {
         ["< 22 k€", "22–25 k€", "25–28 k€", "28–32 k€", "32–36 k€", "> 36 k€"]),
     5: ("Tasa de paro EPA (CCAA)", [(0.07, "#EAF4F2"), (0.09, "#BFE0DA"), (0.11, "#7CC2B6"), (0.13, "#2E9C8F"), (0.15, "#1F6E66"), (None, "#0E3F3A")],
         ["< 7 %", "7–9 %", "9–11 %", "11–13 %", "13–15 %", "> 15 %"]),
+    # población de provincias y comunidades (la escala 3 es para municipios)
+    33: ("Población", [(500000, "#F3EFF9"), (1000000, "#D9CDEE"), (2000000, "#B19DDA"), (4000000, "#8467BD"), (7000000, "#5B3F99"), (None, "#2E1B5E")],
+         ["< 0,5 M", "0,5–1 M", "1–2 M", "2–4 M", "4–7 M", "> 7 M"]),
+}
+# Mapa de ciudad (secciones censales; Atlas de Renta del INE)
+ESCALAS_CIUDAD = {
+    1: ("Renta neta media por persona", [(9000, "#FFF6DD"), (11000, "#F8DE9A"), (13000, "#E9B949"), (15000, "#C98A12"), (18000, "#8A5A00"), (None, "#5C3B00")],
+        ["< 9.000 €", "9–11 mil €", "11–13 mil €", "13–15 mil €", "15–18 mil €", "> 18.000 €"]),
+    2: ("Densidad (hab./km²)", [(1000, "#F3EFF9"), (5000, "#D9CDEE"), (10000, "#B19DDA"), (20000, "#8467BD"), (30000, "#5B3F99"), (None, "#2E1B5E")],
+        ["< 1.000", "1–5 mil", "5–10 mil", "10–20 mil", "20–30 mil", "> 30 mil"]),
+    3: ("Población de 65 y más años", [(0.12, "#EAF4F2"), (0.16, "#BFE0DA"), (0.20, "#7CC2B6"), (0.24, "#2E9C8F"), (0.28, "#1F6E66"), (None, "#0E3F3A")],
+        ["< 12 %", "12–16 %", "16–20 %", "20–24 %", "24–28 %", "> 28 %"]),
+    4: ("Población de la sección", [(800, "#F3EFF9"), (1100, "#D9CDEE"), (1400, "#B19DDA"), (1700, "#8467BD"), (2100, "#5B3F99"), (None, "#2E1B5E")],
+        ["< 800", "800–1.100", "1.100–1.400", "1.400–1.700", "1.700–2.100", "> 2.100"]),
 }
 SIN_DATO = "#E4E0EC"
 
 
-def dax_color(idm_var: str, v: str) -> str:
+def dax_color(idm_var: str, v: str, escalas: dict = ESCALAS) -> str:
     ramas = []
-    for idm, (_, cortes, _) in ESCALAS.items():
+    for idm, (_, cortes, _) in escalas.items():
         sw = ", ".join(f'{v} < {u}, "{c}"' for u, c in cortes[:-1])
         ramas.append(f'{idm}, SWITCH(TRUE(), {sw}, "{cortes[-1][1]}")')
     return f'IF(ISBLANK({v}), "{SIN_DATO}", SWITCH({idm_var}, {", ".join(ramas)}))'
@@ -59,7 +73,9 @@ def dax_color(idm_var: str, v: str) -> str:
 
 def dax_valor_fila(t: str, nivel: str) -> str:
     """Valor de la métrica con columnas de la fila (rápido dentro de CONCATENATEX)."""
-    if nivel == "prov":
+    if nivel == "ccaa":
+        pib, paro = f"{t}[pib_pc]", f"{t}[paro]"
+    elif nivel == "prov":
         pib, paro = f"{t}[pib_pc]", "RELATED(CCAA[paro])"
     else:
         pib, paro = "RELATED(Provincias[pib_pc])", "RELATED(CCAA[paro])"
@@ -71,21 +87,21 @@ def xml(t: str) -> str:
     return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def leyenda_dax(x: int, y: int) -> str:
+def leyenda_dax(x: int, y: int, escalas: dict = ESCALAS, var: str = "idm") -> str:
     """Leyenda SVG que cambia con la métrica elegida."""
     ramas = []
-    for idm, (titulo, cortes, etiquetas) in ESCALAS.items():
+    for idm, (titulo, cortes, etiquetas) in escalas.items():
         s = f"<text x='{x}' y='{y}' font-family='Segoe UI' font-size='15' font-weight='700' fill='{INK}'>{xml(titulo)}</text>"
         for i, ((_, c), et) in enumerate(zip(cortes, etiquetas)):
             yy = y + 14 + i * 22
             s += (f"<rect x='{x}' y='{yy}' width='22' height='16' rx='3' fill='{c}' stroke='#FFFFFF'/>"
                   f"<text x='{x + 30}' y='{yy + 13}' font-family='Segoe UI' font-size='13' fill='{INK}'>{xml(et)}</text>")
         ramas.append(f'{idm}, "{s}"')
-    return f"SWITCH(idm, {', '.join(ramas)})"
+    return f"SWITCH({var}, {', '.join(ramas)})"
 
 
-def svg_envolver(alto: int, cuerpo: str) -> str:
-    return (f'VAR svg = "<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1000 {alto}\'>" & {cuerpo} & "</svg>"\n'
+def svg_envolver(alto, cuerpo: str, ancho="1000") -> str:
+    return (f'VAR svg = "<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 {ancho} {alto}\'>" & {cuerpo} & "</svg>"\n'
             '            RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")')
 
 
@@ -97,6 +113,12 @@ def medidas(P) -> list:
     ccaa_sel = "VAR sel = VALUES(CCAA[ccaa_ine])\n            VAR todo = NOT ISFILTERED(CCAA[ccaa_ine]) && NOT ISFILTERED(CCAA[nombre])"
     caja_svg = (f"\"<path d='{caja}' fill='none' stroke='{MUTED}' stroke-width='1' stroke-dasharray='5 4'/>"
                 f"<text x='14' y='{alto - 8}' font-family='Segoe UI' font-size='12' fill='{MUTED}'>Canarias (escala 0,85)</text>\"")
+    g = lambda w, extra="": f"\"<g stroke='#FFFFFF' stroke-width='{w}' stroke-linejoin='round'{extra}>\""
+    PREF_CCAA = g(1.4) + ' & formas & "</g>" & etiquetas & '
+    PREF_PROV = g(0.8) + """ & formas & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.7' stroke-width='1.4'>" & ccaa & "</g>" & """
+    PREF_MUN = g(0.15) + """ & grupos & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & prov & "</g>" & """
+    LEY_CIUDAD = ("\"<g transform='translate(10,\" & (alto + 24) & \")'>\" & "
+                  + leyenda_dax(0, 16, ESCALAS_CIUDAD, "idk") + ' & "</g>"')
     m = [
         ("Corte", f'"Datos a {P["corte"]} · Fuentes: INE, Eurostat, Congreso"', None, F),
         ("Población", "SUM(Municipios[pob_actual])", MIL, "Demografía"),
@@ -145,16 +167,32 @@ def medidas(P) -> list:
         ("Color estado ejecución", """
             SWITCH(SELECTEDVALUE(Ejecuciones[estado]), "success", "#D7EFE9", "partial", "#FBEBC8", "#F6D1D1")""", None, F),
         ("Título mapa", """"Mapa · " & SELECTEDVALUE('Métrica del mapa'[Métrica], "Variación de población 10 años")""", None, F),
+        ("SVG España comunidades", f"""
+            VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+            VAR idc = IF(idm = 3, 33, idm)
+            {ccaa_sel}
+            VAR formas = CONCATENATEX(ALL(CCAA),
+                VAR v = {dax_valor_fila("CCAA", "ccaa")}
+                VAR c = IF(todo || CCAA[ccaa_ine] IN sel, {dax_color("idc", "v")}, "#EEEBF3")
+                RETURN "<path d='" & CCAA[path] & "' fill='" & c & "'/>", "")
+            VAR etiquetas = CONCATENATEX(ALL(CCAA),
+                VAR v = {dax_valor_fila("CCAA", "ccaa")}
+                VAR txt = SWITCH(idm, 1, FORMAT(v, "+0.0%;-0.0%"), 2, FORMAT(v, "#,0"), 3, FORMAT(v / 1000000, "0.0") & " M", 4, FORMAT(v / 1000, "0.0") & " k€", 5, FORMAT(v, "0.0%"))
+                RETURN IF(CCAA[n_municipios] > 2, "<text x='" & CCAA[cx] & "' y='" & CCAA[cy] & "' text-anchor='middle' font-family='Segoe UI' font-size='15' font-weight='700' fill='#1D1631' stroke='#FFFFFF' stroke-width='3' paint-order='stroke'>" & txt & "</text>"), "")
+            VAR leyenda = {leyenda_dax(720, alto - 175, var="idc")}
+            {svg_envolver(alto, PREF_CCAA + caja_svg + ' & leyenda')}""",
+         None, F, {"dataCategory": "ImageUrl"}),
         ("SVG España provincias", f"""
             VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+            VAR idc = IF(idm = 3, 33, idm)
             {ccaa_sel}
             VAR formas = CONCATENATEX(ALL(Provincias),
                 VAR v = {dax_valor_fila("Provincias", "prov")}
-                VAR c = IF(todo || Provincias[ccaa_ine] IN sel, {dax_color("idm", "v")}, "#EEEBF3")
+                VAR c = IF(todo || Provincias[ccaa_ine] IN sel, {dax_color("idc", "v")}, "#EEEBF3")
                 RETURN "<path d='" & Provincias[path] & "' fill='" & c & "'/>", "")
             VAR ccaa = CONCATENATEX(ALL(CCAA), "<path d='" & CCAA[path] & "'/>", "")
-            VAR leyenda = {ley}
-            {svg_envolver(alto, '"<g stroke=\'#FFFFFF\' stroke-width=\'0.8\' stroke-linejoin=\'round\'>" & formas & "</g>" & "<g fill=\'none\' stroke=\'#1D1631\' stroke-opacity=\'0.7\' stroke-width=\'1.4\'>" & ccaa & "</g>" & ' + caja_svg + ' & leyenda')}""",
+            VAR leyenda = {leyenda_dax(720, alto - 175, var="idc")}
+            {svg_envolver(alto, PREF_PROV + caja_svg + ' & leyenda')}""",
          None, F, {"dataCategory": "ImageUrl"}),
         ("SVG España municipios", f"""
             VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
@@ -167,7 +205,55 @@ def medidas(P) -> list:
                 RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Municipios[path] & "'/>", "") & "</g>", "")
             VAR prov = CONCATENATEX(ALL(Provincias), "<path d='" & Provincias[path] & "'/>", "")
             VAR leyenda = {ley}
-            {svg_envolver(alto, '"<g stroke=\'#FFFFFF\' stroke-width=\'0.15\'>" & grupos & "</g>" & "<g fill=\'none\' stroke=\'#1D1631\' stroke-opacity=\'0.6\' stroke-width=\'0.9\'>" & prov & "</g>" & ' + caja_svg + ' & leyenda')}""",
+            {svg_envolver(alto, PREF_MUN + caja_svg + ' & leyenda')}""",
+         None, F, {"dataCategory": "ImageUrl"}),
+        ("SVG España", """
+            SWITCH(SELECTEDVALUE('Nivel del mapa'[id], 2),
+                1, [SVG España comunidades],
+                3, [SVG España municipios],
+                [SVG España provincias])""", None, F, {"dataCategory": "ImageUrl"}),
+        ("Título mapa nivel", """
+            "Mapa por " & LOWER(SELECTEDVALUE('Nivel del mapa'[Nivel], "Provincia")) & " · " &
+            SELECTEDVALUE('Métrica del mapa'[Métrica], "Variación de población 10 años")""", None, F),
+        # ---- ciudad (secciones censales)
+        ("Ciudad elegida", """
+            IF(HASONEVALUE(Municipios[municipio_ine]), SELECTEDVALUE(Municipios[nombre_completo]),
+               "Elegí un municipio en el segmentador")""", None, F),
+        ("Secciones", "COUNTROWS(Secciones)", MIL, "Ciudad"),
+        ("Distritos", "COUNTROWS('Distritos ciudad')", MIL, "Ciudad"),
+        ("Población secciones", "SUM(Secciones[poblacion])", MIL, "Ciudad"),
+        ("Renta neta por persona", """
+            VAR t = FILTER(Secciones, NOT ISBLANK(Secciones[renta_pp]) && NOT ISBLANK(Secciones[poblacion]))
+            RETURN DIVIDE(SUMX(t, Secciones[renta_pp] * Secciones[poblacion]), SUMX(t, Secciones[poblacion]))""",
+         "#,0 €", "Ciudad"),
+        ("% 65 y más", """
+            VAR t = FILTER(Secciones, NOT ISBLANK(Secciones[pct_65]) && NOT ISBLANK(Secciones[poblacion]))
+            RETURN DIVIDE(SUMX(t, Secciones[pct_65] * Secciones[poblacion]), SUMX(t, Secciones[poblacion]))""", PCT, "Ciudad"),
+        ("Densidad secciones", "DIVIDE([Población secciones], SUM(Secciones[area_km2]))", "#,0", "Ciudad"),
+        ("Brecha de renta entre secciones", "DIVIDE(MAX(Secciones[renta_pp]), MIN(Secciones[renta_pp]))", "0.0", "Ciudad"),
+        ("SVG ciudad", f"""
+            VAR m = SELECTEDVALUE(Municipios[municipio_ine])
+            VAR ancho = SELECTEDVALUE(Municipios[lienzo_ancho])
+            VAR alto = SELECTEDVALUE(Municipios[lienzo_alto])
+            VAR idk = SELECTEDVALUE('Métrica ciudad'[id], 1)
+            VAR t = ADDCOLUMNS(CALCULATETABLE(Secciones, REMOVEFILTERS(Secciones), Secciones[municipio_ine] = m), "@c",
+                VAR v = SWITCH(idk, 1, Secciones[renta_pp], 2, DIVIDE(Secciones[poblacion], Secciones[area_km2]),
+                               3, Secciones[pct_65], 4, Secciones[poblacion])
+                RETURN {dax_color("idk", "v", ESCALAS_CIUDAD)})
+            VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])),
+                VAR col = [@c]
+                RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Secciones[path] & "'/>", "") & "</g>", "")
+            VAR dt = CALCULATETABLE('Distritos ciudad', REMOVEFILTERS('Distritos ciudad'), 'Distritos ciudad'[municipio_ine] = m)
+            VAR dist = CONCATENATEX(dt, "<path d='" & 'Distritos ciudad'[path] & "'/>", "")
+            VAR etiq = CONCATENATEX(dt,
+                "<text x='" & 'Distritos ciudad'[x] & "' y='" & 'Distritos ciudad'[y] & "' text-anchor='middle' font-family='Segoe UI' font-size='16' font-weight='700' fill='#1D1631' stroke='#FFFFFF' stroke-width='3.5' paint-order='stroke'>D" & RIGHT('Distritos ciudad'[cudis], 2) & "</text>", "")
+            VAR leyenda = {LEY_CIUDAD}
+            VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & MAX(ancho, 320) & " " & (alto + 175) & "'>"
+                & "<g stroke='#FFFFFF' stroke-width='0.6' stroke-linejoin='round'>" & grupos & "</g>"
+                & "<g fill='none' stroke='#1D1631' stroke-width='2.2' stroke-linejoin='round'>" & dist & "</g>"
+                & IF(COUNTROWS(dt) > 1, etiq, "") & leyenda & "</svg>"
+            RETURN IF(ISBLANK(m) || ISBLANK(ancho), BLANK(),
+                "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23"))""",
          None, F, {"dataCategory": "ImageUrl"}),
     ]
     return m
@@ -178,7 +264,7 @@ def modelo(P) -> dict[str, str]:
     T["CCAA"] = tabla_csv("CCAA", "ccaa.csv", [
         ("geo_id", "string", None), ("ccaa_ine", "string", None), ("nombre", "string", None),
         ("pob_actual", "int64", MIL), ("pob_hace10", "int64", MIL), ("area_km2", "double", "#,0"),
-        ("paro", "double", PCT), ("paro_trimestre", "string", None), ("n_provincias", "int64", "0"),
+        ("paro", "double", PCT), ("paro_trimestre", "string", None), ("pib_pc", "double", "#,0 €"), ("n_provincias", "int64", "0"),
         ("n_municipios", "int64", MIL), ("path", "string", None), ("cx", "int64", None), ("cy", "int64", None)],
         ocultas=("geo_id", "path", "cx", "cy", "pob_actual", "pob_hace10"),
         extra_col={"ccaa_ine": {"isKey": ""}, "nombre": {"sortByColumn": "ccaa_ine"}})
@@ -194,11 +280,21 @@ def modelo(P) -> dict[str, str]:
         ("ccaa_ine", "string", None), ("nombre", "string", None), ("pob_actual", "int64", MIL),
         ("pob_hace10", "int64", MIL), ("area_km2", "double", "#,0.0"), ("electores_and_2026", "int64", MIL),
         ("path", "string", None), ("x", "double", None), ("y", "double", None), ("lon", "double", "0.000"),
-        ("lat", "double", "0.000"), ("tamano", "string", None)],
+        ("lat", "double", "0.000"), ("tamano", "string", None), ("nombre_completo", "string", None),
+        ("lienzo_ancho", "int64", None), ("lienzo_alto", "int64", None), ("n_secciones", "int64", "0"),
+        ("renta_pp", "double", "#,0 €")],
         ocultas=("geo_id", "path", "x", "y", "provincia_ine", "ccaa_ine", "pob_actual", "pob_hace10",
-                 "electores_and_2026", "lon", "lat"),
+                 "electores_and_2026", "lon", "lat", "lienzo_ancho", "lienzo_alto"),
         extra_col={"municipio_ine": {"isKey": ""}, "lon": {"dataCategory": "Longitude"},
                    "lat": {"dataCategory": "Latitude"}})
+    T["Secciones"] = tabla_csv("Secciones", "secciones.csv", [
+        ("cusec", "string", None), ("municipio_ine", "string", None), ("cudis", "string", None), ("path", "string", None),
+        ("x", "int64", None), ("y", "int64", None), ("area_km2", "double", "#,0.00"), ("renta_pp", "double", "#,0 €"),
+        ("poblacion", "int64", MIL), ("pct_65", "double", PCT)],
+        ocultas=("municipio_ine", "path", "x", "y"), extra_col={"cusec": {"isKey": ""}})
+    T["Distritos ciudad"] = tabla_csv("Distritos ciudad", "distritos.csv", [
+        ("cudis", "string", None), ("municipio_ine", "string", None), ("path", "string", None),
+        ("x", "int64", None), ("y", "int64", None)], oculta_tabla=True)
     T["Serie población"] = tabla_csv("Serie población", "poblacion_serie.csv", [
         ("geo_id", "string", None), ("nivel", "string", None), ("nombre", "string", None), ("anyo", "int64", "0"),
         ("poblacion", "int64", MIL), ("origen", "string", None), ("ccaa_ine", "string", None),
@@ -220,9 +316,16 @@ def modelo(P) -> dict[str, str]:
     T["Calidad"] = tabla_csv("Calidad", "calidad.csv", [
         ("control", "string", None), ("dimension", "string", None), ("dataset", "string", None),
         ("valor", "double", "#,0.###"), ("umbral", "string", None), ("estado", "string", None), ("detalle", "string", None)])
-    filas = ",\n    ".join(f'{{{i}, "{t}"}}' for i, (t, _, _) in ESCALAS.items())
+    filas = ",\n    ".join(f'{{{i}, "{t}"}}' for i, (t, _, _) in ESCALAS.items() if i < 10)
     T["Métrica del mapa"] = tabla_calculada("Métrica del mapa",
         f'DATATABLE("id", INTEGER, "Métrica", STRING, {{\n    {filas}\n}})',
+        [("id", "int64", None, {"isHidden": True}), ("Métrica", "string", None, {"sortByColumn": "id"})])
+    T["Nivel del mapa"] = tabla_calculada("Nivel del mapa",
+        'DATATABLE("id", INTEGER, "Nivel", STRING, {{1, "Comunidad autónoma"}, {2, "Provincia"}, {3, "Municipio"}})',
+        [("id", "int64", None, {"isHidden": True}), ("Nivel", "string", None, {"sortByColumn": "id"})])
+    filas_c = ",\n    ".join(f'{{{i}, "{t}"}}' for i, (t, _, _) in ESCALAS_CIUDAD.items())
+    T["Métrica ciudad"] = tabla_calculada("Métrica ciudad",
+        f'DATATABLE("id", INTEGER, "Métrica", STRING, {{\n    {filas_c}\n}})',
         [("id", "int64", None, {"isHidden": True}), ("Métrica", "string", None, {"sortByColumn": "id"})])
     T["Medidas"] = tabla_calculada("Medidas", "{BLANK()}", [("Value", "string", None, {"isHidden": True})], medidas(P))
 
@@ -232,6 +335,8 @@ def modelo(P) -> dict[str, str]:
         "\tannotation PBI_ResultType = Text\n")
     rels = [("rel_prov_ccaa", "Provincias.ccaa_ine", "CCAA.ccaa_ine"),
             ("rel_mun_prov", "Municipios.provincia_ine", "Provincias.provincia_ine"),
+            ("rel_sec_mun", "Secciones.municipio_ine", "Municipios.municipio_ine"),
+            ("rel_dis_mun", "'Distritos ciudad'.municipio_ine", "Municipios.municipio_ine"),
             ("rel_serie_ccaa", "'Serie población'.ccaa_ine", "CCAA.ccaa_ine"),
             ("rel_pib_prov", "'PIB provincia'.provincia_ine", "Provincias.provincia_ine"),
             ("rel_paro_ccaa", "Paro.ccaa_ine", "CCAA.ccaa_ine")]
@@ -250,8 +355,8 @@ def modelo(P) -> dict[str, str]:
 
 
 # ───────────────────────── informe ─────────────────────────
-NAV = [("p01_resumen", "Resumen España", "◉"), ("p02_provincias", "Mapa provincial", "▦"),
-       ("p03_municipios", "Mapa municipal", "▩"), ("p04_demografia", "Demografía", "≋"),
+NAV = [("p01_resumen", "Resumen España", "◉"), ("p02_mapa", "Mapa de España", "▦"),
+       ("p03_ciudad", "Mapa de ciudad", "▩"), ("p04_demografia", "Demografía", "≋"),
        ("p05_economia", "Economía", "€"), ("p06_censo", "Censo electoral", "✔"),
        ("p07_operaciones", "Datos y calidad", "⚙"), ("p08_metodologia", "Metodología", "ℹ")]
 
@@ -308,27 +413,43 @@ def informe(P) -> dict:
           "Comunidades autónomas", sort=[(Me("Población"), "Descending")])
     pags.append(pg)
 
-    # 2 mapa provincial
-    pg = nueva("p02_provincias", "Mapa provincial", "Elegí la métrica; el segmentador de comunidad resalta su territorio")
-    pg.imagen(X0, 96, 860, 794, "SVG España provincias")
-    metrica_slicer(pg, X0 + 875, 96, 490, 58)
-    ccaa_slicer(pg, X0 + 875, 164, 490, 58)
-    tabla(pg, X0 + 875, 232, 490, 658,
+    # 2 mapa de España: comunidad / provincia / municipio
+    pg = nueva("p02_mapa", "Mapa de España", "Elegí el nivel (comunidad, provincia o municipio) y la métrica; "
+                                             "el segmentador de comunidad resalta su territorio")
+    pg.add("card", X0, 92, 860, 40, query={"Values": [proj(Me("Título mapa nivel"), " ")]},
+           objects={"labels": [{"properties": {"color": color(VIO), "fontSize": lit(13), "fontFamily": lit("Segoe UI Semibold")}}],
+                    "categoryLabels": [{"properties": {"show": lit(False)}}]}, titulo="")
+    pg.imagen(X0, 138, 860, 752, "SVG España")
+    pg.segmentador(X0 + 875, 92, 490, 58, C("Nivel del mapa", "Nivel"), "Nivel del mapa", modo="Basic", unico=True,
+                   horizontal=True, presel="Provincia")
+    metrica_slicer(pg, X0 + 875, 158, 490, 58)
+    ccaa_slicer(pg, X0 + 875, 224, 490, 58)
+    tabla(pg, X0 + 875, 292, 490, 598,
           [(C("Provincias", "nombre"), "Provincia"), (Me("Población"), "Población"),
            (Me("Variación población 10 años"), "Var. 10 años"), (Me("Densidad"), "hab./km²"),
-           (C("Provincias", "pib_pc"), "PIB pc")],
+           (Me("PIB per cápita"), "PIB pc")],
           "Provincias", sort=[(Me("Población"), "Descending")], size=9)
     pags.append(pg)
 
-    # 3 mapa municipal
-    pg = nueva("p03_municipios", "Mapa municipal", "8.132 municipios · PIB y paro se heredan de la provincia y la comunidad")
-    pg.imagen(X0, 96, 860, 794, "SVG España municipios")
-    metrica_slicer(pg, X0 + 875, 96, 490, 58)
-    ccaa_slicer(pg, X0 + 875, 164, 490, 58)
-    tabla(pg, X0 + 875, 232, 490, 658,
-          [(C("Municipios", "nombre"), "Municipio"), (Me("Población"), "Población"),
-           (Me("Variación población 10 años"), "Var. 10 años"), (Me("Densidad"), "hab./km²")],
-          "Municipios", sort=[(Me("Población"), "Descending")], size=9)
+    # 3 mapa de ciudad: distritos y secciones censales
+    sub_c = (f"Secciones censales y distritos · renta y población: Atlas de Renta del INE ({P.get('anyo_adrh') or 's/d'}) · "
+             "solo municipios con 5 o más secciones")
+    pg = nueva("p03_ciudad", "Mapa de ciudad", sub_c)
+    pg.segmentador(X0, 92, 330, 58, C("Provincias", "nombre"), "Provincia", sync="prov_ciudad")
+    pg.segmentador(X0 + 340, 92, 330, 58, C("Municipios", "nombre_completo"), "Municipio", unico=True,
+                   presel="Madrid (Madrid)")
+    pg.segmentador(X0 + 680, 92, 300, 58, C("Métrica ciudad", "Métrica"), "Métrica del mapa", unico=True)
+    pg.add("card", X0, 158, 860, 40, query={"Values": [proj(Me("Ciudad elegida"), " ")]},
+           objects={"labels": [{"properties": {"color": color(VIO), "fontSize": lit(14), "fontFamily": lit("Segoe UI Semibold")}}],
+                    "categoryLabels": [{"properties": {"show": lit(False)}}]}, titulo="")
+    pg.imagen(X0, 204, 860, 686, "SVG ciudad")
+    for i, (m, et) in enumerate([("Población secciones", "Población (Atlas de Renta)"), ("Renta neta por persona", "Renta neta por persona"),
+                                 ("% 65 y más", "Población de 65+"), ("Brecha de renta entre secciones", "Más rica / más pobre (acotado INE)")]):
+        pg.tarjeta(X0 + 875 + (i % 2) * 248, 158 + (i // 2) * 92, 240, 84, Me(m), et, size=18)
+    tabla(pg, X0 + 875, 344, 490, 546,
+          [(C("Secciones", "cusec"), "Sección"), (C("Secciones", "cudis"), "Distrito"), (C("Secciones", "renta_pp"), "Renta pp"),
+           (C("Secciones", "poblacion"), "Población"), (C("Secciones", "pct_65"), "65+")],
+          "Secciones censales", sort=[(C("Secciones", "renta_pp"), "Descending")], size=9)
     pags.append(pg)
 
     # 4 demografía
@@ -430,6 +551,10 @@ def informe(P) -> dict:
         [("PIB per cápita", {"size": 13, "bold": True})],
         [("Dato provincial del INE. Las comunidades uniprovinciales solo se publican como CCAA y se asignan a su provincia. "
           "El agregado 'ponderado' pondera por población actual.", {"size": 11})],
+        [("Mapa de ciudad", {"size": 13, "bold": True})],
+        [("Secciones y distritos del seccionado INE 2024. Renta neta media por persona, población y % de 65+ del Atlas de "
+          "Distribución de Renta de los Hogares (INE, año 2024). El INE acota los extremos por confidencialidad: las secciones "
+          "con renta ≥ 40.089 € o ≤ 5.828 € se publican con ese valor de corte.", {"size": 11})],
         [("Lo que todavía no está", {"size": 13, "bold": True})],
         [("Resultados electorales (Infoelectoral bloquea la descarga automática: carga manual pendiente), autonómicas, "
           "continuidad de partidos, índices compuestos y modelos predictivos. Ver PROJECT_STATUS.md.", {"size": 11})],

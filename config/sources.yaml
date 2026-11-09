@@ -187,7 +187,7 @@ sources:
 
   - source_id: EUSKADI-ELEC
     organismo: Gobierno Vasco — Open Data Euskadi
-    dataset: Resultados de elecciones al Parlamento Vasco y europeas en la CAPV (1980–2024)
+    dataset: Resultados de elecciones al Parlamento Vasco (1980–2024) y Congreso 2023 en la CAPV, hasta mesa
     categoria: electoral
     url: https://opendata.euskadi.eus/
     api: "ZIP por convocatoria: /contenidos/informacion/w_em_descargas/es_def/adjuntos/{csv|xls}/P20_c.zip"
@@ -200,7 +200,7 @@ sources:
     restricciones: "Citar Gobierno Vasco."
     metodo_extraccion: download
     probe_url: https://opendata.euskadi.eus/contenidos/informacion/w_em_descargas/es_def/adjuntos/xls/P20_c.zip
-    connector: null
+    connector: euskadi
 
   - source_id: NAVARRA-ELEC
     organismo: Gobierno de Navarra — Datos abiertos
@@ -551,7 +551,7 @@ sources:
     <<: *lic_ine
     metodo_extraccion: api
     probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/353
-    connector: null
+    connector: ine_tempus
 
   - source_id: INE-CRE-PIB
     organismo: INE
