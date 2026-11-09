@@ -1,0 +1,29 @@
+# Datos: se regeneran con el pipeline. Nunca se versionan (repo público).
+data/landing/
+data/bronze/
+data/silver/
+data/gold/
+data/warehouse/
+data/ops/
+!data/README.md
+
+# dbt
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Entorno
+.env
+.env.*
+.vercel
+.DS_Store
+Thumbs.db

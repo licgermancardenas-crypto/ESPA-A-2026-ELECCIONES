@@ -1,0 +1,28 @@
+name: atlas_spain
+version: "0.1.0"
+config-version: 2
+profile: atlas_spain
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+target-path: "target"
+clean-targets: ["target"]
+
+vars:
+  # Raíz de los parquet bronze (relativa a dbt/). build.py la sobreescribe con ruta absoluta.
+  bronze_root: "../data/bronze"
+  has_infoelectoral: false
+  has_seccionado: false
+
+models:
+  atlas_spain:
+    staging:
+      +schema: silver
+      +materialized: view
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table

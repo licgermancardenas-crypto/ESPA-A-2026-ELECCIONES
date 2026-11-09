@@ -1,0 +1,31 @@
+# Sistemas electorales autonómicos — PARÁMETROS PENDIENTES DE VERIFICACIÓN
+#
+# Cada comunidad fija sus reglas en su Estatuto y ley electoral, y las ha
+# reformado varias veces. Los valores de abajo son el punto de partida para
+# la verificación y NO deben usarse en cálculos publicados hasta que
+# `verificado: true` y `fuente_legal` apunten al texto consolidado (BOE o
+# boletín autonómico) vigente EN CADA CONVOCATORIA.
+#
+# barrera_ambito: circunscripcion | comunidad | isla | alternativa (ver nota)
+# escanos: puede variar por convocatoria (Madrid y Castilla y León dependen de la población).
+
+autonomicas:
+  andalucia:      {escanos: 109, circunscripciones: provincia, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 1/1986 Electoral de Andalucía"}
+  aragon:         {escanos: 67,  circunscripciones: provincia, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 2/1987 Electoral de Aragón"}
+  asturias:       {escanos: 45,  circunscripciones: "3 circunscripciones (central, occidental, oriental)", barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 14/1986 de Asturias"}
+  illes_balears:  {escanos: 59,  circunscripciones: isla, barrera: 0.05, barrera_ambito: isla, formula: dhondt, verificado: false, fuente_legal: "Ley 8/1986 Electoral de las Illes Balears"}
+  canarias:       {escanos: 70,  circunscripciones: "7 insulares + 1 autonómica", barrera: null, barrera_ambito: alternativa, formula: dhondt, verificado: false, fuente_legal: "Ley 1/2022 de Elecciones al Parlamento de Canarias; EA 2018", nota: "Barrera alternativa regional/insular; verificar porcentajes vigentes"}
+  cantabria:      {escanos: 35,  circunscripciones: unica, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 5/1987 de Elecciones al Parlamento de Cantabria"}
+  castilla_la_mancha: {escanos: 33, circunscripciones: provincia, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 5/1986 Electoral de Castilla-La Mancha (reforma 2014)"}
+  castilla_y_leon: {escanos: variable, circunscripciones: provincia, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 3/1987 Electoral de Castilla y León", nota: "3 por provincia + 1 por cada 45.000 hab. o fracción > 22.500 (verificar)"}
+  cataluna:       {escanos: 135, circunscripciones: provincia, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Disp. transitoria 2ª Estatut 1979 (sin ley electoral propia) + LOREG"}
+  comunitat_valenciana: {escanos: 99, circunscripciones: provincia, barrera: 0.05, barrera_ambito: comunidad, formula: dhondt, verificado: false, fuente_legal: "Ley 1/1987 Electoral Valenciana"}
+  extremadura:    {escanos: 65,  circunscripciones: provincia, barrera: 0.05, barrera_ambito: alternativa, formula: dhondt, verificado: false, fuente_legal: "Ley 2/1987 de Elecciones a la Asamblea de Extremadura"}
+  galicia:        {escanos: 75,  circunscripciones: provincia, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 8/1985 de Elecciones al Parlamento de Galicia"}
+  madrid:         {escanos: variable, circunscripciones: unica, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 11/1986 Electoral de la Comunidad de Madrid", nota: "1 diputado por cada 50.000 hab. o fracción > 25.000"}
+  murcia:         {escanos: 45,  circunscripciones: unica, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 2/1987 Electoral de la Región de Murcia (reforma 2015)"}
+  navarra:        {escanos: 50,  circunscripciones: unica, barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley Foral 16/1986"}
+  pais_vasco:     {escanos: 75,  circunscripciones: "territorio histórico (25 cada uno)", barrera: 0.03, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 5/1990 de Elecciones al Parlamento Vasco"}
+  la_rioja:       {escanos: 33,  circunscripciones: unica, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "Ley 3/1991 de Elecciones al Parlamento de La Rioja"}
+  ceuta:          {escanos: 25,  circunscripciones: unica, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "EA Ceuta (LO 1/1995) remite a la LOREG municipal"}
+  melilla:        {escanos: 25,  circunscripciones: unica, barrera: 0.05, barrera_ambito: circunscripcion, formula: dhondt, verificado: false, fuente_legal: "EA Melilla (LO 2/1995) remite a la LOREG municipal"}

@@ -1,1 +1,81 @@
-# ESPA-A-2026-ELECCIONES
+# ATLAS SPAIN
+
+Plataforma de inteligencia política, electoral, demográfica, económica y territorial de España.
+
+**RAW DATA → DATA ENGINEERING → DATA INTELLIGENCE → ANALYTICS → DECISION SUPPORT**
+
+Estado real de lo implementado, datos descargados y bloqueos: **[PROJECT_STATUS.md](PROJECT_STATUS.md)**.
+
+## Documentos
+
+| Documento | Contenido |
+|---|---|
+| [DATA_SOURCE_REGISTRY.csv](DATA_SOURCE_REGISTRY.csv) | Catálogo de fuentes con estado verificado en vivo (`atlas registry verify`) |
+| [DATA_DISCOVERY_REPORT.md](DATA_DISCOVERY_REPORT.md) | Investigación de fuentes: qué hay, qué falta, qué está bloqueado |
+| [DATA_DICTIONARY.md](DATA_DICTIONARY.md) | Tablas y columnas del warehouse (generado desde la base real) |
+| [docs/METHODOLOGY.md](docs/METHODOLOGY.md) | Identificadores, definiciones electorales, sistemas electorales e índices |
+| [config/sources.yaml](config/sources.yaml) | Fuente de verdad del registro de fuentes |
+
+## Arquitectura
+
+```
+fuentes públicas ──► conectores (src/atlas_spain/ingestion) ──► BRONZE  data/bronze/<fuente>/{raw,parquet}
+                        │  log: ops.executions + data/ops/executions.jsonl
+                        ▼
+                     dbt (dbt/models) ──► SILVER (normalizado)  ──► GOLD (analítica)
+                        │                                             │
+                     geo (src/atlas_spain/geo) ──► gold.geo_boundaries + GeoJSON para MapLibre
+                        ▼
+                     calidad (src/atlas_spain/quality) ──► ops.quality_results
+                        ▼
+                     API FastAPI (src/atlas_spain/api) ──► frontend (pendiente)
+```
+
+- **Warehouse:** DuckDB (`data/warehouse/atlas.duckdb`) + Parquet. Elegido por volumen real
+  (decenas de millones de filas como máximo) y por la máquina de trabajo (3,4 GB de RAM).
+  PostgreSQL/PostGIS queda como destino de despliegue multiusuario (`docker compose --profile postgis`).
+- **Bronze inmutable:** cada fichero original se guarda con su SHA-256; cada fila lleva
+  `_source_id`, `_execution_id`, `_ingested_at`. Silver toma siempre la última ejecución de cada dataset.
+- **Sin datos inventados:** los modelos electorales solo se activan si existen ficheros oficiales.
+
+## Uso
+
+```bash
+pip install -e ".[dev]"
+
+atlas registry verify                 # verifica las 60+ fuentes y regenera el CSV
+atlas ingest --all                    # todos los conectores implementados
+atlas ingest INE-SECCIONADO           # cartografía de secciones censales
+atlas ingest MIR-IE-CONG --convocatorias 202307 201911 --niveles MUNI MESA
+atlas build                           # geo + dbt seed/run/test + controles de calidad
+atlas quality                         # solo controles de calidad
+atlas status                          # Data Operations Center en consola
+python -m atlas_spain.dictionary      # regenera DATA_DICTIONARY.md
+uvicorn atlas_spain.api.main:app      # API en http://localhost:8000/docs
+pytest                                # tests (los de red se omiten por defecto)
+```
+
+### Resultados electorales oficiales (Infoelectoral)
+
+`infoelectoral.interior.gob.es` responde con un desafío anti-bot. ATLAS no lo elude.
+Descargá los ZIP desde el navegador en el
+[área de descargas](https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/)
+y dejalos, con su nombre original (p. ej. `02202307_MUNI.zip`), en `data/landing/infoelectoral/`.
+El conector los toma de ahí y registra el origen como `landing`.
+
+## Estructura
+
+```
+config/            sources.yaml · elections.yaml · electoral_systems.yaml
+src/atlas_spain/   http · registry · ingestion/ · parsers/ · electoral/ · geo/ · warehouse/ · quality/ · api/ · cli
+dbt/               models/{staging,silver,gold} · macros · seeds
+tests/             unitarios (motor electoral, parser, conectores, API)
+docs/              METHODOLOGY.md
+data/              (no versionado) landing · bronze · warehouse · ops · gold/geo
+```
+
+## Licencias de datos
+
+Cada fuente conserva su licencia (ver `licencia` y `restricciones` en el registro). Citar siempre
+el organismo de origen. ATLAS trabaja con información pública y agregada: no almacena DNI ni
+fechas de nacimiento de candidatos, ni ningún dato personal de votantes.

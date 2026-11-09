@@ -1,0 +1,59 @@
+# Catálogo de convocatorias disponibles en Infoelectoral (Ministerio del Interior).
+# Formato: "AAAAMM". Nombre de fichero oficial: {TT}{AAAA}{MM}_{MUNI|MESA}.zip
+# Solo convocatorias generales/municipales/europeas/referéndum/cabildos.
+# Las AUTONÓMICAS no están aquí: dependen de cada comunidad (ver sources.yaml y
+# config/electoral_systems.yaml). Nuevas convocatorias se añaden SOLO tras
+# comprobar que el fichero existe en el área de descargas.
+
+infoelectoral:
+  "02":   # Congreso de los Diputados
+    source_id: MIR-IE-CONG
+    convocatorias: ["197706", "197903", "198210", "198606", "198910", "199306", "199603",
+                    "200003", "200403", "200803", "201111", "201512", "201606", "201904",
+                    "201911", "202307"]
+  "03":   # Senado
+    source_id: MIR-IE-SEN
+    convocatorias: ["197706", "197903", "198210", "198606", "198910", "199306", "199603",
+                    "200003", "200403", "200803", "201111", "201512", "201606", "201904",
+                    "201911", "202307"]
+  "04":   # Municipales
+    source_id: MIR-IE-MUN
+    convocatorias: ["197904", "198305", "198706", "199105", "199505", "199906", "200305",
+                    "200705", "201105", "201505", "201905", "202305"]
+  "07":   # Parlamento Europeo
+    source_id: MIR-IE-EUR
+    convocatorias: ["198706", "198906", "199406", "199906", "200406", "200906", "201405",
+                    "201905", "202406"]
+  "01":   # Referéndums
+    source_id: MIR-IE-REF
+    convocatorias: ["197612", "197812", "198603", "200502"]
+  "06":   # Cabildos insulares
+    source_id: MIR-IE-CAB
+    convocatorias: ["198706", "199105", "199505", "199906", "200305", "200705", "201105",
+                    "201505", "201905", "202305"]
+
+# Fechas exactas de votación (para dim_election). Verificadas contra el calendario
+# electoral oficial; ampliar al incorporar cada convocatoria.
+fechas:
+  "02-197706": "1977-06-15"
+  "02-197903": "1979-03-01"
+  "02-198210": "1982-10-28"
+  "02-198606": "1986-06-22"
+  "02-198910": "1989-10-29"
+  "02-199306": "1993-06-06"
+  "02-199603": "1996-03-03"
+  "02-200003": "2000-03-12"
+  "02-200403": "2004-03-14"
+  "02-200803": "2008-03-09"
+  "02-201111": "2011-11-20"
+  "02-201512": "2015-12-20"
+  "02-201606": "2016-06-26"
+  "02-201904": "2019-04-28"
+  "02-201911": "2019-11-10"
+  "02-202307": "2023-07-23"
+  "04-201505": "2015-05-24"
+  "04-201905": "2019-05-26"
+  "04-202305": "2023-05-28"
+  "07-201405": "2014-05-25"
+  "07-201905": "2019-05-26"
+  "07-202406": "2024-06-09"

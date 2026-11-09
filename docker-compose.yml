@@ -1,0 +1,31 @@
+# ATLAS SPAIN — stack local.
+#   docker compose run --rm etl atlas ingest --all     # ingesta
+#   docker compose run --rm etl atlas build            # silver/gold + calidad
+#   docker compose up api                              # API en http://localhost:8000/docs
+# El warehouse analítico es DuckDB (data/warehouse/atlas.duckdb). PostGIS es el destino
+# opcional para servir capas espaciales a varios usuarios (perfil "postgis").
+services:
+  etl:
+    build: .
+    volumes: ["./data:/app/data", "./config:/app/config", "./DATA_SOURCE_REGISTRY.csv:/app/DATA_SOURCE_REGISTRY.csv"]
+    mem_limit: 2g
+    profiles: ["etl"]
+
+  api:
+    build: .
+    volumes: ["./data:/app/data:ro"]
+    ports: ["8000:8000"]
+    mem_limit: 1g
+
+  postgis:
+    image: postgis/postgis:16-3.4
+    profiles: ["postgis"]
+    environment:
+      POSTGRES_DB: atlas
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: ${ATLAS_PG_PASSWORD:?definir ATLAS_PG_PASSWORD en .env}
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+
+volumes:
+  pgdata:

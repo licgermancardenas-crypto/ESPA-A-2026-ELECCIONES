@@ -1,0 +1,1057 @@
+# ATLAS SPAIN — DATA SOURCE REGISTRY (fuente de verdad)
+#
+# Este archivo es el catálogo maestro. DATA_SOURCE_REGISTRY.csv se GENERA con
+#   atlas registry verify
+# que consulta cada `probe_url` y registra estado HTTP, tipo de contenido y fecha.
+# Los campos `estado` y `ultima_verificacion` del CSV NO se escriben a mano.
+# `ultima_extraccion` sale del log de ejecuciones (ops.executions).
+#
+# Licencias: se indica la condición publicada por cada organismo. Antes de
+# redistribuir datos derivados, revisar el aviso legal vigente de la fuente.
+
+defaults: &lic_ine
+  licencia: "Reutilización libre con cita de la fuente (aviso legal INE; Ley 37/2007)"
+  restricciones: "Citar 'Fuente: INE'. No implicar respaldo del INE."
+
+sources:
+
+  # ───────────────────────── A. ELECTORAL ─────────────────────────
+  - source_id: MIR-IE-CONG
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Elecciones al Congreso de los Diputados (ficheros MUNI y MESA)
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "Descarga directa ZIP: /estaticos/docxl/apliextr/02AAAAMM_{MUNI|MESA}.zip"
+    formato: ZIP con ficheros DAT de ancho fijo (ISO-8859-1)
+    cobertura_territorial: España; circunscripción, provincia, municipio, mesa
+    cobertura_historica: 1977–2023 (MESA desde 1986 aprox., verificar por convocatoria)
+    frecuencia: Por convocatoria
+    granularidad: mesa electoral
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007; aviso legal Ministerio del Interior)"
+    restricciones: "Servidor protegido por desafío anti-bot (Cloudflare). No se elude: carga manual a data/landing/infoelectoral/."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/02202307_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: MIR-IE-SEN
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Elecciones al Senado (ficheros MUNI y MESA)
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "ZIP 03AAAAMM_{MUNI|MESA}.zip"
+    formato: ZIP/DAT ancho fijo
+    cobertura_territorial: España; circunscripción senatorial, municipio, mesa
+    cobertura_historica: 1977–2023
+    frecuencia: Por convocatoria
+    granularidad: mesa electoral (votos a candidatos individuales)
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007)"
+    restricciones: "Ídem MIR-IE-CONG (anti-bot)."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/03202307_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: MIR-IE-MUN
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Elecciones municipales (concejales; ficheros 11/12 para municipios <250 hab.)
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "ZIP 04AAAAMM_{MUNI|MESA}.zip"
+    formato: ZIP/DAT ancho fijo
+    cobertura_territorial: Todos los municipios
+    cobertura_historica: 1979–2023
+    frecuencia: Cada 4 años
+    granularidad: mesa electoral
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007)"
+    restricciones: "Ídem MIR-IE-CONG (anti-bot). Alcaldías NO incluidas: se eligen en pleno de constitución."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/04202305_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: MIR-IE-EUR
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Elecciones al Parlamento Europeo
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "ZIP 07AAAAMM_{MUNI|MESA}.zip"
+    formato: ZIP/DAT ancho fijo
+    cobertura_territorial: Circunscripción única nacional; desagregado hasta mesa
+    cobertura_historica: 1987–2024
+    frecuencia: Cada 5 años
+    granularidad: mesa electoral
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007)"
+    restricciones: "Ídem MIR-IE-CONG (anti-bot)."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/07202406_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: MIR-IE-REF
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Referéndums nacionales (1976, 1978, 1986, 2005)
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "ZIP 01AAAAMM_MUNI.zip"
+    formato: ZIP/DAT ancho fijo (votos afirmativos/negativos en fichero 07)
+    cobertura_territorial: Nacional a municipio
+    cobertura_historica: 1976–2005
+    frecuencia: Eventual
+    granularidad: municipio
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007)"
+    restricciones: "Ídem MIR-IE-CONG (anti-bot)."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/01200502_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: MIR-IE-CAB
+    organismo: Ministerio del Interior — Infoelectoral
+    dataset: Elecciones a Cabildos Insulares (Canarias)
+    categoria: electoral
+    url: https://infoelectoral.interior.gob.es/es/elecciones-celebradas/area-de-descargas/
+    api: "ZIP 06AAAAMM_MUNI.zip"
+    formato: ZIP/DAT ancho fijo
+    cobertura_territorial: Islas Canarias
+    cobertura_historica: 1987–2023
+    frecuencia: Cada 4 años
+    granularidad: municipio / mesa
+    licencia: "Reutilización con cita de la fuente (Ley 37/2007)"
+    restricciones: "Ídem MIR-IE-CONG (anti-bot)."
+    metodo_extraccion: download_or_landing
+    probe_url: https://infoelectoral.interior.gob.es/estaticos/docxl/apliextr/06202305_MUNI.zip
+    connector: infoelectoral
+
+  - source_id: INE-OCE
+    organismo: INE — Oficina del Censo Electoral
+    dataset: Cifras de electores y excluidos de propaganda electoral (tabla 80107)
+    categoria: electoral
+    url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736177086
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/80107
+    formato: JSON (API Tempus3)
+    cobertura_territorial: España, CCAA, provincia
+    cobertura_historica: Convocatorias recientes
+    frecuencia: Por convocatoria
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/80107?nult=1
+    connector: ine_tempus
+
+  - source_id: ISTAC-ELEC-EUR
+    organismo: Instituto Canario de Estadística (ISTAC)
+    dataset: Resultados de elecciones al Parlamento Europeo según candidaturas (C00010A_000058)
+    categoria: electoral
+    url: https://datos.canarias.es/
+    api: https://datos.canarias.es/api/estadisticas/statistical-resources/v1.0/datasets/ISTAC/C00010A_000058/1.1.csv
+    formato: CSV (API eDatos)
+    cobertura_territorial: Canarias (islas, municipios)
+    cobertura_historica: 1987–
+    frecuencia: Por convocatoria
+    granularidad: municipio
+    licencia: "CC BY 4.0 (Gobierno de Canarias)"
+    restricciones: "Citar ISTAC."
+    metodo_extraccion: api
+    probe_url: https://datos.canarias.es/api/estadisticas/statistical-resources/v1.0/datasets/ISTAC/C00010A_000058/1.1.csv
+    connector: null
+
+  - source_id: ISTAC-GEO-SECC-ELEC
+    organismo: Instituto Canario de Estadística (ISTAC)
+    dataset: Secciones y distritos de Canarias por fecha de elección (2004–2023)
+    categoria: geoespacial
+    url: https://datos.canarias.es/catalogos/estadisticas/
+    api: "WFS IGR-00080 + descargas GPKG/GeoJSON por convocatoria"
+    formato: GPKG, GeoJSON, KML, WFS
+    cobertura_territorial: Canarias
+    cobertura_historica: 2004–2023 (geometría vigente en cada elección)
+    frecuencia: Por convocatoria
+    granularidad: sección censal electoral
+    licencia: "CC BY 4.0 (Gobierno de Canarias)"
+    restricciones: "Citar ISTAC."
+    metodo_extraccion: download
+    probe_url: https://datos.canarias.es/api/estadisticas/geographical-resources/IGR-00080/wms?REQUEST=GetCapabilities
+    connector: null
+
+  - source_id: JCCM-ELEC-HIST
+    organismo: Junta de Comunidades de Castilla-La Mancha
+    dataset: Resultados Congreso 1977–2015 y autonómicas 1983–2015 en Castilla-La Mancha
+    categoria: electoral
+    url: https://datosabiertos.castillalamancha.es/
+    api: "Ficheros XLS/XLSX por convocatoria"
+    formato: XLS, XLSX, CSV
+    cobertura_territorial: Castilla-La Mancha (municipio)
+    cobertura_historica: 1977–2015
+    frecuencia: Histórico (sin actualización periódica)
+    granularidad: municipio
+    licencia: "CC BY 4.0 (datos abiertos JCCM)"
+    restricciones: "Servidor lento/intermitente en la verificación."
+    metodo_extraccion: download
+    probe_url: https://datosabiertos.castillalamancha.es/sites/datosabiertos.castillalamancha.es/files/elecciones%202015_0.xls
+    connector: null
+
+  - source_id: EUSKADI-ELEC
+    organismo: Gobierno Vasco — Open Data Euskadi
+    dataset: Resultados de elecciones al Parlamento Vasco y europeas en la CAPV (1980–2024)
+    categoria: electoral
+    url: https://opendata.euskadi.eus/
+    api: "ZIP por convocatoria: /contenidos/informacion/w_em_descargas/es_def/adjuntos/{csv|xls}/P20_c.zip"
+    formato: ZIP con CSV/XLS
+    cobertura_territorial: País Vasco (municipio, sección, mesa según convocatoria)
+    cobertura_historica: 1980–2024
+    frecuencia: Por convocatoria
+    granularidad: mesa electoral (según año)
+    licencia: "CC BY 4.0 (Open Data Euskadi)"
+    restricciones: "Citar Gobierno Vasco."
+    metodo_extraccion: download
+    probe_url: https://opendata.euskadi.eus/contenidos/informacion/w_em_descargas/es_def/adjuntos/xls/P20_c.zip
+    connector: null
+
+  - source_id: NAVARRA-ELEC
+    organismo: Gobierno de Navarra — Datos abiertos
+    dataset: Escrutinio elecciones al Parlamento de Navarra por mesa (2023)
+    categoria: electoral
+    url: https://datosabiertos.navarra.es/
+    api: Descarga CSV
+    formato: CSV
+    cobertura_territorial: Navarra
+    cobertura_historica: 2023 (otras convocatorias en NASTAT)
+    frecuencia: Por convocatoria
+    granularidad: mesa electoral
+    licencia: "CC BY 4.0"
+    restricciones: "Citar Gobierno de Navarra."
+    metodo_extraccion: download
+    probe_url: https://datosabiertos.navarra.es/dataset/be88dde7-330c-4b86-aa5c-480514608cbd/resource/56b7ce53-4881-475a-8c79-82da43cb01ed/download/escrutinio_parlamento_mesas_2023.csv
+    connector: null
+
+  - source_id: CMADRID-ELEC
+    organismo: Comunidad de Madrid — Datos abiertos
+    dataset: Datos electorales de la Asamblea de Madrid y otras convocatorias por municipio
+    categoria: electoral
+    url: https://datos.comunidad.madrid/
+    api: "CKAN API"
+    formato: CSV, JSON
+    cobertura_territorial: Comunidad de Madrid (municipio)
+    cobertura_historica: 1983– (varía por dataset)
+    frecuencia: Por convocatoria
+    granularidad: municipio
+    licencia: "CC BY 4.0"
+    restricciones: "Citar Comunidad de Madrid."
+    metodo_extraccion: api
+    probe_url: https://datos.comunidad.madrid/api/3/action/package_search?q=elecciones&rows=1
+    connector: null
+
+  - source_id: IBESTAT-ELEC
+    organismo: Institut d'Estadística de les Illes Balears (IBESTAT)
+    dataset: Participación y tipo de voto en elecciones (API eDatos)
+    categoria: electoral
+    url: https://ibestat.es/
+    api: https://ibestat.es/edatos/apis/statistical-resources/v1.0/datasets/IBESTAT/000199A_000041/1.0.csv
+    formato: CSV
+    cobertura_territorial: Illes Balears
+    cobertura_historica: Varía por dataset
+    frecuencia: Por convocatoria
+    granularidad: municipio / isla
+    licencia: "CC BY 4.0"
+    restricciones: "Citar IBESTAT."
+    metodo_extraccion: api
+    probe_url: https://ibestat.es/edatos/apis/statistical-resources/v1.0/datasets/IBESTAT/000199A_000041/1.0.csv
+    connector: null
+
+  # ─────────────────── F. POLITICAL INTELLIGENCE ───────────────────
+  - source_id: CONGRESO-DIP
+    organismo: Congreso de los Diputados — Datos abiertos
+    dataset: Diputados activos y de baja (legislatura vigente)
+    categoria: politica
+    url: https://www.congreso.es/es/opendata/diputados
+    api: "Ficheros con sello temporal en el nombre; el conector lee la página para resolver el enlace vigente"
+    formato: JSON, CSV, XML
+    cobertura_territorial: Circunscripción
+    cobertura_historica: Legislatura vigente (históricos en otras secciones)
+    frecuencia: Diaria
+    granularidad: diputado
+    licencia: "Reutilización con cita (aviso legal Congreso de los Diputados)"
+    restricciones: "Datos personales públicos de cargos electos: usar solo con fines de transparencia."
+    metodo_extraccion: scrape_link_then_download
+    probe_url: https://www.congreso.es/es/opendata/diputados
+    connector: congreso
+
+  - source_id: CONGRESO-VOT
+    organismo: Congreso de los Diputados — Datos abiertos
+    dataset: Votaciones del Pleno
+    categoria: politica
+    url: https://www.congreso.es/es/opendata/votaciones
+    api: Descarga por sesión
+    formato: JSON, XML
+    cobertura_territorial: Nacional
+    cobertura_historica: XIV legislatura en adelante (verificar)
+    frecuencia: Por sesión
+    granularidad: voto nominal por diputado
+    licencia: "Reutilización con cita"
+    restricciones: ""
+    metodo_extraccion: download
+    probe_url: https://www.congreso.es/es/opendata/votaciones
+    connector: null
+
+  - source_id: SENADO-OPENDATA
+    organismo: Senado de España
+    dataset: Catálogo de datos abiertos (senadores, composición, iniciativas)
+    categoria: politica
+    url: https://www.senado.es/web/relacionesciudadanos/datosabiertos/catalogodatos/index.html
+    api: XML
+    formato: XML
+    cobertura_territorial: Nacional
+    cobertura_historica: Varía
+    frecuencia: Diaria
+    granularidad: senador
+    licencia: "Reutilización con cita"
+    restricciones: "Respondió 403 en la verificación automática."
+    metodo_extraccion: download
+    probe_url: https://www.senado.es/web/relacionesciudadanos/datosabiertos/catalogodatos/index.html
+    connector: null
+
+  - source_id: BOE-API
+    organismo: Agencia Estatal Boletín Oficial del Estado
+    dataset: API de datos abiertos (sumarios, legislación consolidada)
+    categoria: politica
+    url: https://www.boe.es/datosabiertos/
+    api: https://www.boe.es/datosabiertos/api/
+    formato: XML, JSON
+    cobertura_territorial: Nacional
+    cobertura_historica: 1960– (sumarios)
+    frecuencia: Diaria
+    granularidad: disposición
+    licencia: "Reutilización libre con cita (aviso legal BOE)"
+    restricciones: "Requiere cabecera Accept: application/json o xml."
+    metodo_extraccion: api
+    probe_url: https://www.boe.es/datosabiertos/api/boe/sumario/20230530
+    probe_headers: {Accept: application/json}
+    connector: null
+
+  - source_id: TCU-FISC-ELEC
+    organismo: Tribunal de Cuentas
+    dataset: Informes de fiscalización de contabilidades electorales y de partidos
+    categoria: financiacion
+    url: https://www.tcu.es/tribunal-de-cuentas/es/fiscalizaciones/
+    api: "Sin API: informes PDF"
+    formato: PDF
+    cobertura_territorial: Nacional (por formación)
+    cobertura_historica: 1990s–
+    frecuencia: Por convocatoria / anual
+    granularidad: formación política
+    licencia: "Documentos públicos; reutilización con cita"
+    restricciones: "Extracción de tablas desde PDF: requiere validación manual."
+    metodo_extraccion: pdf_tables
+    probe_url: https://www.tcu.es/tribunal-de-cuentas/es/fiscalizaciones/
+    connector: null
+
+  - source_id: CIS-BAROMETROS
+    organismo: Centro de Investigaciones Sociológicas
+    dataset: Barómetros y estudios preelectorales (estimación de voto, microdatos)
+    categoria: encuestas
+    url: https://www.cis.es/
+    api: "Catálogo web; microdatos con registro gratuito"
+    formato: PDF, SAV, CSV
+    cobertura_territorial: Nacional / autonómica
+    cobertura_historica: 1979–
+    frecuencia: Mensual
+    granularidad: estudio (microdato individual anonimizado)
+    licencia: "Uso con cita del CIS; condiciones del banco de datos"
+    restricciones: "Microdatos tras registro. No re-identificar encuestados."
+    metodo_extraccion: manual_registered
+    probe_url: https://www.cis.es/
+    connector: null
+
+  - source_id: EUSKADI-SOCIOMETRO
+    organismo: Gobierno Vasco — Gabinete de Prospección Sociológica
+    dataset: Sociómetro vasco — previsión de voto autonómico (microdatos)
+    categoria: encuestas
+    url: https://opendata.euskadi.eus/
+    api: Descarga CSV/SAV
+    formato: CSV, SAV
+    cobertura_territorial: País Vasco
+    cobertura_historica: 2020–
+    frecuencia: Trimestral aprox.
+    granularidad: encuestado anonimizado
+    licencia: "CC BY 4.0"
+    restricciones: "Encuesta: no representa resultados oficiales."
+    metodo_extraccion: download
+    probe_url: https://opendata.euskadi.eus/contenidos/ds_informes_estudios/od_24sv83/opendata/24sv83_etik.sav
+    connector: null
+
+  # ───────────────────────── B. DEMOGRAFÍA ─────────────────────────
+  - source_id: INE-CODMUN
+    organismo: INE
+    dataset: Relación de municipios y sus códigos (diccionario anual)
+    categoria: geoespacial
+    url: https://www.ine.es/daco/daco42/codmun/codmun00i.htm
+    api: https://www.ine.es/daco/daco42/codmun/diccionario{AA}.xlsx
+    formato: XLSX
+    cobertura_territorial: Todos los municipios
+    cobertura_historica: Edición anual (cambios municipales en fichero aparte)
+    frecuencia: Anual
+    granularidad: municipio
+    <<: *lic_ine
+    metodo_extraccion: download
+    probe_url: https://www.ine.es/daco/daco42/codmun/diccionario25.xlsx
+    connector: ine_codmun
+
+  - source_id: INE-DPOP-CCAA
+    organismo: INE
+    dataset: Cifras oficiales de población (Padrón) por CCAA y sexo (tabla 2853)
+    categoria: demografia
+    url: https://www.ine.es/dynt3/inebase/es/index.htm?padre=517
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2853
+    formato: JSON
+    cobertura_territorial: CCAA
+    cobertura_historica: 1996–
+    frecuencia: Anual (1 de enero)
+    granularidad: CCAA
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2853?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-DPOP-PROV
+    organismo: INE
+    dataset: Cifras oficiales de población (Padrón) por provincia y sexo (tabla 2852)
+    categoria: demografia
+    url: https://www.ine.es/dynt3/inebase/es/index.htm?padre=517
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2852
+    formato: JSON
+    cobertura_territorial: Provincia
+    cobertura_historica: 1996–
+    frecuencia: Anual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2852?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-DPOP-MUN
+    organismo: INE
+    dataset: Cifras oficiales de población por municipio y sexo (tablas 2854–2905, una por provincia)
+    categoria: demografia
+    url: https://www.ine.es/dynt3/inebase/es/index.htm?padre=517
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{2854..2905}
+    formato: JSON
+    cobertura_territorial: Municipio
+    cobertura_historica: 1996–
+    frecuencia: Anual
+    granularidad: municipio
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2854?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-CENSO-2021
+    organismo: INE
+    dataset: Censo de Población 2021 — población según municipio y sexo (tabla 68065) y tablas temáticas
+    categoria: demografia
+    url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736177092
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/68065
+    formato: JSON
+    cobertura_territorial: Municipio (algunas tablas por sección)
+    cobertura_historica: 2021 (censo anual desde 2021)
+    frecuencia: Anual
+    granularidad: municipio
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/463
+    connector: null
+
+  - source_id: INE-NOMENCLATOR
+    organismo: INE
+    dataset: Nomenclátor — población del Padrón por unidad poblacional
+    categoria: demografia
+    url: https://www.ine.es/nomen2/index.do
+    api: Operación Tempus 189
+    formato: JSON
+    cobertura_territorial: Entidad singular de población
+    cobertura_historica: 2000–
+    frecuencia: Anual
+    granularidad: unidad poblacional (núcleo/diseminado)
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/189
+    connector: null
+
+  - source_id: INE-EMCR
+    organismo: INE
+    dataset: Estadística de Migraciones y Cambios de Residencia
+    categoria: demografia
+    url: https://www.ine.es/
+    api: Operación Tempus 455
+    formato: JSON
+    cobertura_territorial: Provincia / CCAA
+    cobertura_historica: 2008–
+    frecuencia: Anual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/455
+    connector: null
+
+  - source_id: INE-MNP
+    organismo: INE
+    dataset: Movimiento Natural de la Población (nacimientos, defunciones)
+    categoria: demografia
+    url: https://www.ine.es/
+    api: Operación Tempus 311
+    formato: JSON
+    cobertura_territorial: Provincia
+    cobertura_historica: 1975–
+    frecuencia: Anual / semestral
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/311
+    connector: null
+
+  - source_id: INE-PERE
+    organismo: INE
+    dataset: Padrón de españoles residentes en el extranjero (relevante para voto CERA)
+    categoria: demografia
+    url: https://www.ine.es/
+    api: Operación Tempus 230
+    formato: JSON
+    cobertura_territorial: Provincia de inscripción / país de residencia
+    cobertura_historica: 2009–
+    frecuencia: Anual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/230
+    connector: null
+
+  - source_id: EUROSTAT-POP-NUTS3
+    organismo: Eurostat
+    dataset: Population on 1 January by broad age group, sex and NUTS 3 (demo_r_pjanaggr3)
+    categoria: demografia
+    url: https://ec.europa.eu/eurostat/databrowser/view/demo_r_pjanaggr3/default/table
+    api: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_r_pjanaggr3
+    formato: JSON-stat
+    cobertura_territorial: NUTS3 (= provincia, islas en Canarias/Baleares)
+    cobertura_historica: 1990–
+    frecuencia: Anual
+    granularidad: NUTS3
+    licencia: "CC BY 4.0 (política de reutilización de la Comisión Europea)"
+    restricciones: "NUTS3 insular en Canarias y Baleares no coincide 1:1 con provincia."
+    metodo_extraccion: api
+    probe_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_r_pjanaggr3?geo=ES300&format=JSON&lang=EN
+    connector: eurostat
+
+  # ───────────────────────── C. ECONOMÍA ─────────────────────────
+  - source_id: INE-ADRH
+    organismo: INE
+    dataset: Atlas de Distribución de Renta de los Hogares (renta media/mediana; municipio, distrito y sección)
+    categoria: economia
+    url: https://www.ine.es/experimental/atlas/experimental_atlas.htm
+    api: "Tempus operación 353 (una tabla por provincia, p. ej. 30824)"
+    formato: JSON
+    cobertura_territorial: Municipio, distrito, sección censal
+    cobertura_historica: 2015–
+    frecuencia: Anual
+    granularidad: sección censal
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/353
+    connector: null
+
+  - source_id: INE-CRE-PIB
+    organismo: INE
+    dataset: Contabilidad Regional — PIB y PIB per cápita por CCAA y provincia (tablas 82284/82285)
+    categoria: economia
+    url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736167628
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/82285
+    formato: JSON
+    cobertura_territorial: CCAA, provincia
+    cobertura_historica: 2000–
+    frecuencia: Anual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/82285?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-EPA-PARO-CCAA
+    organismo: INE
+    dataset: EPA — tasas de paro por edad, sexo y CCAA (tabla 14506)
+    categoria: economia
+    url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736176918
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/14506
+    formato: JSON
+    cobertura_territorial: CCAA
+    cobertura_historica: 2002–
+    frecuencia: Trimestral
+    granularidad: CCAA
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/14506?nult=1
+    connector: ine_tempus
+
+  - source_id: EUROSTAT-UNEMP-NUTS2
+    organismo: Eurostat
+    dataset: Unemployment rates by sex, age and NUTS 2 (lfst_r_lfu3rt)
+    categoria: economia
+    url: https://ec.europa.eu/eurostat/databrowser/view/lfst_r_lfu3rt/default/table
+    api: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfst_r_lfu3rt
+    formato: JSON-stat
+    cobertura_territorial: NUTS2 (= CCAA)
+    cobertura_historica: 1999–
+    frecuencia: Anual
+    granularidad: NUTS2
+    licencia: "CC BY 4.0"
+    restricciones: ""
+    metodo_extraccion: api
+    probe_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfst_r_lfu3rt?geo=ES30&format=JSON&lang=EN
+    connector: eurostat
+
+  - source_id: EUROSTAT-GDP-NUTS3
+    organismo: Eurostat
+    dataset: GDP at current market prices by NUTS 3 (nama_10r_3gdp)
+    categoria: economia
+    url: https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table
+    api: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_3gdp
+    formato: JSON-stat
+    cobertura_territorial: NUTS3
+    cobertura_historica: 2000–
+    frecuencia: Anual
+    granularidad: NUTS3
+    licencia: "CC BY 4.0"
+    restricciones: ""
+    metodo_extraccion: api
+    probe_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10r_3gdp?geo=ES300&unit=EUR_HAB&format=JSON&lang=EN
+    connector: eurostat
+
+  - source_id: INE-DIRCE
+    organismo: INE
+    dataset: Directorio Central de Empresas — empresas por provincia y estrato de asalariados (tabla 39374)
+    categoria: economia
+    url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736160707
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/39374
+    formato: JSON
+    cobertura_territorial: Provincia
+    cobertura_historica: 1999–
+    frecuencia: Anual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/39374?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-EAES
+    organismo: INE
+    dataset: Encuesta Anual de Estructura Salarial (salarios por CCAA)
+    categoria: economia
+    url: https://www.ine.es/
+    api: Operación Tempus 140
+    formato: JSON
+    cobertura_territorial: CCAA
+    cobertura_historica: 2008–
+    frecuencia: Anual
+    granularidad: CCAA
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/140
+    connector: null
+
+  - source_id: SEPE-PARO-MUN
+    organismo: Servicio Público de Empleo Estatal
+    dataset: Paro registrado y contratos por municipio (mensual)
+    categoria: economia
+    url: https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas/datos-estadisticos/municipios.html
+    api: "Ficheros XLS/CSV mensuales enlazados desde la página"
+    formato: XLS, CSV
+    cobertura_territorial: Municipio
+    cobertura_historica: 2006–
+    frecuencia: Mensual
+    granularidad: municipio
+    licencia: "Reutilización con cita (aviso legal SEPE)"
+    restricciones: "Paro registrado ≠ paro EPA (definiciones distintas)."
+    metodo_extraccion: scrape_link_then_download
+    probe_url: https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas/datos-estadisticos/municipios.html
+    connector: null
+
+  - source_id: SEGSOC-AFILIACION
+    organismo: Seguridad Social
+    dataset: Afiliación media por municipio y régimen (incluye autónomos/RETA)
+    categoria: economia
+    url: https://www.seg-social.es/wps/portal/wss/internet/EstadisticasPresupuestosEstudios/Estadisticas
+    api: "Ficheros XLSX mensuales"
+    formato: XLSX
+    cobertura_territorial: Municipio (por lugar de cuenta de cotización)
+    cobertura_historica: 2009–
+    frecuencia: Mensual
+    granularidad: municipio
+    licencia: "Reutilización con cita"
+    restricciones: "Afiliación por centro de trabajo, no por residencia."
+    metodo_extraccion: scrape_link_then_download
+    probe_url: https://www.seg-social.es/wps/portal/wss/internet/EstadisticasPresupuestosEstudios/Estadisticas
+    connector: null
+
+  - source_id: BDE-BOLETIN
+    organismo: Banco de España
+    dataset: Boletín Estadístico — series en CSV (p. ej. be1901 tipos de interés/hipotecas)
+    categoria: economia
+    url: https://www.bde.es/webbe/es/estadisticas/
+    api: https://www.bde.es/webbe/es/estadisticas/compartido/datos/csv/{serie}.csv
+    formato: CSV
+    cobertura_territorial: Nacional (algunas por CCAA)
+    cobertura_historica: Variable por serie
+    frecuencia: Mensual
+    granularidad: nacional / CCAA
+    licencia: "Reutilización con cita (aviso legal Banco de España)"
+    restricciones: ""
+    metodo_extraccion: download
+    probe_url: https://www.bde.es/webbe/es/estadisticas/compartido/datos/csv/be1901.csv
+    connector: null
+
+  # ─────────────────── D. VIVIENDA ───────────────────
+  - source_id: INE-IPV
+    organismo: INE
+    dataset: Índice de Precios de Vivienda (nueva/usada, por CCAA)
+    categoria: vivienda
+    url: https://www.ine.es/
+    api: Operación Tempus 15
+    formato: JSON
+    cobertura_territorial: CCAA
+    cobertura_historica: 2007–
+    frecuencia: Trimestral
+    granularidad: CCAA
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/15
+    connector: null
+
+  - source_id: INE-IPVA-MUN
+    organismo: INE
+    dataset: Índice de Precios de Vivienda en Alquiler por municipio >10.000 hab. (tabla 59060)
+    categoria: vivienda
+    url: https://www.ine.es/
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59060
+    formato: JSON
+    cobertura_territorial: Municipio (>10.000 hab.), provincia, CCAA
+    cobertura_historica: 2015–
+    frecuencia: Anual
+    granularidad: municipio
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/59060?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-HIPOTECAS
+    organismo: INE
+    dataset: Estadística de Hipotecas (por provincia)
+    categoria: vivienda
+    url: https://www.ine.es/
+    api: Operación Tempus 40
+    formato: JSON
+    cobertura_territorial: Provincia
+    cobertura_historica: 2003–
+    frecuencia: Mensual
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/40
+    connector: null
+
+  - source_id: INE-EJEC-HIPOT
+    organismo: INE
+    dataset: Ejecuciones hipotecarias sobre viviendas por provincia (tabla 10744)
+    categoria: vivienda
+    url: https://www.ine.es/
+    api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/10744
+    formato: JSON
+    cobertura_territorial: Provincia
+    cobertura_historica: 2014–
+    frecuencia: Trimestral
+    granularidad: provincia
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/10744?nult=1
+    connector: ine_tempus
+
+  - source_id: INE-CENSO-VIV
+    organismo: INE
+    dataset: Censo de Viviendas 2021 (principales, no principales, régimen de tenencia)
+    categoria: vivienda
+    url: https://www.ine.es/censos2021/
+    api: Operación Tempus 463 (tablas de viviendas)
+    formato: JSON
+    cobertura_territorial: Municipio
+    cobertura_historica: 2011, 2021
+    frecuencia: Decenal
+    granularidad: municipio
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/463
+    connector: null
+
+  - source_id: MIVAU-VIVIENDA
+    organismo: Ministerio de Vivienda y Agenda Urbana
+    dataset: Valor tasado, transacciones inmobiliarias y vivienda libre
+    categoria: vivienda
+    url: https://www.mivau.gob.es/vivienda/estadisticas
+    api: "Ficheros XLS"
+    formato: XLS
+    cobertura_territorial: Municipio >25.000 hab., provincia
+    cobertura_historica: 1995–
+    frecuencia: Trimestral
+    granularidad: municipio
+    licencia: "Reutilización con cita"
+    restricciones: "Respondió 403 a la verificación automática (protección anti-bot)."
+    metodo_extraccion: manual_landing
+    probe_url: https://www.mivau.gob.es/vivienda/estadisticas
+    connector: null
+
+  - source_id: CGPJ-LANZAMIENTOS
+    organismo: Consejo General del Poder Judicial
+    dataset: Efectos de la crisis en los órganos judiciales — lanzamientos (desahucios) por TSJ/provincia
+    categoria: vivienda
+    url: https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/
+    api: "Ficheros XLS trimestrales"
+    formato: XLS
+    cobertura_territorial: CCAA / provincia
+    cobertura_historica: 2013–
+    frecuencia: Trimestral
+    granularidad: provincia
+    licencia: "Reutilización con cita"
+    restricciones: "Lanzamientos practicados ≠ hogares desahuciados."
+    metodo_extraccion: download
+    probe_url: https://www.poderjudicial.es/cgpj/es/Temas/Estadistica-Judicial/
+    connector: null
+
+  # ─────────────────── E. SEGURIDAD ───────────────────
+  - source_id: MIR-BALANCE-CRIM
+    organismo: Ministerio del Interior
+    dataset: Balance de Criminalidad trimestral (municipios >20.000 hab., provincias, CCAA)
+    categoria: seguridad
+    url: https://www.interior.gob.es/opencms/es/prensa/balances-e-informes/
+    api: "Ficheros XLS/PDF trimestrales"
+    formato: XLS, PDF
+    cobertura_territorial: Municipio >20.000 hab., provincia, isla
+    cobertura_historica: 2016–
+    frecuencia: Trimestral
+    granularidad: municipio
+    licencia: "Reutilización con cita"
+    restricciones: "Criminalidad REGISTRADA (conocida por FCS), no victimización ni percepción. Anti-bot (403)."
+    metodo_extraccion: manual_landing
+    probe_url: https://www.interior.gob.es/opencms/es/prensa/balances-e-informes/
+    connector: null
+
+  - source_id: MIR-PORTAL-CRIM
+    organismo: Ministerio del Interior — Secretaría de Estado de Seguridad
+    dataset: Portal Estadístico de Criminalidad (series anuales por tipología)
+    categoria: seguridad
+    url: https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/
+    api: "Consultas web exportables"
+    formato: XLS, CSV
+    cobertura_territorial: Provincia, CCAA
+    cobertura_historica: 2010–
+    frecuencia: Anual
+    granularidad: provincia
+    licencia: "Reutilización con cita"
+    restricciones: "Criminalidad registrada."
+    metodo_extraccion: manual_export
+    probe_url: https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/
+    connector: null
+
+  - source_id: INE-CONDENADOS
+    organismo: INE
+    dataset: Estadística de Condenados Adultos (por CCAA)
+    categoria: seguridad
+    url: https://www.ine.es/
+    api: Operación Tempus 213
+    formato: JSON
+    cobertura_territorial: CCAA
+    cobertura_historica: 2013–
+    frecuencia: Anual
+    granularidad: CCAA
+    <<: *lic_ine
+    metodo_extraccion: api
+    probe_url: https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/213
+    connector: null
+
+  - source_id: DGT-SINIESTRALIDAD
+    organismo: Dirección General de Tráfico
+    dataset: Microdatos de accidentes con víctimas (anonimizados) y fallecidos
+    categoria: seguridad
+    url: https://www.dgt.es/menusecundario/dgt-en-cifras/
+    api: "Ficheros anuales"
+    formato: XLSX, CSV
+    cobertura_territorial: Provincia / municipio
+    cobertura_historica: 2011–
+    frecuencia: Anual
+    granularidad: accidente (anonimizado)
+    licencia: "Reutilización con cita"
+    restricciones: ""
+    metodo_extraccion: download
+    probe_url: https://www.dgt.es/menusecundario/dgt-en-cifras/
+    connector: null
+
+  # ─────────────────── GEOESPACIAL ───────────────────
+  - source_id: INE-SECCIONADO
+    organismo: INE
+    dataset: Cartografía digitalizada de secciones censales (seccionado anual)
+    categoria: geoespacial
+    url: https://www.ine.es/ss/Satellite?c=Page&cid=1259952026632
+    api: https://www.ine.es/prodyser/cartografia/seccionado_{AAAA}.zip
+    formato: ZIP (Shapefile)
+    cobertura_territorial: Todo el territorio — sección censal (agregable a distrito, municipio, provincia, CCAA)
+    cobertura_historica: 2011– (una edición anual; secciones cambian entre años)
+    frecuencia: Anual
+    granularidad: sección censal
+    <<: *lic_ine
+    metodo_extraccion: download
+    probe_url: https://www.ine.es/prodyser/cartografia/seccionado_2024.zip
+    connector: ine_seccionado
+
+  - source_id: GISCO-LAU
+    organismo: Eurostat GISCO
+    dataset: Local Administrative Units (LAU) 2021 — límites municipales
+    categoria: geoespacial
+    url: https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units
+    api: https://gisco-services.ec.europa.eu/distribution/v2/lau/geojson/LAU_RG_01M_2021_4326.geojson
+    formato: GeoJSON
+    cobertura_territorial: Europa (incluye municipios de España)
+    cobertura_historica: 2011–2021
+    frecuencia: Anual
+    granularidad: municipio
+    licencia: "© EuroGeographics para límites administrativos; uso no comercial con atribución"
+    restricciones: "Condiciones EuroGeographics: verificar para usos comerciales."
+    metodo_extraccion: download
+    probe_url: https://gisco-services.ec.europa.eu/distribution/v2/lau/geojson/LAU_RG_01M_2021_4326.geojson
+    connector: null
+
+  - source_id: GISCO-NUTS
+    organismo: Eurostat GISCO
+    dataset: NUTS 2021 nivel 3 (provincias/islas)
+    categoria: geoespacial
+    url: https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics
+    api: https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_01M_2021_4326_LEVL_3.geojson
+    formato: GeoJSON
+    cobertura_territorial: Europa
+    cobertura_historica: 2003–2024
+    frecuencia: Trienal
+    granularidad: NUTS3
+    licencia: "© EuroGeographics; uso con atribución"
+    restricciones: "Ídem GISCO-LAU."
+    metodo_extraccion: download
+    probe_url: https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_20M_2021_4326_LEVL_3.geojson
+    connector: null
+
+  - source_id: CNIG-LINEAS-LIMITE
+    organismo: Instituto Geográfico Nacional — CNIG
+    dataset: Líneas límite municipales, provinciales y autonómicas (BDLJE)
+    categoria: geoespacial
+    url: https://centrodedescargas.cnig.es/CentroDescargas/index.jsp
+    api: "Centro de descargas (formulario; sin URL directa estable)"
+    formato: Shapefile
+    cobertura_territorial: España — límites jurisdiccionales oficiales
+    cobertura_historica: Edición vigente
+    frecuencia: Continua
+    granularidad: municipio
+    licencia: "CC BY 4.0 (IGN/CNIG: 'scne.es')"
+    restricciones: "Descarga mediante formulario web: carga manual en data/landing/cnig/."
+    metodo_extraccion: manual_landing
+    probe_url: https://centrodedescargas.cnig.es/CentroDescargas/index.jsp
+    connector: null
+
+  # ─────────────────── G. DIGITAL / MEDIOS ───────────────────
+  - source_id: GDELT-DOC
+    organismo: The GDELT Project
+    dataset: DOC 2.0 API — volumen y tono de cobertura mediática (filtro sourcecountry:spain)
+    categoria: digital
+    url: https://www.gdeltproject.org/
+    api: https://api.gdeltproject.org/api/v2/doc/doc
+    formato: JSON
+    cobertura_territorial: Medios con país de origen España
+    cobertura_historica: Últimos ~3 meses (DOC API)
+    frecuencia: 15 minutos
+    granularidad: artículo / serie temporal
+    licencia: "Uso libre con cita de GDELT"
+    restricciones: "Mide COBERTURA mediática, no opinión pública. Sesgo por medios indexados."
+    metodo_extraccion: api
+    probe_url: https://api.gdeltproject.org/api/v2/doc/doc?query=elecciones%20sourcecountry:spain&mode=timelinevol&format=json&timespan=1w
+    connector: null
+
+  - source_id: WIKIMEDIA-PAGEVIEWS
+    organismo: Wikimedia Foundation
+    dataset: Pageviews API (es.wikipedia) para partidos y candidatos
+    categoria: digital
+    url: https://wikimedia.org/api/rest_v1/
+    api: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/user/{articulo}/daily/{inicio}/{fin}
+    formato: JSON
+    cobertura_territorial: Global (idioma español; no geolocalizado)
+    cobertura_historica: 2015–
+    frecuencia: Diaria
+    granularidad: artículo-día
+    licencia: "CC0 (datos de pageviews)"
+    restricciones: "Atención informativa, no intención de voto. Requiere User-Agent identificable."
+    metodo_extraccion: api
+    probe_url: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/es.wikipedia/all-access/user/Partido_Popular/monthly/20240101/20240301
+    connector: null
+
+  - source_id: GOOGLE-TRENDS
+    organismo: Google
+    dataset: Google Trends (interés de búsqueda relativo)
+    categoria: digital
+    url: https://trends.google.com/
+    api: "Sin API pública general; API oficial en alfa con acceso por solicitud"
+    formato: JSON/CSV
+    cobertura_territorial: España, CCAA
+    cobertura_historica: 2004–
+    frecuencia: Diaria
+    granularidad: región
+    licencia: "Términos de servicio de Google"
+    restricciones: "Índice relativo 0–100, no volumen absoluto. No se usa scraping no autorizado."
+    metodo_extraccion: pending_authorized_access
+    probe_url: https://trends.google.com/trends/
+    connector: null
+
+  - source_id: YOUTUBE-DATA
+    organismo: Google — YouTube Data API v3
+    dataset: Metadatos y estadísticas de vídeos/canales de partidos y medios
+    categoria: digital
+    url: https://developers.google.com/youtube/v3
+    api: https://www.googleapis.com/youtube/v3/
+    formato: JSON
+    cobertura_territorial: Global
+    cobertura_historica: Según contenido
+    frecuencia: Bajo demanda (cuota diaria)
+    granularidad: vídeo / canal
+    licencia: "Términos de la API de YouTube"
+    restricciones: "Requiere API key. Audiencia de plataforma ≠ electorado."
+    metodo_extraccion: pending_api_key
+    probe_url: https://www.googleapis.com/youtube/v3/search
+    connector: null
+
+  - source_id: REDDIT-API
+    organismo: Reddit
+    dataset: Data API (subreddits r/spain, r/askspain, etc.)
+    categoria: digital
+    url: https://www.reddit.com/dev/api/
+    api: https://oauth.reddit.com/
+    formato: JSON
+    cobertura_territorial: Global
+    cobertura_historica: Limitada
+    frecuencia: Bajo demanda
+    granularidad: publicación
+    licencia: "Reddit Data API Terms"
+    restricciones: "Requiere OAuth y aceptación de términos; acceso anónimo devuelve 403. Usuarios no representativos."
+    metodo_extraccion: pending_oauth
+    probe_url: https://www.reddit.com/r/spain/new.json?limit=1
+    connector: null
+
+  - source_id: RTVE-RSS
+    organismo: RTVE
+    dataset: Feeds RSS de noticias (política, España)
+    categoria: digital
+    url: https://www.rtve.es/rss/
+    api: RSS
+    formato: XML (RSS)
+    cobertura_territorial: Nacional
+    cobertura_historica: Solo últimas entradas
+    frecuencia: Continua
+    granularidad: titular
+    licencia: "Uso de titulares/enlaces según aviso legal RTVE"
+    restricciones: "Almacenar titular y enlace, no el texto completo."
+    metodo_extraccion: rss
+    probe_url: https://api2.rtve.es/rss/temas_espana.xml
+    connector: null

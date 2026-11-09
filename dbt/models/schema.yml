@@ -1,0 +1,56 @@
+version: 2
+
+seeds:
+  - name: election_dates
+    description: Fechas de votación (generado desde config/elections.yaml).
+    config:
+      column_types: {election_id: varchar, fecha: varchar}
+
+models:
+  - name: ref_ccaa
+    description: Comunidades y ciudades autónomas (código INE).
+    columns:
+      - name: ccaa_ine
+        tests: [unique, not_null]
+
+  - name: ref_provincia
+    description: Provincias con su comunidad autónoma.
+    columns:
+      - name: provincia_ine
+        tests: [unique, not_null]
+      - name: ccaa_ine
+        tests: [not_null]
+
+  - name: dim_municipality
+    description: Municipios con vigencia observada en los diccionarios anuales del INE.
+    columns:
+      - name: municipio_ine
+        tests: [unique, not_null]
+      - name: provincia_ine
+        tests:
+          - relationships: {to: ref('ref_provincia'), field: provincia_ine}
+
+  - name: fact_population
+    description: Cifras oficiales de población (Padrón). Grano territorio × año × sexo.
+    tests:
+      - dbt_utils_free_unique_combination:
+          columns: [geo_id, anyo, sexo]
+    columns:
+      - name: poblacion
+        tests: [not_null]
+
+  - name: dim_geography
+    description: GEOGRAPHIC MASTER REGISTRY (atributos).
+    columns:
+      - name: geo_id
+        tests: [unique, not_null]
+      - name: geo_type
+        tests:
+          - accepted_values:
+              arguments: {values: [pais, ccaa, provincia, municipio, distrito, seccion]}
+
+  - name: dim_data_source
+    description: Catálogo de fuentes verificado (DATA_SOURCE_REGISTRY.csv).
+    columns:
+      - name: source_id
+        tests: [unique, not_null]
