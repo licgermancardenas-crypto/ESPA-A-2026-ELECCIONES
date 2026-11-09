@@ -37,7 +37,7 @@ def run_dbt(args: list[str], dbt_vars: dict) -> int:
     return subprocess.run(cmd, cwd=DBT_DIR, env=env).returncode
 
 
-def main() -> int:
+def main(skip_geo: bool = False) -> int:
     paths.ensure_dirs()
     dbt_vars = {
         "bronze_root": str(paths.BRONZE).replace("\\", "/"),
@@ -47,7 +47,7 @@ def main() -> int:
     }
     print("Datasets presentes:", {k: v for k, v in dbt_vars.items() if k.startswith("has_")})
 
-    if dbt_vars["has_seccionado"]:
+    if dbt_vars["has_seccionado"] and not skip_geo:
         from atlas_spain.geo.build_geo import build as build_geo
         print("Geo:", build_geo())
 

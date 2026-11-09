@@ -22,8 +22,8 @@ BASE = "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{tabla}?nult={nult}&
 TABLES: dict[str, dict] = {
     "INE-DPOP-CCAA": {"tables": [2853], "nult": 60},
     "INE-DPOP-PROV": {"tables": [2852], "nult": 60},
-    "INE-DPOP-MUN": {"tables": list(range(2854, 2906)), "nult": 60},
-    "INE-OCE": {"tables": [80107], "nult": 20},
+    # Una tabla por provincia; los IDs NO son correlativos -> se resuelven del catálogo.
+    "INE-DPOP-MUN": {"operation": 22, "name_contains": "Población por municipios y sexo", "nult": 60},
     "INE-CRE-PIB": {"tables": [82285, 82284], "nult": 40},
     "INE-EPA-PARO-CCAA": {"tables": [14506], "nult": 120},
     "INE-DIRCE": {"tables": [39374], "nult": 40},
@@ -67,9 +67,22 @@ def tidy(payload: list[dict], tabla: int) -> pd.DataFrame:
     return df
 
 
+# Tablas demasiado grandes para la API ("restricciones de volumen"): descarga CSV oficial.
+CSV_TABLES: dict[str, list[int]] = {"INE-OCE": [80107]}
+CSV_URL = "https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/{tabla}.csv"
+OPS_URL = "https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/{op}"
+
+
+def resolve_tables(cfg: dict) -> list[int]:
+    if "tables" in cfg:
+        return cfg["tables"]
+    cat = json.loads(fetch(OPS_URL.format(op=cfg["operation"]), timeout=60).content)
+    return sorted(t["Id"] for t in cat if cfg["name_contains"].lower() in t["Nombre"].lower())
+
+
 def extract(ex: Execution, source_id: str | None = None, tables: list[int] | None = None) -> str | None:
     cfg = TABLES[source_id or ex.source_id]
-    tabs = tables or cfg["tables"]
+    tabs = tables or resolve_tables(cfg)
     frames = []
     for t in tabs:
         try:
@@ -88,3 +101,30 @@ def extract(ex: Execution, source_id: str | None = None, tables: list[int] | Non
     for df in frames:
         ex.save_parquet(f"tabla_{int(df['tabla'].iloc[0])}", df)
     return "partial" if ex.errors else None
+
+
+_CODE_NAME = re.compile(r"^(\d{2,5})\s+(.*)$")
+
+
+def extract_csv(ex: Execution) -> str | None:
+    """CSV 'bdsc' del INE: separador ';', miles con '.', decimales con ','.
+    Las columnas territoriales vienen como '28079 Madrid' -> se separan código y nombre."""
+    import io
+    for t in CSV_TABLES[ex.source_id]:
+        r = fetch(CSV_URL.format(tabla=t), timeout=600)
+        ex.save_raw(f"tabla_{t}.csv", r.content)
+        df = pd.read_csv(io.BytesIO(r.content), sep=";", dtype=str, encoding="utf-8-sig")
+        ex.records_downloaded += len(df)
+        df.columns = [slug(c) for c in df.columns]
+        for c in list(df.columns):
+            if c in ("total", "periodo"):
+                continue
+            ext = df[c].str.extract(_CODE_NAME)
+            if ext[0].notna().any():
+                df[f"{c}__cod"] = ext[0]
+                df[c] = ext[1].where(ext[0].notna(), df[c])
+        df["valor"] = pd.to_numeric(df.pop("total").str.replace(".", "", regex=False)
+                                    .str.replace(",", ".", regex=False), errors="coerce")
+        df["tabla"] = t
+        ex.save_parquet(f"tabla_{t}", df)
+    return None

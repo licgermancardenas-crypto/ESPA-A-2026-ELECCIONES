@@ -28,13 +28,18 @@ models:
         tests: [unique, not_null]
       - name: provincia_ine
         tests:
-          - relationships: {to: ref('ref_provincia'), field: provincia_ine}
+          - relationships:
+              arguments: {to: ref('ref_provincia'), field: provincia_ine}
+
+  - name: population_normalized
+    description: Población normalizada (silver).
 
   - name: fact_population
     description: Cifras oficiales de población (Padrón). Grano territorio × año × sexo.
     tests:
       - dbt_utils_free_unique_combination:
-          columns: [geo_id, anyo, sexo]
+          arguments:
+            columns: [geo_id, anyo, sexo]
     columns:
       - name: poblacion
         tests: [not_null]

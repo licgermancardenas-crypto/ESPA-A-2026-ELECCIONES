@@ -100,9 +100,9 @@ def population(geo_id: str):
 
 @app.get("/tables")
 def tables():
-    return _rows(f"""select table_schema, table_name, estimated_size as filas
-                     from duckdb_tables() where table_schema in {ALLOWED_SCHEMAS}
-                     order by table_schema, table_name""")
+    return _rows(f"""select schema_name, table_name, estimated_size as filas
+                     from duckdb_tables() where schema_name in {ALLOWED_SCHEMAS}
+                     order by schema_name, table_name""")
 
 
 class SqlQuery(BaseModel):

@@ -12,7 +12,7 @@ DATA = Path(os.environ.get("ATLAS_DATA", ROOT / "data"))
 LANDING = DATA / "landing"      # ficheros dejados a mano (fuentes con anti-bot o formularios)
 BRONZE = DATA / "bronze"        # ficheros originales + parquet "tal cual" por ejecución
 WAREHOUSE_DIR = DATA / "warehouse"
-WAREHOUSE = WAREHOUSE_DIR / "atlas.duckdb"
+WAREHOUSE = Path(os.environ.get("ATLAS_WAREHOUSE", WAREHOUSE_DIR / "atlas.duckdb"))
 OPS = DATA / "ops"              # log de ejecuciones en JSONL (además de la tabla ops.executions)
 
 

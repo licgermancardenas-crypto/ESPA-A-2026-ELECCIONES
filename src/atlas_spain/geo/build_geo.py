@@ -42,9 +42,18 @@ def _latest_seccionado() -> tuple[gpd.GeoDataFrame, int]:
 
 
 def _dissolve(gdf: gpd.GeoDataFrame, key: str) -> gpd.GeoDataFrame:
-    out = gdf[[key, "geometry"]].dissolve(by=key, as_index=False)
-    out["geometry"] = shapely.make_valid(out.geometry.values)
-    return out
+    """Unión por grupos. El seccionado es una cobertura (sin solapes), así que
+    coverage_union_all es órdenes de magnitud más rápido que unary_union."""
+    keys, geoms = [], []
+    for k, grp in gdf.groupby(key, sort=True):
+        g = grp.geometry.values
+        try:
+            u = shapely.coverage_union_all(g)
+        except Exception:
+            u = shapely.union_all(g)
+        keys.append(k)
+        geoms.append(shapely.make_valid(u))
+    return gpd.GeoDataFrame({key: keys}, geometry=geoms, crs=gdf.crs)
 
 
 def _simplify_coverage(gdf: gpd.GeoDataFrame, tol: float) -> gpd.GeoSeries:

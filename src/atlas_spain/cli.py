@@ -30,7 +30,9 @@ def _infoelectoral_runner(tipo: str):
 def connectors() -> dict:
     reg = {}
     for sid in ine_tempus.TABLES:
-        reg[sid] = lambda s, **_: runner.run(s, "ine_tempus", ine_tempus.extract)
+        reg[sid] = lambda s, tables=None, **_: runner.run(s, "ine_tempus", ine_tempus.extract, tables=tables)
+    for sid in ine_tempus.CSV_TABLES:
+        reg[sid] = lambda s, **_: runner.run(s, "ine_csv", ine_tempus.extract_csv)
     for sid in eurostat.DATASETS:
         reg[sid] = lambda s, **_: runner.run(s, "eurostat", eurostat.extract)
     reg["INE-CODMUN"] = lambda s, **_: runner.run(s, "diccionario_municipios", ine_files.extract_codmun)
@@ -55,6 +57,8 @@ def cmd_ingest(args) -> int:
             kw["convocatorias"] = args.convocatorias
         if args.niveles:
             kw["niveles"] = args.niveles
+        if args.tablas:
+            kw["tables"] = [int(t) for t in args.tablas]
         ex = reg[sid](sid, **kw)
         print(f"[{ex.status:>17}] {sid:<22} desc={ex.records_downloaded:>9} proc={ex.records_processed:>9} "
               f"err={ex.errors} {ex.duration_s}s  id={ex.execution_id}")
@@ -77,7 +81,7 @@ def cmd_registry(args) -> int:
 
 def cmd_build(args) -> int:
     from atlas_spain.warehouse import build
-    return build.main()
+    return build.main(skip_geo=args.skip_geo)
 
 
 def cmd_quality(args) -> int:
@@ -109,7 +113,9 @@ def main(argv=None) -> int:
     i.add_argument("--all", action="store_true")
     i.add_argument("--convocatorias", nargs="*")
     i.add_argument("--niveles", nargs="*", choices=["MUNI", "MESA"])
-    sub.add_parser("build")
+    i.add_argument("--tablas", nargs="*", help="INE: limitar a estas tablas (re-ingesta parcial)")
+    b = sub.add_parser("build")
+    b.add_argument("--skip-geo", action="store_true", help="no recalcular geometrías")
     sub.add_parser("quality")
     sub.add_parser("status")
     args = p.parse_args(argv)

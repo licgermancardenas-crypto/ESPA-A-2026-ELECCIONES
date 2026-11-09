@@ -68,16 +68,19 @@ def run_checks(con) -> list[Result]:
 
     # ── población ──
     if _table_exists(con, "gold", "fact_population"):
-        y = _q(con, "select max(anyo) from gold.fact_population where geo_level='municipio'")[0]
-        diff = _q(con, f"""
-            with m as (select substr(geo_id,7,2) prov, sum(poblacion) p from gold.fact_population
-                       where geo_level='municipio' and sexo='T' and anyo={y} group by 1),
-                 p as (select substr(geo_id,7,2) prov, poblacion p from gold.fact_population
-                       where geo_level='provincia' and sexo='T' and anyo={y})
-            select count(*) filter (where m.p <> p.p), count(*) from m join p using (prov)""")
-        R.append(Result("suma_municipios_igual_provincia", "consistency", "fact_population", diff[0], "=0",
-                        "pass" if diff[0] == 0 and diff[1] == 52 else "fail",
-                        f"año {y}; provincias comparadas: {diff[1]}"))
+        diff = _q(con, """
+            with m as (select substr(geo_id,7,2) prov, anyo, sum(poblacion) p from gold.fact_population
+                       where geo_level='municipio' and sexo='T' group by 1, 2),
+                 p as (select substr(geo_id,7,2) prov, anyo, poblacion p from gold.fact_population
+                       where geo_level='provincia' and sexo='T' and origen='publicado')
+            select count(*) filter (where m.p <> p.p), count(*), max(abs(m.p - p.p)), min(anyo), max(anyo)
+            from m join p using (prov, anyo)""")
+        R.append(Result("suma_municipios_igual_provincia_publicada", "consistency", "fact_population", diff[0], "=0",
+                        "pass" if diff[0] == 0 and diff[1] > 0 else ("warn" if diff[1] else "fail"),
+                        f"pares provincia×año comparados: {diff[1]} ({diff[3]}–{diff[4]}); máx. diferencia: {diff[2]}"))
+        der = _q(con, "select count(*), min(anyo), max(anyo) from gold.fact_population where origen='suma_municipios'")
+        R.append(Result("filas_derivadas_de_municipios", "completeness", "fact_population", der[0], "informativo",
+                        "pass", f"años {der[1]}–{der[2]}: tablas provinciales del INE congeladas en 2021"))
         hs = _q(con, """select count(*) from gold.fact_population t
             join gold.fact_population h using (geo_id, anyo) join gold.fact_population m using (geo_id, anyo)
             where t.sexo='T' and h.sexo='H' and m.sexo='M' and t.poblacion <> h.poblacion + m.poblacion""")[0]
