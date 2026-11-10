@@ -16,6 +16,7 @@ vars:
   has_seccionado: false
   has_euskadi: false
   has_cmadrid: false
+  has_adrh: false
 
 models:
   atlas_spain:
