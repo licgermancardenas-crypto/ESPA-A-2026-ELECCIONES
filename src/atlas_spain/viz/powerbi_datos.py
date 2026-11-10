@@ -369,8 +369,11 @@ def exportar() -> dict:
 
     if not res_reg.empty:
         def etiqueta(e):
-            t, yy = e.split("-")[1][0], int(e.split("-")[1][1:])
-            anyo = 1900 + yy if yy > 50 else 2000 + yy
+            region, cod = e.split("-", 1)
+            t, num = cod[0], int(cod[1:])
+            anyo = num if num > 1900 else (1900 + num if num > 50 else 2000 + num)
+            if region == "MAD":
+                return f"Asamblea de Madrid {anyo}"
             return ("Parlamento Vasco " if t == "P" else "Congreso (en Euskadi) ") + str(anyo)
         for df in (res_reg, part_reg):
             df["convocatoria"] = df["election_id"].map(etiqueta)

@@ -35,6 +35,22 @@ Filas (estimadas): 62
 | `ultima_extraccion_estado` | VARCHAR |  |
 | `probe_url` | VARCHAR |  |
 
+## `gold.dim_election`
+
+Convocatorias electorales cargadas.
+
+Filas (estimadas): 9
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `tipo_eleccion` | VARCHAR |  |
+| `election_type` | VARCHAR |  |
+| `anno` | INTEGER |  |
+| `mes` | INTEGER |  |
+| `fecha` | DATE |  |
+| `source_id` | VARCHAR | Fuente en DATA_SOURCE_REGISTRY. |
+
 ## `gold.dim_geography`
 
 Registro geográfico maestro: país, CCAA, provincias, municipios, distritos y secciones.
@@ -51,6 +67,29 @@ Filas (estimadas): 55.141
 | `valid_from` | DATE | Inicio de vigencia observado; nulo = anterior a la cobertura descargada. |
 | `valid_to` | TIMESTAMP_NS | Fin de vigencia; nulo = vigente en el último dato. |
 | `source_id` | VARCHAR | Fuente en DATA_SOURCE_REGISTRY. |
+
+## `gold.election_indices`
+
+ENEP, ENPP, Gallagher, margen, competitividad y dominio por convocatoria y territorio.
+
+Filas (estimadas): 68.115
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `n_candidaturas` | BIGINT |  |
+| `votos_candidaturas` | HUGEINT |  |
+| `escanos` | HUGEINT |  |
+| `enep` | DOUBLE | Número efectivo de partidos electorales (Laakso–Taagepera). |
+| `enpp` | DOUBLE | Número efectivo de partidos parlamentarios. |
+| `gallagher` | DOUBLE | Índice de desproporcionalidad de Gallagher (puntos %). |
+| `dominio` | DOUBLE |  |
+| `margen` | DOUBLE |  |
+| `competitividad` | DOUBLE |  |
+| `ganador_siglas` | VARCHAR |  |
+| `votos_sin_escano` | HUGEINT |  |
 
 ## `gold.fact_economy_province`
 
@@ -72,6 +111,26 @@ Filas (estimadas): 10.907
 | `tabla_ine` | BIGINT |  |
 | `_execution_id` | VARCHAR | Ejecución de ingesta que produjo la fila (linaje). |
 | `derivado_uniprovincial` | BOOLEAN | Fila provincial derivada de la CCAA uniprovincial (el INE solo publica la CCAA). |
+
+## `gold.fact_election_results`
+
+Votos, escaños y cuotas por candidatura, convocatoria y territorio.
+
+Filas (estimadas): 1.060.644
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `candidacy_id` | VARCHAR | Candidatura dentro de una convocatoria ({election_id}-{código}). No es un partido. |
+| `votos` | BIGINT |  |
+| `escanos` | BIGINT |  |
+| `siglas` | VARCHAR |  |
+| `denominacion` | VARCHAR |  |
+| `vote_share` | DOUBLE | Votos / votos a candidaturas. |
+| `share_valid` | DOUBLE | Votos / votos válidos. |
+| `rank_votos` | BIGINT |  |
 
 ## `gold.fact_electoral_census`
 
@@ -114,7 +173,7 @@ Filas (estimadas): 712.392
 
 _Sin descripción._
 
-Filas (estimadas): 530.486
+Filas (estimadas): 540.079
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -137,6 +196,31 @@ Filas (estimadas): 530.486
 | `votos_candidaturas` | BIGINT |  |
 | `_execution_id` | VARCHAR | Ejecución de ingesta que produjo la fila (linaje). |
 
+## `gold.fact_turnout`
+
+Censo, votantes, blancos, nulos y participación por convocatoria y territorio.
+
+Filas (estimadas): 68.115
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `censo` | BIGINT | Censo electoral de escrutinio (incluye CERA en ámbitos supramunicipales). |
+| `votantes` | BIGINT | Blancos + nulos + votos a candidaturas. |
+| `votos_validos` | BIGINT | Blancos + votos a candidaturas. |
+| `votos_blancos` | BIGINT |  |
+| `votos_nulos` | BIGINT |  |
+| `votos_candidaturas` | BIGINT |  |
+| `numero_escanos` | BIGINT |  |
+| `numero_mesas` | BIGINT |  |
+| `incluye_cera` | BOOLEAN | Si el ámbito incluye el voto de residentes ausentes. |
+| `_source_id` | VARCHAR |  |
+| `turnout` | DOUBLE | Votantes / censo. |
+| `blank_share` | DOUBLE |  |
+| `null_share` | DOUBLE |  |
+
 ## `gold.geo_boundaries`
 
 Geometrías simplificadas (WKB, EPSG:4326) por geo_id y año del seccionado.
@@ -157,7 +241,7 @@ Filas (estimadas): 55.140
 
 _Sin descripción._
 
-Filas (estimadas): 38.805
+Filas (estimadas): 40.615
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -179,6 +263,55 @@ Filas (estimadas): 38.805
 | `suma_votos_partidos` | HUGEINT |  |
 | `ganador` | VARCHAR |  |
 | `cuota_ganador` | DOUBLE |  |
+
+## `gold.results_by_family`
+
+_Sin descripción._
+
+Filas (estimadas): 532.171
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `familia` | VARCHAR |  |
+| `votos` | HUGEINT |  |
+| `escanos` | HUGEINT |  |
+| `vote_share` | DOUBLE | Votos / votos a candidaturas. |
+
+## `gold.results_by_group`
+
+_Sin descripción._
+
+Filas (estimadas): 1.060.581
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `agrupacion_id` | VARCHAR |  |
+| `agrupacion_siglas` | VARCHAR |  |
+| `agrupacion_denominacion` | VARCHAR |  |
+| `votos` | HUGEINT |  |
+| `escanos` | HUGEINT |  |
+| `n_candidaturas` | BIGINT |  |
+| `vote_share` | DOUBLE | Votos / votos a candidaturas. |
+
+## `gold.volatility`
+
+_Sin descripción._
+
+Filas (estimadas): 32.806
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `election_id_anterior` | VARCHAR |  |
+| `geo_level` | VARCHAR |  |
+| `geo_id` | VARCHAR | Identificador canónico ATLAS (ver docs/METHODOLOGY.md §1). |
+| `volatilidad_pedersen` | DOUBLE |  |
 
 ## `silver.dim_municipality`
 
@@ -217,6 +350,21 @@ Filas (estimadas): 46.937
 | `valid_to` | TIMESTAMP_NS | Fin de vigencia; nulo = vigente en el último dato. |
 | `source_id` | VARCHAR | Fuente en DATA_SOURCE_REGISTRY. |
 | `anyo_seccionado` | BIGINT |  |
+
+## `silver.ie_agrupaciones`
+
+_Sin descripción._
+
+Filas (estimadas): 13.153
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `candidacy_id` | VARCHAR | Candidatura dentro de una convocatoria ({election_id}-{código}). No es un partido. |
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `siglas` | VARCHAR |  |
+| `denominacion` | VARCHAR |  |
+| `agrupacion_cod` | VARCHAR |  |
+| `agrupacion_id` | VARCHAR |  |
 
 ## `silver.population_normalized`
 
@@ -262,11 +410,23 @@ Filas (estimadas): 52
 | `ccaa_ine` | VARCHAR |  |
 | `parent_geo_id` | VARCHAR | geo_id del nivel superior. |
 
+## `silver.xw_ccaa_mir_ine`
+
+Equivalencia de códigos de CCAA Ministerio del Interior → INE (derivada de datos).
+
+Filas (estimadas): 171
+
+| Columna | Tipo | Descripción |
+|---|---|---|
+| `election_id` | VARCHAR | {tipo}-{AAAAMM}; tipo 02 Congreso, 03 Senado, 04 municipales, 07 europeas. |
+| `codigo_ccaa_mir` | VARCHAR |  |
+| `ccaa_ine` | VARCHAR |  |
+
 ## `ops.artifacts`
 
 Ficheros escritos por cada ejecución, con hash SHA-256.
 
-Filas (estimadas): 572
+Filas (estimadas): 639
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -283,7 +443,7 @@ Filas (estimadas): 572
 
 Log de ejecuciones de ingesta (Data Operations Center).
 
-Filas (estimadas): 21
+Filas (estimadas): 25
 
 | Columna | Tipo | Descripción |
 |---|---|---|
@@ -305,7 +465,7 @@ Filas (estimadas): 21
 
 Resultados de los controles de calidad por run.
 
-Filas (estimadas): 152
+Filas (estimadas): 549
 
 | Columna | Tipo | Descripción |
 |---|---|---|

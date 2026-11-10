@@ -221,7 +221,7 @@ sources:
 
   - source_id: CMADRID-ELEC
     organismo: Comunidad de Madrid — Datos abiertos
-    dataset: Datos electorales de la Asamblea de Madrid y otras convocatorias por municipio
+    dataset: Elecciones a la Asamblea de Madrid 1991–2023 por municipio (votos, participación, escaños)
     categoria: electoral
     url: https://datos.comunidad.madrid/
     api: "CKAN API"
@@ -234,7 +234,7 @@ sources:
     restricciones: "Citar Comunidad de Madrid."
     metodo_extraccion: api
     probe_url: https://datos.comunidad.madrid/api/3/action/package_search?q=elecciones&rows=1
-    connector: null
+    connector: cmadrid
 
   - source_id: IBESTAT-ELEC
     organismo: Institut d'Estadística de les Illes Balears (IBESTAT)

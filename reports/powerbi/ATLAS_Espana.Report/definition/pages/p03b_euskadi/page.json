@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
   "name": "p03b_euskadi",
-  "displayName": "Elecciones en el País Vasco",
+  "displayName": "Elecciones autonómicas",
   "displayOption": "FitToPage",
   "height": 900,
   "width": 1600

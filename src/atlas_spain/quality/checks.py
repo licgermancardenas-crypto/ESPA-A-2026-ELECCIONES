@@ -184,11 +184,11 @@ def seat_reconciliation_regional(con) -> list[Result]:
     from atlas_spain.electoral.systems import congreso_district
 
     rows = con.execute("""select election_id, tipo, provincia_ine, candidatura, coalesce(votos, 0), coalesce(escanos, 0),
-                                 coalesce(blancos, 0)
+                                 coalesce(blancos, 0), coalesce(validos, 0)
                           from gold.fact_regional_results where nivel='territorio'""").fetchall()
     grupos: dict = {}
-    for e, tipo, prov, cand, v, s, b in rows:
-        g = grupos.setdefault((e, tipo, prov), {"v": {}, "s": {}, "b": b})
+    for e, tipo, prov, cand, v, s, b, val in rows:
+        g = grupos.setdefault((e, tipo, prov), {"v": {}, "s": {}, "b": b, "validos": val})
         g["v"][cand], g["s"][cand] = v, s
     comprobadas, difieren = 0, []
     for (e, tipo, prov), g in grupos.items():
@@ -196,8 +196,15 @@ def seat_reconciliation_regional(con) -> list[Result]:
         if total == 0:
             continue  # la fuente no publica escaños para esa convocatoria
         comprobadas += 1
-        res = (congreso_district(g["v"], g["b"], total, prov) if tipo == "congreso"
-               else dhondt(g["v"], total, threshold=0.03, blank_votes=g["b"]))
+        if tipo == "congreso":
+            res = congreso_district(g["v"], g["b"], total, prov)
+        elif tipo == "asamblea_madrid":
+            # 5 % de los votos válidos; "Resto de partidos" es un agregado de la fuente y no recibe escaños
+            v = {k: x for k, x in g["v"].items() if k != "Resto de partidos"}
+            res = dhondt(v, total, threshold=0.05, threshold_base=g["validos"])
+            res.seats["Resto de partidos"] = 0
+        else:
+            res = dhondt(g["v"], total, threshold=0.03, blank_votes=g["b"])
         if res.seats != g["s"]:
             difieren.append(f"{e} {prov}")
     if not comprobadas:
@@ -205,8 +212,8 @@ def seat_reconciliation_regional(con) -> list[Result]:
     return [Result("dhondt_reproduce_escanos_regionales", "consistency", "fact_regional_results", len(difieren), "=0",
                    "pass" if not difieren else "warn",
                    f"{comprobadas} circunscripciones con escaños publicados; difieren: {difieren[:10]} "
-                   "(Parlamento Vasco calculado con barrera del 3 %; la barrera legal de convocatorias "
-                   "antiguas no está verificada)")]
+                   "(Parlamento Vasco: barrera 3 %; Asamblea de Madrid: 5 % de válidos. La barrera legal de "
+                   "convocatorias vascas antiguas no está verificada)")]
 
 
 def main() -> int:

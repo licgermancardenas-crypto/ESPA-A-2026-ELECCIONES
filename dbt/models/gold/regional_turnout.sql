@@ -1,4 +1,4 @@
-{{ config(enabled=var('has_euskadi')) }}
+{{ config(enabled=var('has_euskadi') or var('has_cmadrid')) }}
 select election_id, tipo, anyo, nivel, geo_id, seccion_geo_id, provincia_ine, municipio_ine,
        any_value(censo) censo, any_value(votantes) votantes, any_value(nulos) nulos, any_value(blancos) blancos,
        any_value(validos) validos, any_value(votos_candidaturas) votos_candidaturas,

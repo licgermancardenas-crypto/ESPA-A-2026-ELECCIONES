@@ -5,11 +5,11 @@ Frontend web y Atlas AI todavía no están construidos; hay un tablero de Power 
 
 ## 1. Resumen en una línea
 
-El motor de datos funciona de punta a punta con datos reales del INE, Eurostat, Congreso y Open Data
-Euskadi (≈ 1,7 millones de filas, cartografía hasta sección censal, renta por sección, 47 controles de
-calidad). Hay **resultados electorales reales del País Vasco** (Parlamento Vasco 1980–2024 y Congreso 2023,
-hasta mesa), con los que el motor D'Hondt reproduce exactamente los escaños oficiales. Faltan los
-**resultados nacionales**: Infoelectoral bloquea la descarga automatizada (ver §5).
+El motor de datos funciona de punta a punta con datos reales: INE, Eurostat, Congreso, **resultados
+electorales oficiales del Ministerio del Interior** (generales 2015–2023, municipales 2019–2023, europeas
+2019–2024), Parlamento Vasco 1980–2024 y Asamblea de Madrid 1991–2023. El motor D'Hondt reproduce los
+escaños oficiales en las 260 circunscripciones del Congreso y en todas las autonómicas cargadas
+(63 controles de calidad, 0 fallos; 58 tests). Todo se ve en un Power BI generado por código.
 
 ## 2. Qué está implementado
 
@@ -49,7 +49,7 @@ hasta mesa), con los que el motor D'Hondt reproduce exactamente los escaños ofi
 | INE-EJEC-HIPOT — ejecuciones hipotecarias | 1.908 | provincia |
 | Eurostat (población NUTS3, PIB NUTS3, paro NUTS2) | 12.496 | España |
 | CONGRESO-DIP — diputados activos y de baja | 412 | legislatura vigente |
-| **Infoelectoral (Congreso, Senado, municipales, europeas, referéndums)** | **0** | **bloqueado** |
+
 
 Bronze: 317 MB · warehouse: 151 MB · capas geo: 157 MB (todo en `data/`, fuera de git).
 
@@ -66,16 +66,17 @@ EPA, DIRCE, alquiler, ejecuciones, Eurostat y diputados están en bronze **sin m
   Única diferencia: **Almería 1996, −76 habitantes** (probable municipio ausente en la tabla actual). Sin corregir.
 - ❌ Infoelectoral: extracción bloqueada.
 
-## 5. Fuentes pendientes y bloqueos
+## 5. Pendiente
 
-| Bloqueo | Qué hace falta |
+| Tema | Qué falta |
 |---|---|
-| Infoelectoral (anti-bot Cloudflare) | Opción A: conectar la extensión Claude in Chrome para descargar desde el navegador del usuario. Opción B: descargar ZIP con navegador → `data/landing/infoelectoral/`. Prioridad: `02202307_MUNI.zip`, `02201911_MUNI.zip`, `02201904_MUNI.zip`, `02201606_MUNI.zip`, `02201512_MUNI.zip`, `04202305_MUNI.zip`, `04201905_MUNI.zip`, `07202406_MUNI.zip`, `07201905_MUNI.zip`; después los `_MESA`. Luego `atlas ingest MIR-IE-CONG MIR-IE-MUN MIR-IE-EUR` y `atlas build`. |
-| Balance de Criminalidad (interior.gob.es, anti-bot) | Descarga manual |
-| MIVAU, Senado (403) | Descarga manual o contacto con el organismo |
-| CNIG líneas límite (formulario) | Descarga manual |
-| CIS (registro), YouTube (API key), Reddit (OAuth), Google Trends (sin API pública) | Credenciales / acceso autorizado |
-| Autonómicas | País Vasco **cargado**. Fuentes verificadas sin conector: Navarra, Canarias, Madrid, Baleares, CLM. Resto sin investigar. |
+| Elecciones antiguas (generales 1977–2011, municipales 1979–2015, europeas 1987–2014), Senado y referéndums | Descargar los ZIP desde el navegador (requiere la extensión Claude in Chrome conectada) |
+| Resultados por mesa electoral (nacionales) | Mismos ZIP en versión `_MESA` |
+| Municipios < 250 hab. en municipales | Ficheros 11/12 ya parseados; falta modelo gold (listas abiertas, no D'Hondt) |
+| Autonómicas | Cargadas: País Vasco y Madrid. Pendientes: Navarra, Canarias, CLM, Galicia (portales caídos o sin datos en la verificación), resto sin investigar |
+| Balance de Criminalidad, MIVAU, Senado, CNIG | Descarga manual / navegador |
+| CIS, YouTube, Reddit, Google Trends | Credenciales a nombre del usuario (no se crean cuentas) |
+| Web propia, Atlas AI, modelos predictivos, índices compuestos | Por desarrollar |
 
 ## 6. Limitaciones conocidas
 

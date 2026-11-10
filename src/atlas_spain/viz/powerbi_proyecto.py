@@ -68,6 +68,7 @@ COLORES_PARTIDO = [
     ("EH BILDU", "#00A39A"), ("BILDU", "#00A39A"), ("EH", "#00A39A"), ("HB", "#00A39A"), ("AMAIUR", "#00A39A"),
     ("PSE", "#E30613"), ("PSOE", "#E30613"), ("PSC", "#E30613"),
     ("PP", "#1E5BA8"), ("AP", "#1E5BA8"), ("CP", "#1E5BA8"), ("UPN", "#1E5BA8"),
+    ("MÁS MADRID", "#0FDEC4"), ("MAS MADRID", "#0FDEC4"), ("UPYD", "#E5007E"), ("RESTO", "#B8B2C8"),
     ("PODEMOS", "#6B2C91"), ("ELKARREKIN", "#6B2C91"), ("SUMAR", "#E5007E"), ("VOX", "#5AC035"),
     ("EA", "#8DB600"), ("EE", "#B71C1C"), ("EB", "#9C2B2B"), ("IU", "#9C2B2B"), ("PCE", "#9C2B2B"),
     ("UCD", "#F28C28"), ("C´S", "#EB6109"), ("CS", "#EB6109"), ("CIUDADANOS", "#EB6109"), ("UA", "#4E6B8A"),
@@ -80,7 +81,7 @@ FAMILIAS_COLOR = {
     "BNG": "#76B3E0", "Coalición Canaria": "#F2D500", "Más País": "#0FDEC4", "Compromís": "#DF7F2A", "IU": "#9C2B2B",
     "UPN": "#3E6FB4", "NA+ (coalición UPN-PP-Cs)": "#3E6FB4", "PRC": "#A4C639", "CUP": "#FFE600", "Teruel Existe": "#037252",
     "Ahora Repúblicas (coalición)": "#F08A00", "CEUS (coalición)": "#4CAF50", "CPE (coalición)": "#8BC34A",
-    "Se Acabó La Fiesta": "#8B5A2B", "PACMA": "#8EC43F", "UPyD": "#E5007E", "Otros": "#B8B2C8",
+    "Se Acabó La Fiesta": "#8B5A2B", "PACMA": "#8EC43F", "UPyD": "#E5007E", "Nueva Canarias": "#7FB5DA", "Otros": "#B8B2C8",
 }
 
 
@@ -151,6 +152,13 @@ def medidas(P) -> list:
     PREF_MUN = g(0.15) + """ & grupos & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & prov & "</g>" & """
     LEY_REGION = ("\"<g transform='translate(10,\" & (alto + 24) & \")'>\" & "
                   + leyenda_dax(0, 16, ESCALAS, "idm") + ' & "</g>"')
+    LEY_ELEC = (
+        "CONCATENATEX(ADDCOLUMNS(TOPN(9, cuenta, [@n], DESC), \"@k\", [@n] * 100000 + UNICODE([@f]) * 100 + LEN([@f])), "
+        "VAR f = [@f] VAR i = RANKX(ADDCOLUMNS(TOPN(9, cuenta, [@n], DESC), \"@k\", [@n] * 100000 + UNICODE([@f]) * 100 + LEN([@f])), [@k], , DESC) "
+        f"RETURN \"<rect x='700' y='\" & ({P['lienzo']['alto']} - 250 + i * 22) & \"' width='20' height='15' rx='3' fill='\" & "
+        + dax_color_familia("f") +
+        f" & \"'/><text x='728' y='\" & ({P['lienzo']['alto']} - 237 + i * 22) & \"' font-family='Segoe UI' font-size='13' fill='#1D1631'>\" "
+        "& SUBSTITUTE(f, \"&\", \"&amp;\") & \" · \" & [@n] & \"</text>\", \"\", [@k], DESC)")
     LEY_CIUDAD = ("\"<g transform='translate(10,\" & (alto + 24) & \")'>\" & "
                   + leyenda_dax(0, 16, ESCALAS_CIUDAD, "idk") + ' & "</g>"')
     m = [
@@ -287,34 +295,37 @@ def medidas(P) -> list:
             SELECTEDVALUE('Convocatorias nacionales'[convocatoria], "Elegí una convocatoria") & " · " &
             IF([Territorio electoral] = "ES", "España", SELECTEDVALUE(CCAA[nombre])) & " · partido más votado por " &
             IF(SELECTEDVALUE('Nivel del mapa'[id], 2) = 3, "municipio", "provincia")""", None, F),
-        ("SVG elecciones", f"""
-            VAR nivel = SELECTEDVALUE('Nivel del mapa'[id], 2)
+        ("SVG elecciones provincias", f"""
             {ccaa_sel}
             VAR tp = ADDCOLUMNS(ALL(Provincias), "@f", CALCULATE(SELECTEDVALUE('Ganador provincia'[familia_ganador])))
-            VAR tm = IF(nivel = 3, ADDCOLUMNS(ALL(Municipios), "@f", CALCULATE(SELECTEDVALUE('Ganador municipio'[familia_ganador]))))
             VAR provs = CONCATENATEX(tp,
                 VAR f = [@f]
                 VAR c = IF(todo || Provincias[ccaa_ine] IN sel, IF(ISBLANK(f), "{SIN_DATO}", {dax_color_familia('f')}), "#EEEBF3")
                 RETURN "<path d='" & Provincias[path] & "' fill='" & c & "'/>", "")
-            VAR munis = IF(nivel = 3, CONCATENATEX(DISTINCT(SELECTCOLUMNS(tm, "@f", [@f])),
+            VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(tp, NOT ISBLANK([@f])), "@f", [@f])),
+                "@n", COUNTROWS(FILTER(tp, [@f] = EARLIER([@f]))))
+            VAR ley = {LEY_ELEC}
+            VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='0.9' stroke-linejoin='round'>" & provs & "</g>"
+            {svg_envolver(P["lienzo"]["alto"], 'cuerpo & ' + caja_svg + ' & ley')}""",
+         None, F, {"dataCategory": "ImageUrl"}),
+        ("SVG elecciones municipios", f"""
+            {ccaa_sel}
+            VAR tm = ADDCOLUMNS(ALL(Municipios), "@f", CALCULATE(SELECTEDVALUE('Ganador municipio'[familia_ganador])))
+            VAR munis = CONCATENATEX(DISTINCT(SELECTCOLUMNS(tm, "@f", [@f])),
                 VAR fam = [@f]
                 VAR c = IF(ISBLANK(fam), "{SIN_DATO}", {dax_color_familia('fam')})
                 RETURN "<g fill='" & c & "'>" & CONCATENATEX(FILTER(tm, [@f] = fam && (todo || Municipios[ccaa_ine] IN sel)),
-                    "<path d='" & Municipios[path] & "'/>", "") & "</g>", ""))
-            VAR fams = IF(nivel = 3, tm, tp)
-            VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(fams, NOT ISBLANK([@f])), "@f", [@f])),
-                "@n", COUNTROWS(FILTER(fams, [@f] = EARLIER([@f]))))
-            VAR ley = CONCATENATEX(TOPN(9, cuenta, [@n], DESC),
-                VAR f = [@f]
-                VAR i = RANKX(TOPN(9, cuenta, [@n], DESC), [@n], , DESC, Dense)
-                RETURN "<rect x='700' y='" & ({P["lienzo"]["alto"]} - 250 + i * 22) & "' width='20' height='15' rx='3' fill='" & {dax_color_familia('f')} & "'/>"
-                    & "<text x='728' y='" & ({P["lienzo"]["alto"]} - 237 + i * 22) & "' font-family='Segoe UI' font-size='13' fill='#1D1631'>"
-                    & SUBSTITUTE(SUBSTITUTE(f, "&", "&amp;"), "+", "+") & " · " & [@n] & "</text>", "", [@n], DESC)
-            VAR cuerpo = IF(nivel = 3,
-                "<g fill='{SIN_DATO}'>" & provs & "</g><g stroke='#FFFFFF' stroke-width='0.15'>" & munis & "</g>"
-                    & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & CONCATENATEX(ALL(Provincias), "<path d='" & Provincias[path] & "'/>", "") & "</g>",
-                "<g stroke='#FFFFFF' stroke-width='0.9' stroke-linejoin='round'>" & provs & "</g>")
+                    "<path d='" & Municipios[path] & "'/>", "") & "</g>", "")
+            VAR fondo = CONCATENATEX(ALL(Provincias), "<path d='" & Provincias[path] & "'/>", "")
+            VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(tm, NOT ISBLANK([@f])), "@f", [@f])),
+                "@n", COUNTROWS(FILTER(tm, [@f] = EARLIER([@f]))))
+            VAR ley = {LEY_ELEC}
+            VAR cuerpo = "<g fill='#EEEBF3'>" & fondo & "</g><g stroke='#FFFFFF' stroke-width='0.15'>" & munis & "</g>"
+                & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & fondo & "</g>"
             {svg_envolver(P["lienzo"]["alto"], 'cuerpo & ' + caja_svg + ' & ley')}""",
+         None, F, {"dataCategory": "ImageUrl"}),
+        ("SVG elecciones", """
+            IF(SELECTEDVALUE('Nivel del mapa'[id], 2) = 3, [SVG elecciones municipios], [SVG elecciones provincias])""",
          None, F, {"dataCategory": "ImageUrl"}),
         # ---- elecciones regionales (Open Data Euskadi)
         ("Votos (regional)", "CALCULATE(SUM('Elecciones regionales'[votos]), 'Elecciones regionales'[nivel] = \"territorio\")", MIL, "Elecciones"),
@@ -330,9 +341,11 @@ def medidas(P) -> list:
         ("Convocatoria elegida", "SELECTEDVALUE(Convocatorias[Convocatoria], \"Elegí una convocatoria\")", None, F),
         ("Color partido", f"VAR p = UPPER(SELECTEDVALUE('Elecciones regionales'[candidatura])) RETURN {dax_color_partido('p')}", None, F),
         ("SVG Euskadi ganador", f"""
-            VAR ancho = LOOKUPVALUE(CCAA[lienzo_ancho], CCAA[ccaa_ine], "16")
-            VAR alto = LOOKUPVALUE(CCAA[lienzo_alto], CCAA[ccaa_ine], "16")
-            VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = "16"), "@g",
+            VAR provs = CALCULATETABLE(VALUES('Participación regional'[provincia_ine]))
+            VAR cc = MAXX(FILTER(ALL(Provincias), Provincias[provincia_ine] IN provs), Provincias[ccaa_ine])
+            VAR ancho = LOOKUPVALUE(CCAA[lienzo_ancho], CCAA[ccaa_ine], cc)
+            VAR alto = LOOKUPVALUE(CCAA[lienzo_alto], CCAA[ccaa_ine], cc)
+            VAR t = ADDCOLUMNS(CALCULATETABLE(Municipios, REMOVEFILTERS(Municipios), Municipios[ccaa_ine] = cc), "@g",
                 CALCULATE(SELECTEDVALUE('Participación regional'[ganador]), 'Participación regional'[nivel] = "municipio"))
             VAR formas = CONCATENATEX(t,
                 VAR g = UPPER([@g])
@@ -549,7 +562,7 @@ def modelo(P) -> dict[str, str]:
 # ───────────────────────── informe ─────────────────────────
 NAV = [("p01_resumen", "Resumen España", "◉"), ("p02_mapa", "Mapa de España", "▦"),
        ("p03_ciudad", "Mapa de ciudad", "▩"), ("p03a_elecciones", "Elecciones nacionales", "☑"),
-       ("p03c_historico", "Comparador histórico", "↗"), ("p03b_euskadi", "Elecciones País Vasco", "◧"), ("p04_demografia", "Demografía", "≋"),
+       ("p03c_historico", "Comparador histórico", "↗"), ("p03b_euskadi", "Autonómicas", "◧"), ("p04_demografia", "Demografía", "≋"),
        ("p05_economia", "Economía", "€"), ("p06_censo", "Censo electoral", "✔"),
        ("p07_operaciones", "Datos y calidad", "⚙"), ("p08_metodologia", "Metodología", "ℹ")]
 
@@ -693,8 +706,9 @@ def informe(P) -> dict:
     pags.append(pg)
 
     # 3b elecciones País Vasco (Open Data Euskadi)
-    pg = nueva("p03b_euskadi", "Elecciones en el País Vasco",
-               "Parlamento Vasco 1980–2024 y Congreso 2023 en la CAPV · Open Data Euskadi (resultados oficiales hasta mesa)")
+    pg = nueva("p03b_euskadi", "Elecciones autonómicas",
+               "Parlamento Vasco 1980–2024 y Congreso 2023 en la CAPV (Open Data Euskadi) · Asamblea de Madrid 1991–2023 "
+               "(Datos Abiertos Comunidad de Madrid; el resto de partidos llega agregado)")
     pg.segmentador(X0, 92, 360, 58, C("Convocatorias", "Convocatoria"), "Convocatoria", unico=True,
                    presel="Parlamento Vasco 2024")
     tarjetas(pg, 92, [("Participación (regional)", "Participación"), ("Votantes (regional)", "Votantes"),

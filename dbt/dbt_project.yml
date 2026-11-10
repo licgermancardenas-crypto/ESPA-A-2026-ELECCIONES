@@ -15,6 +15,7 @@ vars:
   has_infoelectoral: false
   has_seccionado: false
   has_euskadi: false
+  has_cmadrid: false
 
 models:
   atlas_spain:

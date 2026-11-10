@@ -1,10 +1,15 @@
-{{ config(enabled=var('has_euskadi')) }}
--- Resultados publicados por Open Data Euskadi (Parlamento Vasco 1980–2024, Congreso 2023 en la CAPV).
+{{ config(enabled=var('has_euskadi') or var('has_cmadrid')) }}
+-- Resultados autonómicos publicados por las comunidades: Open Data Euskadi (Parlamento Vasco 1980–2024,
+-- Congreso 2023 en la CAPV) y Datos Abiertos Comunidad de Madrid (Asamblea 1991–2023).
 -- Separado de fact_election_results (Infoelectoral) para no mezclar fuentes ni codificaciones.
 -- mesa: geo_id = ES-ME-{municipio}{distrito}{seccion 3d}{mesa}
-with b as (select * from {{ bronze('EUSKADI-ELEC', '*') }})
+with b as (
+    {% if var('has_euskadi') %}select * from {{ bronze('EUSKADI-ELEC', '*') }}{% endif %}
+    {% if var('has_euskadi') and var('has_cmadrid') %}union all by name{% endif %}
+    {% if var('has_cmadrid') %}select * from {{ bronze('CMADRID-ELEC', '*') }}{% endif %}
+)
 select
-    'EUS-' || convocatoria                                  as election_id,
+    coalesce(election_key, 'EUS-' || convocatoria)          as election_id,
     tipo, cast(anyo as int) as anyo, nivel,
     case nivel when 'territorio' then 'ES-PR-' || provincia_ine
                when 'municipio' then 'ES-MU-' || municipio_ine

@@ -92,7 +92,11 @@ Los empates totales (mismo cociente y mismos votos) no se resuelven por sorteo: 
    - solo se agrupan siglas listadas explícitamente; lo no listado queda como "Otros";
    - las coaliciones mixtas (Ahora Repúblicas, CEUS, NA+) son una familia propia y no se reparten;
    - Sumar (2023) y Podemos y confluencias (2015–2019) son familias distintas: no se asume continuidad;
-   - la familia es una herramienta de comparación, no una afirmación sobre identidad jurídica.
+   - la familia es una herramienta de comparación, no una afirmación sobre identidad jurídica;
+   - en municipales, el código de acumulación del Ministerio puede reunir listas que solo comparten
+     sigla (p. ej. "MM" 2019: Más Madrid y una lista local); se asigna la familia del componente con
+     más votos y se anota aquí. En municipales 2023, En Comú, Con Andalucía y las listas
+     Podemos-IU se agrupan en "Podemos y confluencias" (IU sola se mantiene como IU).
 
 Validación: con la agrupación oficial, los escaños nacionales de PP, PSOE, Vox, Cs, Sumar, ERC, Junts,
 PNV y Bildu coinciden con los resultados oficiales de las cinco generales 2015–2023, y "Podemos y

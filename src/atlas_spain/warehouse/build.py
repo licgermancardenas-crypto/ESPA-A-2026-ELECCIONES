@@ -45,6 +45,7 @@ def main(skip_geo: bool = False) -> int:
         "has_infoelectoral": _has("MIR-IE-*", "f07_*") and _has("MIR-IE-*", "f05_*"),
         "has_seccionado": _has("INE-SECCIONADO", "seccionado_*"),
         "has_euskadi": _has("EUSKADI-ELEC", "*"),
+        "has_cmadrid": _has("CMADRID-ELEC", "*"),
     }
     print("Datasets presentes:", {k: v for k, v in dbt_vars.items() if k.startswith("has_")})
 
