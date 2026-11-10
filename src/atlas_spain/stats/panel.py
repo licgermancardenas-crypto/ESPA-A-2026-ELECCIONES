@@ -75,6 +75,15 @@ def exportar(destino: Path | None = None) -> Path:
         arrays[f"{nivel}__vec_n"] = lon
         arrays[f"{nivel}__vec"] = np.array([j for v in vec for j in v], np.int32)
     con.close()
+    # perfiles territoriales (atlas_spain.stats.perfiles): asignación como serie "perfil||2025" y definiciones en meta
+    fp = paths.DATA / "gold" / "perfiles_territoriales.json"
+    if fp.exists():
+        pf = json.loads(fp.read_text(encoding="utf-8"))
+        ids = meta["niveles"]["municipio"]["ids"]
+        fila = np.array([pf["asignacion"].get(i, np.nan) for i in ids], np.float32)
+        arrays["municipio__M"] = np.vstack([arrays["municipio__M"], fila[None, :]])
+        meta["niveles"]["municipio"]["claves"].append("perfil||2025")
+        meta["perfiles"] = {k: v for k, v in pf.items() if k != "asignacion"}
     buf = io.BytesIO()
     np.savez_compressed(buf, meta=np.frombuffer(json.dumps(meta, ensure_ascii=False).encode("utf-8"), np.uint8), **arrays)
     destino.parent.mkdir(parents=True, exist_ok=True)

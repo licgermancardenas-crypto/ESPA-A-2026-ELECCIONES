@@ -8,7 +8,7 @@ let S, cat = null, catMap = {}, modulo = "resumen", ultimo = null;
 const VIO = "#c40bff", LUZ = "#e9b6ff", MUTED = "#a08fc2";
 
 const MODULOS = [
-  ["resumen", "Resumen"], ["descriptiva", "Descriptiva"], ["correlacion", "Correlación"], ["regresion", "Regresión"],
+  ["resumen", "Resumen"], ["perfiles", "Perfiles"], ["descriptiva", "Descriptiva"], ["correlacion", "Correlación"], ["regresion", "Regresión"],
   ["contraste", "Contrastes"], ["atipicos", "Anomalías"], ["espacial", "Espacial"], ["probabilidad", "Probabilidad"],
   ["encuestas", "Encuestas"], ["constructor", "Constructor"],
 ];
@@ -73,7 +73,7 @@ function ir(m, preset) {
   C.disposeIn($("#st-res"));
   $("#st-res").innerHTML = "";
   $("#st-layout").classList.toggle("full", m === "resumen");
-  ({ resumen: uiResumen, descriptiva: uiDescriptiva, correlacion: uiCorrelacion, regresion: uiRegresion, contraste: uiContraste,
+  ({ resumen: uiResumen, perfiles: uiPerfiles, descriptiva: uiDescriptiva, correlacion: uiCorrelacion, regresion: uiRegresion, contraste: uiContraste,
      atipicos: uiAtipicos, espacial: uiEspacial, probabilidad: uiProbabilidad, encuestas: uiEncuestas, constructor: uiConstructor })[m](preset);
 }
 
@@ -91,7 +91,7 @@ const conNombres = (t) => String(t ?? "").replace(/\b\d\d-\d{6}\b/g, (m) => elec
 function nombrePeriodo(p) { return /^\d\d-\d{6}$/.test(p) ? elecNombre(p) : p; }
 
 function selVariable(id, { titulo = "Variable", spec = {}, cambio = true, nivel = "municipio", soloNum = false } = {}) {
-  const vars = cat.variables.filter((v) => !(soloNum && v.variable === "ganador") && !["censo", "votantes", "votos_validos", "poblacion_adrh"].includes(v.variable));
+  const vars = cat.variables.filter((v) => !(soloNum && ["ganador", "perfil"].includes(v.variable)) && !["censo", "votantes", "votos_validos", "poblacion_adrh"].includes(v.variable));
   const grupos = { electoral: "Electorales", demografia: "Demografía", economia: "Economía" };
   const opts = Object.entries(grupos).map(([g, t]) => `<optgroup label="${t}">${vars.filter((v) => v.tipo === g).map((v) =>
     `<option value="${v.variable}" ${v.variable === (spec.variable || "participacion") ? "selected" : ""}>${esc(v.nombre)}</option>`).join("")}</optgroup>`).join("");
@@ -804,6 +804,7 @@ export async function fichaEstadistica(el, geoId) {
     const ambitoId = esMun ? provId : geoId;
     el.innerHTML = `<div class="block"><h4>Posición en la distribución</h4>
       <p class="note">${esMun ? `Percentil entre los municipios de ${esc(S.terr[provId]?.n || "su provincia")} y de España.` : `Percentil entre ${r.nivel === "ccaa" ? "las comunidades" : "las provincias"} de España.`} El punto marca el territorio; la raya central, la mediana.</p>
+      ${r.perfil ? `<div class="fe-perfil" style="--c:${r.perfil.color}"><small>Perfil territorial</small><b>${esc(r.perfil.nombre)}</b>${btn("Ver cómo vota este perfil", "perfiles", { tipo: "02" })}</div>` : ""}
       <div class="fe-pos">${r.filas.map((f) => filaPos(f, esMun)).join("")}</div></div>
       ${esMun ? `<div class="block"><h4>Participación en generales frente a ${esc(S.terr[provId]?.n || "su provincia")}</h4><div class="chart" id="fe-hist" style="height:220px"></div></div>` : ""}
       <div class="block">${btn(`Distribución en ${esc(S.terr[ambitoId]?.n || nombre)}`, "descriptiva", { x: { variable: "participacion", periodo: gen }, ambito: { nivel: "municipio", dentro: ambitoId }, peso: "censo" })}
@@ -821,7 +822,7 @@ function filaPos(f, esMun) {
   const s = f.spec;
   const val = fv(f.espana.valor, s);
   const barra = (pos, lab) => (pos ? `<div class="fe-bar"><span>${lab}</span><div><i style="left:${pos.percentil}%"></i></div><b>P${Math.round(pos.percentil)}</b></div>` : "");
-  return `<div class="fe-row"><div class="fe-lab">${esc(f.etiqueta)}<b>${val}</b>${f.atipico ? `<em class="fe-at">atípico</em>` : ""}</div>
+  return `<div class="fe-row"><div class="fe-lab">${esc(conNombres(f.etiqueta))}<b>${val}</b>${f.atipico ? `<em class="fe-at">atípico</em>` : ""}</div>
     ${esMun ? barra(f.provincia, "Provincia") : ""}${barra(f.espana, "España")}</div>`;
 }
 
@@ -834,4 +835,76 @@ function grupoChart(el, grupos, f) {
     yAxis: { type: "category", data: gs.map((g) => g.nombre), axisLabel: { color: MUTED, fontSize: 10 } },
     series: [{ type: "boxplot", data: gs.map((g) => [g.minimo, g.q1, g.mediana, g.q3, g.maximo]), itemStyle: { color: "rgba(162,30,255,.25)", borderColor: LUZ }, boxWidth: [4, 9] }],
   }, true);
+}
+
+// ───────── PERFILES TERRITORIALES ─────────
+async function uiPerfiles(p = {}) {
+  const TIPOS = [["02", "Generales"], ["04", "Municipales"], ["07", "Europeas"]];
+  const elecDe = (t) => (catMap.participacion.periodos.municipio || []).filter((q) => q.startsWith(t + "-")).reverse();
+  cfg(campo("Tipo de elección", `<select id="pf-t">${opciones(TIPOS, p.tipo || "02")}</select>`) +
+    campo("Convocatoria", `<select id="pf-e"></select>`) +
+    campo("Familia para la evolución histórica", `<select id="pf-f"></select>`) +
+    `<p class="note">Los perfiles agrupan municipios parecidos por tamaño, densidad, renta, edad y crecimiento. Describen territorios, no personas.</p>`, async () => {
+    const params = { tipo: $("#pf-t").value, periodo: $("#pf-e").value, asignacion: true };
+    pintarPerfiles(await ejecutar("perfiles", params), params, $("#pf-f").value);
+  }, "Analizar perfiles");
+  const llenarE = () => { $("#pf-e").innerHTML = elecDe($("#pf-t").value).map((q) => `<option value="${q}">${esc(nombrePeriodo(q))}</option>`).join(""); if (p.periodo) $("#pf-e").value = p.periodo; };
+  const llenarF = async () => {
+    const r = await D.stats("familias", { nivel: "municipio", periodo: $("#pf-e").value });
+    $("#pf-f").innerHTML = r.resultado.familias.filter((f) => f !== "Otros").map((f) => `<option ${f === (p.familia || "PP") ? "selected" : ""}>${esc(f)}</option>`).join("");
+  };
+  $("#pf-t").onchange = () => { llenarE(); llenarF(); };
+  $("#pf-e").onchange = llenarF;
+  llenarE(); await llenarF();
+  $("#st-run").click();
+}
+
+function pintarPerfiles(r, params, familia) {
+  const d = r.resultado;
+  const defs = d.perfiles;
+  const act = d.actual;
+  const ref = act.todos;
+  const fams = Object.keys(ref.familias).filter((f) => f !== "Otros").slice(0, 6);
+  const fmtR = (v) => fmt.eur(v), fmtP = (v) => fmt.pct(v);
+  $("#st-res").innerHTML = cab(`Perfiles territoriales · ${nombrePeriodo(d.periodo)}`, "Cómo vota cada tipo de municipio. Describe territorios, no personas.") +
+    kpis([["Perfiles", defs.length, "en 3 estratos de tamaño"], ["Municipios", fmt.n(defs.reduce((a, q) => a + q.n_municipios, 0)), `${d.sin_perfil} sin perfil (sin renta)`],
+      ["Participación", fmtP(ref.participacion), "municipios con perfil"], ["Silueta media", fmt.n(defs.reduce((a, q) => a + q.silueta_estrato * q.n_municipios, 0) / defs.reduce((a, q) => a + q.n_municipios, 0), 2), "separación entre perfiles (0 a 1)"]]) +
+    `<div class="pf-grid">${defs.map((q) => {
+      const a = act[q.id] || act[String(q.id)];
+      const top = Object.entries(a.familias).filter(([f]) => f !== "Otros").slice(0, 3);
+      return `<div class="pf-card" style="--c:${q.color}"><div class="pf-h"><i></i><b>${esc(q.nombre)}</b></div>
+        <div class="pf-m"><span>${fmt.n(q.n_municipios)} municipios</span><span>${fmt.pct(q.pct_poblacion)} de la población</span></div>
+        <div class="pf-v"><div><small>Renta</small>${fmtR(q.mediana.renta)}</div><div><small>65 y más</small>${fmt.pct(q.mediana.pct_65)}</div>
+          <div><small>Densidad</small>${fmt.n(q.mediana.densidad, 0)}</div><div><small>2015–2025</small>${fmt.sig(q.mediana.crecimiento)}</div></div>
+        <div class="pf-vote">${top.map(([f, v]) => `<span><i style="background:${S.fam[f] || "#8a84a3"}"></i>${esc(f)} <b>${fmt.pct(v)}</b></span>`).join("")}<span>Particip. <b>${fmtP(a.participacion)}</b></span></div>
+        <p class="pf-ej">${esc(q.ejemplos.slice(0, 4).join(" · "))}</p></div>`;
+    }).join("")}</div>
+    <p class="note">Medianas de cada perfil. Los adjetivos del nombre comparan con el resto de municipios de su mismo tamaño (rurales, intermedios o ciudades).</p>
+    <section class="st-card"><h3>Voto por perfil · ${esc(nombrePeriodo(d.periodo))}</h3>
+      <div class="st-scroll x"><table class="t pf-tab"><tr><th>Perfil</th><th class="n">Particip.</th>${fams.map((f) => `<th class="n">${esc(f)}</th>`).join("")}</tr>
+      ${defs.map((q) => { const a = act[q.id] || act[String(q.id)]; return `<tr><td><i class="pf-dot" style="background:${q.color}"></i>${esc(q.nombre)}</td><td class="n">${fmtP(a.participacion)}</td>${fams.map((f) => {
+        const v = a.familias[f], dif = v != null && ref.familias[f] != null ? v - ref.familias[f] : null;
+        return `<td class="n" style="background:${dif == null ? "transparent" : dif > 0 ? `rgba(196,11,255,${Math.min(0.55, dif * 4)})` : `rgba(47,111,214,${Math.min(0.55, -dif * 4)})`}">${fmtP(v)}</td>`; }).join("")}</tr>`; }).join("")}
+      <tr class="pf-ref"><td>Conjunto de municipios con perfil</td><td class="n">${fmtP(ref.participacion)}</td>${fams.map((f) => `<td class="n">${fmtP(ref.familias[f])}</td>`).join("")}</tr></table></div>
+      <p class="note">Color: por encima (violeta) o por debajo (azul) del conjunto. ${esc(d.formula)}.</p></section>
+    <section class="st-card"><h3>Evolución de ${esc(familia)} por perfil</h3><div class="chart" id="pf-ev" style="height:340px"></div><p class="note">Las familias predecesoras figuran con su propio nombre (por ejemplo, AP antes de 1989 no se suma al PP). Perfiles fijos con datos de 2024–2025: la evolución muestra cómo votaron en el pasado los municipios que hoy tienen ese perfil.</p></section>
+    <section class="st-card"><h3>Participación por perfil</h3><div class="chart" id="pf-pa" style="height:280px"></div></section>
+    <div class="row2" style="margin-bottom:16px"><button class="btn btn-primary" id="pf-map">Pintar los perfiles en el mapa</button>
+      <button class="btn btn-ghost" id="pf-prob">Contrastar perfil y ganador (probabilidad)</button></div>
+    <section class="st-card"><h3>Método</h3><p class="note">${esc(d.metodo)}.</p><ul class="st-adv">${d.limitaciones.map((l) => `<li>${esc(l)}</li>`).join("")}</ul></section>` + repro(r);
+  enlazarExport($("#st-res"));
+  const els = Object.keys(d.evolucion).sort();
+  const corto = els.map((e) => e.slice(3, 7) + (e.slice(3, 7) === "2019" && e.startsWith("02") ? (e.endsWith("04") ? "A" : "N") : ""));
+  const serie = (fn) => defs.map((q) => ({ type: "line", name: q.nombre, smooth: true, symbolSize: 4, lineStyle: { width: 2, color: q.color }, itemStyle: { color: q.color },
+    data: els.map((e) => { const a = d.evolucion[e][q.id] || d.evolucion[e][String(q.id)]; return fn(a); }) }));
+  const op = (series, f) => ({ backgroundColor: "transparent", grid: { left: 50, right: 14, top: 14, bottom: 70 },
+    legend: { bottom: 0, textStyle: { color: MUTED, fontSize: 10 }, itemWidth: 12, itemHeight: 6, type: "scroll" },
+    tooltip: { trigger: "axis", valueFormatter: f, backgroundColor: "rgba(18,4,46,.95)", borderColor: "rgba(176,120,255,.3)", textStyle: { color: "#f2ebfa", fontSize: 11 } },
+    xAxis: { type: "category", data: corto, axisLabel: { color: MUTED, fontSize: 10 } },
+    yAxis: { type: "value", scale: true, axisLabel: { color: MUTED, formatter: f }, splitLine: { lineStyle: { color: "rgba(176,120,255,.06)" } } }, series });
+  C.chart($("#pf-ev")).setOption(op(serie((a) => (a && a.familias[familia] != null ? a.familias[familia] : null)), fmtP), true);
+  C.chart($("#pf-pa")).setOption(op(serie((a) => (a ? a.participacion : null)), fmtP), true);
+  $("#pf-map").onclick = () => S.pintarEspecial("municipios", Object.fromEntries(Object.entries(d.asignacion).map(([id, c]) => [id, defs[c].color])),
+    "Perfiles territoriales", defs.map((q) => [q.nombre, q.color]));
+  $("#pf-prob").onclick = () => abrir({ modulo: "probabilidad", params: { a: { variable: "perfil", periodo: "2025" }, b: { variable: "ganador", periodo: d.periodo } } });
 }

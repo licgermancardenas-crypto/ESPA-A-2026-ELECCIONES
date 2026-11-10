@@ -137,3 +137,21 @@ def test_real_cobertura_geografica():
     p = Panel(REAL)
     assert len(p.nivel("municipio")["ids"]) == 8132 and len(p.nivel("provincia")["ids"]) == 52
     assert sum(1 for v in p.vecinos["municipio"] if v) > 8100
+
+
+@pytest.mark.skipif(not REAL.exists(), reason="panel real no exportado")
+def test_real_perfiles_agregan_al_total():
+    """La suma de todos los perfiles reproduce el voto agregado de los municipios con perfil."""
+    s = Servicio(Panel(REAL))
+    r = s.ejecutar("perfiles", {"tipo": "02", "evolucion": False})
+    assert r["error"] is None
+    d = r["resultado"]
+    assert len(d["perfiles"]) >= 6 and d["sin_perfil"] < 200
+    assert sum(q["n_municipios"] for q in d["perfiles"]) + d["sin_perfil"] == 8132
+    tot = d["actual"]["todos"]["familias"]
+    assert abs(sum(v for v in tot.values() if v) - 1) < 1e-3          # cuotas suman 1
+    assert 0.30 < tot["PP"] < 0.36 and 0.29 < tot["PSOE"] < 0.35     # generales 2023 (oficial: 33,3 % y 31,9 %)
+
+
+def test_perfiles_sin_calcular_da_error_controlado(servicio):
+    assert servicio.ejecutar("perfiles", {})["ejecucion"]["estado"] == "error_peticion"

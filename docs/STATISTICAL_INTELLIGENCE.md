@@ -127,3 +127,17 @@ Cada respuesta incluye `ejecucion`: id, método, versión del motor, huella del 
 - **Modelos de efectos mixtos**: no implementados; con un solo año de renta y edad, la estructura de datos aún no lo justifica.
 - **Power BI**: `nac_indices.csv` contiene la volatilidad anterior hasta regenerar `atlas powerbi`.
 - Senado, autonómicas de 15 comunidades y resultados por sección censal siguen sin datos en el warehouse.
+
+## Perfiles territoriales (10/11/2026)
+
+**Qué es:** tipología de los 8.132 municipios para analizar cómo vota cada tipo de territorio. **No son perfiles de votantes:** los resultados oficiales son agregados y no permiten saber qué vota cada persona. Para perfiles individuales hacen falta encuestas (p. ej., microdatos del CIS).
+
+**Método** (`atlas_spain.stats.perfiles`): k-medias estratificado por tamaño (< 5.000, 5.000–50.000 y ≥ 50.000 habitantes) sobre log densidad, renta neta por persona 2024, % de 65+ 2024 y variación de población 2015–2025, estandarizadas y recortadas P1–P99; k ∈ {2, 3, 4} por silueta (grupos ≥ 5 %), semilla 0. Sin estratificar, el 80–90 % de la población caía en un único grupo urbano. Los nombres se generan por reglas a partir de los centroides (diferencias respecto a la mediana del estrato).
+
+**Resultado:** 8 perfiles, 8.037 municipios (95 sin renta publicada quedan fuera). Silueta 0,27–0,30: los municipios forman un continuo y los límites son graduales.
+
+**Voto por perfil:** Σ votos de cada familia / Σ votos a candidaturas; participación = Σ votantes / Σ censo. Validación: la suma de todos los perfiles reproduce el resultado nacional (generales 2023: PP 33,3 %, PSOE 32,0 %).
+
+**Dónde se ve:** Estadística → Perfiles (tarjetas, voto por perfil, evolución 1977–2023, participación, mapa); perfil en la pestaña Estadística de cada municipio; variable «perfil» en Probabilidad; hallazgo «Cómo vota cada tipo de municipio».
+
+**Siguiente paso para perfiles de votantes reales:** integrar microdatos de encuestas del CIS (barómetros y postelectorales). La descarga suele requerir registro, que debe hacer el usuario.

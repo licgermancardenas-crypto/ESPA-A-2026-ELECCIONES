@@ -419,3 +419,23 @@ code.wrap { word-break: break-all; font-size: 11px; color: var(--muted); }
   .hero-cta .btn { flex: 1; text-align: center; }
   .hero-foot { left: 22px; right: 22px; bottom: 14px; font-size: 10.5px; }
 }
+
+/* perfiles territoriales */
+.pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.pf-card { border: 1px solid var(--line); border-top: 3px solid var(--c); border-radius: 14px; padding: 13px 14px; background: rgba(18, 4, 46, 0.55); }
+.pf-h { display: flex; gap: 8px; align-items: flex-start; }
+.pf-h i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-top: 4px; flex: none; box-shadow: 0 0 10px var(--c); }
+.pf-h b { font-size: 13.5px; line-height: 1.3; }
+.pf-m { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin: 6px 0 8px; }
+.pf-v { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 12px; font-weight: 700; }
+.pf-v small { display: block; font-size: 9.5px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); }
+.pf-vote { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 11.5px; color: var(--muted); margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+.pf-vote i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+.pf-vote b { color: var(--ink); }
+.pf-ej { font-size: 11px; color: var(--dim); margin: 8px 0 0; }
+.pf-tab td:first-child, .pf-tab td.n, .pf-tab th { white-space: nowrap; }
+.pf-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+.pf-ref td { font-weight: 700; border-top: 1px solid var(--line-strong); }
+.fe-perfil { border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 10px 12px; margin: 10px 0; }
+.fe-perfil small { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.fe-perfil b { display: block; font-size: 14px; margin: 2px 0 4px; }

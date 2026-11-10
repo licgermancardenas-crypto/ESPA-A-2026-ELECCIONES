@@ -90,6 +90,8 @@ class Servicio:
         v, p, c = spec.get("variable"), spec.get("periodo"), spec.get("categoria")
         if v == "ganador":
             return self._ganador(nivel, p)
+        if v == "perfil":
+            return self._perfil(nivel)
         if v not in self.P.catalogo:
             raise ErrorPeticion(f"Variable desconocida: {v}")
         x = self.P.serie(nivel, v, p, c)
@@ -104,6 +106,13 @@ class Servicio:
             with np.errstate(divide="ignore", invalid="ignore"):
                 x = np.where(x > 0, np.log(x), np.nan)
         return x
+
+    def _perfil(self, nivel):
+        if nivel != "municipio" or "perfiles" not in self.P.meta:
+            raise ErrorPeticion("Los perfiles territoriales solo existen a nivel municipal.")
+        cod = self.P.serie("municipio", "perfil", "2025")
+        nombres = {p["id"]: p["nombre"] for p in self.P.meta["perfiles"]["perfiles"]}
+        return np.array([nombres.get(int(c)) if np.isfinite(c) else None for c in cod], dtype=object)
 
     def _ganador(self, nivel, periodo):
         fams = self.P.categorias(nivel, "voto_familia", periodo)
@@ -153,6 +162,11 @@ class Servicio:
         out_.append({"variable": "ganador", "nombre": "Familia más votada", "unidad": "categoría", "tipo": "electoral",
                      "definicion": "Familia política con mayor porcentaje de voto en el territorio", "formula": "argmax p_f",
                      "fuente": "gold.results_by_family", "periodos": {n: sorted({k.split('|')[2] for k in self.P.claves[n] if k.startswith('voto_familia|')}) for n in ("municipio", "provincia", "ccaa")}})
+        if "perfiles" in self.P.meta:
+            out_.append({"variable": "perfil", "nombre": "Perfil territorial", "unidad": "categoría", "tipo": "demografia",
+                         "definicion": "Tipología del municipio por tamaño, densidad, renta, edad y crecimiento", "formula": "k-medias estratificado",
+                         "fuente": "atlas_spain.stats.perfiles (INE)", "limitaciones": "Describe territorios, no personas.",
+                         "periodos": {"municipio": ["2025"], "provincia": [], "ccaa": []}})
         return {"variables": out_, "panel": self.P.huella, "niveles": {n: len(self.P.nivel(n)["ids"]) for n in self.P.M}}
 
     def m_familias(self, params):
@@ -267,7 +281,13 @@ class Servicio:
             fila["z_modificado"] = mz["score"][i]
             fila["atipico"] = bool(mz["atipico"][i])
             filas.append(fila)
-        return {"geo_id": geo_id, "nombre": N["nombres"][i], "nivel": nivel, "filas": filas}
+        perfil = None
+        if nivel == "municipio" and "perfiles" in self.P.meta:
+            c = self.P.serie("municipio", "perfil", "2025")[i]
+            if np.isfinite(c):
+                q = self.P.meta["perfiles"]["perfiles"][int(c)]
+                perfil = {"id": q["id"], "nombre": q["nombre"], "color": q["color"]}
+        return {"geo_id": geo_id, "nombre": N["nombres"][i], "nivel": nivel, "filas": filas, "perfil": perfil}
 
     def m_correlacion(self, params):
         nivel, mask, _ = self._ambito(params.get("ambito"))
@@ -422,6 +442,52 @@ class Servicio:
             {"etiqueta": self._etiqueta(s), "conteos": np.histogram(v[np.isfinite(v)], bordes)[0].tolist(),
              **{k: desc.describir(v).get(k) for k in ("n", "media", "mediana", "desviacion_poblacional", "iqr")}}
             for s, v in zip(specs, vals)]}
+
+    def m_perfiles(self, params):
+        """Perfiles territoriales y su comportamiento electoral agregado.
+
+        Voto de un perfil = Σ votos de la familia / Σ votos a candidaturas de sus municipios
+        (votos a candidaturas = votos válidos × (1 − voto en blanco)). Participación = Σ votantes / Σ censo."""
+        if "perfiles" not in self.P.meta:
+            raise ErrorPeticion("Perfiles territoriales no calculados (python -m atlas_spain.stats.perfiles).")
+        meta = self.P.meta["perfiles"]
+        defs = meta["perfiles"]
+        cod = self.P.serie("municipio", "perfil", "2025")
+        nivel = "municipio"
+        tipo = params.get("tipo", "02")
+        elecs = [p for p in self.P.periodos(nivel, "participacion") if p.startswith(tipo + "-")]
+        periodo = params.get("periodo") or elecs[-1]
+        grupos = [(d["id"], cod == d["id"]) for d in defs] + [("todos", np.isfinite(cod))]
+
+        def agregados(per):
+            vv = self.P.serie(nivel, "votos_validos", per)
+            bl = self.P.serie(nivel, "voto_blanco", per)
+            cand = np.nan_to_num(vv) * (1 - np.nan_to_num(bl))
+            censo, votantes = self.P.serie(nivel, "censo", per), self.P.serie(nivel, "votantes", per)
+            fams = self.P.categorias(nivel, "voto_familia", per)
+            res = {}
+            for gid, m in grupos:
+                den = cand[m].sum()
+                fam = {}
+                for f in fams:
+                    sh = self.P.serie(nivel, "voto_familia", per, f)
+                    fam[f] = float(np.nansum(np.nan_to_num(sh[m]) * cand[m]) / den) if den > 0 else None
+                part = float(np.nansum(votantes[m]) / np.nansum(censo[m])) if np.nansum(censo[m]) > 0 else None
+                res[gid] = {"participacion": part, "familias": dict(sorted(fam.items(), key=lambda kv: -(kv[1] or 0))),
+                            "municipios_con_datos": int((m & np.isfinite(vv)).sum())}
+            return res
+
+        actual = agregados(periodo)
+        serie = {per: agregados(per) for per in elecs} if params.get("evolucion", True) else {}
+        r = {"metodo": meta["metodo"], "variables": meta["variables"], "limitaciones": meta["limitaciones"], "sin_perfil": meta["sin_perfil"],
+             "perfiles": defs, "periodo": periodo, "actual": actual, "evolucion": serie,
+             "formula": "Voto del perfil = Σ votos de la familia / Σ votos a candidaturas; participación = Σ votantes / Σ censo",
+             "advertencias": ["Perfiles de territorios, no de personas: que un tipo de municipio vote más a un partido no significa que sus habitantes de un perfil concreto lo hagan (falacia ecológica).",
+                              "Municipios con el código vigente (2024); los que se fusionaron o segregaron cuentan solo en las convocatorias en que existen con ese código."]}
+        if params.get("asignacion"):
+            N = self.P.nivel(nivel)
+            r["asignacion"] = {i: int(c) for i, c in zip(N["ids"], cod) if np.isfinite(c)}
+        return r
 
     def m_encuesta(self, params):
         """Evaluación metodológica de una encuesta a partir de su ficha técnica publicada."""

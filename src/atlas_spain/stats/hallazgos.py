@@ -142,6 +142,26 @@ def generar() -> list[dict]:
         "cifras": [["Cambio medio", _f(d['diferencia_media'], 2, True)], ["Municipios", _n(d["n"])]],
     }, "contraste", {"x": {"variable": "enep"}, "periodos": [g11, g15], "ambito": {"nivel": "municipio", "dentro": "ES"}})
 
+    # 7. perfiles territoriales
+    def _perfiles(d):
+        defs = {q["id"]: q for q in d["perfiles"]}
+        act = {k: v for k, v in d["actual"].items() if k != "todos"}
+        pp = sorted(((v["familias"].get("PP"), int(k)) for k, v in act.items() if v["familias"].get("PP") is not None), reverse=True)
+        ps = sorted(((v["familias"].get("PSOE"), int(k)) for k, v in act.items() if v["familias"].get("PSOE") is not None), reverse=True)
+        pa = sorted(((v["participacion"], int(k)) for k, v in act.items()), reverse=True)
+        return {
+            "titulo": "Cómo vota cada tipo de municipio",
+            "territorio": f"{len(defs)} perfiles territoriales ({sum(q['n_municipios'] for q in defs.values()):,} municipios)".replace(",", "."),
+            "variable": "Voto por familia y participación", "periodo": nombre[gen],
+            "resultado": f"PP: del {_pct(pp[-1][0])} ({defs[pp[-1][1]]['nombre']}) al {_pct(pp[0][0])} ({defs[pp[0][1]]['nombre']}). "
+                         f"PSOE: del {_pct(ps[-1][0])} al {_pct(ps[0][0])} ({defs[ps[0][1]]['nombre']}).",
+            "contexto": f"Participación más alta en «{defs[pa[0][1]]['nombre']}» ({_pct(pa[0][0])}) y más baja en «{defs[pa[-1][1]]['nombre']}» ({_pct(pa[-1][0])}).",
+            "limitacion": "Tipología de territorios (k-medias estratificado por tamaño sobre densidad, renta, edad y crecimiento), no de personas.",
+            "fuente": "INE (Padrón, ADRH) · Ministerio del Interior",
+            "cifras": [["Perfiles", str(len(defs))], ["PP máx.", _pct(pp[0][0])], ["PSOE máx.", _pct(ps[0][0])]],
+        }
+    add(_perfiles, "perfiles", {"tipo": "02", "periodo": gen}, modulo="perfiles")
+
     destino = paths.ROOT / "web" / "data"
     (destino / "hallazgos_estadisticos.json").write_text(json.dumps(out, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     (destino / "core").mkdir(parents=True, exist_ok=True)
