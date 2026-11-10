@@ -447,3 +447,10 @@ code.wrap { word-break: break-all; font-size: 11px; color: var(--muted); }
 .vt-tab td:first-child { white-space: nowrap; }
 
 .vt-tab small.ic{display:block;font-size:9.5px;color:var(--muted);opacity:.8;font-weight:400;margin-top:1px}
+
+@media (max-width: 600px) {
+  .vt-tab { font-size: 12px; }
+  .vt-tab th:first-child, .vt-tab td:first-child { position: sticky; left: 0; z-index: 1; background: #12062e; max-width: 112px; white-space: normal; line-height: 1.25; }
+  .vt-tab td, .vt-tab th { padding-left: 6px; padding-right: 6px; }
+  .st-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -181,3 +181,13 @@ Módulo `atlas_spain.encuestas.mrp` → `data/gold/mrp/*.json` y `web/data/mrp/*
 | 2023 (Madrid, Barcelona, Sevilla, Valencia) | 4,3 pp | 4,7 pp | 14/22 |
 
 Mejora modesta, concentrada en partidos regionales. Errores dominados por el ruido de la propia estimación directa (100–300 votantes por partido). La encuesta telefónica de 2023 sobrerrepresenta universitarios (46 % frente al 25 % del censo); el MRP lo corrige por construcción. Una primera versión de la validación filtraba la provincia evaluada en la referencia nacional y no ajustaba la estimación directa al censo: daba resultados engañosos y se corrigió.
+
+#### Ampliación: situación laboral y tamaño de municipio (10/11/2026)
+
+- El marco pasa a provincia × sexo × edad × estudios × situación laboral (5) × tamaño de municipio (4): 54.282 celdas.
+- El INE no publica ese cruce. Se reconstruye por IPF en cada provincia y sexo con los márgenes edad × estudios (66601),
+  edad × situación laboral (67128, españoles) y edad × tamaño (67078, municipios ≥ 500 hab.; el resto a «Hasta 10.000»;
+  todas las nacionalidades). La asociación estudios–situación laboral (67131) se conserva como semilla del ajuste.
+  Supuesto: tamaño independiente de estudios y situación laboral dentro de provincia × sexo × edad.
+- El modelo añade situación laboral, tamaño, comunidad × tamaño y edad × situación laboral.
+- Validación (misma metodología): abril 2019 3,6 frente a 3,5 pp; noviembre 2019 4,1 frente a 4,6 pp; 2023 4,4 frente a 4,7 pp (13/22).

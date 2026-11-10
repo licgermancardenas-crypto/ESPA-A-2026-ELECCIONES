@@ -29,6 +29,10 @@ def test_marco_censal():
     assert m.prov.nunique() == 52
     assert 33e6 < m.n.sum() < 37e6  # españoles de 18+ residentes (el censo electoral CER ronda los 35 millones)
     assert set(m.edad) == set(mrp.EDADES) and set(m.estudios) == set(mrp.ESTUDIOS)
+    assert set(m.sitlab) == set(mrp.SITLABS) and set(m.tamuni) == set(mrp.TAMANOS)
+    # el marco ampliado conserva los totales del censo por provincia, sexo, edad y estudios
+    b = mrp.marco_basico(2023).groupby(["prov", "sexo", "edad", "estudios"]).n.sum()
+    assert np.allclose(m.groupby(["prov", "sexo", "edad", "estudios"]).n.sum().reindex(b.index).fillna(0), b, rtol=1e-3, atol=1)
 
 
 def _cargar(eleccion):

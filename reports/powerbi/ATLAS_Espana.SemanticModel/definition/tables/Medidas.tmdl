@@ -1,7 +1,7 @@
 table Medidas
 
 	measure Corte =
-			"Datos a 10/11/2026 04:53 · Fuentes: INE, Eurostat, Congreso"
+			"Datos a 10/11/2026 23:49 · Fuentes: INE, Eurostat, Congreso"
 		displayFolder: Formato
 
 	measure 'Población' =

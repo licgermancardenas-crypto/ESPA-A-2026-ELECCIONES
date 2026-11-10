@@ -911,13 +911,19 @@ function pintarPerfiles(r, params, familia) {
 }
 
 // ───────── VOTANTES (microdatos del CIS) ─────────
+const movil = () => window.innerWidth < 600;
+const gl = (n) => (movil() ? Math.min(n, 92) : n);
+const ylab = (n) => ({ color: MUTED, fontSize: movil() ? 10 : 11, width: gl(n) - 10, overflow: "truncate" });
+const umbral = (u) => (movil() ? Math.max(u, 0.14) : u);
 const VISTAS_V = [["perfil", "Quién vota a cada partido"], ["grupo", "Qué vota cada grupo social"], ["ideologia", "Ideología de los votantes"],
   ["trasvases", "Trasvases desde la elección anterior"], ["evolucion", "Evolución de un electorado"], ["regiones", "Comparar comunidades"],
   ["prov_perfil", "Provincia: quién vota a cada partido (modelo)"], ["prov_comparar", "Comparar provincias (modelo)"], ["prov_evolucion", "Provincia: evolución (modelo)"],
   ["calidad", "Calidad de la encuesta"]];
-const DIMS_M = [["edad", "Edad"], ["sexo", "Sexo"], ["estudios", "Estudios"]];
+const DIMS_M = [["edad", "Edad"], ["sexo", "Sexo"], ["estudios", "Estudios"], ["sitlab", "Situación laboral"], ["tamuni", "Tamaño del municipio"]];
 const CATS_M = { edad: ["18–24", "25–34", "35–49", "50–59", "60–69", "70 y más"], sexo: ["Mujer", "Hombre"],
-  estudios: ["Sin estudios", "Primaria", "Secundaria 1ª etapa", "Secundaria 2ª etapa", "FP", "Superiores"] };
+  estudios: ["Sin estudios", "Primaria", "Secundaria 1ª etapa", "Secundaria 2ª etapa", "FP", "Superiores"],
+  sitlab: ["Trabaja", "En paro", "Jubilado/a o pensionista", "Estudiante", "Otra inactividad"],
+  tamuni: ["Hasta 10.000", "10.001–50.000", "50.001–400.000", "Más de 400.000"] };
 const FAMS_V = [["PSOE", "PSOE"], ["PP", "PP"], ["Vox", "Vox"], ["Sumar", "Sumar"], ["Podemos y confluencias", "Podemos y confluencias"], ["Ciudadanos", "Ciudadanos"],
   ["ERC", "ERC"], ["Convergència / Junts", "Junts"], ["PNV", "PNV"], ["EH Bildu", "EH Bildu"], ["BNG", "BNG"], ["Abstención", "Abstención"]];
 const CATS_V = {
@@ -931,6 +937,7 @@ const DIMS_V = [["grupo_edad", "Edad"], ["sexo", "Sexo"], ["estudios", "Estudios
   ["tamuni", "Tamaño de municipio"], ["ccaa", "Comunidad autónoma"]];
 const ELEC_CIS = [["02-202307", "Generales 2023 (estudio 3420)"], ["02-201911", "Generales nov. 2019 (3269)"], ["02-201904", "Generales abr. 2019 (3248)"],
   ["02-201606", "Generales 2016 (3145)"], ["02-201512", "Generales 2015 (3126)"]];
+const sobre = (hex) => { const n = parseInt(hex.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) > 150 ? "#1a0b3d" : "#fff"; };
 const SEQ = ["#2a1856", "#4b2390", "#7b3fd0", "#a21eff", "#c76bff", "#e9b6ff", "#f6e0ff"];
 
 function uiVotantes(p = {}) {
@@ -1011,19 +1018,19 @@ function pintarPerfilVot(r, params) {
       ...(d.shares["Abstención"] != null ? [["Abstención declarada", fmt.pct(d.shares["Abstención"]), "de quienes responden"]] : [])]) +
     `<section class="st-card"><h3>Composición por ${esc(d.dimension_nombre.toLowerCase())}</h3><div class="chart" id="vt-bar" style="height:${70 + d.tabla.length * 42}px"></div></section>
     <section class="st-card"><h3>Tabla con intervalos de confianza</h3><div class="st-scroll x"><table class="t vt-tab"><tr><th>Electorado</th>${cats.map((c) => `<th class="n">${esc(c)}</th>`).join("")}<th class="n">n</th></tr>
-      ${d.tabla.map((f) => { const tot = d.tabla[d.tabla.length - 1]; return `<tr${f === tot ? ' class="pf-ref"' : ""}><td><i class="pf-dot" style="background:${f === tot ? "#fff" : colPartido(f.fila)}"></i>${esc(f.fila)}</td>${f.celdas.map((c, j) => {
+      ${d.tabla.map((f) => { const tot = d.tabla[d.tabla.length - 1]; return `<tr${f === tot ? ' class="pf-ref"' : ""}><td><i class="pf-dot" style="background:${f === tot ? "#fff" : colPartido(f.fila)}"></i>${esc(f === tot ? "Total" : f.fila)}</td>${f.celdas.map((c, j) => {
         const ref = tot.celdas[j]?.p, dif = c && ref != null ? c.p - ref : 0;
         return `<td class="n" title="${esc(icTxt(c))}" style="background:${f === tot ? "transparent" : dif > 0 ? `rgba(196,11,255,${Math.min(0.5, dif * 3)})` : `rgba(47,111,214,${Math.min(0.5, -dif * 3)})`}">${pc(c)}</td>`; }).join("")}<td class="n">${fmt.n(f.n)}</td></tr>`; }).join("")}</table></div>
       <p class="note">Color: más (violeta) o menos (azul) presencia del grupo que en el conjunto. Pasa el cursor por una celda para ver su intervalo de confianza.</p></section>` + fichaCIS(d) + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-bar")).setOption({
-    backgroundColor: "transparent", grid: { left: 190, right: 20, top: 30, bottom: 20 },
+    backgroundColor: "transparent", grid: { left: gl(190), right: 20, top: 30, bottom: 20 },
     legend: { top: 0, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 12, itemHeight: 8, type: "scroll" },
     tooltip: { trigger: "item", formatter: (q) => { const c = d.tabla[q.dataIndex].celdas[q.seriesIndex]; return `<b>${esc(d.tabla[q.dataIndex].fila)}</b> · ${esc(q.seriesName)}<br>${pc(c)}<br><small>${esc(icTxt(c))}</small>`; } },
-    xAxis: { type: "value", max: 1, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
-    yAxis: { type: "category", inverse: true, data: d.tabla.map((f) => f.fila.replace(" (votantes y abstencionistas con respuesta)", "")), axisLabel: { color: MUTED, fontSize: 11 } },
+    xAxis: { type: "value", max: 1, splitNumber: movil() ? 2 : 5, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
+    yAxis: { type: "category", inverse: true, data: d.tabla.map((f) => f.fila.replace(" (votantes y abstencionistas con respuesta)", "")), axisLabel: ylab(170) },
     series: cats.map((c, j) => ({ type: "bar", stack: "t", name: c, barWidth: 22, itemStyle: { color: SEQ[Math.round(j * (SEQ.length - 1) / Math.max(1, cats.length - 1))] },
-      label: { show: true, color: "#fff", fontSize: 10, formatter: (q) => (q.value >= 0.07 ? fmt.pct(q.value, 0) : "") },
+      label: { show: true, color: sobre(SEQ[Math.round(j * (SEQ.length - 1) / Math.max(1, cats.length - 1))]), fontSize: 10, formatter: (q) => (q.value >= umbral(0.07) ? fmt.pct(q.value, 0) : "") },
       data: d.tabla.map((f) => f.celdas[j]?.p ?? 0) })),
   }, true);
 }
@@ -1037,13 +1044,13 @@ function pintarGrupoVot(r) {
       <p class="note">Las filas no suman 100 %: faltan «Otros» y «Blanco o nulo». Pasa el cursor por una celda para ver su intervalo.</p></section>` + fichaCIS(d) + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-gr")).setOption({
-    backgroundColor: "transparent", grid: { left: 170, right: 20, top: 30, bottom: 20 },
+    backgroundColor: "transparent", grid: { left: gl(170), right: 20, top: 30, bottom: 20 },
     legend: { top: 0, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 12, itemHeight: 8, type: "scroll" },
     tooltip: { trigger: "item", formatter: (q) => { const c = d.tabla[q.dataIndex].celdas[q.seriesIndex]; return `<b>${esc(d.tabla[q.dataIndex].fila)}</b> · ${esc(q.seriesName)}<br>${pc(c)}<br><small>${esc(icTxt(c))}</small>`; } },
-    xAxis: { type: "value", max: 1, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
-    yAxis: { type: "category", inverse: true, data: d.tabla.map((f) => f.fila), axisLabel: { color: MUTED, fontSize: 11 } },
+    xAxis: { type: "value", max: 1, splitNumber: movil() ? 2 : 5, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
+    yAxis: { type: "category", inverse: true, data: d.tabla.map((f) => f.fila), axisLabel: ylab(170) },
     series: d.partidos.map((p, j) => ({ type: "bar", stack: "t", name: p, barWidth: 22, itemStyle: { color: colPartido(p) },
-      label: { show: true, color: "#fff", fontSize: 10, formatter: (q) => (q.value >= 0.08 ? fmt.pct(q.value, 0) : "") },
+      label: { show: true, color: "#fff", fontSize: 10, formatter: (q) => (q.value >= umbral(0.08) ? fmt.pct(q.value, 0) : "") },
       data: d.tabla.map((f) => f.celdas[j]?.p ?? 0) })),
   }, true);
 }
@@ -1059,10 +1066,10 @@ function pintarIdeologia(r) {
       <p class="note">Porcentaje de los votantes de cada partido en cada punto de la escala (sobre quienes se ubican). Sin respuesta: ${filas.map((f) => `${esc(f.partido)} ${fmt.pct(f.sin_respuesta, 0)}`).join(" · ")}.</p></section>` + fichaCIS(d) + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-id")).setOption({
-    backgroundColor: "transparent", grid: { left: 170, right: 30, top: 10, bottom: 30 },
+    backgroundColor: "transparent", grid: { left: gl(170), right: 30, top: 10, bottom: 30 },
     tooltip: { formatter: (q) => { const f = filas[q.dataIndex]; return `<b>${esc(f.partido)}</b><br>media ${fmt.n(f.media, 2)} (IC ${fmt.n(f.ic[0], 2)}–${fmt.n(f.ic[1], 2)})<br>desv. ${fmt.n(f.desviacion, 2)} · n ${fmt.n(f.n)}`; } },
     xAxis: { type: "value", min: 1, max: 10, interval: 1, axisLabel: { color: MUTED }, splitLine: { lineStyle: { color: "rgba(176,120,255,.08)" } } },
-    yAxis: { type: "category", data: filas.map((f) => f.partido), axisLabel: { color: MUTED, fontSize: 11 } },
+    yAxis: { type: "category", data: filas.map((f) => f.partido), axisLabel: ylab(170) },
     series: [
       { type: "custom", renderItem: (pp, api) => { const y = api.coord([0, api.value(0)])[1]; const a = api.coord([api.value(1), 0])[0], b = api.coord([api.value(2), 0])[0];
         return { type: "line", shape: { x1: a, y1: y, x2: b, y2: y }, style: { stroke: "rgba(233,182,255,.7)", lineWidth: 3 } }; },
@@ -1074,10 +1081,10 @@ function pintarIdeologia(r) {
   const datos = [];
   filas.forEach((f, i) => f.distribucion.forEach((v, k) => datos.push([k, i, +v.toFixed(3)])));
   C.chart($("#vt-idh")).setOption({
-    backgroundColor: "transparent", grid: { left: 170, right: 20, top: 10, bottom: 30 },
+    backgroundColor: "transparent", grid: { left: gl(170), right: 20, top: 10, bottom: 30 },
     tooltip: { formatter: (q) => `${esc(filas[q.data[1]].partido)} · posición ${q.data[0] + 1}: ${fmt.pct(q.data[2])}` },
     xAxis: { type: "category", data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], axisLabel: { color: MUTED } },
-    yAxis: { type: "category", data: filas.map((f) => f.partido), axisLabel: { color: MUTED, fontSize: 11 } },
+    yAxis: { type: "category", data: filas.map((f) => f.partido), axisLabel: ylab(170) },
     visualMap: { min: 0, max: 0.4, show: false, inRange: { color: ["#140433", "#7b3fd0", "#e9b6ff"] } },
     series: [{ type: "heatmap", data: datos, label: { show: true, color: "#fff", fontSize: 10, formatter: (q) => (q.data[2] >= 0.05 ? fmt.pct(q.data[2], 0) : "") }, itemStyle: { borderColor: "#0a0024", borderWidth: 2 } }],
   }, true);
@@ -1112,7 +1119,7 @@ function pintarEvolucionVot(r) {
       ${d.serie.map((s) => `<tr><td>${esc(nombrePeriodo(s.eleccion))}</td>${(s.celdas || d.categorias.map(() => null)).map((c) => `<td class="n" title="${esc(icTxt(c))}">${pc(c)}</td>`).join("")}<td class="n">${fmt.n(s.n)}</td></tr>`).join("")}</table></div></section>` + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-ev")).setOption({
-    backgroundColor: "transparent", grid: { left: 50, right: 14, top: 14, bottom: 60 },
+    backgroundColor: "transparent", grid: { left: gl(50), right: 14, top: 14, bottom: 60 },
     legend: { bottom: 0, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 12, itemHeight: 8, type: "scroll" },
     tooltip: { trigger: "axis", valueFormatter: (v) => fmt.pct(v) },
     xAxis: { type: "category", data: els.map((e) => nombrePeriodo(e).replace("Generales ", "")), axisLabel: { color: MUTED } },
@@ -1141,15 +1148,15 @@ function pintarRegionesVot(r) {
     `<section class="st-card"><div class="chart" id="vt-rg" style="height:${80 + filas.length * 30}px"></div>
       <p class="note">Barra: estimación; línea: intervalo de confianza del 95 %. Color: fiabilidad según votantes del partido en la muestra (alta ≥ 150, media 50–149, baja &lt; 50). La línea discontinua es el valor de España.</p></section>
     <div class="row2" style="margin-bottom:16px"><button class="btn btn-primary" id="vt-rg-map">Pintar en el mapa por comunidad</button></div>
-    <section class="st-card"><h3>Tabla</h3><table class="t vt-tab"><tr><th>Comunidad</th><th class="n">${esc(d.categoria)}</th><th class="n">IC 95 %</th><th class="n">Votantes de ${esc(d.familia)} en la muestra</th><th>Fiabilidad</th></tr>
-      ${filas.map((f) => `<tr><td>${esc(f.nombre)}</td><td class="n">${fmt.pct(f.p)}</td><td class="n">${fmt.pct(f.ic[0])} – ${fmt.pct(f.ic[1])}</td><td class="n">${fmt.n(f.n)}</td><td>${f.fiabilidad}</td></tr>`).join("")}</table></section>` +
+    <section class="st-card"><h3>Tabla</h3><div class="st-scroll x"><table class="t vt-tab"><tr><th>Comunidad</th><th class="n">${esc(d.categoria)}</th><th class="n">IC 95 %</th><th class="n">Votantes de ${esc(d.familia)} en la muestra</th><th>Fiabilidad</th></tr>
+      ${filas.map((f) => `<tr><td>${esc(f.nombre)}</td><td class="n">${fmt.pct(f.p)}</td><td class="n">${fmt.pct(f.ic[0])} – ${fmt.pct(f.ic[1])}</td><td class="n">${fmt.n(f.n)}</td><td>${f.fiabilidad}</td></tr>`).join("")}</table></div></section>` +
     `<p class="st-cis">Fuente: CIS, estudio ${esc(d.estudio)}. Pesos calibrados al resultado oficial de cada comunidad.</p>` + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-rg")).setOption({
-    backgroundColor: "transparent", grid: { left: 200, right: 40, top: 10, bottom: 30 },
+    backgroundColor: "transparent", grid: { left: gl(200), right: 40, top: 10, bottom: 30 },
     tooltip: { formatter: (q) => { const f = filas[q.dataIndex]; return f ? `<b>${esc(f.nombre)}</b><br>${fmt.pct(f.p)} (IC ${fmt.pct(f.ic[0])}–${fmt.pct(f.ic[1])})<br>n = ${fmt.n(f.n)} · fiabilidad ${f.fiabilidad}` : ""; } },
     xAxis: { type: "value", axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { lineStyle: { color: "rgba(176,120,255,.06)" } } },
-    yAxis: { type: "category", inverse: true, data: filas.map((f) => f.nombre), axisLabel: { color: MUTED, fontSize: 11 } },
+    yAxis: { type: "category", inverse: true, data: filas.map((f) => f.nombre), axisLabel: ylab(170) },
     series: [
       { type: "bar", barWidth: 14, data: filas.map((f) => ({ value: f.p, itemStyle: { color: fiab[f.fiabilidad], borderRadius: 3 } })),
         markLine: { symbol: "none", data: [{ xAxis: d.nacional.p }], lineStyle: { color: "#fff", type: "dashed" }, label: { color: MUTED, formatter: "España" } } },
@@ -1178,7 +1185,8 @@ async function avisosMRP() {
     "Cada provincia reproduce exactamente su resultado oficial (abstención y voto por partido). Lo que estima el modelo es cómo se reparte cada electorado por edad, sexo y estudios.",
     "Supuesto clave: dentro de una comunidad, personas del mismo sexo, edad y estudios votan de forma parecida en todas sus provincias, salvo el ajuste al resultado propio de cada provincia.",
     "Intervalos del 95 % por bootstrap de las entrevistas (40 réplicas). Recogen el error de muestreo, no el de especificación del modelo.",
-    "Marco: población de nacionalidad española de 18 años o más, Censo anual del INE (tabla 66601): año 2021 para las elecciones de 2015–2019 y 2023 para las de 2023. El grupo 18–24 incluye 2/5 del grupo censal de 15–19.",
+    "Marco: población de nacionalidad española de 18 años o más, Censo anual del INE (año 2021 para las elecciones de 2015–2019 y 2023 para las de 2023). Edad × estudios: tabla 66601; edad × situación laboral: 67128; asociación estudios–situación laboral: 67131; tamaño de municipio: 67078 y padrón.",
+    "El cruce completo de las cinco características no lo publica el INE: se reconstruye por ajuste iterativo, suponiendo que el tamaño del municipio es independiente de estudios y situación laboral dentro de cada provincia, sexo y edad. Tamaño de municipio con todas las nacionalidades (la tabla municipal no distingue).",
     ...v.map((x) => `Validación ${nombrePeriodo(x.eleccion)}: dejando fuera cada provincia con 300 entrevistas o más (${x.provincias.length}), el modelo acierta su composición por edad con un error medio de ${fmt.n(x.error_medio_mrp, 1)} puntos, frente a ${fmt.n(x.error_medio_nacional, 1)} usando el perfil nacional del partido (mejor en ${x.mejora_en} de ${x.comparaciones} comparaciones).`)];
 }
 function rMRP(d, params, avisos) {
@@ -1228,14 +1236,14 @@ function pintarProvPerfil(d, provId, dim, avisos) {
   enlazarExport($("#st-res"));
   const ys = [...filas.map((f) => f.p), "Electorado total"];
   C.chart($("#vt-pp")).setOption({
-    backgroundColor: "transparent", grid: { left: 170, right: 20, top: 30, bottom: 20 },
+    backgroundColor: "transparent", grid: { left: gl(170), right: 20, top: 30, bottom: 20 },
     legend: { top: 0, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 12, itemHeight: 8, type: "scroll" },
     tooltip: { trigger: "item", formatter: (q) => { const f = filas[q.dataIndex]; const k = cols[q.seriesIndex][1];
       return `<b>${esc(ys[q.dataIndex])}</b> · ${esc(q.seriesName)}<br>${fmt.pct(q.value)}${f ? `<br><small>IC 95 %: ${pct1(u.comp[f.j][1][k])} – ${pct1(u.comp[f.j][2][k])}</small>` : ""}`; } },
-    xAxis: { type: "value", max: 1, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
-    yAxis: { type: "category", inverse: true, data: ys, axisLabel: { color: MUTED, fontSize: 11 } },
+    xAxis: { type: "value", max: 1, splitNumber: movil() ? 2 : 5, axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { show: false } },
+    yAxis: { type: "category", inverse: true, data: ys, axisLabel: ylab(170) },
     series: cols.map(([c, k], i) => ({ type: "bar", stack: "t", name: c, barWidth: 22, itemStyle: { color: SEQ[Math.round(i * (SEQ.length - 1) / Math.max(1, cols.length - 1))] },
-      label: { show: true, color: "#fff", fontSize: 10, formatter: (q) => (q.value >= 0.07 ? fmt.pct(q.value, 0) : "") },
+      label: { show: true, color: sobre(SEQ[Math.round(i * (SEQ.length - 1) / Math.max(1, cols.length - 1))]), fontSize: 10, formatter: (q) => (q.value >= umbral(0.07) ? fmt.pct(q.value, 0) : "") },
       data: [...filas.map((f) => u.comp[f.j][0][k] / 100), pob[i] / 100] })),
   }, true);
 }
@@ -1249,21 +1257,21 @@ function pintarProvComparar(d, fam, dim, grupo, medida, avisos) {
     .map((u) => ({ id: u.id, nombre: u.nombre, p: u[m][j][0][k] / 100, ic: [u[m][j][1][k] / 100, u[m][j][2][k] / 100], n: u.n_muestra })).sort((a, b) => b.p - a.p);
   const es = d.unidades.find((u) => u.id === "ES");
   const nac = es[m][j][0][k] / 100;
-  const titulo = m === "comp" ? `${grupo} entre los votantes de ${fam}, por provincia` : `Voto a ${fam} entre ${grupo.toLowerCase() === grupo ? grupo : grupo} (${DIMS_M.find((x) => x[0] === dim)[1].toLowerCase()}), por provincia`;
+  const titulo = m === "comp" ? `Peso del grupo «${grupo}» entre los votantes de ${fam}, por provincia` : `Voto a ${fam} en el grupo «${grupo}», por provincia`;
   const r = rMRP(d, { eleccion: d.eleccion, familia: fam, dimension: dim, grupo, medida }, avisos);
   $("#st-res").innerHTML = cab(titulo, `${nombrePeriodo(d.eleccion)} · estimación por modelo (MRP) · España: ${fmt.pct(nac)}`) +
     `<section class="st-card"><div class="chart" id="vt-pc" style="height:${80 + filas.length * 22}px"></div>
       <p class="note">${m === "comp" ? `Porcentaje de los votantes de ${esc(fam)} que pertenecen al grupo.` : `Porcentaje del grupo (sobre su censo) que votó a ${esc(fam)}; el resto se abstuvo o votó a otros.`} Barra: estimación; línea: intervalo del 95 %. Discontinua: España. Solo provincias donde el partido obtuvo al menos un 0,3 % del censo.</p></section>
     <div class="row2" style="margin-bottom:16px"><button class="btn btn-primary" id="vt-pc-map">Pintar en el mapa por provincia</button></div>
-    <section class="st-card"><h3>Tabla</h3><table class="t vt-tab"><tr><th>Provincia</th><th class="n">Estimación</th><th class="n">IC 95 %</th><th class="n">Entrevistas en la provincia</th></tr>
-      ${filas.map((f) => `<tr><td>${esc(f.nombre)}</td><td class="n">${fmt.pct(f.p)}</td><td class="n">${fmt.pct(f.ic[0])} – ${fmt.pct(f.ic[1])}</td><td class="n">${fmt.n(f.n)}</td></tr>`).join("")}</table></section>
+    <section class="st-card"><h3>Tabla</h3><div class="st-scroll x"><table class="t vt-tab"><tr><th>Provincia</th><th class="n">Estimación</th><th class="n">IC 95 %</th><th class="n">Entrevistas en la provincia</th></tr>
+      ${filas.map((f) => `<tr><td>${esc(f.nombre)}</td><td class="n">${fmt.pct(f.p)}</td><td class="n">${fmt.pct(f.ic[0])} – ${fmt.pct(f.ic[1])}</td><td class="n">${fmt.n(f.n)}</td></tr>`).join("")}</table></div></section>
     <p class="st-cis">Fuentes: CIS, estudio ${esc(d.estudio)}; INE, Censo anual ${d.censo_anio}; Ministerio del Interior. Método: MRP.</p>` + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-pc")).setOption({
-    backgroundColor: "transparent", grid: { left: 160, right: 40, top: 10, bottom: 30 },
+    backgroundColor: "transparent", grid: { left: gl(160), right: 40, top: 10, bottom: 30 },
     tooltip: { formatter: (q) => { const f = filas[q.dataIndex]; return f ? `<b>${esc(f.nombre)}</b><br>${fmt.pct(f.p)} (IC ${fmt.pct(f.ic[0])}–${fmt.pct(f.ic[1])})<br>${fmt.n(f.n)} entrevistas en la provincia` : ""; } },
     xAxis: { type: "value", axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { lineStyle: { color: "rgba(176,120,255,.06)" } } },
-    yAxis: { type: "category", inverse: true, data: filas.map((f) => f.nombre), axisLabel: { color: MUTED, fontSize: 10 } },
+    yAxis: { type: "category", inverse: true, data: filas.map((f) => f.nombre), axisLabel: ylab(170) },
     series: [
       { type: "bar", barWidth: 10, data: filas.map((f) => ({ value: f.p, itemStyle: { color: colPartido(fam), borderRadius: 2 } })),
         markLine: { symbol: "none", data: [{ xAxis: nac }], lineStyle: { color: "#fff", type: "dashed" }, label: { color: MUTED, formatter: "España" } } },
@@ -1298,7 +1306,7 @@ function pintarProvEvolucion(series, provId, fam, dim, avisos) {
       ${puntos.map((x) => `<tr><td>${esc(nombrePeriodo(x.eleccion))}</td>${(x.celdas || cats.map(() => null)).map((c) => `<td class="n" title="${c ? `IC 95 %: ${fmt.pct(c.ic[0])} – ${fmt.pct(c.ic[1])}` : ""}">${c ? fmt.pct(c.p) : "—"}${c ? `<small class="ic">${fmt.n(c.ic[0] * 100, 0)}–${fmt.n(c.ic[1] * 100, 0)}</small>` : ""}</td>`).join("")}<td class="n">${x.celdas ? pct1(x.voto) : "—"}</td></tr>`).join("")}</table></div></section>` + repro(r);
   enlazarExport($("#st-res"));
   C.chart($("#vt-pe")).setOption({
-    backgroundColor: "transparent", grid: { left: 50, right: 14, top: 14, bottom: 60 },
+    backgroundColor: "transparent", grid: { left: gl(50), right: 14, top: 14, bottom: 60 },
     legend: { bottom: 0, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 12, itemHeight: 8, type: "scroll" },
     tooltip: { trigger: "axis", valueFormatter: (v) => (v == null ? "—" : fmt.pct(v)) },
     xAxis: { type: "category", data: puntos.map((x) => nombrePeriodo(x.eleccion).replace("Generales ", "")), axisLabel: { color: MUTED } },
