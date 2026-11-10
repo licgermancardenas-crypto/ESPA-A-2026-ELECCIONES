@@ -43,41 +43,30 @@ function heroCounters() {
 // ───────── mapa ─────────
 function initMap() {
   map = new maplibregl.Map({
-    container: "map", attributionControl: false, center: [-3.7, 38.6], zoom: 4.7, pitch: 58, bearing: -16,
+    container: "map", attributionControl: false, center: [-3.7, 40], zoom: 5, pitch: 0, bearing: 0,
     maxPitch: 70, antialias: true, fadeDuration: 400,
     style: {
       version: 8,
       sources: {},
-      layers: [{ id: "bg", type: "background", paint: { "background-color": "#07060d" } }],
+      layers: [{ id: "bg", type: "background", paint: { "background-color": "#0a0024" } }],
     },
   });
   map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Datos: INE · Ministerio del Interior · cartografía INE" }), "bottom-left");
-  // en la portada, España se dibuja en la mitad derecha (el texto ocupa la izquierda)
-  map.setPadding({ left: Math.round(window.innerWidth * 0.42), top: 0, right: 0, bottom: 0 });
+  // en la portada el encuadre deja la mitad izquierda libre para el texto (heroEncuadre)
 
   map.on("load", async () => {
     for (const n of ["ccaa", "provincias"]) await loadGeo(n);
     addLevelLayers("ccaa"); addLevelLayers("provincias");
-    // capa 3D de la portada: provincias extruidas por población, color del ganador de las últimas generales
-    map.addLayer({ id: "hero-3d", type: "fill-extrusion", source: "provincias",
-      // en la portada se omiten Canarias: en su posición real quedarían detrás del texto
-      filter: ["!", ["in", ["get", "id"], ["literal", ["ES-PR-35", "ES-PR-38"]]]],
-      paint: { "fill-extrusion-color": ["coalesce", ["feature-state", "c"], "#3b3166"],
-        "fill-extrusion-height": ["*", ["coalesce", ["feature-state", "h"], 0], 0],
-        "fill-extrusion-opacity": 0.92, "fill-extrusion-vertical-gradient": true } });
+    // portada: mapa plano de provincias con el ganador de las últimas generales
     const ult = [...S.elecciones].reverse().find((e) => e.tipo === "Generales");
     const gan = await ganadores(ult.id);
-    for (const f of S.geo.provincias.features) {
-      const g = gan[f.properties.id];
-      map.setFeatureState({ source: "provincias", id: f.properties.id },
-        { c: g ? S.fam[g[0]] || "#8a84a3" : "#3b3166", h: Math.sqrt(S.terr[f.properties.id]?.pob || 0) * 70 });
-    }
-    heroLegend(gan);
+    heroCapas(gan);
+    heroLegend(gan, ult);
     setLevelVisibility(null);
-    growHero();
     $("#loader").classList.add("done");
-    rotate();
-    loadGeo("municipios").then(() => addLevelLayers("municipios"));
+    heroEncuadre();
+    setTimeout(heroRevelar, 350);
+    loadGeo("municipios").then(() => { addLevelLayers("municipios"); heroMunicipios(); });
     enlaceDirecto();
   });
 
@@ -146,7 +135,7 @@ function setFondo(v) {
 
 function addLevelLayers(n) {
   if (map.getLayer(`${n}-fill`)) return;
-  const before = map.getLayer("hero-3d") ? "hero-3d" : undefined;
+  const before = map.getLayer("hero-halo") ? "hero-halo" : undefined;
   map.addLayer({ id: `${n}-fill`, type: "fill", source: SRC[n], layout: { visibility: "none" },
     paint: { "fill-color": ["coalesce", ["feature-state", "c"], "#1b1830"],
       "fill-opacity": opacidad(),
@@ -178,38 +167,105 @@ function enlaceDirecto() {
 }
 
 // ───────── portada ─────────
-let rotating = true;
-function rotate() {
-  if (!rotating) return;
-  map.easeTo({ bearing: map.getBearing() + 12, duration: 9000, easing: (t) => t });
-  map.once("moveend", rotate);
+const HERO = ["hero-halo", "hero-fill", "hero-muni", "hero-prov", "hero-ccaa"];
+const CANARIAS = ["ES-PR-35", "ES-PR-38"];
+const CIUDADES = [["ES-MU-28079", "Madrid"], ["ES-MU-08019", "Barcelona"], ["ES-MU-46250", "Valencia"], ["ES-MU-41091", "Sevilla"],
+  ["ES-MU-50297", "Zaragoza"], ["ES-MU-29067", "Málaga"], ["ES-MU-48020", "Bilbao"], ["ES-MU-07040", "Palma"]];
+let heroMarcas = [];
+const sinCanarias = ["!", ["in", ["get", "id"], ["literal", CANARIAS]]];
+
+function heroCapas(gan) {
+  for (const f of S.geo.provincias.features) {
+    const g = gan[f.properties.id];
+    map.setFeatureState({ source: "provincias", id: f.properties.id }, { c: g ? S.fam[g[0]] || "#8a84a3" : "#2a1856", o: 0 });
+  }
+  // halo violeta bajo el territorio
+  map.addLayer({ id: "hero-halo", type: "line", source: "provincias", filter: sinCanarias,
+    paint: { "line-color": "#c40bff", "line-width": 10, "line-blur": 14, "line-opacity": 0, "line-opacity-transition": { duration: 2000 } } });
+  map.addLayer({ id: "hero-fill", type: "fill", source: "provincias", filter: sinCanarias,
+    paint: { "fill-color": ["coalesce", ["feature-state", "c"], "#2a1856"],
+      "fill-opacity": ["*", ["coalesce", ["feature-state", "o"], 0], 0.86], "fill-opacity-transition": { duration: 900 } } });
+  map.addLayer({ id: "hero-prov", type: "line", source: "provincias", filter: sinCanarias,
+    paint: { "line-color": "#0a0024", "line-width": 1.1, "line-opacity": 0, "line-opacity-transition": { duration: 1200 } } });
+  map.addLayer({ id: "hero-ccaa", type: "line", source: "ccaa", filter: ["!=", ["get", "id"], "ES-CA-05"],
+    paint: { "line-color": "#e9b6ff", "line-width": 1, "line-opacity": 0, "line-opacity-transition": { duration: 1600 } } });
+  canariasInset(gan);
 }
-function animHero(from, to, ms, done) {
-  const t0 = performance.now();
-  const step = (t) => {
-    const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
-    map.setPaintProperty("hero-3d", "fill-extrusion-height", ["*", ["coalesce", ["feature-state", "h"], 0], from + (to - from) * e]);
-    if (k < 1) requestAnimationFrame(step); else done && done();
-  };
-  requestAnimationFrame(step);
+function heroMunicipios() {
+  if (document.body.classList.contains("app") || map.getLayer("hero-muni")) return;
+  map.addLayer({ id: "hero-muni", type: "line", source: "municipios",
+    filter: ["!", ["in", ["slice", ["get", "id"], 6, 8], ["literal", ["35", "38"]]]],
+    paint: { "line-color": "#0a0024", "line-width": 0.3, "line-opacity": 0, "line-opacity-transition": { duration: 1500 } } }, "hero-prov");
+  requestAnimationFrame(() => map.setPaintProperty("hero-muni", "line-opacity", 0.35));
 }
-function growHero() { animHero(0, 1, 2600); }
-function heroLegend(gan) {
+function heroEncuadre() {
+  const w = window.innerWidth, h = window.innerHeight;
+  map.fitBounds([[-9.4, 35.9], [4.4, 43.85]], {
+    padding: { left: Math.round(w * 0.47), right: Math.round(w * 0.05), top: Math.round(h * 0.12), bottom: Math.round(h * 0.16) }, duration: 0 });
+}
+// las provincias aparecen en oleada de oeste a este; luego bordes, halo y ciudades
+function heroRevelar() {
+  const fs = [...S.geo.provincias.features].filter((f) => !CANARIAS.includes(f.properties.id));
+  const lon = (f) => { const b = bbox(f.geometry); return (b[0][0] + b[1][0]) / 2; };
+  fs.sort((a, b) => lon(a) - lon(b)).forEach((f, i) =>
+    setTimeout(() => map.setFeatureState({ source: "provincias", id: f.properties.id }, { o: 1 }), 120 + i * 28));
+  setTimeout(() => {
+    map.setPaintProperty("hero-prov", "line-opacity", 0.9);
+    map.setPaintProperty("hero-ccaa", "line-opacity", 0.55);
+    map.setPaintProperty("hero-halo", "line-opacity", 0.14);
+  }, 900);
+  setTimeout(heroCiudades, 1500);
+}
+function heroCiudades() {
+  if (document.body.classList.contains("app")) return;
+  heroMarcas = CIUDADES.map(([id, nombre], i) => {
+    const t = S.terr[id];
+    if (!t?.lon) return null;
+    const el = document.createElement("div");
+    el.className = "ciudad";
+    el.style.animationDelay = `${i * 0.08}s`;
+    el.innerHTML = `<i></i><span>${esc(nombre)}</span>`;
+    return new maplibregl.Marker({ element: el, anchor: "left", offset: [-4, 0] }).setLngLat([t.lon, t.lat]).addTo(map);
+  }).filter(Boolean);
+}
+// recuadro de Canarias (convención cartográfica): SVG con sus dos provincias
+function canariasInset(gan) {
+  const fs = S.geo.provincias.features.filter((f) => CANARIAS.includes(f.properties.id));
+  const pts = fs.flatMap((f) => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates).flat(2));
+  const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const W = 230, k = W / (x1 - x0), H = Math.round((y1 - y0) * k * 1.13);
+  const pr = ([x, y]) => `${((x - x0) * k).toFixed(1)},${((y1 - y) * k * 1.13).toFixed(1)}`;
+  const paths = fs.map((f) => {
+    const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+    const d = polys.map((poly) => "M" + poly[0].map(pr).join("L") + "Z").join("");
+    const g = gan[f.properties.id];
+    return `<path d="${d}" fill="${g ? S.fam[g[0]] : "#2a1856"}" fill-opacity="0.86" stroke="#0a0024" stroke-width="0.8"/>`;
+  }).join("");
+  $("#hero-canarias").innerHTML = `<svg viewBox="-4 -4 ${W + 8} ${H + 8}" width="${W}" height="${H}">${paths}</svg><span>Islas Canarias</span>`;
+}
+function heroSalir() {
+  heroMarcas.forEach((m) => m.remove());
+  heroMarcas = [];
+  for (const id of HERO) if (map.getLayer(id)) map.removeLayer(id);
+  $("#hero-canarias").classList.add("off");
+}
+function heroLegend(gan, ult) {
   const cnt = {};
   Object.entries(gan).forEach(([id, g]) => id.startsWith("ES-PR-") && (cnt[g[0]] = (cnt[g[0]] || 0) + 1));
-  $("#hero-legend").innerHTML = `<span style="color:var(--dim)">Generales 2023 · altura = población · color = partido más votado</span>` +
-    Object.entries(cnt).sort((a, b) => b[1] - a[1]).map(([f, n]) => `<span><i style="background:${S.fam[f]}"></i>${esc(f)} ${n}</span>`).join("");
+  $("#hero-legend").innerHTML = `<span class="hl-t">${esc(ult.nombre)} · partido más votado por provincia</span>` +
+    Object.entries(cnt).sort((a, b) => b[1] - a[1]).map(([f, n]) => `<span><i style="background:${S.fam[f]}"></i>${esc(f)} <b>${n}</b></span>`).join("");
 }
+window.addEventListener("resize", () => { if (!document.body.classList.contains("app") && map?.loaded()) heroEncuadre(); });
 
 function enterApp(view = "mapa") {
   if (document.body.classList.contains("app")) return;
-  rotating = false;
   map.stop();
   document.body.classList.add("app");
   $("#hero").classList.add("hidden");
   $("#hero-legend").style.display = "none";
   setTimeout(() => $("#hero").classList.add("gone"), 1200);
-  animHero(1, 0, 1100, () => map.setLayoutProperty("hero-3d", "visibility", "none"));
+  heroSalir();
   map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
   map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: padIzq(), right: 480 }, pitch: 0, bearing: 0, duration: 2200, essential: true });
   setTimeout(() => { setLevelVisibility(S.nivel); refresh(); $("#v-mapa").classList.add("on"); renderPanel(S, null); $("#panel").classList.add("open"); }, 600);

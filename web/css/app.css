@@ -72,6 +72,17 @@ button { font-family: inherit; color: inherit; }
 .btn-ghost:hover { background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
 .hero-foot { position: fixed; left: 7vw; bottom: 34px; color: var(--dim); font-size: 12px; letter-spacing: 0.04em; opacity: 0; animation: fade 1s 1.3s forwards; }
 .hero-legend { position: fixed; right: 4vw; bottom: 34px; z-index: 31; font-size: 12px; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; max-width: 46vw; opacity: 0; animation: fade 1s 1.5s forwards; }
+.hero-legend .hl-t { color: var(--dim); width: 100%; text-align: right; letter-spacing: 0.04em; }
+.hero-legend b { color: var(--ink); font-weight: 700; margin-left: 2px; }
+.hero-canarias { position: fixed; z-index: 31; right: 4vw; bottom: 96px; padding: 12px 14px 10px; border: 1px solid var(--line); border-radius: 14px;
+  background: rgba(18, 4, 46, 0.55); backdrop-filter: blur(6px); opacity: 0; animation: fade 1.2s 1.6s forwards; transition: opacity 0.6s; pointer-events: none; }
+.hero-canarias svg { display: block; width: 190px; height: auto; }
+.hero-canarias span { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+.hero-canarias.off, body.app .hero-canarias { opacity: 0 !important; animation: none; }
+.ciudad { display: flex; align-items: center; gap: 7px; pointer-events: none; }
+.ciudad > * { opacity: 0; animation: fadeUp 0.8s var(--ease) forwards; animation-delay: inherit; }
+.ciudad i { width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(196, 11, 255, 0.35), 0 0 14px rgba(233, 182, 255, 0.9); }
+.ciudad span { font: 700 11px/1 var(--font); letter-spacing: 0.08em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(10, 0, 36, 0.95), 0 0 10px rgba(10, 0, 36, 0.8); }
 .hero-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
 
 /* ───────── barra lateral ───────── */

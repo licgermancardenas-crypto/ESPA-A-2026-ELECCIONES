@@ -63,7 +63,7 @@ atlas web --exportar     # regenera web/data desde el warehouse y abre http://12
 atlas web                # solo servir (si web/data ya existe)
 ```
 
-- **Portada**: España en 3D (altura = población, color = partido más votado en las últimas generales).
+- **Portada**: mapa de España por provincia con el partido más votado en las últimas generales, principales ciudades y recuadro de Canarias.
 - **Mapa**: elecciones (generales, municipales, europeas 1977–2024; ganador, participación, competitividad),
   demografía (población, variación, densidad) y renta; niveles comunidad / provincia / municipio.
   Línea de tiempo con ▶ para recorrer todas las convocatorias.
