@@ -1,4 +1,5 @@
 // Páginas: comparador histórico, hallazgos y datos/calidad.
+import * as D from "./datos.js";
 import { $, fmt, getJSON, esc } from "./util.js";
 import * as C from "./charts.js";
 
@@ -55,7 +56,7 @@ async function insights() {
 
 async function datos() {
   try {
-    const [src, q, ex] = await Promise.all([getJSON("api/core/sources"), getJSON("api/core/quality"), getJSON("api/core/operations/executions?limit=500")]);
+    const [src, q, ex] = await Promise.all([D.core("sources"), D.core("quality"), D.core("executions")]);
     const disp = src.filter((s) => s.estado === "disponible").length;
     const filas = ex.reduce((a, e) => a + (e.records_processed || 0), 0);
     const ok = q.filter((x) => x.status === "pass").length;

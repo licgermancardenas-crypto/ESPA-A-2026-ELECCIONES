@@ -76,6 +76,20 @@ atlas web                # solo servir (si web/data ya existe)
 - Enlaces directos a una vista: `http://127.0.0.1:8080/#fondo=satelite&sel=ES-MU-28079`.
 - Sin claves de API: librerías (MapLibre, ECharts) y tipografías por CDN; teselas del IGN y de AWS.
 
+#### Publicación (Vercel)
+
+Versión pública: **https://atlas-spain-elecciones.vercel.app**
+
+La web publicada es estática: no necesita Python ni el warehouse. Para actualizarla:
+
+```bash
+atlas web --exportar                     # o solo regenerar web/data si cambió el warehouse
+python -m atlas_spain.web.estatico       # fichas (por provincia), secciones y datos de calidad como archivos
+cd web && vercel deploy --prod --yes --archive=tgz
+```
+
+`web/js/datos.js` lee primero esos archivos y, si faltan, usa la API local (`atlas web`).
+
 ### Tablero de Power BI
 
 `atlas powerbi` exporta los CSV (`reports/powerbi/datos/`) y genera un proyecto PBIP con 8 páginas:

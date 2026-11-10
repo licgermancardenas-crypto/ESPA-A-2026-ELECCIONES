@@ -1,4 +1,5 @@
 // ATLAS SPAIN — aplicación principal: portada, mapa, controles y navegación.
+import * as D from "./datos.js";
 import { $, $$, fmt, getJSON, countUp, stepScale, RAMPS, toast, bbox, esc } from "./util.js";
 import { renderPanel } from "./panel.js";
 import { initPages, showPage } from "./pages.js";
@@ -458,7 +459,7 @@ export async function select(id) {
   $("#panel").classList.add("open");
   renderPanel(S, "loading");
   try {
-    const fi = await getJSON(`api/ficha/${id}`);
+    const fi = await D.ficha(id);
     if (S.sel !== id) return;
     S.fichaActual = fi;
     renderPanel(S, fi);
@@ -504,7 +505,7 @@ const SECC_METRICAS = {
 };
 async function cargarSecciones(cod) {
   try {
-    const gj = await getJSON(`api/secciones/${cod}`);
+    const gj = await D.secciones(cod);
     if (!S.sel || S.sel.slice(6) !== cod) return;
     removeSecciones();
     map.addSource("secc", { type: "geojson", data: gj });
