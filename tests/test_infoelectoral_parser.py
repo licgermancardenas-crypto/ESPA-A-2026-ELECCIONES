@@ -54,3 +54,11 @@ def test_parse_zip_reconoce_nombres():
     out = parse_zip(mem.getvalue())
     assert set(out) == {"05"}
     assert int(out["05"].iloc[0]["votos_candidaturas"]) == 1500
+
+
+def test_descarta_lineas_de_relleno():
+    buena = build_line("07", {"tipo_eleccion": "04", "anno": "2003", "mes": "05", "codigo_ccaa_mir": "01",
+                              "codigo_provincia": "04", "codigo_distrito_electoral": "9", "votos_candidaturas": 10})
+    relleno = build_line("07", {"tipo_eleccion": "04", "anno": "0000", "mes": "31", "codigo_provincia": "00"})
+    df = parse_lines([buena, relleno], "07")
+    assert len(df) == 1 and df.iloc[0]["anno"] == "2003"

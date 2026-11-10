@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATLAS SPAIN</title>
+  <meta name="description" content="Inteligencia política, electoral y territorial de España con datos oficiales.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div class="loader" id="loader"><div><div class="ring" style="margin:auto"></div><p>Cargando el territorio</p></div></div>
+  <div id="map"></div>
+
+  <!-- ───────── portada ───────── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">ATLAS Analytics · Inteligencia territorial</div>
+      <h1 class="hero-title"><span><i>España,</i></span><span><i>territorio a territorio.</i></span></h1>
+      <p class="hero-sub">Cuarenta y siete años de democracia, ocho mil municipios y treinta y seis mil secciones censales,
+        cruzados con datos oficiales de población, renta y voto. Haz clic en cualquier lugar y descubre su historia.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><b data-count="pob">—</b><small>habitantes · Padrón</small></div>
+        <div class="hero-stat"><b data-count="munis">—</b><small>municipios con historia electoral</small></div>
+        <div class="hero-stat"><b data-count="elec">—</b><small>elecciones oficiales desde 1977</small></div>
+        <div class="hero-stat"><b data-count="secc">—</b><small>secciones censales con renta</small></div>
+      </div>
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="go-map">Explorar el mapa →</button>
+        <button class="btn btn-ghost" id="go-insights">Ver hallazgos</button>
+      </div>
+    </div>
+    <div class="hero-foot">Fuentes: INE · Ministerio del Interior · Eurostat · Gobierno Vasco · Comunidad de Madrid</div>
+  </section>
+  <div class="hero-legend" id="hero-legend"></div>
+
+  <!-- ───────── barra superior ───────── -->
+  <header id="topbar">
+    <div class="brand" id="brand"><div class="dot"></div>ATLAS SPAIN <small>BETA</small></div>
+    <nav class="nav" id="nav">
+      <button data-view="mapa" class="on">Mapa</button>
+      <button data-view="comparador">Comparador histórico</button>
+      <button data-view="insights">Hallazgos</button>
+      <button data-view="datos">Datos y calidad</button>
+    </nav>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="Busca un municipio, provincia o comunidad…" autocomplete="off">
+      <ul id="q-res"></ul>
+    </div>
+  </header>
+
+  <!-- ───────── vista mapa ───────── -->
+  <section class="view" id="v-mapa">
+    <aside id="controls" class="glass interactive">
+      <h3>Qué ver</h3>
+      <div class="seg" id="capa">
+        <button data-v="elecciones" class="on">Elecciones</button>
+        <button data-v="demografia">Demografía</button>
+        <button data-v="renta">Renta</button>
+      </div>
+      <div id="ctl-elec">
+        <h3>Tipo de elección</h3>
+        <div class="chips" id="tipo"></div>
+        <h3>Convocatoria</h3>
+        <div class="timeline">
+          <div class="tl-label"><b id="tl-nombre">—</b><small id="tl-fecha"></small></div>
+          <div class="row">
+            <button class="play" id="play" title="Reproducir la serie">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" id="play-ico"><path d="M7 4v16l13-8z"/></svg>
+            </button>
+            <input type="range" id="tl" min="0" max="0" value="0">
+          </div>
+        </div>
+        <h3>Métrica</h3>
+        <div class="chips" id="met-elec">
+          <button class="chip on" data-v="ganador">Partido más votado</button>
+          <button class="chip" data-v="participacion">Participación</button>
+          <button class="chip" data-v="margen">Competitividad</button>
+        </div>
+      </div>
+      <div id="ctl-demo" hidden>
+        <h3>Métrica</h3>
+        <div class="chips" id="met-demo">
+          <button class="chip on" data-v="variacion">Variación 10 años</button>
+          <button class="chip" data-v="poblacion">Población</button>
+          <button class="chip" data-v="densidad">Densidad</button>
+          <button class="chip" data-v="largo">Variación desde 1996</button>
+        </div>
+      </div>
+      <div id="ctl-renta" hidden>
+        <p class="note">Renta neta media por persona (Atlas de Distribución de Renta de los Hogares, INE). Disponible por municipio y, al hacer clic en una ciudad, por sección censal.</p>
+      </div>
+      <h3>Nivel</h3>
+      <div class="seg" id="nivel">
+        <button data-v="ccaa">Comunidad</button>
+        <button data-v="provincias" class="on">Provincia</button>
+        <button data-v="municipios">Municipio</button>
+      </div>
+      <h3>Leyenda</h3>
+      <div class="legend" id="legend"></div>
+      <p class="note" id="nota"></p>
+    </aside>
+
+    <aside id="panel" class="glass interactive">
+      <div class="panel-head">
+        <div class="crumbs" id="crumbs"></div>
+        <h2 class="panel-title" id="p-title">España</h2>
+        <div class="panel-kind" id="p-kind">Resumen nacional</div>
+        <button class="close" id="p-close" title="Volver a España">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="tabs" id="p-tabs"></div>
+      <div class="panel-body" id="p-body"></div>
+    </aside>
+  </section>
+
+  <!-- ───────── comparador ───────── -->
+  <section class="page" id="v-comparador">
+    <div class="eyebrow">Historia electoral · Congreso de los Diputados 1977–2023</div>
+    <h1>Cómo cambió el voto en España</h1>
+    <p class="lead">Porcentaje de voto y escaños por familia política en las dieciséis elecciones generales. Las familias se definen
+      en una tabla documentada: los antecesores (AP, PCE, HB) conservan su propio nombre y las coaliciones mixtas no se reparten.</p>
+    <div class="grid two">
+      <div class="card" style="animation-delay:.05s"><span class="tag">Voto por familia</span><div class="chart tall" id="c-hist"></div></div>
+      <div class="card" style="animation-delay:.12s"><span class="tag">Congreso</span><h3 id="hemi-t">—</h3>
+        <div class="chart" id="c-hemi" style="height:220px"></div>
+        <input type="range" id="hemi-r" min="0" max="0" value="0"></div>
+    </div>
+    <div class="grid two" style="margin-top:16px">
+      <div class="card" style="animation-delay:.18s"><span class="tag">Escaños por convocatoria</span><div class="chart tall" id="c-esc"></div></div>
+      <div class="card" style="animation-delay:.24s"><span class="tag">Volatilidad de Pedersen</span>
+        <p>Cambio neto de voto entre familias respecto a la convocatoria anterior.</p><div class="chart" id="c-vol"></div></div>
+    </div>
+  </section>
+
+  <!-- ───────── hallazgos ───────── -->
+  <section class="page" id="v-insights">
+    <div class="eyebrow">Calculados automáticamente sobre los datos</div>
+    <h1>Hallazgos</h1>
+    <p class="lead">Cada tarjeta se genera desde el warehouse, sin texto escrito a mano. Haz clic en un territorio para abrir su ficha en el mapa.</p>
+    <div class="grid cards" id="ins"></div>
+  </section>
+
+  <!-- ───────── datos ───────── -->
+  <section class="page" id="v-datos">
+    <div class="eyebrow">Data Operations Center</div>
+    <h1>Datos y calidad</h1>
+    <p class="lead">Todas las cifras de esta aplicación salen de fuentes públicas verificadas, con trazabilidad hasta el fichero original.</p>
+    <div class="stat-row" id="d-kpis"></div>
+    <div class="grid two">
+      <div class="card"><span class="tag">Fuentes</span><div style="max-height:520px;overflow:auto"><table class="t" id="d-src"></table></div></div>
+      <div class="card"><span class="tag">Controles de calidad (último run)</span><div style="max-height:520px;overflow:auto"><table class="t" id="d-q"></table></div></div>
+    </div>
+  </section>
+
+  <div id="tip"></div>
+  <div id="toast"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

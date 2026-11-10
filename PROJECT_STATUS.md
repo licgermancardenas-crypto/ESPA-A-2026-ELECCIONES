@@ -26,6 +26,7 @@ escaños oficiales en las 260 circunscripciones del Congreso y en todas las auto
 | Índices: ENP, Rae, Gallagher, Pedersen, Butler, margen, competitividad, dominio, eficiencia, votos sin escaño | ✅ (Python + SQL) | `electoral/indices.py`, `gold.election_indices` |
 | Data Quality Center (completitud, validez, consistencia, frescura, cobertura, fiabilidad) + reconciliación D'Hondt vs escaños oficiales | ✅ | `quality/checks.py`, `ops.quality_results` |
 | API FastAPI de solo lectura (fuentes, operaciones, calidad, territorios, SQL Explorer con bloqueo de escrituras) | ✅ | `api/main.py` |
+| Dashboard web interactivo (`atlas web`): portada 3D, mapa con zoom por niveles hasta sección censal, línea de tiempo animada 1977–2024, fichas de territorio, comparador histórico, hallazgos, datos y calidad. Verificado en navegador | ✅ | `web/`, `src/atlas_spain/web/` |
 | Tablero Power BI (PBIP generado por código, 9 páginas): mapa por comunidad / provincia / municipio con zoom regional, mapa de ciudad por distritos y secciones (renta, densidad, 65+), elecciones del País Vasco con mapa del ganador por municipio. Validado en Power BI Desktop | ✅ | `viz/powerbi_*.py`, `reports/powerbi/ATLAS_Espana.pbip` |
 | Docker Compose (etl, api, postgis opcional) | ✅ escrito, **no probado** (no hay Docker en la máquina) | `docker-compose.yml` |
 | Tests automatizados | ✅ 48 tests (incluye D'Hondt contra escaños oficiales reales) + 15 tests dbt | `tests/`, `dbt/models/schema.yml` |
@@ -76,7 +77,7 @@ EPA, DIRCE, alquiler, ejecuciones, Eurostat y diputados están en bronze **sin m
 | Autonómicas | Cargadas: País Vasco y Madrid. Pendientes: Navarra, Canarias, CLM, Galicia (portales caídos o sin datos en la verificación), resto sin investigar |
 | Balance de Criminalidad, MIVAU, Senado, CNIG | Descarga manual / navegador |
 | CIS, YouTube, Reddit, Google Trends | Credenciales a nombre del usuario (no se crean cuentas) |
-| Web propia, Atlas AI, modelos predictivos, índices compuestos | Por desarrollar |
+| Atlas AI, modelos predictivos, índices compuestos | Por desarrollar |
 
 ## 6. Limitaciones conocidas
 

@@ -140,6 +140,9 @@ def parse_lines(lines: list[str], file_type: str) -> pd.DataFrame:
             else:
                 data[name].append(raw.strip())
     df = pd.DataFrame(data)
+    # Algunos ficheros traen líneas de relleno (año 0000): no son registros electorales.
+    if "anno" in df:
+        df = df[df["anno"].str.match(r"^(19|20)\d\d$")].reset_index(drop=True)
     for name, *_, kind in layout:
         if kind == "i":
             df[name] = df[name].astype("Int64")

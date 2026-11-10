@@ -8,6 +8,7 @@
     atlas quality                    ejecuta los controles de calidad
     atlas status                     resumen de ejecuciones (Data Operations Center)
     atlas powerbi                    exporta datos y genera el tablero de Power BI (PBIP)
+    atlas web [--exportar]           dashboard web interactivo (http://127.0.0.1:8080)
 """
 
 from __future__ import annotations
@@ -99,6 +100,16 @@ def cmd_powerbi(args) -> int:
     return 0
 
 
+def cmd_web(args) -> int:
+    if args.exportar:
+        from atlas_spain.web.exportar import exportar
+        print(exportar())
+    from atlas_spain.web.server import main as serve
+    print(f"ATLAS SPAIN en http://127.0.0.1:{args.port}")
+    serve(port=args.port)
+    return 0
+
+
 def cmd_status(args) -> int:
     from atlas_spain.warehouse import connect
     con = connect(read_only=True)
@@ -127,12 +138,15 @@ def main(argv=None) -> int:
     b = sub.add_parser("build")
     b.add_argument("--skip-geo", action="store_true", help="no recalcular geometrías")
     sub.add_parser("quality")
+    w = sub.add_parser("web", help="dashboard web interactivo en http://127.0.0.1:8080")
+    w.add_argument("--port", type=int, default=8080)
+    w.add_argument("--exportar", action="store_true", help="regenerar web/data antes de servir")
     pb = sub.add_parser("powerbi", help="genera reports/powerbi/ATLAS_Espana.pbip")
     pb.add_argument("--sin-datos", action="store_true")
     sub.add_parser("status")
     args = p.parse_args(argv)
     return {"registry": cmd_registry, "ingest": cmd_ingest, "build": cmd_build,
-            "quality": cmd_quality, "status": cmd_status, "powerbi": cmd_powerbi}[args.cmd](args)
+            "quality": cmd_quality, "status": cmd_status, "powerbi": cmd_powerbi, "web": cmd_web}[args.cmd](args)
 
 
 if __name__ == "__main__":

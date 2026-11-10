@@ -56,6 +56,23 @@ atlas powerbi                         # tablero Power BI -> reports/powerbi/ATLA
 pytest                                # tests (los de red se omiten por defecto)
 ```
 
+### Dashboard web interactivo
+
+```bash
+atlas web --exportar     # regenera web/data desde el warehouse y abre http://127.0.0.1:8080
+atlas web                # solo servir (si web/data ya existe)
+```
+
+- **Portada**: España en 3D (altura = población, color = partido más votado en las últimas generales).
+- **Mapa**: elecciones (generales, municipales, europeas 1977–2024; ganador, participación, competitividad),
+  demografía (población, variación, densidad) y renta; niveles comunidad / provincia / municipio.
+  Línea de tiempo con ▶ para recorrer todas las convocatorias.
+- **Clic en un territorio**: el mapa se acerca y se "expande" al nivel inferior (comunidad → provincias →
+  municipios → secciones censales). La ficha muestra resumen con frases calculadas, demografía 1996–2025,
+  historial electoral completo, secciones (renta, densidad, 65+) y elecciones autonómicas.
+- **Comparador histórico**, **Hallazgos** (generados desde los datos) y **Datos y calidad**.
+- Sin claves ni servicios externos salvo las librerías (MapLibre, ECharts) y tipografías por CDN.
+
 ### Tablero de Power BI
 
 `atlas powerbi` exporta los CSV (`reports/powerbi/datos/`) y genera un proyecto PBIP con 8 páginas:

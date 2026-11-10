@@ -27,3 +27,6 @@ venv/
 .vercel
 .DS_Store
 Thumbs.db
+
+# datos generados del dashboard web
+web/data/

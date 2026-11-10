@@ -10,3 +10,4 @@ select
     votos, escanos,
     _source_id, _execution_id
 from {{ bronze('MIR-IE-*', 'f08_*') }}
+where regexp_full_match(anno, '(19|20)\d\d')
