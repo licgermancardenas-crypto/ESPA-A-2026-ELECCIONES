@@ -89,3 +89,41 @@ La web publicada es estática. Los laboratorios (correlación, regresión, contr
 
 - **Atlas AI** necesita un proveedor de modelo de lenguaje y una clave de API con coste por uso. Se diseña para que responda solo con resultados del motor (herramientas sobre `/stats`), pero no se activa sin esa decisión.
 - **Encuestas**: el módulo se construye para registrar fichas técnicas publicadas; los datos se cargan desde un fichero revisado a mano (`config/encuestas.yaml`) con la fuente original de cada campo.
+
+## Fases 3 a 7 — Implementación y validación (10/11/2026)
+
+### Correcciones verificadas en la lógica existente
+
+| Elemento | Problema comprobado | Corrección |
+|---|---|---|
+| `gold.volatility` (Pedersen) | Descartaba las familias que desaparecían entre convocatorias (generales 2023: 17,8 % en vez de lo correcto) y trataba refundaciones como cambio de voto (AP→PP en 1989 daba 32 %) | Suma sobre la unión de familias; seed `family_lineage` con continuidades documentadas; también municipales y europeas. Generales: 1982 42,5 %, 1989 6,3 %, 2015 37,2 %, 2023 16,7 % |
+| Hallazgo "terremotos electorales" | Al haber volatilidad de todos los tipos mezclaba municipales | Solo generales |
+| Servicio | Un método inexistente lanzaba excepción (500 en Vercel) | Error de petición controlado y registrado |
+
+### Componentes entregados
+
+| Componente | Ubicación | Estado |
+|---|---|---|
+| Panel analítico | `dbt/models/gold/stat_panel.sql` + seed `stat_variables` (19 variables con definición, fórmula, unidad, fuente, peso natural y limitaciones) | ✅ |
+| Panel de servicio | `atlas_spain.stats.panel` → `data/gold/stat_panel.npz` (970 series × 8.132 municipios, vecinos de contigüidad; huella SHA-256) | ✅ |
+| Motor | `atlas_spain.stats` (descriptiva, distribuciones, atípicos, correlación, inferencia, regresión, encuestas, espacial, electoral) | ✅ 40 tests contra statsmodels / scikit-learn / SciPy / PySAL |
+| Servicio | `atlas_spain.stats.service` (14 métodos, ámbitos, pesos, cambios entre períodos, filtro de tamaño, registro) | ✅ 12 tests de integración (panel sintético + panel real) |
+| API local | `GET/POST /api/stats` en `atlas web` | ✅ |
+| API publicada | Función Python de Vercel `web/api/stats.py` (numpy + scipy, ≤ 60 s) | ✅ verificada en producción |
+| Interfaz | Vista **Estadística**: Resumen, Descriptiva, Correlación (+ matriz y parcial), Regresión, Contrastes, Anomalías, Espacial, Probabilidad, Encuestas, Constructor | ✅ |
+| Mapa | Pestaña **Estadística** en la ficha (España, comunidad, provincia, municipio); clusters LISA pintados sobre el mapa | ✅ |
+| Hallazgos | 6 hallazgos estadísticos trazables (`atlas_spain.stats.hallazgos`) con método, parámetros, ejecución y "Ver análisis" | ✅ |
+| Operaciones | Ejecuciones en `data/ops/stat_runs.jsonl` (local) y `web/data/core/stat_runs.json`; estado del motor en Datos y calidad | ✅ |
+| Móvil | Barra lateral como menú, ficha como hoja inferior, portada adaptada | ✅ |
+
+### Reproducibilidad
+
+Cada respuesta incluye `ejecucion`: id, método, versión del motor, huella del panel, parámetros, n, faltantes, duración y fecha. Se puede exportar en JSON o como informe Markdown, y guardar en el navegador.
+
+### Pendiente
+
+- **Atlas AI**: requiere decidir proveedor de modelo y clave de API (coste por uso). Diseño previsto: el asistente solo responde llamando a `/api/stats` (herramientas), nunca con cifras propias.
+- **Encuestas**: el registro (`config/encuestas.yaml`) está vacío; se cargarán fichas técnicas publicadas y revisadas.
+- **Modelos de efectos mixtos**: no implementados; con un solo año de renta y edad, la estructura de datos aún no lo justifica.
+- **Power BI**: `nac_indices.csv` contiene la volatilidad anterior hasta regenerar `atlas powerbi`.
+- Senado, autonómicas de 15 comunidades y resultados por sección censal siguen sin datos en el warehouse.

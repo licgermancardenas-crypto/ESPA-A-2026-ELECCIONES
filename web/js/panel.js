@@ -1,6 +1,7 @@
 // Panel lateral: resumen nacional de la convocatoria o ficha del territorio elegido.
 import { $, $$, fmt, esc } from "./util.js";
 import * as C from "./charts.js";
+import { fichaEstadistica } from "./stats.js";
 
 let tabActual = "resumen";
 
@@ -48,8 +49,9 @@ async function nacional(S) {
   const body = $("#p-body");
   const r = await S.resumenDe(e.id);
   const es = r.geo["ES"] || { f: [] };
-  tabs([["resumen", "Convocatoria"], ["territorio", "Territorio"]], (k) => {
+  tabs([["resumen", "Convocatoria"], ["territorio", "Territorio"], ["stat", "Estadística"]], (k) => {
     C.disposeIn(body);
+    if (k === "stat") return fichaEstadistica(body, "ES");
     if (k === "resumen") {
       const conEsc = es.f.some((f) => f[2] > 0);
       const fil = es.f.filter((f) => f[0] !== "Otros").slice(0, 9);
@@ -104,9 +106,11 @@ function territorio(S, fi) {
   const lista = [["resumen", "Resumen"], ["demo", "Demografía"], ["elec", "Elecciones"]];
   if (fi.nivel === "municipio" && fi.n_secciones > 1) lista.push(["secc", "Secciones"]);
   if (fi.regional.length) lista.push(["auto", "Autonómicas"]);
+  lista.push(["stat", "Estadística"]);
 
   tabs(lista, (k) => {
     C.disposeIn(body);
+    if (k === "stat") return fichaEstadistica(body, id);
     if (k === "resumen") {
       const pob = t.pob, v10 = t.pob10 ? pob / t.pob10 - 1 : null, v96 = t.pob96 ? pob / t.pob96 - 1 : null;
       const dens = t.km2 ? pob / t.km2 : null;

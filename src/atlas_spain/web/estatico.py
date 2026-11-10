@@ -201,6 +201,9 @@ def secciones(con) -> int:
 
 
 def core():
+    import yaml
+    reg = yaml.safe_load((paths.CONFIG / "encuestas.yaml").read_text(encoding="utf-8")) or {}
+    _dump({"encuestas": reg.get("encuestas") or []}, WEB / "core" / "encuestas.json")
     from fastapi.testclient import TestClient
     from atlas_spain.api.main import app
     c = TestClient(app)
@@ -210,7 +213,24 @@ def core():
         _dump(r.json(), WEB / "core" / f"{nombre}.json")
 
 
+def motor():
+    """Copia el motor estadístico y el panel a web/_lib para la función serverless (api/stats.py)."""
+    import shutil
+    from atlas_spain.stats import panel as P
+    lib = paths.ROOT / "web" / "_lib"
+    shutil.rmtree(lib, ignore_errors=True)
+    (lib / "atlas_spain" / "stats").mkdir(parents=True)
+    (lib / "atlas_spain" / "__init__.py").write_text('"""Copia mínima para la función serverless."""\n', encoding="utf-8")
+    for f in (paths.ROOT / "src" / "atlas_spain" / "stats").glob("*.py"):
+        shutil.copy(f, lib / "atlas_spain" / "stats" / f.name)
+    npz = paths.DATA / "gold" / "stat_panel.npz"
+    if not npz.exists():
+        P.exportar(npz)
+    shutil.copy(npz, lib / "stat_panel.npz")
+
+
 def exportar():
+    motor()
     core()
     con = duckdb.connect(str(paths.WAREHOUSE), read_only=True)
     con.execute("SET memory_limit='900MB'; SET threads=2")

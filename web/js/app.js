@@ -3,6 +3,7 @@ import * as D from "./datos.js";
 import { $, $$, fmt, getJSON, countUp, stepScale, RAMPS, toast, bbox, esc } from "./util.js";
 import { renderPanel } from "./panel.js";
 import { initPages, showPage } from "./pages.js";
+import { initStats } from "./stats.js";
 
 const S = {
   terr: null, anyo: null, elecciones: [], fam: {}, gan: {}, resumen: {},
@@ -26,6 +27,7 @@ async function boot() {
   initControls();
   initSearch();
   initPages(S, { abrir: (id) => { enterApp(); setView("mapa"); select(id); } });
+  initStats(S);
   heroCounters();
 }
 
@@ -200,8 +202,10 @@ function heroMunicipios() {
 }
 function heroEncuadre() {
   const w = window.innerWidth, h = window.innerHeight;
-  map.fitBounds([[-9.4, 35.9], [4.4, 43.85]], {
-    padding: { left: Math.round(w * 0.47), right: Math.round(w * 0.05), top: Math.round(h * 0.12), bottom: Math.round(h * 0.16) }, duration: 0 });
+  // en móvil el mapa queda de fondo, en la mitad inferior, detrás del texto
+  const pad = w <= 760 ? { left: Math.round(w * 0.06), right: Math.round(w * 0.06), top: Math.round(h * 0.42), bottom: Math.round(h * 0.06) }
+    : { left: Math.round(w * 0.47), right: Math.round(w * 0.05), top: Math.round(h * 0.12), bottom: Math.round(h * 0.16) };
+  map.fitBounds([[-9.4, 35.9], [4.4, 43.85]], { padding: pad, duration: 0 });
 }
 // las provincias aparecen en oleada de oeste a este; luego bordes, halo y ciudades
 function heroRevelar() {
@@ -267,7 +271,7 @@ function enterApp(view = "mapa") {
   setTimeout(() => $("#hero").classList.add("gone"), 1200);
   heroSalir();
   map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
-  map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: padIzq(), right: 480 }, pitch: 0, bearing: 0, duration: 2200, essential: true });
+  map.fitBounds(PENINSULA, { padding: padMapa(60, 40), pitch: 0, bearing: 0, duration: 2200, essential: true });
   setTimeout(() => { setLevelVisibility(S.nivel); refresh(); $("#v-mapa").classList.add("on"); renderPanel(S, null); $("#panel").classList.add("open"); }, 600);
   setView(view);
 }
@@ -277,6 +281,11 @@ $("#brand").onclick = () => { setView("mapa"); deselect(); };
 
 // ───────── barra lateral plegable ─────────
 // margen izquierdo del encuadre: ancho de la barra + aire
+function padMapa(top, bottom) {
+  // escritorio: barra lateral a la izquierda y ficha a la derecha; móvil: ficha como hoja inferior
+  if (window.matchMedia("(max-width: 760px)").matches) return { top: 76, bottom: Math.round(window.innerHeight * 0.6), left: 16, right: 16 };
+  return { top, bottom, left: padIzq(), right: 480 };
+}
 function padIzq() {
   const sb = parseFloat(getComputedStyle(document.body).getPropertyValue("--sb")) || 284;
   return sb + 36;
@@ -286,6 +295,11 @@ $("#sb-toggle").onclick = () => {
   const mini = document.body.classList.toggle("sb-mini");
   try { localStorage.setItem("atlas-sb-mini", mini ? "1" : "0"); } catch (e) { /* sin almacenamiento */ }
 };
+// móvil: la barra lateral es un menú desplegable
+const esMovil = () => window.matchMedia("(max-width: 760px)").matches;
+$("#sb-burger").onclick = () => document.body.classList.toggle("sb-open");
+$("#sb-velo").onclick = () => document.body.classList.remove("sb-open");
+$("#nav").addEventListener("click", () => { if (esMovil()) document.body.classList.remove("sb-open"); });
 // atajo: "/" abre el buscador
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "/" && document.activeElement?.tagName !== "INPUT" && document.body.classList.contains("app")) { ev.preventDefault(); $("#q").focus(); }
@@ -351,6 +365,7 @@ export async function refresh() {
   const ids = S.ids[n];
   const src = SRC[n];
   const cnt = {};
+  if (S.especial && S.especial.nivel === n) return pintarEspecialAhora();
   for (const id of ids) {
     let c = null, o = 0.86, v = null;
     if (S.capa === "elecciones") {
@@ -369,6 +384,23 @@ export async function refresh() {
   legend(m, cnt);
   nota();
   if (S.sel) dimOthers(S.sel);
+}
+
+// ───────── capa estadística (p. ej. clusters LISA) pintada sobre el mapa ─────────
+S.pintarEspecial = (nivel, colores, titulo, items) => {
+  S.especial = { nivel, colores, titulo, items };
+  setView("mapa");
+  if (S.nivel !== nivel) setNivel(nivel); else refresh();
+  toast(`${titulo}: capa estadística sobre el mapa`);
+};
+function pintarEspecialAhora() {
+  const { nivel, colores, titulo, items } = S.especial;
+  for (const id of S.ids[nivel]) map.setFeatureState({ source: SRC[nivel], id }, { c: colores[id] || "#1b1830", o: colores[id] ? 0.92 : 0.3, v: null });
+  $("#legend").innerHTML = `<div style="color:var(--muted);font-size:12px;margin-bottom:4px">${esc(titulo)}</div>` +
+    items.map(([k, c]) => `<div class="it"><i style="background:${c}"></i>${esc(k)}</div>`).join("") +
+    `<div class="it"><i style="background:#1b1830"></i>No significativo</div><button class="chip" id="esp-off" style="margin-top:8px">Quitar capa estadística</button>`;
+  $("#nota").textContent = "Resultado del motor estadístico (Statistical Intelligence). Las demás capas se recuperan al quitarla.";
+  $("#esp-off").onclick = () => { S.especial = null; refresh(); };
 }
 
 function legend(m, cnt) {
@@ -526,7 +558,7 @@ export async function select(id) {
   if (S.capa === "renta" && destino !== "municipios") setNivel("municipios"); else if (S.nivel !== destino) setNivel(destino);
   else dimOthers(id);
   if (feat) {
-    const pad = { top: 70, bottom: 50, left: padIzq(), right: 480 };
+    const pad = padMapa(70, 50);
     map.fitBounds(bbox(feat.geometry), { padding: pad, duration: 1800, maxZoom: n === "municipios" ? 12.5 : 9, essential: true,
       pitch: S.fondo === "relieve" ? 60 : 0 });
   }
@@ -549,7 +581,7 @@ export function deselect() {
   removeSecciones();
   for (const n of ["ccaa", "provincias", "municipios"]) if (S.ids[n]) for (const id of S.ids[n]) map.setFeatureState({ source: SRC[n], id }, { dim: 1 });
   if (document.body.classList.contains("app")) {
-    map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: padIzq(), right: 480 }, duration: 1600,
+    map.fitBounds(PENINSULA, { padding: padMapa(60, 40), duration: 1600,
       pitch: S.fondo === "relieve" ? 55 : 0 });
     if (S.nivel === "municipios" && S.capa !== "renta") setNivel("provincias");
   }

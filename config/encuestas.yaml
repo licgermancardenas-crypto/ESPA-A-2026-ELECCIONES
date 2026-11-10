@@ -1,0 +1,11 @@
+# Registro de encuestas publicadas (Statistical Intelligence · Sampling & Surveys)
+#
+# Regla: solo se registran campos PUBLICADOS en la ficha técnica original. Si un dato no está
+# publicado se deja vacío; no se infiere. Cada encuesta debe enlazar su fuente original.
+#
+# Campos: id, instituto, fecha_campo_inicio, fecha_campo_fin, tamano_muestra, poblacion_objetivo,
+#         ambito, metodo_muestreo, tecnica_recogida, ponderacion, margen_error_publicado,
+#         nivel_confianza, fuente_url, notas
+#
+# Estado: vacío. Todavía no se ha cargado ninguna ficha técnica revisada.
+encuestas: []

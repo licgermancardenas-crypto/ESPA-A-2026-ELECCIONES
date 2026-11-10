@@ -71,6 +71,10 @@ atlas web                # solo servir (si web/data ya existe)
   municipios → secciones censales). La ficha muestra resumen con frases calculadas, demografía 1996–2025,
   historial electoral completo, secciones (renta, densidad, 65+) y elecciones autonómicas.
 - **Comparador histórico**, **Hallazgos** (generados desde los datos) y **Datos y calidad**.
+- **Estadística** (Statistical Intelligence): descriptiva, distribuciones, correlación, regresión, contrastes,
+  anomalías, autocorrelación espacial, probabilidad condicional y evaluación de encuestas sobre el warehouse.
+  El cálculo lo hace `atlas_spain.stats` (local: `/api/stats`; publicado: función de Vercel). Ver
+  [docs/STATISTICAL_INTELLIGENCE.md](docs/STATISTICAL_INTELLIGENCE.md).
 - **Mapa base** a elegir: oscuro, **satélite** (ortofotos PNOA del Instituto Geográfico Nacional, CC BY 4.0) o
   **relieve 3D** (satélite sobre el modelo de elevación de AWS Terrain Tiles; arrastrar con clic derecho para girar).
 - Enlaces directos a una vista: `http://127.0.0.1:8080/#fondo=satelite&sel=ES-MU-28079`.
@@ -84,7 +88,9 @@ La web publicada es estática: no necesita Python ni el warehouse. Para actualiz
 
 ```bash
 atlas web --exportar                     # o solo regenerar web/data si cambió el warehouse
-python -m atlas_spain.web.estatico       # fichas (por provincia), secciones y datos de calidad como archivos
+python -m atlas_spain.stats.panel        # panel estadístico (data/gold/stat_panel.npz)
+python -m atlas_spain.stats.hallazgos    # hallazgos estadísticos trazables
+python -m atlas_spain.web.estatico       # fichas, secciones, datos de calidad y copia del motor (web/_lib)
 cd web && vercel deploy --prod --yes --archive=tgz
 ```
 

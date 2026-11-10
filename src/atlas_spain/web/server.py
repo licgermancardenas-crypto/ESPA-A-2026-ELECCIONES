@@ -163,6 +163,24 @@ def secciones(cod: str):
     return Response(_secciones(cod), media_type="application/geo+json")
 
 
+# ───────── Statistical Intelligence ─────────
+@lru_cache(maxsize=1)
+def _servicio():
+    from atlas_spain.stats.panel import cargar
+    from atlas_spain.stats.service import Servicio, registro_local
+    return Servicio(cargar(), registro=registro_local)
+
+
+@app.get("/api/stats")
+def stats_get(metodo: str = "catalogo", params: str = "{}"):
+    return JSONResponse(_servicio().ejecutar(metodo, json.loads(params)))
+
+
+@app.post("/api/stats")
+async def stats_post(peticion: dict):
+    return JSONResponse(_servicio().ejecutar(peticion.get("metodo", ""), peticion.get("params") or {}))
+
+
 @app.get("/")
 def index():
     return FileResponse(WEB / "index.html")

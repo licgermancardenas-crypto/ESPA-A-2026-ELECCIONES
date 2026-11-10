@@ -77,6 +77,8 @@ EPA, DIRCE, alquiler, ejecuciones, Eurostat y diputados están en bronze **sin m
 | Autonómicas | Cargadas: País Vasco y Madrid. Pendientes: Navarra, Canarias, CLM, Galicia (portales caídos o sin datos en la verificación), resto sin investigar |
 | Balance de Criminalidad, MIVAU, Senado, CNIG | Descarga manual / navegador |
 | CIS, YouTube, Reddit, Google Trends | Credenciales a nombre del usuario (no se crean cuentas) |
+| Statistical Intelligence: motor estadístico (12 métodos, validado), panel `gold.stat_panel`, API local y función de Vercel, vista Estadística, pestaña en la ficha, hallazgos trazables, registro de ejecuciones | ✅ | `src/atlas_spain/stats/`, `docs/STATISTICAL_INTELLIGENCE.md` |
+| Volatilidad de Pedersen corregida (unión de familias + continuidades documentadas) | ✅ | `dbt/models/gold/volatility.sql`, `dbt/seeds/family_lineage.csv` |
 | Atlas AI, modelos predictivos, índices compuestos | Por desarrollar |
 
 ## 6. Limitaciones conocidas

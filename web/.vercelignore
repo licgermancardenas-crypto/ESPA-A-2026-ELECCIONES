@@ -1,4 +1,4 @@
 .vercel
 .env*
-*.py
 .gitignore
+**/__pycache__

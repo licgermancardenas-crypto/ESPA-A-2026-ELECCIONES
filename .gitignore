@@ -31,3 +31,4 @@ Thumbs.db
 # datos generados del dashboard web
 web/data/
 web/.vercel
+web/_lib/

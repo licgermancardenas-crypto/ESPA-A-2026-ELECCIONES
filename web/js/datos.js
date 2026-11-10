@@ -63,3 +63,21 @@ export async function core(nombre) {
     return getJSON(CORE[nombre]);
   }
 }
+
+// ───────── Statistical Intelligence ─────────
+// Mismo endpoint en local (servidor Python) y publicado (función de Vercel): /api/stats
+const cacheStats = new Map();
+export async function stats(metodo, params = {}) {
+  const clave = metodo + JSON.stringify(params);
+  if (cacheStats.has(clave)) return cacheStats.get(clave);
+  const p = fetch("api/stats", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ metodo, params }) })
+    .then(async (r) => {
+      if (!r.ok) throw new Error(`El motor estadístico respondió ${r.status}`);
+      const j = await r.json();
+      if (j.error) throw new Error(j.error);
+      return j;
+    });
+  p.catch(() => cacheStats.delete(clave));
+  cacheStats.set(clave, p);
+  return p;
+}

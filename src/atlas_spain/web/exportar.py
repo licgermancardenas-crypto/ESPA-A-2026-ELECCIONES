@@ -214,7 +214,7 @@ def exportar() -> dict:
                         "texto": f"En las generales de 2023, {fml} {verbo.split()[1]} sobre todo en "
                                  f"{nombre[s3.iloc[0].geo_id]} ({'+' if s3.iloc[0].d >= 0 else '−'}{num(abs(s3.iloc[0].d) * 100, 1)} puntos).",
                         "items": [[r.geo_id, nombre[r.geo_id], _r(r.d)] for r in s3.itertuples()]})
-    vol = ind.dropna(subset=["volatilidad_pedersen"]).sort_values("volatilidad_pedersen", ascending=False)
+    vol = ind[ind.index.astype(str).str.startswith("02-")].dropna(subset=["volatilidad_pedersen"]).sort_values("volatilidad_pedersen", ascending=False)
     if not vol.empty:
         ins.append({"tipo": "elecciones", "titulo": "Los terremotos electorales",
                     "texto": "Las generales con mayor volatilidad (cambio neto de voto entre familias respecto a la anterior) "

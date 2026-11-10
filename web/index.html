@@ -54,6 +54,7 @@
     <nav class="sb-nav" id="nav">
         <button data-view="mapa" class="on" title="Mapa"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>Mapa</span></button>
         <button data-view="comparador" title="Comparador histórico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 14 4-4 3 3 5-6"/></svg><span>Comparador histórico</span></button>
+        <button data-view="stats" title="Estadística"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5H6l6 7-6 7h12"/></svg><span>Estadística</span></button>
         <button data-view="insights" title="Hallazgos"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg><span>Hallazgos</span></button>
         <button data-view="datos" title="Datos y calidad"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg><span>Datos y calidad</span></button>
     </nav>
@@ -121,6 +122,11 @@
     </div>
   </aside>
 
+  <button class="sb-burger" id="sb-burger" title="Menú" aria-label="Abrir el menú">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div class="sb-velo" id="sb-velo"></div>
+
   <!-- buscador flotante -->
   <div class="search" id="search">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -165,11 +171,26 @@
     </div>
   </section>
 
+  <!-- ───────── Statistical Intelligence ───────── -->
+  <section class="page stats" id="v-stats">
+    <div class="eyebrow">Statistical Intelligence</div>
+    <h1>Inteligencia estadística</h1>
+    <p class="lead">Distribuciones, relaciones, diferencias, anomalías e incertidumbre sobre los datos oficiales del warehouse. El cálculo se hace en el motor estadístico de ATLAS; cada resultado muestra su método, sus supuestos y sus límites.</p>
+    <nav class="st-mods" id="st-mods"></nav>
+    <div class="st-layout" id="st-layout">
+      <aside class="st-cfg" id="st-cfg"></aside>
+      <div class="st-res" id="st-res"></div>
+    </div>
+  </section>
+
   <!-- ───────── hallazgos ───────── -->
   <section class="page" id="v-insights">
     <div class="eyebrow">Calculados automáticamente sobre los datos</div>
     <h1>Hallazgos</h1>
     <p class="lead">Cada tarjeta se genera desde el warehouse, sin texto escrito a mano. Haz clic en un territorio para abrir su ficha en el mapa.</p>
+    <h2 class="sec-t">Hallazgos estadísticos <small>Statistical Intelligence · cada tarjeta reproduce su análisis</small></h2>
+    <div class="grid cards" id="ins-st"></div>
+    <h2 class="sec-t">Hallazgos territoriales</h2>
     <div class="grid cards" id="ins"></div>
   </section>
 
@@ -183,6 +204,10 @@
       <div class="card"><span class="tag">Fuentes</span><div style="max-height:520px;overflow:auto"><table class="t" id="d-src"></table></div></div>
       <div class="card"><span class="tag">Controles de calidad (último run)</span><div style="max-height:520px;overflow:auto"><table class="t" id="d-q"></table></div></div>
     </div>
+    <h2 class="sec-t">Motor estadístico <small>Statistical Intelligence</small></h2>
+    <div class="stat-row" id="d-st-kpis"></div>
+    <div class="card"><span class="tag">Ejecuciones estadísticas registradas</span><div style="max-height:420px;overflow:auto"><table class="t" id="d-st"></table></div>
+      <p class="note">Cada ejecución guarda método, versión del motor, huella del dataset, parámetros, n, datos faltantes y duración. En la versión publicada, cada respuesta del motor incluye su propio registro; aquí se listan las ejecuciones que generaron los hallazgos.</p></div>
   </section>
 
   <div id="tip"></div>

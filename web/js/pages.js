@@ -2,14 +2,16 @@
 import * as D from "./datos.js";
 import { $, fmt, getJSON, esc } from "./util.js";
 import * as C from "./charts.js";
+import { mostrarStats } from "./stats.js";
 
 let S, cb, cargado = {};
 
 export function initPages(state, callbacks) { S = state; cb = callbacks; }
 
 export function showPage(v) {
-  for (const p of ["comparador", "insights", "datos"]) $(`#v-${p}`).classList.toggle("on", v === p);
-  if (v !== "mapa" && !cargado[v]) { cargado[v] = true; ({ comparador, insights, datos })[v](); }
+  for (const p of ["comparador", "insights", "datos", "stats"]) $(`#v-${p}`).classList.toggle("on", v === p);
+  if (v === "stats") mostrarStats();
+  else if (v !== "mapa" && !cargado[v]) { cargado[v] = true; ({ comparador, insights, datos })[v](); }
   if (v !== "mapa") setTimeout(() => window.dispatchEvent(new Event("resize")), 120);
 }
 
@@ -38,7 +40,32 @@ async function comparador() {
   pintar();
 }
 
+async function insightsEstadisticos() {
+  let hs = [];
+  try { hs = await getJSON("data/hallazgos_estadisticos.json"); } catch (e) { return; }
+  $("#ins-st").innerHTML = hs.map((h, i) => `
+    <div class="card st-find" style="animation-delay:${0.05 + i * 0.07}s">
+      <span class="tag">Estadística · ${esc({ descriptiva: "distribución", contraste: "contraste", espacial: "autocorrelación espacial", atipicos: "anomalías", correlacion: "correlación" }[h.metodo] || h.metodo)}</span>
+      <h3>${esc(h.titulo)}</h3>
+      <p class="st-f-meta">${esc(h.territorio)} · ${esc(h.variable)} · ${esc(h.periodo)}</p>
+      <p class="st-f-res">${esc(h.resultado)}</p>
+      <p>${esc(h.contexto)}</p>
+      ${h.cifras ? `<div class="st-f-cif">${h.cifras.map(([k, v]) => `<span><small>${esc(k)}</small><b>${esc(v)}</b></span>`).join("")}</div>` : ""}
+      ${h.items ? `<ol>${h.items.map(([id, n, v]) => `<li data-id="${esc(id)}"><span>${esc(n)}</span><b>${fmt.pp(v)}</b></li>`).join("")}</ol>` : ""}
+      <p class="st-f-lim"><b>Limitación.</b> ${esc(h.limitacion)}</p>
+      <div class="st-f-pie"><small>Fuente: ${esc(h.fuente)} · ejecución <code>${esc(h.ejecucion.run_id)}</code> · dataset <code>${esc(h.ejecucion.panel)}</code></small>
+        <button class="chip" data-i="${i}">Ver análisis →</button></div>
+    </div>`).join("");
+  $("#ins-st").onclick = (ev) => {
+    const b = ev.target.closest("button[data-i]");
+    if (b) return S.abrirEstadistica(hs[+b.dataset.i].analisis);
+    const li = ev.target.closest("li");
+    if (li && li.dataset.id.startsWith("ES-")) cb.abrir(li.dataset.id);
+  };
+}
+
 async function insights() {
+  insightsEstadisticos();
   const ins = await getJSON("data/insights.json");
   const formato = (tipo, v, titulo) =>
     titulo.includes("renta") ? fmt.eur(v) : titulo.includes("terremotos") ? fmt.pct(v, 0) : tipo === "elecciones" ? fmt.pp(v) : fmt.sig(v);
@@ -76,4 +103,23 @@ async function datos() {
   } catch (e) {
     $("#d-kpis").innerHTML = `<div class="empty">No se pudo leer la API (${esc(e.message)}).</div>`;
   }
+  motorEstadistico();
+}
+
+async function motorEstadistico() {
+  const k = (l, v, s) => `<div class="card"><span class="tag">${l}</span><h3 style="font-size:26px">${v}</h3><p>${s}</p></div>`;
+  const t0 = performance.now();
+  let res = null, estado = "sin conexión";
+  try { res = (await D.stats("resumen")).resultado; estado = "operativo"; } catch (e) { estado = e.message; }
+  const ms = Math.round(performance.now() - t0);
+  let runs = [];
+  try { runs = await getJSON("data/core/stat_runs.json"); } catch (e) { /* sin registro exportado */ }
+  $("#d-st-kpis").innerHTML = k("Estado del motor", estado === "operativo" ? "Operativo" : "No disponible", estado === "operativo" ? `respuesta en ${ms} ms` : esc(estado)) +
+    k("Versión", res ? "v" + esc(res.version_motor) : "—", "numpy + scipy, validado en 40 pruebas") +
+    k("Dataset", res ? `<code style="font-size:18px">${esc(res.panel)}</code>` : "—", "huella SHA-256 de gold.stat_panel") +
+    k("Ejecuciones", runs.length, `${runs.filter((r) => r.estado !== "ok").length} con error`);
+  $("#d-st").innerHTML = `<tr><th>Ejecución</th><th>Método</th><th class="n">n</th><th class="n">Sin dato</th><th class="n">ms</th><th>Estado</th></tr>` +
+    runs.map((r) => `<tr title="${esc(JSON.stringify(r.parametros))}"><td><code>${esc(r.run_id)}</code><br><small style="color:var(--dim)">${esc(r.fecha)}</small></td><td>${esc(r.metodo)}<br><small style="color:var(--dim)">motor v${esc(r.version_motor)} · ${esc(r.panel)}</small></td>
+      <td class="n">${fmt.n(r.n)}</td><td class="n">${r.n_faltantes == null ? "—" : fmt.n(r.n_faltantes)}</td><td class="n">${fmt.n(r.duracion_ms, 0)}</td>
+      <td><span class="pill"><i style="background:${r.estado === "ok" ? "#32a155" : "#ff6b9a"}"></i>${esc(r.estado)}</span></td></tr>`).join("");
 }
