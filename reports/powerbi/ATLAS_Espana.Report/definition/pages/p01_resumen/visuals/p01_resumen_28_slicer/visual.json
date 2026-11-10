@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_28_slicer",
   "position": {
     "x": 957,
     "y": 304,
     "z": 2800,
-    "height": 58,
     "width": 300,
+    "height": 58,
     "tabOrder": 2800
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Métrica del mapa.Métrica",
-              "nativeQueryRef": "Métrica",
-              "active": true
+              "nativeQueryRef": "Métrica"
             }
           ]
         }

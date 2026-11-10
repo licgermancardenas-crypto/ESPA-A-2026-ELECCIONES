@@ -83,6 +83,10 @@ resumen, mapa provincial, mapa municipal, demografía, economía, censo electora
 metodología. Los mapas los dibuja DAX en SVG (sin visuales personalizados). Al abrir el `.pbip` en
 Power BI Desktop, pulsá **Actualizar** para cargar los datos (o `powershell -File
 src/atlas_spain/viz/powerbi_refrescar.ps1`). Validación por DAX: `src/atlas_spain/viz/powerbi_consultar.ps1`.
+Los mapas de España tienen un selector **Mapa base** (Mapa / Satélite): en modo satélite la ortofoto PNOA del
+IGN (CC BY 4.0) va debajo y los colores se vuelven semitransparentes. La imagen la descarga
+`python -m atlas_spain.viz.powerbi_fondo` (WMS del IGN, mismo encuadre UTM 30N que el lienzo, Canarias en su recuadro)
+y viaja troceada en `datos/fondo_satelite.csv`. Es una imagen fija: para zoom satelital usar el dashboard web.
 
 ### Resultados electorales oficiales (Infoelectoral)
 

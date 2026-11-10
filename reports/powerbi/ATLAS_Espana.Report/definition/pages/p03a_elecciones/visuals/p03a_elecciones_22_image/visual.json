@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "p03a_elecciones_21_image",
+  "name": "p03a_elecciones_22_image",
   "position": {
     "x": 222,
     "y": 196,
-    "z": 2100,
+    "z": 2200,
     "width": 860,
     "height": 694,
-    "tabOrder": 2100
+    "tabOrder": 2200
   },
   "visual": {
     "visualType": "image",

@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03a_elecciones_25_card",
   "position": {
-    "x": 1345,
+    "x": 1097,
     "y": 168,
     "z": 2500,
     "width": 240,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Volatilidad (nac)"
+                  "Property": "ENEP (nac)"
                 }
               },
-              "queryRef": "Medidas.Volatilidad (nac)",
-              "nativeQueryRef": "Volatilidad vs. anterior",
-              "displayName": "Volatilidad vs. anterior"
+              "queryRef": "Medidas.ENEP (nac)",
+              "nativeQueryRef": "Nº efectivo de partidos",
+              "displayName": "Nº efectivo de partidos"
             }
           ]
         }

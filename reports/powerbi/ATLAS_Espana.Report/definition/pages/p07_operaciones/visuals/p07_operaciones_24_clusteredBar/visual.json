@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_24_clusteredBar",
   "position": {
     "x": 1054,
     "y": 200,
     "z": 2400,
-    "height": 380,
     "width": 534,
+    "height": 380,
     "tabOrder": 2400
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Fuentes.categoria",
-              "nativeQueryRef": "categoria",
-              "active": true
+              "nativeQueryRef": "categoria"
             }
           ]
         },
@@ -67,7 +66,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {

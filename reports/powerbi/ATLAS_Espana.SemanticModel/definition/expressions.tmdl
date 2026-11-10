@@ -1,5 +1,2 @@
 expression CarpetaDatos = "E:\ATLAS CONTENIDO\ATLAS ANALISIS GEOPOLITICO\ESPAÑA elecciones 2026\reports\powerbi\datos\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
-	lineageTag: 3ebc6ad2-f146-4bd2-9c5c-2326e7296765
-
 	annotation PBI_ResultType = Text
-

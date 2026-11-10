@@ -1,72 +1,61 @@
 table Secciones
-	lineageTag: d4ec8be9-68b8-4020-bbf9-22bfe95283bf
 
 	column cusec
 		dataType: string
-		isKey
-		lineageTag: e4a17fee-b9d2-4493-aec1-6649f8d22ad2
 		summarizeBy: none
 		sourceColumn: cusec
+		isKey
 
 	column municipio_ine
 		dataType: string
-		isHidden
-		lineageTag: 9c82d3cf-5562-474e-b66a-31cd0c5b7b4e
 		summarizeBy: none
 		sourceColumn: municipio_ine
+		isHidden
 
 	column cudis
 		dataType: string
-		lineageTag: e63868d1-3d62-4e4a-a3c2-3c299dd7e564
 		summarizeBy: none
 		sourceColumn: cudis
 
 	column path
 		dataType: string
-		isHidden
-		lineageTag: c1f51aa2-8f6c-43f6-a448-e308cfc608b3
 		summarizeBy: none
 		sourceColumn: path
+		isHidden
 
 	column x
 		dataType: int64
-		isHidden
-		lineageTag: edef6b2c-c76c-4015-94cb-4c88fe2b6dba
 		summarizeBy: none
 		sourceColumn: x
+		isHidden
 
 	column y
 		dataType: int64
-		isHidden
-		lineageTag: 386f856d-6351-4cc9-83bd-9eee45ed3290
 		summarizeBy: none
 		sourceColumn: y
+		isHidden
 
 	column area_km2
 		dataType: double
 		formatString: #,0.00
-		lineageTag: e3fba1c8-5daa-4a0b-a9ef-5ffb3e76dc6b
 		summarizeBy: none
 		sourceColumn: area_km2
 
 	column renta_pp
 		dataType: double
 		formatString: #,0 €
-		lineageTag: 42374bfa-ee0d-4f4d-b188-7a2780cee541
 		summarizeBy: none
 		sourceColumn: renta_pp
 
 	column poblacion
 		dataType: int64
 		formatString: #,0
-		lineageTag: 1efe55be-b09e-478c-8967-8e802b628331
 		summarizeBy: none
 		sourceColumn: poblacion
 
 	column pct_65
 		dataType: double
 		formatString: 0.0%
-		lineageTag: ff2a5521-20ce-48a3-a53c-2667a653c172
 		summarizeBy: none
 		sourceColumn: pct_65
 

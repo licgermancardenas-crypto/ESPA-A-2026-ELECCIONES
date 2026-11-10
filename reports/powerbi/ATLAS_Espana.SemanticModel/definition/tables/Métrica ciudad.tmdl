@@ -1,16 +1,13 @@
 table 'Métrica ciudad'
-	lineageTag: ca57ff08-de38-4a8b-89a9-b90f0f14e94d
 
 	column id
 		dataType: int64
-		isHidden
-		lineageTag: 7ef9a325-10ae-4715-8b34-0eee5b9cc354
 		summarizeBy: none
 		sourceColumn: [id]
+		isHidden
 
-	column Métrica
+	column 'Métrica'
 		dataType: string
-		lineageTag: 27b872d2-ae90-4112-91f3-46993717269a
 		summarizeBy: none
 		sourceColumn: [Métrica]
 		sortByColumn: id

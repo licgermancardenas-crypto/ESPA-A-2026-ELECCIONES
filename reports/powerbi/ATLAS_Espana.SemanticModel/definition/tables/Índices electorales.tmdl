@@ -1,57 +1,48 @@
 table 'Índices electorales'
 	isHidden
-	lineageTag: d96e81e2-3125-4834-96ed-b22d38a39069
 
 	column election_id
 		dataType: string
-		lineageTag: bed34c32-9ff7-4ecb-aa76-ea5005e062c9
 		summarizeBy: none
 		sourceColumn: election_id
 
 	column geo_level
 		dataType: string
-		lineageTag: 3314ed12-9b11-43d8-bcb8-c9d0f06e4aa5
 		summarizeBy: none
 		sourceColumn: geo_level
 
 	column geo_id
 		dataType: string
-		lineageTag: ff6626a7-ad9e-4b44-86ad-708eab147f18
 		summarizeBy: none
 		sourceColumn: geo_id
 
 	column enep
 		dataType: double
 		formatString: 0.00
-		lineageTag: 2f39a9c9-ef2b-4cbd-adcb-06ae337cdb89
 		summarizeBy: none
 		sourceColumn: enep
 
 	column enpp
 		dataType: double
 		formatString: 0.00
-		lineageTag: e9650e77-375e-4b56-8c81-3353fb9652c6
 		summarizeBy: none
 		sourceColumn: enpp
 
 	column gallagher
 		dataType: double
 		formatString: 0.00
-		lineageTag: dd307f46-9a38-4e59-908f-b648d9b01b5f
 		summarizeBy: none
 		sourceColumn: gallagher
 
 	column competitividad
 		dataType: double
 		formatString: 0.0%
-		lineageTag: 3d2116f8-dee1-4a4c-b491-7164390f1ed1
 		summarizeBy: none
 		sourceColumn: competitividad
 
 	column volatilidad_pedersen
 		dataType: double
 		formatString: 0.0%
-		lineageTag: beade441-b0ac-4cc6-83ab-303d127a6373
 		summarizeBy: none
 		sourceColumn: volatilidad_pedersen
 

@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "p02_mapa_22_tableEx",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p03a_elecciones_28_tableEx",
   "position": {
     "x": 1097,
-    "y": 292,
-    "z": 2200,
-    "height": 598,
+    "y": 588,
+    "z": 2800,
     "width": 490,
-    "tabOrder": 2200
+    "height": 302,
+    "tabOrder": 2800
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,15 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Provincias"
+                      "Entity": "Resultados familia"
                     }
                   },
-                  "Property": "nombre"
+                  "Property": "familia"
                 }
               },
-              "queryRef": "Provincias.nombre",
-              "nativeQueryRef": "Provincia",
-              "displayName": "Provincia"
+              "queryRef": "Resultados familia.familia",
+              "nativeQueryRef": "Familia",
+              "displayName": "Familia"
             },
             {
               "field": {
@@ -38,12 +38,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Población"
+                  "Property": "Votos (nac)"
                 }
               },
-              "queryRef": "Medidas.Población",
-              "nativeQueryRef": "Población",
-              "displayName": "Población"
+              "queryRef": "Medidas.Votos (nac)",
+              "nativeQueryRef": "Votos",
+              "displayName": "Votos"
             },
             {
               "field": {
@@ -53,12 +53,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Variación población 10 años"
+                  "Property": "% voto (nac)"
                 }
               },
-              "queryRef": "Medidas.Variación población 10 años",
-              "nativeQueryRef": "Var. 10 años",
-              "displayName": "Var. 10 años"
+              "queryRef": "Medidas.% voto (nac)",
+              "nativeQueryRef": "% voto",
+              "displayName": "% voto"
             },
             {
               "field": {
@@ -68,27 +68,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Densidad"
+                  "Property": "Escaños (nac)"
                 }
               },
-              "queryRef": "Medidas.Densidad",
-              "nativeQueryRef": "hab./km²",
-              "displayName": "hab./km²"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Medidas"
-                    }
-                  },
-                  "Property": "PIB per cápita"
-                }
-              },
-              "queryRef": "Medidas.PIB per cápita",
-              "nativeQueryRef": "PIB pc",
-              "displayName": "PIB pc"
+              "queryRef": "Medidas.Escaños (nac)",
+              "nativeQueryRef": "Escaños",
+              "displayName": "Escaños"
             }
           ]
         }
@@ -103,12 +88,13 @@
                     "Entity": "Medidas"
                   }
                 },
-                "Property": "Población"
+                "Property": "Votos (nac)"
               }
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -241,7 +227,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Provincias'"
+                  "Value": "'Resultados'"
                 }
               }
             }

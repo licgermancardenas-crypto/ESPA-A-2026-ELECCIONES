@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "p03a_elecciones_20_card",
+  "name": "p03a_elecciones_21_card",
   "position": {
     "x": 222,
     "y": 156,
-    "z": 2000,
-    "width": 860,
+    "z": 2100,
+    "width": 600,
     "height": 36,
-    "tabOrder": 2000
+    "tabOrder": 2100
   },
   "visual": {
     "visualType": "card",

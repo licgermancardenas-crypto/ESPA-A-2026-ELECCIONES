@@ -135,8 +135,17 @@ def leyenda_dax(x: int, y: int, escalas: dict = ESCALAS, var: str = "idm") -> st
     return f"SWITCH({var}, {', '.join(ramas)})"
 
 
+# mapa base: "Mapa" (colores opacos) o "Satélite" (ortofoto PNOA debajo y colores semitransparentes)
+VAR_SAT = """VAR sat = SELECTEDVALUE('Mapa base'[id], 1) = 2
+            VAR op = IF(sat, "0.58", "1")"""
+
+
 def svg_envolver(alto, cuerpo: str, ancho="1000") -> str:
-    return (f'VAR svg = "<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 {ancho} {alto}\'>" & {cuerpo} & "</svg>"\n'
+    """Envuelve el cuerpo en un SVG. La medida debe declarar antes VAR_SAT (sat, op)."""
+    pie = (f"<text x='{int(ancho) - 6}' y='{int(alto) - 6}' text-anchor='end' font-family='Segoe UI' "
+           "font-size='10' fill='#6B6480'>Ortofoto PNOA © IGN (CC BY 4.0)</text>")
+    fondo = f'IF(sat, [Fondo satélite SVG] & "{pie}", "")'
+    return (f'VAR svg = "<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 {ancho} {alto}\'>" & {fondo} & {cuerpo} & "</svg>"\n'
             '            RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")')
 
 
@@ -148,7 +157,7 @@ def medidas(P) -> list:
     ccaa_sel = "VAR sel = VALUES(CCAA[ccaa_ine])\n            VAR todo = NOT ISFILTERED(CCAA[ccaa_ine]) && NOT ISFILTERED(CCAA[nombre])"
     caja_svg = (f"\"<path d='{caja}' fill='none' stroke='{MUTED}' stroke-width='1' stroke-dasharray='5 4'/>"
                 f"<text x='14' y='{alto - 8}' font-family='Segoe UI' font-size='12' fill='{MUTED}'>Canarias (escala 0,85)</text>\"")
-    g = lambda w, extra="": f"\"<g stroke='#FFFFFF' stroke-width='{w}' stroke-linejoin='round'{extra}>\""
+    g = lambda w, extra="": f"\"<g stroke='#FFFFFF' stroke-width='{w}' stroke-linejoin='round' fill-opacity='\" & op & \"'{extra}>\""
     PREF_CCAA = g(1.4) + ' & formas & "</g>" & etiquetas & '
     PREF_PROV = g(0.8) + """ & formas & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.7' stroke-width='1.4'>" & ccaa & "</g>" & """
     PREF_MUN = g(0.15) + """ & grupos & "</g>" & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & prov & "</g>" & """
@@ -212,6 +221,7 @@ def medidas(P) -> list:
             SWITCH(SELECTEDVALUE(Ejecuciones[estado]), "success", "#D7EFE9", "partial", "#FBEBC8", "#F6D1D1")""", None, F),
         ("Título mapa", """"Mapa · " & SELECTEDVALUE('Métrica del mapa'[Métrica], "Variación de población 10 años")""", None, F),
         ("SVG España comunidades", f"""
+            {VAR_SAT}
             VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
             VAR idc = IF(idm = 3, 33, idm)
             {ccaa_sel}
@@ -227,6 +237,7 @@ def medidas(P) -> list:
             {svg_envolver(alto, PREF_CCAA + caja_svg + ' & leyenda')}""",
          None, F, {"dataCategory": "ImageUrl"}),
         ("SVG España provincias", f"""
+            {VAR_SAT}
             VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
             VAR idc = IF(idm = 3, 33, idm)
             {ccaa_sel}
@@ -239,6 +250,7 @@ def medidas(P) -> list:
             {svg_envolver(alto, PREF_PROV + caja_svg + ' & leyenda')}""",
          None, F, {"dataCategory": "ImageUrl"}),
         ("SVG España municipios", f"""
+            {VAR_SAT}
             VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
             {ccaa_sel}
             VAR t = ADDCOLUMNS(ALL(Municipios), "@c",
@@ -267,6 +279,9 @@ def medidas(P) -> list:
                 & "<g stroke='#FFFFFF' stroke-width='0.5' stroke-linejoin='round'>" & grupos & "</g>" & leyenda & "</svg>"
             RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")""",
          None, F, {"dataCategory": "ImageUrl"}),
+        ("Fondo satélite SVG", f"""
+            "<image href='data:image/jpeg;base64," & CONCATENATEX('Fondo satélite', 'Fondo satélite'[texto], "", 'Fondo satélite'[orden], ASC)
+                & "' x='0' y='0' width='1000' height='{alto}' preserveAspectRatio='none'/>\"""", None, F),
         ("SVG España", """
             VAR nivel = SELECTEDVALUE('Nivel del mapa'[id], 2)
             RETURN SWITCH(TRUE(),
@@ -298,6 +313,7 @@ def medidas(P) -> list:
             IF([Territorio electoral] = "ES", "España", SELECTEDVALUE(CCAA[nombre])) & " · partido más votado por " &
             IF(SELECTEDVALUE('Nivel del mapa'[id], 2) = 3, "municipio", "provincia")""", None, F),
         ("SVG elecciones provincias", f"""
+            {VAR_SAT}
             {ccaa_sel}
             VAR tp = ADDCOLUMNS(ALL(Provincias), "@f", CALCULATE(SELECTEDVALUE('Ganador provincia'[familia_ganador])))
             VAR provs = CONCATENATEX(tp,
@@ -307,10 +323,11 @@ def medidas(P) -> list:
             VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(tp, NOT ISBLANK([@f])), "@f", [@f])),
                 "@n", COUNTROWS(FILTER(tp, [@f] = EARLIER([@f]))))
             VAR ley = {LEY_ELEC}
-            VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='0.9' stroke-linejoin='round'>" & provs & "</g>"
+            VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='0.9' stroke-linejoin='round' fill-opacity='" & op & "'>" & provs & "</g>"
             {svg_envolver(P["lienzo"]["alto"], 'cuerpo & ' + caja_svg + ' & ley')}""",
          None, F, {"dataCategory": "ImageUrl"}),
         ("SVG elecciones municipios", f"""
+            {VAR_SAT}
             {ccaa_sel}
             VAR tm = ADDCOLUMNS(ALL(Municipios), "@f", CALCULATE(SELECTEDVALUE('Ganador municipio'[familia_ganador])))
             VAR munis = CONCATENATEX(DISTINCT(SELECTCOLUMNS(tm, "@f", [@f])),
@@ -322,7 +339,7 @@ def medidas(P) -> list:
             VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(tm, NOT ISBLANK([@f])), "@f", [@f])),
                 "@n", COUNTROWS(FILTER(tm, [@f] = EARLIER([@f]))))
             VAR ley = {LEY_ELEC}
-            VAR cuerpo = "<g fill='#EEEBF3'>" & fondo & "</g><g stroke='#FFFFFF' stroke-width='0.15'>" & munis & "</g>"
+            VAR cuerpo = "<g fill='#EEEBF3' fill-opacity='" & IF(sat, "0.25", "1") & "'>" & fondo & "</g><g stroke='#FFFFFF' stroke-width='0.15' fill-opacity='" & op & "'>" & munis & "</g>"
                 & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & fondo & "</g>"
             {svg_envolver(P["lienzo"]["alto"], 'cuerpo & ' + caja_svg + ' & ley')}""",
          None, F, {"dataCategory": "ImageUrl"}),
@@ -517,6 +534,11 @@ def modelo(P) -> dict[str, str]:
     T["Métrica del mapa"] = tabla_calculada("Métrica del mapa",
         f'DATATABLE("id", INTEGER, "Métrica", STRING, {{\n    {filas}\n}})',
         [("id", "int64", None, {"isHidden": True}), ("Métrica", "string", None, {"sortByColumn": "id"})])
+    T["Fondo satélite"] = tabla_csv("Fondo satélite", "fondo_satelite.csv",
+        [("orden", "int64", "0"), ("texto", "string", None)], oculta_tabla=True)
+    T["Mapa base"] = tabla_calculada("Mapa base",
+        'DATATABLE("id", INTEGER, "Mapa base", STRING, {{1, "Mapa"}, {2, "Satélite"}})',
+        [("id", "int64", None, {"isHidden": True}), ("Mapa base", "string", None, {"sortByColumn": "id"})])
     T["Nivel del mapa"] = tabla_calculada("Nivel del mapa",
         'DATATABLE("id", INTEGER, "Nivel", STRING, {{1, "Comunidad autónoma"}, {2, "Provincia"}, {3, "Municipio"}})',
         [("id", "int64", None, {"isHidden": True}), ("Nivel", "string", None, {"sortByColumn": "id"})])
@@ -632,7 +654,9 @@ def informe(P) -> dict:
                    horizontal=True, presel="Provincia")
     metrica_slicer(pg, X0 + 875, 158, 490, 58)
     ccaa_slicer(pg, X0 + 875, 224, 490, 58)
-    tabla(pg, X0 + 875, 292, 490, 598,
+    pg.segmentador(X0 + 875, 292, 490, 58, C("Mapa base", "Mapa base"), "Mapa base", modo="Basic", unico=True,
+                   horizontal=True, presel="Mapa", sync="fondo")
+    tabla(pg, X0 + 875, 358, 490, 532,
           [(C("Provincias", "nombre"), "Provincia"), (Me("Población"), "Población"),
            (Me("Variación población 10 años"), "Var. 10 años"), (Me("Densidad"), "hab./km²"),
            (Me("PIB per cápita"), "PIB pc")],
@@ -669,7 +693,9 @@ def informe(P) -> dict:
     ccaa_slicer(pg, X0 + 310, 92, 300, 58)
     pg.segmentador(X0 + 620, 92, 240, 58, C("Nivel del mapa", "Nivel"), "Mapa por", modo="Basic", unico=True,
                    horizontal=True, presel="Provincia")
-    pg.add("card", X0, 156, 860, 36, query={"Values": [proj(Me("Título elecciones"), " ")]},
+    pg.segmentador(X0 + 610, 146, 250, 50, C("Mapa base", "Mapa base"), "Mapa base", modo="Basic", unico=True,
+                   horizontal=True, presel="Mapa", sync="fondo")
+    pg.add("card", X0, 156, 600, 36, query={"Values": [proj(Me("Título elecciones"), " ")]},
            objects={"labels": [{"properties": {"color": color(VIO), "fontSize": lit(12), "fontFamily": lit("Segoe UI Semibold")}}],
                     "categoryLabels": [{"properties": {"show": lit(False)}}]}, titulo="")
     pg.imagen(X0, 196, 860, 694, "SVG elecciones")
@@ -866,6 +892,9 @@ def generar(con_datos: bool = True):
     if con_datos:
         from atlas_spain.viz.powerbi_datos import exportar
         exportar()
+    if con_datos or not (DATOS / "fondo_satelite.csv").exists():
+        from atlas_spain.viz.powerbi_fondo import exportar as exportar_fondo
+        exportar_fondo()
     P = json.loads((DATOS / "parametros.json").read_text(encoding="utf-8"))
     sm, rp = DIR / f"{NOMBRE}.SemanticModel", DIR / f"{NOMBRE}.Report"
     for d in (rp / "definition", sm / "definition"):

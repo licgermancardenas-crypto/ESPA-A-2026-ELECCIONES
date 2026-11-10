@@ -1,24 +1,20 @@
 table 'PIB provincia'
-	lineageTag: e092fe88-f226-4683-abe5-60bd5dc0a9bc
 
 	column provincia_ine
 		dataType: string
-		isHidden
-		lineageTag: 6caba167-7d81-4e71-89c4-44b9db20edd1
 		summarizeBy: none
 		sourceColumn: provincia_ine
+		isHidden
 
 	column anyo
 		dataType: int64
 		formatString: 0
-		lineageTag: 345b8d3b-e5f5-49c1-a193-e8df7b8fa733
 		summarizeBy: none
 		sourceColumn: anyo
 
 	column pib_pc
 		dataType: double
 		formatString: #,0 €
-		lineageTag: 850dd0e4-44b1-4a4e-a06d-cafb462f3999
 		summarizeBy: none
 		sourceColumn: pib_pc
 

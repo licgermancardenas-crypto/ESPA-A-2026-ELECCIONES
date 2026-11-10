@@ -1,55 +1,47 @@
 table 'Convocatorias nacionales'
-	lineageTag: c7f4bfac-b1a9-42f2-887a-f22a2e23d343
 
 	column election_id
 		dataType: string
-		isHidden
-		isKey
-		lineageTag: faa7faa5-ff61-47ba-962d-722e166f0ceb
 		summarizeBy: none
 		sourceColumn: election_id
+		isHidden
+		isKey
 
 	column election_type
 		dataType: string
-		lineageTag: 02546db6-6691-4cab-b8a3-b01165dfb7ea
 		summarizeBy: none
 		sourceColumn: election_type
 
 	column anno
 		dataType: int64
 		formatString: 0
-		lineageTag: 8c68a21f-3291-4777-b452-0b1dd75985ce
 		summarizeBy: none
 		sourceColumn: anno
 
 	column mes
 		dataType: int64
-		isHidden
 		formatString: 0
-		lineageTag: af52e9eb-d5d9-4403-bb6b-cbeaa55d0e1f
 		summarizeBy: none
 		sourceColumn: mes
+		isHidden
 
 	column fecha
 		dataType: string
-		isHidden
-		lineageTag: 24e347b0-b993-42a4-9618-b99990337aa3
 		summarizeBy: none
 		sourceColumn: fecha
+		isHidden
 
 	column convocatoria
 		dataType: string
-		lineageTag: 5b089ec8-08fe-4273-bf8f-a1cd8a2ed59b
 		summarizeBy: none
 		sourceColumn: convocatoria
 		sortByColumn: orden
 
 	column orden
 		dataType: int64
-		isHidden
-		lineageTag: bdf8e6c1-fbba-46c8-aaab-1b5e3ed2dc10
 		summarizeBy: none
 		sourceColumn: orden
+		isHidden
 
 	partition 'Convocatorias nacionales' = m
 		mode: import

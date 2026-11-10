@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p05_economia_22_lineChart",
   "position": {
     "x": 794,
     "y": 166,
     "z": 2200,
-    "height": 360,
     "width": 794,
+    "height": 360,
     "tabOrder": 2200
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Paro.trimestre",
-              "nativeQueryRef": "trimestre",
-              "active": true
+              "nativeQueryRef": "trimestre"
             }
           ]
         },

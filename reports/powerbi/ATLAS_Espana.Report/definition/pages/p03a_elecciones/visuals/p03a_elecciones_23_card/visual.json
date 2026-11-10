@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03a_elecciones_23_card",
   "position": {
-    "x": 1345,
+    "x": 1097,
     "y": 92,
     "z": 2300,
     "width": 240,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Más votado (nac)"
+                  "Property": "Participación (nac)"
                 }
               },
-              "queryRef": "Medidas.Más votado (nac)",
-              "nativeQueryRef": "Más votado",
-              "displayName": "Más votado"
+              "queryRef": "Medidas.Participación (nac)",
+              "nativeQueryRef": "Participación",
+              "displayName": "Participación"
             }
           ]
         }

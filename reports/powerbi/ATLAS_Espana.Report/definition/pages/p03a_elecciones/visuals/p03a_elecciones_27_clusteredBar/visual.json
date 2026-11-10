@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
-  "name": "p03a_elecciones_26_clusteredBar",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p03a_elecciones_27_clusteredBar",
   "position": {
     "x": 1097,
     "y": 248,
-    "z": 2600,
-    "height": 330,
+    "z": 2700,
     "width": 490,
-    "tabOrder": 2600
+    "height": 330,
+    "tabOrder": 2700
   },
   "visual": {
     "visualType": "clusteredBarChart",
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Resultados familia.familia",
-              "nativeQueryRef": "familia",
-              "active": true
+              "nativeQueryRef": "familia"
             }
           ]
         },
@@ -67,7 +66,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_30_tableEx",
   "position": {
     "x": 957,
     "y": 372,
     "z": 3000,
-    "height": 518,
     "width": 630,
+    "height": 518,
     "tabOrder": 3000
   },
   "visual": {
@@ -123,7 +123,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {

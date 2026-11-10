@@ -14,30 +14,6 @@ relationship rel_reg_conv
 	fromColumn: 'Elecciones regionales'.election_id
 	toColumn: Convocatorias.election_id
 
-relationship rel_part_conv
-	fromColumn: 'Participación regional'.election_id
-	toColumn: Convocatorias.election_id
-
-relationship rel_part_mun
-	fromColumn: 'Participación regional'.municipio_ine
-	toColumn: Municipios.municipio_ine
-
-relationship rel_dis_mun
-	fromColumn: 'Distritos ciudad'.municipio_ine
-	toColumn: Municipios.municipio_ine
-
-relationship rel_serie_ccaa
-	fromColumn: 'Serie población'.ccaa_ine
-	toColumn: CCAA.ccaa_ine
-
-relationship rel_pib_prov
-	fromColumn: 'PIB provincia'.provincia_ine
-	toColumn: Provincias.provincia_ine
-
-relationship rel_paro_ccaa
-	fromColumn: Paro.ccaa_ine
-	toColumn: CCAA.ccaa_ine
-
 relationship rel_fam_conv
 	fromColumn: 'Resultados familia'.election_id
 	toColumn: 'Convocatorias nacionales'.election_id
@@ -66,3 +42,26 @@ relationship rel_gprov_prov
 	fromColumn: 'Ganador provincia'.geo_id
 	toColumn: Provincias.geo_id
 
+relationship rel_part_conv
+	fromColumn: 'Participación regional'.election_id
+	toColumn: Convocatorias.election_id
+
+relationship rel_part_mun
+	fromColumn: 'Participación regional'.municipio_ine
+	toColumn: Municipios.municipio_ine
+
+relationship rel_dis_mun
+	fromColumn: 'Distritos ciudad'.municipio_ine
+	toColumn: Municipios.municipio_ine
+
+relationship rel_serie_ccaa
+	fromColumn: 'Serie población'.ccaa_ine
+	toColumn: CCAA.ccaa_ine
+
+relationship rel_pib_prov
+	fromColumn: 'PIB provincia'.provincia_ine
+	toColumn: Provincias.provincia_ine
+
+relationship rel_paro_ccaa
+	fromColumn: Paro.ccaa_ine
+	toColumn: CCAA.ccaa_ine

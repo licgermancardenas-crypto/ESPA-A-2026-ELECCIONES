@@ -1,0 +1,24 @@
+table 'Fondo satélite'
+	isHidden
+
+	column orden
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: orden
+
+	column texto
+		dataType: string
+		summarizeBy: none
+		sourceColumn: texto
+
+	partition 'Fondo satélite' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "fondo_satelite.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"orden", Int64.Type}, {"texto", type text}}, "en-US")
+				in
+				    Tipos
+

@@ -1,65 +1,55 @@
 table 'Serie población'
-	lineageTag: 43258519-e697-433d-81e1-4a24d28ee8fb
 
 	column geo_id
 		dataType: string
-		isHidden
-		lineageTag: 32289040-a5d3-4167-877c-d96ded386d11
 		summarizeBy: none
 		sourceColumn: geo_id
+		isHidden
 
 	column nivel
 		dataType: string
-		lineageTag: c8307209-8c68-40ce-b2ff-17a8f9f330ab
 		summarizeBy: none
 		sourceColumn: nivel
 
 	column nombre
 		dataType: string
-		lineageTag: 370e00b0-a350-4dfa-bd97-f0fed9f04b49
 		summarizeBy: none
 		sourceColumn: nombre
 
 	column anyo
 		dataType: int64
 		formatString: 0
-		lineageTag: a5365375-3850-44ac-9e02-fd197f232635
 		summarizeBy: none
 		sourceColumn: anyo
 
 	column poblacion
 		dataType: int64
 		formatString: #,0
-		lineageTag: 39386583-ca17-420d-aa55-5ce611821bef
 		summarizeBy: none
 		sourceColumn: poblacion
 
 	column origen
 		dataType: string
-		lineageTag: 2a08440f-9291-43b4-9748-fdc3a22aa3ff
 		summarizeBy: none
 		sourceColumn: origen
 
 	column ccaa_ine
 		dataType: string
-		isHidden
-		lineageTag: 30b85960-904e-4882-b808-c5323377a67e
 		summarizeBy: none
 		sourceColumn: ccaa_ine
+		isHidden
 
 	column provincia_ine
 		dataType: string
-		isHidden
-		lineageTag: 5f3fb40e-2c99-4856-acf4-abadcef5ed63
 		summarizeBy: none
 		sourceColumn: provincia_ine
+		isHidden
 
 	column municipio_ine
 		dataType: string
-		isHidden
-		lineageTag: ae00beaa-e00c-49e5-88b4-e2f7e9cfdfe8
 		summarizeBy: none
 		sourceColumn: municipio_ine
+		isHidden
 
 	partition 'Serie población' = m
 		mode: import

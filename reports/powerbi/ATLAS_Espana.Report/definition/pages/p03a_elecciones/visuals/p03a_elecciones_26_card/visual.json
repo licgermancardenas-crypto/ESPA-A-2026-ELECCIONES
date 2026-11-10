@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "p03a_elecciones_22_card",
+  "name": "p03a_elecciones_26_card",
   "position": {
-    "x": 1097,
-    "y": 92,
-    "z": 2200,
+    "x": 1345,
+    "y": 168,
+    "z": 2600,
     "width": 240,
     "height": 70,
-    "tabOrder": 2200
+    "tabOrder": 2600
   },
   "visual": {
     "visualType": "card",
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Participación (nac)"
+                  "Property": "Volatilidad (nac)"
                 }
               },
-              "queryRef": "Medidas.Participación (nac)",
-              "nativeQueryRef": "Participación",
-              "displayName": "Participación"
+              "queryRef": "Medidas.Volatilidad (nac)",
+              "nativeQueryRef": "Volatilidad vs. anterior",
+              "displayName": "Volatilidad vs. anterior"
             }
           ]
         }

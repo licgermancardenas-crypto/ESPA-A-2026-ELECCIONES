@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p04_demografia_18_slicer",
   "position": {
     "x": 572,
     "y": 96,
     "z": 1800,
-    "height": 58,
     "width": 340,
+    "height": 58,
     "tabOrder": 1800
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Municipios.tamano",
-              "nativeQueryRef": "tamano",
-              "active": true
+              "nativeQueryRef": "tamano"
             }
           ]
         }

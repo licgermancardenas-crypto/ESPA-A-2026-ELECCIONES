@@ -1,170 +1,146 @@
 table Municipios
-	lineageTag: e02e1a4f-3296-4250-846f-1122c3f9a4bc
 
 	column geo_id
 		dataType: string
-		isHidden
-		lineageTag: ee3e3bf3-4788-4d4e-9724-7a82b3f28303
 		summarizeBy: none
 		sourceColumn: geo_id
+		isHidden
 
 	column municipio_ine
 		dataType: string
-		isKey
-		lineageTag: 641d0cbf-d569-4f45-9592-4ca9f5c0b5d2
 		summarizeBy: none
 		sourceColumn: municipio_ine
+		isKey
 
 	column provincia_ine
 		dataType: string
-		isHidden
-		lineageTag: a4dd29fe-64e3-4070-b321-e241323b1a8c
 		summarizeBy: none
 		sourceColumn: provincia_ine
+		isHidden
 
 	column ccaa_ine
 		dataType: string
-		isHidden
-		lineageTag: df2d1882-863c-4de2-97d8-6390fb6394a9
 		summarizeBy: none
 		sourceColumn: ccaa_ine
+		isHidden
 
 	column nombre
 		dataType: string
-		lineageTag: ef71801f-1fc4-41bd-9372-9e4bb5a7fe7e
 		summarizeBy: none
 		sourceColumn: nombre
 
 	column pob_actual
 		dataType: int64
-		isHidden
 		formatString: #,0
-		lineageTag: 3094c0c9-b6e5-4a4e-b5ee-789e727a3b1c
 		summarizeBy: none
 		sourceColumn: pob_actual
+		isHidden
 
 	column pob_hace10
 		dataType: int64
-		isHidden
 		formatString: #,0
-		lineageTag: 6cb0dca6-4631-4f14-93fe-8735948b3c24
 		summarizeBy: none
 		sourceColumn: pob_hace10
+		isHidden
 
 	column area_km2
 		dataType: double
 		formatString: #,0.0
-		lineageTag: 83d57b75-5099-43cd-972a-ad2186199b6d
 		summarizeBy: none
 		sourceColumn: area_km2
 
 	column electores_and_2026
 		dataType: int64
-		isHidden
 		formatString: #,0
-		lineageTag: 9da07497-5b07-4c9d-a9e9-ccc559212456
 		summarizeBy: none
 		sourceColumn: electores_and_2026
+		isHidden
 
 	column path
 		dataType: string
-		isHidden
-		lineageTag: a614a8ad-1227-4df3-b977-39cb2719edbd
 		summarizeBy: none
 		sourceColumn: path
+		isHidden
 
 	column x
 		dataType: double
-		isHidden
-		lineageTag: bf7636ce-8d12-46f7-9027-2696b5e92ada
 		summarizeBy: none
 		sourceColumn: x
+		isHidden
 
 	column y
 		dataType: double
-		isHidden
-		lineageTag: 1579d523-cd11-44c1-b1d6-04653832631f
 		summarizeBy: none
 		sourceColumn: y
+		isHidden
 
 	column lon
 		dataType: double
-		isHidden
 		formatString: 0.000
-		lineageTag: a9036b94-e0ad-4cf4-abde-2a08ced8f0d1
-		dataCategory: Longitude
 		summarizeBy: none
 		sourceColumn: lon
+		isHidden
+		dataCategory: Longitude
 
 	column lat
 		dataType: double
-		isHidden
 		formatString: 0.000
-		lineageTag: 0a7c27d2-d91f-41a2-89c2-23457cc3b535
-		dataCategory: Latitude
 		summarizeBy: none
 		sourceColumn: lat
+		isHidden
+		dataCategory: Latitude
 
 	column tamano
 		dataType: string
-		lineageTag: 0230f257-c594-479e-9aea-4c98774043a5
 		summarizeBy: none
 		sourceColumn: tamano
 
 	column nombre_completo
 		dataType: string
-		lineageTag: 67064f3c-fa16-4cc8-b127-79a4a2f7e424
 		summarizeBy: none
 		sourceColumn: nombre_completo
 
 	column lienzo_ancho
 		dataType: int64
-		isHidden
-		lineageTag: 8efef8aa-e997-4ef6-9ad0-c11b19ae921d
 		summarizeBy: none
 		sourceColumn: lienzo_ancho
+		isHidden
 
 	column lienzo_alto
 		dataType: int64
-		isHidden
-		lineageTag: 2243f76b-a0aa-4549-a067-536a373ec52f
 		summarizeBy: none
 		sourceColumn: lienzo_alto
+		isHidden
 
 	column n_secciones
 		dataType: int64
 		formatString: 0
-		lineageTag: 0a602bf7-9ca9-4fd7-85ec-3c172533b26a
 		summarizeBy: none
 		sourceColumn: n_secciones
 
 	column renta_pp
 		dataType: double
 		formatString: #,0 €
-		lineageTag: f6acf2e5-ebfb-4004-af24-f006fda3f142
 		summarizeBy: none
 		sourceColumn: renta_pp
 
 	column path_ccaa
 		dataType: string
-		isHidden
-		lineageTag: 1853b629-f259-42d2-8cf4-a85e2d23d2c3
 		summarizeBy: none
 		sourceColumn: path_ccaa
+		isHidden
 
 	column x_ccaa
 		dataType: int64
-		isHidden
-		lineageTag: 75013720-9efc-4d0a-96f1-f2e737b39db6
 		summarizeBy: none
 		sourceColumn: x_ccaa
+		isHidden
 
 	column y_ccaa
 		dataType: int64
-		isHidden
-		lineageTag: 9264ee89-3c11-44f5-a911-12b39727acbd
 		summarizeBy: none
 		sourceColumn: y_ccaa
+		isHidden
 
 	partition Municipios = m
 		mode: import

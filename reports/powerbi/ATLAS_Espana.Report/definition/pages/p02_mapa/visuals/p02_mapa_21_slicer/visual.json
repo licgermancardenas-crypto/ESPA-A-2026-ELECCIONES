@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p02_mapa_21_slicer",
   "position": {
     "x": 1097,
     "y": 224,
     "z": 2100,
-    "height": 58,
     "width": 490,
+    "height": 58,
     "tabOrder": 2100
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "CCAA.nombre",
-              "nativeQueryRef": "nombre",
-              "active": true
+              "nativeQueryRef": "nombre"
             }
           ]
         }

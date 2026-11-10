@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p05_economia_21_clusteredBar",
   "position": {
     "x": 222,
     "y": 166,
     "z": 2100,
-    "height": 724,
     "width": 560,
+    "height": 724,
     "tabOrder": 2100
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Provincias.nombre",
-              "nativeQueryRef": "nombre",
-              "active": true
+              "nativeQueryRef": "nombre"
             }
           ]
         },
@@ -67,7 +66,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {

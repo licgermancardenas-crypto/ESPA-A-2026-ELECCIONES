@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03_ciudad_18_slicer",
   "position": {
     "x": 562,
     "y": 92,
     "z": 1800,
-    "height": 58,
     "width": 330,
+    "height": 58,
     "tabOrder": 1800
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "Municipios.nombre_completo",
-              "nativeQueryRef": "nombre_completo",
-              "active": true
+              "nativeQueryRef": "nombre_completo"
             }
           ]
         }

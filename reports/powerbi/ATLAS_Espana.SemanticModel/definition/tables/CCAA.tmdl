@@ -1,118 +1,101 @@
 table CCAA
-	lineageTag: d2442869-6ed8-4898-9db4-665c4b9ef686
 
 	column geo_id
 		dataType: string
-		isHidden
-		lineageTag: a634609e-2044-400f-8a35-fff5ec293a7c
 		summarizeBy: none
 		sourceColumn: geo_id
+		isHidden
 
 	column ccaa_ine
 		dataType: string
-		isKey
-		lineageTag: 81c667a6-2151-484d-a618-63e6cb918121
 		summarizeBy: none
 		sourceColumn: ccaa_ine
+		isKey
 
 	column nombre
 		dataType: string
-		lineageTag: a5f94f7b-d8b3-4e03-b29d-47210863797f
 		summarizeBy: none
 		sourceColumn: nombre
 		sortByColumn: ccaa_ine
 
 	column pob_actual
 		dataType: int64
-		isHidden
 		formatString: #,0
-		lineageTag: 0214295f-c1ab-42ec-9f30-8c782aebac49
 		summarizeBy: none
 		sourceColumn: pob_actual
+		isHidden
 
 	column pob_hace10
 		dataType: int64
-		isHidden
 		formatString: #,0
-		lineageTag: 1ec347a8-5085-4989-a4f6-9638b95e9077
 		summarizeBy: none
 		sourceColumn: pob_hace10
+		isHidden
 
 	column area_km2
 		dataType: double
 		formatString: #,0
-		lineageTag: 5ba69ed9-cdbb-46b7-a214-9d8b53b82040
 		summarizeBy: none
 		sourceColumn: area_km2
 
 	column paro
 		dataType: double
 		formatString: 0.0%
-		lineageTag: 7d6beae1-b6cc-455a-98c0-a3ede0d63333
 		summarizeBy: none
 		sourceColumn: paro
 
 	column paro_trimestre
 		dataType: string
-		lineageTag: 2f14a269-ca11-4dce-ac72-a0467a201d09
 		summarizeBy: none
 		sourceColumn: paro_trimestre
 
 	column pib_pc
 		dataType: double
 		formatString: #,0 €
-		lineageTag: 51cceeda-3af3-47b2-baad-d8c6067aef04
 		summarizeBy: none
 		sourceColumn: pib_pc
 
 	column lienzo_ancho
 		dataType: int64
-		isHidden
-		lineageTag: 71bb08ca-2951-4716-8df3-760719c99702
 		summarizeBy: none
 		sourceColumn: lienzo_ancho
+		isHidden
 
 	column lienzo_alto
 		dataType: int64
-		isHidden
-		lineageTag: 63999d95-debd-4fbc-9b5c-89ec3e1e0ce2
 		summarizeBy: none
 		sourceColumn: lienzo_alto
+		isHidden
 
 	column n_provincias
 		dataType: int64
 		formatString: 0
-		lineageTag: 40c21d91-f2dd-435f-8bbd-330703912818
 		summarizeBy: none
 		sourceColumn: n_provincias
 
 	column n_municipios
 		dataType: int64
 		formatString: #,0
-		lineageTag: c7d55770-5a4c-4764-a775-6e2c94d67714
 		summarizeBy: none
 		sourceColumn: n_municipios
 
 	column path
 		dataType: string
-		isHidden
-		lineageTag: bf8a80de-7d29-4d81-bf48-024b36285261
 		summarizeBy: none
 		sourceColumn: path
+		isHidden
 
 	column cx
 		dataType: int64
-		isHidden
-		lineageTag: 540d68e9-abd8-4c33-8484-f4e78f1e3dc7
 		summarizeBy: none
 		sourceColumn: cx
+		isHidden
 
 	column cy
 		dataType: int64
-		isHidden
-		lineageTag: 3ba624b4-08f7-477e-b860-aa81d572f0c4
 		summarizeBy: none
 		sourceColumn: cy
+		isHidden
 
 	partition CCAA = m
 		mode: import

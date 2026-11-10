@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03a_elecciones_24_card",
   "position": {
-    "x": 1097,
-    "y": 168,
+    "x": 1345,
+    "y": 92,
     "z": 2400,
     "width": 240,
     "height": 70,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "ENEP (nac)"
+                  "Property": "Más votado (nac)"
                 }
               },
-              "queryRef": "Medidas.ENEP (nac)",
-              "nativeQueryRef": "Nº efectivo de partidos",
-              "displayName": "Nº efectivo de partidos"
+              "queryRef": "Medidas.Más votado (nac)",
+              "nativeQueryRef": "Más votado",
+              "displayName": "Más votado"
             }
           ]
         }
