@@ -458,7 +458,7 @@ sources:
 
   - source_id: INE-CENSO-2021
     organismo: INE
-    dataset: Censo de Población 2021 — población según municipio y sexo (tabla 68065) y tablas temáticas
+    dataset: Censo de Población 2021 — población según municipio y sexo (tabla 68065), nivel de estudios por provincia, sexo, edad y nacionalidad (tabla 66601, marco del MRP de votantes) y tablas temáticas
     categoria: demografia
     url: https://www.ine.es/dyngs/INEbase/operacion.htm?c=Estadistica_C&cid=1254736177092
     api: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/68065

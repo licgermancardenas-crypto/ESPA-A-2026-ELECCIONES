@@ -37,27 +37,27 @@ ESTUDIOS = {
              "modo": "presencial", "campo": "07/01/2016–19/03/2016", "afijacion": "no proporcional", "ponderacion": "PESO",
              "url": "https://www.cis.es/es/estudios/postelectoral-elecciones-generales-2015.-panel-2-fase-",
              "vars": {"voto": "RECUERDO", "voto_anterior": "RECUERDO11", "sexo": "SEXO", "edad": "EDAD", "estudios": "ESTUDIOS",
-                      "sitlab": "P63", "ideologia": "P35", "tamuni": "TAMUNI", "ccaa": "CCAA", "peso": "PESO"}},
+                      "sitlab": "P63", "ideologia": "P35", "tamuni": "TAMUNI", "ccaa": "CCAA", "prov": "PROV", "peso": "PESO"}},
     "3145": {"eleccion": "02-201606", "anterior": "02-201512", "titulo": "Postelectoral elecciones generales 2016",
              "modo": "presencial", "campo": "02/07/2016–21/07/2016", "afijacion": "proporcional", "ponderacion": "no procede",
              "url": "https://www.cis.es/es/estudios/postelectoral-elecciones-generales-2016",
              "vars": {"voto": "RECUERDO16", "voto_anterior": "RECUERDO15", "sexo": "P47", "edad": "P48", "estudios": "ESTUDIOS",
-                      "sitlab": "P60", "ideologia": "P35", "tamuni": "TAMUNI", "ccaa": "CCAA", "peso": None}},
+                      "sitlab": "P60", "ideologia": "P35", "tamuni": "TAMUNI", "ccaa": "CCAA", "prov": "PROV", "peso": None}},
     "3248": {"eleccion": "02-201904", "anterior": "02-201606", "titulo": "Postelectoral elecciones generales 2019",
              "modo": "presencial", "campo": "10/05/2019–25/05/2019", "afijacion": "proporcional", "ponderacion": "no procede",
              "url": "https://www.cis.es/es/estudios/postelectoral-elecciones-generales-2019",
              "vars": {"voto": "P23R", "voto_anterior": "RECUERDO16", "sexo": "P41", "edad": "P42", "estudios": "ESTUDIOS",
-                      "sitlab": "P50", "ideologia": "P32", "tamuni": "TAMUNI", "ccaa": "CCAA", "peso": None}},
+                      "sitlab": "P50", "ideologia": "P32", "tamuni": "TAMUNI", "ccaa": "CCAA", "prov": "PROV", "peso": None}},
     "3269": {"eleccion": "02-201911", "anterior": "02-201904", "titulo": "Barómetro de diciembre 2019. Postelectoral elecciones generales 2019",
              "modo": "presencial", "campo": "diciembre de 2019", "afijacion": "no proporcional", "ponderacion": "PESO",
              "url": "https://www.cis.es/es/estudios/barometro-de-diciembre-2019.-postelectoral-elecciones-generales-2019",
              "vars": {"voto": "B22R", "voto_anterior": "RECUERDO", "sexo": "C9", "edad": "C10", "estudios": "ESTUDIOS",
-                      "sitlab": "C15", "ideologia": "C3", "tamuni": "TAMUNI", "ccaa": "CCAA", "peso": "PESO"}},
+                      "sitlab": "C15", "ideologia": "C3", "tamuni": "TAMUNI", "ccaa": "CCAA", "prov": "PROV", "peso": "PESO"}},
     "3420": {"eleccion": "02-202307", "anterior": "02-201911", "titulo": "Barómetro de septiembre 2023. Postelectoral elecciones generales 2023",
              "modo": "telefónica (CATI)", "campo": "01/09/2023–12/09/2023", "afijacion": "no proporcional", "ponderacion": "PESO",
              "url": "https://www.cis.es/es/estudios/barometro-de-septiembre-2023.-postelectoral-elecciones-generales-2023",
              "vars": {"voto": "RECUERDO1", "voto_anterior": "RECUERDO", "sexo": "SEXO", "edad": "EDAD", "estudios": "ESTUDIOS",
-                      "sitlab": "SITLAB", "ideologia": "ESCIDEOL", "tamuni": "TAMUNI", "ccaa": "CCAA", "peso": "PESO"}},
+                      "sitlab": "SITLAB", "ideologia": "ESCIDEOL", "tamuni": "TAMUNI", "ccaa": "CCAA", "prov": "PROV", "peso": "PESO"}},
 }
 
 # etiqueta del CIS → familia política de Atlas (misma tabla de familias que los resultados oficiales)
@@ -157,6 +157,8 @@ def leer_estudio(cod: str) -> pd.DataFrame:
     out["grupo_ideologia"] = pd.cut(out.ideologia, [0, 2, 4, 6, 8, 10], labels=[e[2] for e in IDEO]).astype(object)
     out["tamuni"] = df[vs["tamuni"].upper()].map(TAMUNI)
     out["ccaa"] = pd.to_numeric(df[vs["ccaa"].upper()], errors="coerce").map(lambda c: f"{int(c):02d}" if pd.notna(c) else None)
+    pr = pd.to_numeric(df[vs["prov"].upper()], errors="coerce")
+    out["prov"] = pr.map(lambda c: f"{int(c):02d}" if pd.notna(c) and 1 <= c <= 52 else None)
     out["peso"] = pd.to_numeric(df[vs["peso"].upper()], errors="coerce") if vs.get("peso") else 1.0
     out["peso"] = out.peso.fillna(1.0)
     return out

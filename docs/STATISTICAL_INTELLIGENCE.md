@@ -162,3 +162,22 @@ Cada respuesta incluye `ejecucion`: id, método, versión del motor, huella del 
 - Nueva vista **Comparar comunidades**: un rasgo del electorado de un partido (p. ej. % de 65+ entre votantes del PP) en cada comunidad, con IC 95 %, fiabilidad y pintado en el mapa.
 - **Fiabilidad:** alta ≥ 150 votantes del partido en la muestra, media 50–149, baja < 50. En la evolución no se estiman puntos con menos de 50 votantes.
 - **Provincias: no.** Muestras por provincia demasiado pequeñas (2023: mediana de 135 entrevistas; solo 6 de 52 superan 300). Para estimar perfiles provinciales haría falta un modelo (regresión multinivel con postestratificación, MRP) con tablas censales de edad × sexo × estudios por provincia (INE, Censo 2021).
+
+### Votantes por provincia: MRP (10/11/2026)
+
+Módulo `atlas_spain.encuestas.mrp` → `data/gold/mrp/*.json` y `web/data/mrp/*.json` (solo agregados; los microdatos no se publican).
+
+1. **Marco:** Censo anual del INE, tabla 66601 (españoles de 18+ por provincia × sexo × edad × estudios). Año 2021 para 2015–2019 y 2023 para 2023. El grupo 18–24 toma 2/5 del grupo censal 15–19.
+2. **Modelo:** logística multinomial con penalización L2 (sexo, edad, estudios, edad×sexo, edad×estudios, comunidad, provincia, comunidad×edad). C elegido por validación cruzada (0,15 en las cinco elecciones). Partidos con < 30 votantes en la encuesta van a «Otros».
+3. **Postestratificación y calibración:** raking por provincia hasta reproducir exactamente abstención y voto oficial (blanco y nulo dentro de «Otros»).
+4. **Incertidumbre:** bootstrap de entrevistas (40 réplicas), IC 95 % por percentiles.
+
+**Validación (provincia fuera, provincias con ≥ 300 entrevistas):** error medio absoluto de la composición por edad de cada electorado frente a la estimación directa de la propia provincia (ajustada a censo y resultado oficial). Referencia: perfil nacional del partido calculado sin esa provincia.
+
+| Elección | MRP | Perfil nacional | MRP mejor en |
+|---|---|---|---|
+| Abril 2019 (Madrid, Barcelona) | 3,5 pp | 3,5 pp | 4/11 |
+| Noviembre 2019 | 4,2 pp | 4,6 pp | 7/10 |
+| 2023 (Madrid, Barcelona, Sevilla, Valencia) | 4,3 pp | 4,7 pp | 14/22 |
+
+Mejora modesta, concentrada en partidos regionales. Errores dominados por el ruido de la propia estimación directa (100–300 votantes por partido). La encuesta telefónica de 2023 sobrerrepresenta universitarios (46 % frente al 25 % del censo); el MRP lo corrige por construcción. Una primera versión de la validación filtraba la provincia evaluada en la referencia nacional y no ajustaba la estimación directa al censo: daba resultados engañosos y se corrigió.

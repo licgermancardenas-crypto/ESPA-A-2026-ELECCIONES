@@ -445,3 +445,5 @@ code.wrap { word-break: break-all; font-size: 11px; color: var(--muted); }
 .st-cis a { color: var(--violet-2); }
 .vt-tab td.n, .vt-tab th.n { white-space: nowrap; }
 .vt-tab td:first-child { white-space: nowrap; }
+
+.vt-tab small.ic{display:block;font-size:9.5px;color:var(--muted);opacity:.8;font-weight:400;margin-top:1px}

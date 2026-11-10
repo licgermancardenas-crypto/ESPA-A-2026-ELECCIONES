@@ -64,6 +64,17 @@ export async function core(nombre) {
   }
 }
 
+// ───────── Votantes por provincia (MRP precalculado: solo agregados) ─────────
+const cacheMRP = new Map();
+export function mrp(nombre) {
+  if (!cacheMRP.has(nombre)) {
+    const p = getJSON(`data/mrp/${nombre}.json`);
+    p.catch(() => cacheMRP.delete(nombre));
+    cacheMRP.set(nombre, p);
+  }
+  return cacheMRP.get(nombre);
+}
+
 // ───────── Statistical Intelligence ─────────
 // Mismo endpoint en local (servidor Python) y publicado (función de Vercel): /api/stats
 const cacheStats = new Map();
