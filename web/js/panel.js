@@ -64,7 +64,8 @@ async function nacional(S) {
         ${conEsc ? `<div class="block"><h4>Reparto de escaños</h4><div class="chart" id="ch-hemi" style="height:190px"></div></div>` : ""}
         <div class="block"><h4>Voto por familia política</h4>${barsHTML(fil.map((f) => [f[0], f[3] / (fil[0]?.[3] || 1), fmt.pct(f[3])]), S.fam)}</div>
         <div class="block"><p>Haz clic en una comunidad, provincia o municipio para abrir su ficha. Con ▶ recorres todas las convocatorias.</p></div>`;
-      if (conEsc) C.hemiciclo($("#ch-hemi"), fil.map((f) => ({ familia: f[0], esc: f[2] })), S.fam);
+      // el hemiciclo incluye TODAS las familias con escaño (no solo las 9 de la lista de barras)
+      if (conEsc) C.hemiciclo($("#ch-hemi"), es.f.filter((f) => f[2] > 0).map((f) => ({ familia: f[0], esc: f[2] })), S.fam);
       animarBarras(body);
     } else {
       const t = S.terr["ES"];

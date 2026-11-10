@@ -71,7 +71,10 @@ atlas web                # solo servir (si web/data ya existe)
   municipios → secciones censales). La ficha muestra resumen con frases calculadas, demografía 1996–2025,
   historial electoral completo, secciones (renta, densidad, 65+) y elecciones autonómicas.
 - **Comparador histórico**, **Hallazgos** (generados desde los datos) y **Datos y calidad**.
-- Sin claves ni servicios externos salvo las librerías (MapLibre, ECharts) y tipografías por CDN.
+- **Mapa base** a elegir: oscuro, **satélite** (ortofotos PNOA del Instituto Geográfico Nacional, CC BY 4.0) o
+  **relieve 3D** (satélite sobre el modelo de elevación de AWS Terrain Tiles; arrastrar con clic derecho para girar).
+- Enlaces directos a una vista: `http://127.0.0.1:8080/#fondo=satelite&sel=ES-MU-28079`.
+- Sin claves de API: librerías (MapLibre, ECharts) y tipografías por CDN; teselas del IGN y de AWS.
 
 ### Tablero de Power BI
 

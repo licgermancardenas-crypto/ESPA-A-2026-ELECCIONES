@@ -75,6 +75,7 @@ function initMap() {
     $("#loader").classList.add("done");
     rotate();
     loadGeo("municipios").then(() => addLevelLayers("municipios"));
+    enlaceDirecto();
   });
 
   map.on("mousemove", onMove);
@@ -91,13 +92,61 @@ async function loadGeo(nivel) {
   return gj;
 }
 
+// ───────── mapa base: oscuro, satélite (PNOA, IGN) o relieve 3D ─────────
+const FONDO_K = { oscuro: 1, satelite: 0.5, relieve: 0.42 };
+S.fondo = "oscuro";
+function opacidad() {
+  const k = FONDO_K[S.fondo] ?? 1;
+  return ["case", ["boolean", ["feature-state", "hover"], false], Math.min(0.98, 0.35 + k * 0.6),
+    ["*", ["coalesce", ["feature-state", "o"], 0.85], ["coalesce", ["feature-state", "dim"], 1], k]];
+}
+function asegurarFuentesBase() {
+  if (!map.getSource("pnoa")) {
+    map.addSource("pnoa", { type: "raster", tileSize: 256, maxzoom: 19,
+      tiles: ["https://www.ign.es/wmts/pnoa-ma?request=GetTile&service=WMTS&version=1.0.0&layer=OI.OrthoimageCoverage" +
+        "&style=default&tilematrixset=GoogleMapsCompatible&format=image/jpeg&tilematrix={z}&tilerow={y}&tilecol={x}"],
+      attribution: "Ortofoto PNOA © Instituto Geográfico Nacional (CC BY 4.0)" });
+    map.addLayer({ id: "pnoa", type: "raster", source: "pnoa", layout: { visibility: "none" },
+      paint: { "raster-opacity": 0, "raster-opacity-transition": { duration: 900 }, "raster-saturation": -0.1, "raster-contrast": 0.08 } }, "ccaa-fill");
+  }
+  if (!map.getSource("dem")) {
+    map.addSource("dem", { type: "raster-dem", encoding: "terrarium", tileSize: 256, maxzoom: 13,
+      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+      attribution: "Relieve: AWS Terrain Tiles (Mapzen, SRTM)" });
+    map.addSource("dem-sombra", { type: "raster-dem", encoding: "terrarium", tileSize: 256, maxzoom: 13,
+      tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"] });
+    map.addLayer({ id: "sombras", type: "hillshade", source: "dem-sombra", layout: { visibility: "none" },
+      paint: { "hillshade-exaggeration": 0.55, "hillshade-shadow-color": "#0b0718", "hillshade-highlight-color": "#fff5e0" } }, "ccaa-fill");
+  }
+}
+function setFondo(v) {
+  S.fondo = v;
+  asegurarFuentesBase();
+  const sat = v !== "oscuro";
+  map.setLayoutProperty("pnoa", "visibility", sat ? "visible" : "none");
+  requestAnimationFrame(() => map.setPaintProperty("pnoa", "raster-opacity", sat ? 1 : 0));
+  map.setLayoutProperty("sombras", "visibility", v === "relieve" ? "visible" : "none");
+  if (v === "relieve") {
+    map.setTerrain({ source: "dem", exaggeration: 1.7 });
+    map.easeTo({ pitch: 62, bearing: map.getBearing() || -12, duration: 1800 });
+    toast("Relieve 3D: arrastra con clic derecho (o Ctrl + arrastrar) para girar e inclinar");
+  } else {
+    map.setTerrain(null);
+    map.easeTo({ pitch: 0, bearing: 0, duration: 1200 });
+    if (v === "satelite") toast("Ortofotos PNOA del Instituto Geográfico Nacional");
+  }
+  for (const n of ["ccaa", "provincias", "municipios"]) if (map.getLayer(`${n}-fill`)) map.setPaintProperty(`${n}-fill`, "fill-opacity", opacidad());
+  for (const n of ["ccaa", "provincias", "municipios"]) if (map.getLayer(`${n}-line`))
+    map.setPaintProperty(`${n}-line`, "line-color", ["case", ["boolean", ["feature-state", "hover"], false], "#ffffff", sat ? "rgba(255,255,255,.55)" : "rgba(7,6,13,.75)"]);
+  if (map.getLayer("secc-fill")) map.setPaintProperty("secc-fill", "fill-opacity", sat ? 0.55 : 0.92);
+}
+
 function addLevelLayers(n) {
   if (map.getLayer(`${n}-fill`)) return;
   const before = map.getLayer("hero-3d") ? "hero-3d" : undefined;
   map.addLayer({ id: `${n}-fill`, type: "fill", source: SRC[n], layout: { visibility: "none" },
     paint: { "fill-color": ["coalesce", ["feature-state", "c"], "#1b1830"],
-      "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.98,
-        ["*", ["coalesce", ["feature-state", "o"], 0.85], ["coalesce", ["feature-state", "dim"], 1]]],
+      "fill-opacity": opacidad(),
       "fill-opacity-transition": { duration: 500 } } }, before);
   map.addLayer({ id: `${n}-line`, type: "line", source: SRC[n], layout: { visibility: "none" },
     paint: { "line-color": ["case", ["boolean", ["feature-state", "hover"], false], "#ffffff", "rgba(7,6,13,.75)"],
@@ -111,6 +160,18 @@ function setLevelVisibility(nivel) {
   if (nivel && nivel !== "ccaa" && map.getLayer("ccaa-line")) {
     map.setLayoutProperty("ccaa-line", "visibility", "visible");
   }
+}
+
+// ───────── enlaces directos: #ver=mapa&fondo=satelite&nivel=municipios&sel=ES-MU-28079 ─────────
+function enlaceDirecto() {
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (![...h.keys()].length) return;
+  enterApp(h.get("ver") || "mapa");
+  setTimeout(() => {
+    if (h.get("fondo")) $$(`#fondo button`).find((b) => b.dataset.v === h.get("fondo"))?.click();
+    if (h.get("nivel")) setNivel(h.get("nivel"));
+    if (h.get("sel")) select(h.get("sel"));
+  }, 2600);
 }
 
 // ───────── portada ─────────
@@ -275,6 +336,7 @@ function initControls() {
     refresh();
   });
   segment("#nivel", (v) => setNivel(v, false));
+  segment("#fondo", (v) => setFondo(v));
   chips("#met-elec", (v) => { S.metElec = v; refresh(); });
   chips("#met-demo", (v) => { S.metDemo = v; refresh(); });
   setTimeline(elecTipo().length - 1, true);
@@ -390,7 +452,8 @@ export async function select(id) {
   else dimOthers(id);
   if (feat) {
     const pad = { top: 70, bottom: 50, left: 340, right: 480 };
-    map.fitBounds(bbox(feat.geometry), { padding: pad, duration: 1800, maxZoom: n === "municipios" ? 12.5 : 9, essential: true });
+    map.fitBounds(bbox(feat.geometry), { padding: pad, duration: 1800, maxZoom: n === "municipios" ? 12.5 : 9, essential: true,
+      pitch: S.fondo === "relieve" ? 60 : 0 });
   }
   $("#panel").classList.add("open");
   renderPanel(S, "loading");
@@ -411,7 +474,8 @@ export function deselect() {
   removeSecciones();
   for (const n of ["ccaa", "provincias", "municipios"]) if (S.ids[n]) for (const id of S.ids[n]) map.setFeatureState({ source: SRC[n], id }, { dim: 1 });
   if (document.body.classList.contains("app")) {
-    map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: 340, right: 480 }, duration: 1600 });
+    map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: 340, right: 480 }, duration: 1600,
+      pitch: S.fondo === "relieve" ? 55 : 0 });
     if (S.nivel === "municipios" && S.capa !== "renta") setNivel("provincias");
   }
   renderPanel(S, null);
@@ -446,7 +510,7 @@ async function cargarSecciones(cod) {
     map.addSource("secc", { type: "geojson", data: gj });
     map.addLayer({ id: "secc-fill", type: "fill", source: "secc", paint: { "fill-color": seccColor("renta"), "fill-opacity": 0 } });
     map.addLayer({ id: "secc-line", type: "line", source: "secc", paint: { "line-color": "rgba(7,6,13,.8)", "line-width": 0.6 } });
-    requestAnimationFrame(() => map.setPaintProperty("secc-fill", "fill-opacity", 0.92));
+    requestAnimationFrame(() => map.setPaintProperty("secc-fill", "fill-opacity", S.fondo === "oscuro" ? 0.92 : 0.55));
     map.setPaintProperty("secc-fill", "fill-opacity-transition", { duration: 900 });
     S.seccMetrica = "renta";
     toast(`${gj.features.length} secciones censales · color por renta`);
