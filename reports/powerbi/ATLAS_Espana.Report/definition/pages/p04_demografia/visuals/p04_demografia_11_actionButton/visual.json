@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'✔   Censo electoral'"
+                  "Value": "'≋   Demografía'"
                 }
               }
             },
@@ -65,7 +65,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D9D2EA'"
+                      "Value": "'#FFFFFF'"
                     }
                   }
                 }
@@ -124,7 +124,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2A2147'"
+                      "Value": "'#5B3F99'"
                     }
                   }
                 }
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p06_censo'"
+                  "Value": "'p04_demografia'"
                 }
               }
             }

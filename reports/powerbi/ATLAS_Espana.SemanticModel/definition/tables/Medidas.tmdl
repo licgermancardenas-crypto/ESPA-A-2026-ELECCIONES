@@ -1,7 +1,7 @@
 table Medidas
 
 	measure Corte =
-			"Datos a 09/11/2026 22:31 · Fuentes: INE, Eurostat, Congreso"
+			"Datos a 10/11/2026 02:55 · Fuentes: INE, Eurostat, Congreso"
 		displayFolder: Formato
 
 	measure 'Población' =
@@ -224,6 +224,101 @@ table Medidas
 			    nivel = 3 && HASONEVALUE(CCAA[ccaa_ine]), [SVG región municipios],
 			    nivel = 3, [SVG España municipios],
 			    [SVG España provincias])
+		displayFolder: Formato
+		dataCategory: ImageUrl
+
+	measure 'Territorio electoral' =
+			IF(HASONEVALUE(CCAA[ccaa_ine]) && (ISFILTERED(CCAA[nombre]) || ISFILTERED(CCAA[ccaa_ine])),
+			   "ES-CA-" & SELECTEDVALUE(CCAA[ccaa_ine]), "ES")
+		displayFolder: Formato
+
+	measure 'Votos (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(SUM('Resultados familia'[votos]), 'Resultados familia'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: #,0
+		displayFolder: Elecciones
+
+	measure 'Escaños (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(SUM('Resultados familia'[escanos]), 'Resultados familia'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: 0
+		displayFolder: Elecciones
+
+	measure '% voto (nac)' =
+			DIVIDE([Votos (nac)], CALCULATE([Votos (nac)], REMOVEFILTERS('Resultados familia'[familia])))
+		formatString: 0.0%
+		displayFolder: Elecciones
+
+	measure 'Participación (nac)' =
+			VAR g = [Territorio electoral]
+			RETURN CALCULATE(DIVIDE(SUM('Participación nacional'[votantes]), SUM('Participación nacional'[censo])),
+			                 'Participación nacional'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: 0.0%
+		displayFolder: Elecciones
+
+	measure 'Votantes (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(SUM('Participación nacional'[votantes]), 'Participación nacional'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: #,0
+		displayFolder: Elecciones
+
+	measure 'Más votado (nac)' =
+			VAR t = ADDCOLUMNS(VALUES('Resultados familia'[familia]), "@v", [Votos (nac)])
+			RETURN MAXX(TOPN(1, FILTER(t, 'Resultados familia'[familia] <> "Otros"), [@v], DESC), 'Resultados familia'[familia])
+		displayFolder: Elecciones
+
+	measure 'ENEP (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(AVERAGE('Índices electorales'[enep]), 'Índices electorales'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: 0.00
+		displayFolder: Elecciones
+
+	measure 'Gallagher (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(AVERAGE('Índices electorales'[gallagher]), 'Índices electorales'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: 0.00
+		displayFolder: Elecciones
+
+	measure 'Volatilidad (nac)' =
+			VAR g = [Territorio electoral] RETURN CALCULATE(AVERAGE('Índices electorales'[volatilidad_pedersen]), 'Índices electorales'[geo_id] = g, REMOVEFILTERS(CCAA))
+		formatString: 0.0%
+		displayFolder: Elecciones
+
+	measure 'Color familia' =
+			VAR f = SELECTEDVALUE('Resultados familia'[familia]) RETURN SWITCH(f, "PSOE", "#E30613", "PP", "#1E5BA8", "Vox", "#5AC035", "Ciudadanos", "#EB6109", "Podemos y confluencias", "#6B2C91", "Sumar", "#E5007E", "ERC", "#F5A800", "Convergència / Junts", "#00B4C5", "PNV", "#2E7D32", "EH Bildu", "#00897B", "BNG", "#76B3E0", "Coalición Canaria", "#F2D500", "Más País", "#0FDEC4", "Compromís", "#DF7F2A", "IU", "#9C2B2B", "UPN", "#3E6FB4", "NA+ (coalición UPN-PP-Cs)", "#3E6FB4", "PRC", "#A4C639", "CUP", "#FFE600", "Teruel Existe", "#037252", "Ahora Repúblicas (coalición)", "#F08A00", "CEUS (coalición)", "#4CAF50", "CPE (coalición)", "#8BC34A", "Se Acabó La Fiesta", "#8B5A2B", "PACMA", "#8EC43F", "UPyD", "#E5007E", "Otros", "#B8B2C8", "#B8B2C8")
+		displayFolder: Formato
+
+	measure 'Título elecciones' =
+			SELECTEDVALUE('Convocatorias nacionales'[convocatoria], "Elegí una convocatoria") & " · " &
+			IF([Territorio electoral] = "ES", "España", SELECTEDVALUE(CCAA[nombre])) & " · partido más votado por " &
+			IF(SELECTEDVALUE('Nivel del mapa'[id], 2) = 3, "municipio", "provincia")
+		displayFolder: Formato
+
+	measure 'SVG elecciones' =
+			VAR nivel = SELECTEDVALUE('Nivel del mapa'[id], 2)
+			VAR sel = VALUES(CCAA[ccaa_ine])
+			VAR todo = NOT ISFILTERED(CCAA[ccaa_ine]) && NOT ISFILTERED(CCAA[nombre])
+			VAR tp = ADDCOLUMNS(ALL(Provincias), "@f", CALCULATE(SELECTEDVALUE('Ganador provincia'[familia_ganador])))
+			VAR tm = IF(nivel = 3, ADDCOLUMNS(ALL(Municipios), "@f", CALCULATE(SELECTEDVALUE('Ganador municipio'[familia_ganador]))))
+			VAR provs = CONCATENATEX(tp,
+			    VAR f = [@f]
+			    VAR c = IF(todo || Provincias[ccaa_ine] IN sel, IF(ISBLANK(f), "#E4E0EC", SWITCH(f, "PSOE", "#E30613", "PP", "#1E5BA8", "Vox", "#5AC035", "Ciudadanos", "#EB6109", "Podemos y confluencias", "#6B2C91", "Sumar", "#E5007E", "ERC", "#F5A800", "Convergència / Junts", "#00B4C5", "PNV", "#2E7D32", "EH Bildu", "#00897B", "BNG", "#76B3E0", "Coalición Canaria", "#F2D500", "Más País", "#0FDEC4", "Compromís", "#DF7F2A", "IU", "#9C2B2B", "UPN", "#3E6FB4", "NA+ (coalición UPN-PP-Cs)", "#3E6FB4", "PRC", "#A4C639", "CUP", "#FFE600", "Teruel Existe", "#037252", "Ahora Repúblicas (coalición)", "#F08A00", "CEUS (coalición)", "#4CAF50", "CPE (coalición)", "#8BC34A", "Se Acabó La Fiesta", "#8B5A2B", "PACMA", "#8EC43F", "UPyD", "#E5007E", "Otros", "#B8B2C8", "#B8B2C8")), "#EEEBF3")
+			    RETURN "<path d='" & Provincias[path] & "' fill='" & c & "'/>", "")
+			VAR munis = IF(nivel = 3, CONCATENATEX(DISTINCT(SELECTCOLUMNS(tm, "@f", [@f])),
+			    VAR fam = [@f]
+			    VAR c = IF(ISBLANK(fam), "#E4E0EC", SWITCH(fam, "PSOE", "#E30613", "PP", "#1E5BA8", "Vox", "#5AC035", "Ciudadanos", "#EB6109", "Podemos y confluencias", "#6B2C91", "Sumar", "#E5007E", "ERC", "#F5A800", "Convergència / Junts", "#00B4C5", "PNV", "#2E7D32", "EH Bildu", "#00897B", "BNG", "#76B3E0", "Coalición Canaria", "#F2D500", "Más País", "#0FDEC4", "Compromís", "#DF7F2A", "IU", "#9C2B2B", "UPN", "#3E6FB4", "NA+ (coalición UPN-PP-Cs)", "#3E6FB4", "PRC", "#A4C639", "CUP", "#FFE600", "Teruel Existe", "#037252", "Ahora Repúblicas (coalición)", "#F08A00", "CEUS (coalición)", "#4CAF50", "CPE (coalición)", "#8BC34A", "Se Acabó La Fiesta", "#8B5A2B", "PACMA", "#8EC43F", "UPyD", "#E5007E", "Otros", "#B8B2C8", "#B8B2C8"))
+			    RETURN "<g fill='" & c & "'>" & CONCATENATEX(FILTER(tm, [@f] = fam && (todo || Municipios[ccaa_ine] IN sel)),
+			        "<path d='" & Municipios[path] & "'/>", "") & "</g>", ""))
+			VAR fams = IF(nivel = 3, tm, tp)
+			VAR cuenta = ADDCOLUMNS(DISTINCT(SELECTCOLUMNS(FILTER(fams, NOT ISBLANK([@f])), "@f", [@f])),
+			    "@n", COUNTROWS(FILTER(fams, [@f] = EARLIER([@f]))))
+			VAR ley = CONCATENATEX(TOPN(9, cuenta, [@n], DESC),
+			    VAR f = [@f]
+			    VAR i = RANKX(TOPN(9, cuenta, [@n], DESC), [@n], , DESC, Dense)
+			    RETURN "<rect x='700' y='" & (945 - 250 + i * 22) & "' width='20' height='15' rx='3' fill='" & SWITCH(f, "PSOE", "#E30613", "PP", "#1E5BA8", "Vox", "#5AC035", "Ciudadanos", "#EB6109", "Podemos y confluencias", "#6B2C91", "Sumar", "#E5007E", "ERC", "#F5A800", "Convergència / Junts", "#00B4C5", "PNV", "#2E7D32", "EH Bildu", "#00897B", "BNG", "#76B3E0", "Coalición Canaria", "#F2D500", "Más País", "#0FDEC4", "Compromís", "#DF7F2A", "IU", "#9C2B2B", "UPN", "#3E6FB4", "NA+ (coalición UPN-PP-Cs)", "#3E6FB4", "PRC", "#A4C639", "CUP", "#FFE600", "Teruel Existe", "#037252", "Ahora Repúblicas (coalición)", "#F08A00", "CEUS (coalición)", "#4CAF50", "CPE (coalición)", "#8BC34A", "Se Acabó La Fiesta", "#8B5A2B", "PACMA", "#8EC43F", "UPyD", "#E5007E", "Otros", "#B8B2C8", "#B8B2C8") & "'/>"
+			        & "<text x='728' y='" & (945 - 237 + i * 22) & "' font-family='Segoe UI' font-size='13' fill='#1D1631'>"
+			        & SUBSTITUTE(SUBSTITUTE(f, "&", "&amp;"), "+", "+") & " · " & [@n] & "</text>", "", [@n], DESC)
+			VAR cuerpo = IF(nivel = 3,
+			    "<g fill='#E4E0EC'>" & provs & "</g><g stroke='#FFFFFF' stroke-width='0.15'>" & munis & "</g>"
+			        & "<g fill='none' stroke='#1D1631' stroke-opacity='0.6' stroke-width='0.9'>" & CONCATENATEX(ALL(Provincias), "<path d='" & Provincias[path] & "'/>", "") & "</g>",
+			    "<g stroke='#FFFFFF' stroke-width='0.9' stroke-linejoin='round'>" & provs & "</g>")
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 945'>" & cuerpo & "<path d='M395 945 395 804 4 804 4 945Z' fill='none' stroke='#6B6480' stroke-width='1' stroke-dasharray='5 4'/><text x='14' y='937' font-family='Segoe UI' font-size='12' fill='#6B6480'>Canarias (escala 0,85)</text>" & ley & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
 		displayFolder: Formato
 		dataCategory: ImageUrl
 

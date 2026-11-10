@@ -14,6 +14,34 @@ relationship rel_reg_conv
 	fromColumn: 'Elecciones regionales'.election_id
 	toColumn: Convocatorias.election_id
 
+relationship rel_fam_conv
+	fromColumn: 'Resultados familia'.election_id
+	toColumn: 'Convocatorias nacionales'.election_id
+
+relationship rel_npart_conv
+	fromColumn: 'Participación nacional'.election_id
+	toColumn: 'Convocatorias nacionales'.election_id
+
+relationship rel_gmun_conv
+	fromColumn: 'Ganador municipio'.election_id
+	toColumn: 'Convocatorias nacionales'.election_id
+
+relationship rel_gprov_conv
+	fromColumn: 'Ganador provincia'.election_id
+	toColumn: 'Convocatorias nacionales'.election_id
+
+relationship rel_ind_conv
+	fromColumn: 'Índices electorales'.election_id
+	toColumn: 'Convocatorias nacionales'.election_id
+
+relationship rel_gmun_mun
+	fromColumn: 'Ganador municipio'.geo_id
+	toColumn: Municipios.geo_id
+
+relationship rel_gprov_prov
+	fromColumn: 'Ganador provincia'.geo_id
+	toColumn: Provincias.geo_id
+
 relationship rel_part_conv
 	fromColumn: 'Participación regional'.election_id
 	toColumn: Convocatorias.election_id

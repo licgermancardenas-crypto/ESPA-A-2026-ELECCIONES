@@ -98,19 +98,27 @@ def run_checks(con) -> list[Result]:
         inc = _q(con, """select count(*) from silver.stg_ie_municipios
             where votantes <> votos_blancos + votos_nulos + votos_candidaturas""")[0]
         R.append(Result("votantes_cuadran", "consistency", "fact_turnout", inc, "=0", "pass" if inc == 0 else "fail"))
-        imp = _q(con, "select count(*) from gold.fact_turnout where turnout > 1 or turnout < 0")[0]
-        R.append(Result("participacion_en_rango", "validity", "fact_turnout", imp, "=0", "pass" if imp == 0 else "fail"))
-        diff = _q(con, """
+        imp = _q(con, """select count(*) filter (where (turnout > 1 and censo >= 1000) or turnout < 0),
+                                count(*) filter (where turnout > 1 and censo < 1000),
+                                string_agg(election_id || ' ' || geo_id, ', ') filter (where turnout > 1)
+                         from gold.fact_turnout""")
+        R.append(Result("participacion_en_rango", "validity", "fact_turnout", imp[0], "=0",
+                        "pass" if imp[0] == 0 else "fail",
+                        f"municipios < 1.000 electores con votantes > censo (dato de la fuente, p. ej. voto con "
+                        f"certificación censal): {imp[1]} — {imp[2] or ''}"))
+        neg = _q(con, """
             with m as (select election_id, substr(geo_id,7,2) prov, sum(votos) v from gold.fact_election_results
                        where geo_level='municipio' group by all),
-                 c as (select election_id, codigo_provincia prov, sum(votos) v from silver.stg_ie_municipio_candidaturas
-                       where codigo_distrito='99' and es_cera group by all),
                  p as (select election_id, substr(geo_id,7,2) prov, sum(votos) v from gold.fact_election_results
                        where geo_level='provincia' group by all)
-            select count(*) filter (where m.v + coalesce(c.v,0) <> p.v), count(*)
-            from p join m using (election_id, prov) left join c using (election_id, prov)""")
-        R.append(Result("municipios_mas_cera_igual_provincia", "consistency", "fact_election_results", diff[0],
-                        "=0", "pass" if diff[0] == 0 else "warn", f"pares elección×provincia: {diff[1]}"))
+            select count(*) filter (where p.v < m.v), count(*), sum(p.v - m.v) filter (where p.v >= m.v),
+                   string_agg(p.election_id || ' ' || p.prov || ' (' || (p.v - m.v)::bigint || ')', ', ') filter (where p.v < m.v)
+            from p join m using (election_id, prov)""")
+        R.append(Result("provincia_mayor_o_igual_que_municipios", "consistency", "fact_election_results", neg[0], "=0",
+                        "pass" if neg[0] == 0 else "warn",
+                        f"{neg[1]} pares elección×provincia. Los ficheros municipales no incluyen el voto exterior (CERA): "
+                        f"la provincia suma {int(neg[2] or 0):,} votos más en total. Casos con provincia < municipios "
+                        f"(incoherencia de la fuente): {neg[3] or 'ninguno'}".replace(",", ".")))
         R.extend(seat_reconciliation(con))
     else:
         R.append(Result("datos_electorales", "completeness", "fact_election_results", None, "presentes", "skip",

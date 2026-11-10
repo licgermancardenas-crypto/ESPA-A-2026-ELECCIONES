@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_19_card",
   "position": {
-    "x": 1318,
+    "x": 770,
     "y": 96,
     "z": 1900,
     "width": 262,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Municipios"
+                  "Property": "Comunidades"
                 }
               },
-              "queryRef": "Medidas.Municipios",
-              "nativeQueryRef": "Municipios",
-              "displayName": "Municipios"
+              "queryRef": "Medidas.Comunidades",
+              "nativeQueryRef": "CCAA y ciudades autónomas",
+              "displayName": "CCAA y ciudades autónomas"
             }
           ]
         }

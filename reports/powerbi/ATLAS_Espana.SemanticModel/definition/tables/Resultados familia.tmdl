@@ -1,0 +1,56 @@
+table 'Resultados familia'
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+		isHidden
+
+	column geo_level
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_level
+		isHidden
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	column familia
+		dataType: string
+		summarizeBy: none
+		sourceColumn: familia
+
+	column votos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos
+		isHidden
+
+	column escanos
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: escanos
+		isHidden
+
+	column vote_share
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: vote_share
+		isHidden
+
+	partition 'Resultados familia' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "nac_familias.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"geo_level", type text}, {"geo_id", type text}, {"familia", type text}, {"votos", Int64.Type}, {"escanos", Int64.Type}, {"vote_share", type number}}, "en-US")
+				in
+				    Tipos
+

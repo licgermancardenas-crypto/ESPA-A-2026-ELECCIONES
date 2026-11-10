@@ -7,7 +7,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["CarpetaDatos", "CCAA", "Provincias", "Municipios", "Secciones", "Distritos ciudad", "Elecciones regionales", "Participación regional", "Convocatorias", "Serie población", "PIB provincia", "Paro", "Fuentes", "Ejecuciones", "Calidad", "Métrica del mapa", "Nivel del mapa", "Métrica ciudad", "Medidas"]
+annotation PBI_QueryOrder = ["CarpetaDatos", "CCAA", "Provincias", "Municipios", "Secciones", "Distritos ciudad", "Elecciones regionales", "Participación regional", "Convocatorias", "Convocatorias nacionales", "Resultados familia", "Participación nacional", "Ganador municipio", "Ganador provincia", "Índices electorales", "Serie población", "PIB provincia", "Paro", "Fuentes", "Ejecuciones", "Calidad", "Métrica del mapa", "Nivel del mapa", "Métrica ciudad", "Medidas"]
 
 ref table CCAA
 ref table Provincias
@@ -17,6 +17,12 @@ ref table 'Distritos ciudad'
 ref table 'Elecciones regionales'
 ref table 'Participación regional'
 ref table Convocatorias
+ref table 'Convocatorias nacionales'
+ref table 'Resultados familia'
+ref table 'Participación nacional'
+ref table 'Ganador municipio'
+ref table 'Ganador provincia'
+ref table 'Índices electorales'
 ref table 'Serie población'
 ref table 'PIB provincia'
 ref table Paro

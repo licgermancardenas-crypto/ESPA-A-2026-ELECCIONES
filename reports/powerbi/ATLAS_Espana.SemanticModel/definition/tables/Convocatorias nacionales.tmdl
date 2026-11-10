@@ -1,0 +1,55 @@
+table 'Convocatorias nacionales'
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+		isHidden
+		isKey
+
+	column election_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_type
+
+	column anno
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: anno
+
+	column mes
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: mes
+		isHidden
+
+	column fecha
+		dataType: string
+		summarizeBy: none
+		sourceColumn: fecha
+		isHidden
+
+	column convocatoria
+		dataType: string
+		summarizeBy: none
+		sourceColumn: convocatoria
+		sortByColumn: orden
+
+	column orden
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: orden
+		isHidden
+
+	partition 'Convocatorias nacionales' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "nac_convocatorias.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"election_type", type text}, {"anno", Int64.Type}, {"mes", Int64.Type}, {"fecha", type text}, {"convocatoria", type text}, {"orden", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

@@ -3,7 +3,7 @@
   "name": "p03_ciudad_22_card",
   "position": {
     "x": 1097,
-    "y": 250,
+    "y": 158,
     "z": 2200,
     "width": 240,
     "height": 84,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "% 65 y más"
+                  "Property": "Población secciones"
                 }
               },
-              "queryRef": "Medidas.% 65 y más",
-              "nativeQueryRef": "Población de 65+",
-              "displayName": "Población de 65+"
+              "queryRef": "Medidas.Población secciones",
+              "nativeQueryRef": "Población (Atlas de Renta)",
+              "displayName": "Población (Atlas de Renta)"
             }
           ]
         }

@@ -215,6 +215,47 @@ def exportar() -> dict:
                 from gold.regional_turnout where nivel in ('territorio', 'municipio')""")
         else:
             res_reg = part_reg = pd.DataFrame()
+        hay_nac = con.execute("""select count(*) from information_schema.tables
+                                 where table_schema='gold' and table_name='results_by_family'""").fetchone()[0]
+        if hay_nac:
+            nac_conv = _sql(con, """
+                select e.election_id, e.election_type, e.anno, e.mes, e.fecha,
+                       case e.election_type when 'congreso' then 'Generales' when 'municipales' then 'Municipales'
+                            when 'europeas' then 'Europeas' else e.election_type end || ' ' ||
+                       case when e.election_type = 'congreso' and e.anno = 2019
+                            then (case e.mes when 4 then 'abril ' else 'noviembre ' end) else '' end || e.anno as convocatoria,
+                       e.anno * 1000 + e.mes * 10 + cast(e.tipo_eleccion as int) as orden
+                from gold.dim_election e""")
+            nac_fam = _sql(con, """
+                select election_id, geo_level, geo_id, familia, votos, escanos, vote_share
+                from gold.results_by_family where geo_level in ('nacional', 'ccaa', 'provincia')""")
+            nac_part = _sql(con, """
+                select t.election_id, t.geo_level, t.geo_id, t.censo, t.votantes, t.votos_validos, t.votos_blancos,
+                       t.votos_nulos, t.turnout
+                from gold.fact_turnout t where t.geo_level in ('nacional', 'ccaa', 'provincia', 'municipio')""")
+            nac_gan = _sql(con, """
+                with r as (
+                    select g.election_id, g.geo_level, g.geo_id, g.agrupacion_siglas, g.votos, g.vote_share,
+                           coalesce(f.familia, 'Otros') as familia,
+                           row_number() over (partition by g.election_id, g.geo_level, g.geo_id order by g.votos desc) as rk
+                    from gold.results_by_group g
+                    left join main.party_families f
+                           on f.election_id = g.election_id and f.agrupacion_siglas = g.agrupacion_siglas
+                    where g.geo_level in ('provincia', 'municipio', 'ccaa'))
+                select a.election_id, a.geo_level, a.geo_id, a.agrupacion_siglas as ganador, a.familia as familia_ganador,
+                       a.vote_share as cuota_ganador, a.vote_share - coalesce(b.vote_share, 0) as margen,
+                       b.agrupacion_siglas as segundo
+                from r a left join r b on b.election_id = a.election_id and b.geo_level = a.geo_level
+                                      and b.geo_id = a.geo_id and b.rk = 2
+                where a.rk = 1""")
+            nac_ind = _sql(con, """
+                select i.election_id, i.geo_level, i.geo_id, i.enep, i.enpp, i.gallagher, i.competitividad,
+                       v.volatilidad_pedersen
+                from gold.election_indices i
+                left join gold.volatility v using (election_id, geo_level, geo_id)
+                where i.geo_level in ('nacional', 'ccaa', 'provincia')""")
+        else:
+            nac_conv = nac_fam = nac_part = nac_gan = nac_ind = pd.DataFrame()
         adrh_glob = f"{paths.BRONZE.as_posix()}/INE-ADRH/parquet/*/*.parquet"
         adrh = _sql(con, f"""
             with b as (
@@ -344,7 +385,10 @@ def exportar() -> dict:
                "paro_ccaa.csv": paro[["ccaa_ine", "anyo", "periodo", "trimestre", "tasa_paro"]],
                "fuentes.csv": fuentes, "ejecuciones.csv": ejec, "calidad.csv": calidad,
                "secciones.csv": S, "distritos.csv": D,
-               "elecciones_regionales.csv": res_reg, "participacion_regional.csv": part_reg}
+               "elecciones_regionales.csv": res_reg, "participacion_regional.csv": part_reg,
+               "nac_convocatorias.csv": nac_conv, "nac_familias.csv": nac_fam, "nac_participacion.csv": nac_part,
+               "nac_ganadores_mun.csv": nac_gan[nac_gan.geo_level == "municipio"] if not nac_gan.empty else nac_gan,
+               "nac_ganadores_prov.csv": nac_gan[nac_gan.geo_level == "provincia"] if not nac_gan.empty else nac_gan, "nac_indices.csv": nac_ind}
     for nombre, df in salidas.items():
         df.to_csv(SALIDA / nombre, index=False, encoding="utf-8")
     params = {"anyo_actual": y1, "anyo_base": y0, "anyo_adrh": anyo_adrh, "lienzo": {"alto": lienzo["alto"]},

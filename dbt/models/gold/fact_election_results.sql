@@ -23,6 +23,7 @@ select r.*,
        r.votos::double / nullif(t.votos_validos, 0)                         as share_valid,
        rank() over (partition by r.election_id, r.geo_level, r.geo_id order by r.votos desc) as rank_votos
 from r
-left join {{ ref('stg_ie_candidaturas') }} k using (candidacy_id)
-left join {{ ref('fact_turnout') }} t using (election_id, geo_level, geo_id)
+left join {{ ref('stg_ie_candidaturas') }} k on k.candidacy_id = r.candidacy_id
+left join {{ ref('fact_turnout') }} t
+       on t.election_id = r.election_id and t.geo_level = r.geo_level and t.geo_id = r.geo_id
 window w as (partition by r.election_id, r.geo_level, r.geo_id)

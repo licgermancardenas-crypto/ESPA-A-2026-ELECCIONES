@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p07_operaciones_20_card",
   "position": {
-    "x": 1372,
+    "x": 912,
     "y": 96,
     "z": 2000,
     "width": 218,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Controles con fallo"
+                  "Property": "Filas procesadas"
                 }
               },
-              "queryRef": "Medidas.Controles con fallo",
-              "nativeQueryRef": "Controles con fallo",
-              "displayName": "Controles con fallo"
+              "queryRef": "Medidas.Filas procesadas",
+              "nativeQueryRef": "Filas procesadas",
+              "displayName": "Filas procesadas"
             }
           ]
         }

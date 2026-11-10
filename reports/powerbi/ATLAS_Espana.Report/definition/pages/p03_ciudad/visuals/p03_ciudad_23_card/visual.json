@@ -3,7 +3,7 @@
   "name": "p03_ciudad_23_card",
   "position": {
     "x": 1345,
-    "y": 250,
+    "y": 158,
     "z": 2300,
     "width": 240,
     "height": 84,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Brecha de renta entre secciones"
+                  "Property": "Renta neta por persona"
                 }
               },
-              "queryRef": "Medidas.Brecha de renta entre secciones",
-              "nativeQueryRef": "Más rica / más pobre (acotado INE)",
-              "displayName": "Más rica / más pobre (acotado INE)"
+              "queryRef": "Medidas.Renta neta por persona",
+              "nativeQueryRef": "Renta neta por persona",
+              "displayName": "Renta neta por persona"
             }
           ]
         }

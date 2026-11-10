@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03_ciudad_20_card",
   "position": {
-    "x": 1097,
+    "x": 222,
     "y": 158,
     "z": 2000,
-    "width": 240,
-    "height": 84,
+    "width": 860,
+    "height": 40,
     "tabOrder": 2000
   },
   "visual": {
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Población secciones"
+                  "Property": "Ciudad elegida"
                 }
               },
-              "queryRef": "Medidas.Población secciones",
-              "nativeQueryRef": "Población (Atlas de Renta)",
-              "displayName": "Población (Atlas de Renta)"
+              "queryRef": "Medidas.Ciudad elegida",
+              "nativeQueryRef": "Ciudad elegida",
+              "displayName": " "
             }
           ]
         }
@@ -43,7 +43,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#1D1631'"
+                      "Value": "'#5B3F99'"
                     }
                   }
                 }
@@ -52,7 +52,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "18D"
+                  "Value": "14D"
                 }
               }
             },
@@ -60,13 +60,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'Segoe UI Semibold'"
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
                 }
               }
             }
@@ -79,25 +72,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#6B6480'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10D"
+                  "Value": "false"
                 }
               }
             }

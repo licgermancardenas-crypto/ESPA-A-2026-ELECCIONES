@@ -56,7 +56,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'≋   Demografía'"
+                  "Value": "'↗   Comparador histórico'"
                 }
               }
             },
@@ -223,7 +223,7 @@
             "navigationSection": {
               "expr": {
                 "Literal": {
-                  "Value": "'p04_demografia'"
+                  "Value": "'p03c_historico'"
                 }
               }
             }

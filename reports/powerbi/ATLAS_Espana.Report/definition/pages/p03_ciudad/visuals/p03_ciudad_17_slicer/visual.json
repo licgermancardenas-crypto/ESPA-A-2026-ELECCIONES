@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03_ciudad_17_slicer",
   "position": {
-    "x": 902,
+    "x": 222,
     "y": 92,
     "z": 1700,
-    "width": 300,
+    "width": 330,
     "height": 58,
     "tabOrder": 1700
   },
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Métrica ciudad"
+                      "Entity": "Provincias"
                     }
                   },
-                  "Property": "Métrica"
+                  "Property": "nombre"
                 }
               },
-              "queryRef": "Métrica ciudad.Métrica",
-              "nativeQueryRef": "Métrica"
+              "queryRef": "Provincias.nombre",
+              "nativeQueryRef": "nombre"
             }
           ]
         }
@@ -60,7 +60,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Métrica del mapa'"
+                  "Value": "'Provincia'"
                 }
               }
             },
@@ -108,26 +108,6 @@
             }
           }
         }
-      ],
-      "selection": [
-        {
-          "properties": {
-            "singleSelect": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "strictSingleSelect": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
       ]
     },
     "visualContainerObjects": {
@@ -144,6 +124,11 @@
           }
         }
       ]
+    },
+    "syncGroup": {
+      "groupName": "prov_ciudad",
+      "fieldChanges": true,
+      "filterChanges": true
     }
   }
 }

@@ -66,6 +66,11 @@ def extract(ex: Execution, tipo: str, convocatorias: list[str] | None = None,
                 ex.error_detail = ((ex.error_detail or "") + f"{name}: ZIP sin ficheros DAT reconocidos\n")[:4000]
                 continue
             for ftype, df in frames.items():
+                # Algunos ZIP (municipales) incluyen ficheros de otro tipo de elección (p. ej. 10):
+                # se conservan solo los registros de la elección pedida.
+                df = df[df["tipo_eleccion"] == tipo].copy()
+                if df.empty:
+                    continue
                 df["_zip"] = name
                 df["_origen"] = origin
                 df["nivel_zip"] = nivel

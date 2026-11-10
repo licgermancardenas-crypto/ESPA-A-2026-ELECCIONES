@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03b_euskadi_18_card",
   "position": {
-    "x": 1098,
+    "x": 594,
     "y": 92,
     "z": 1800,
     "width": 240,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Censo (regional)"
+                  "Property": "Participación (regional)"
                 }
               },
-              "queryRef": "Medidas.Censo (regional)",
-              "nativeQueryRef": "Censo",
-              "displayName": "Censo"
+              "queryRef": "Medidas.Participación (regional)",
+              "nativeQueryRef": "Participación",
+              "displayName": "Participación"
             }
           ]
         }

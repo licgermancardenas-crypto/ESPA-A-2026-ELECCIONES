@@ -3,10 +3,10 @@
   "name": "p07_operaciones_23_tableEx",
   "position": {
     "x": 222,
-    "y": 590,
+    "y": 200,
     "z": 2300,
-    "width": 680,
-    "height": 300,
+    "width": 820,
+    "height": 380,
     "tabOrder": 2300
   },
   "visual": {
@@ -20,13 +20,13 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Ejecuciones"
+                      "Entity": "Fuentes"
                     }
                   },
                   "Property": "source_id"
                 }
               },
-              "queryRef": "Ejecuciones.source_id",
+              "queryRef": "Fuentes.source_id",
               "nativeQueryRef": "Fuente",
               "displayName": "Fuente"
             },
@@ -35,60 +35,60 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Ejecuciones"
+                      "Entity": "Fuentes"
                     }
                   },
-                  "Property": "inicio"
+                  "Property": "organismo"
                 }
               },
-              "queryRef": "Ejecuciones.inicio",
-              "nativeQueryRef": "Inicio",
-              "displayName": "Inicio"
+              "queryRef": "Fuentes.organismo",
+              "nativeQueryRef": "Organismo",
+              "displayName": "Organismo"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Ejecuciones"
+                      "Entity": "Fuentes"
+                    }
+                  },
+                  "Property": "categoria"
+                }
+              },
+              "queryRef": "Fuentes.categoria",
+              "nativeQueryRef": "Categoría",
+              "displayName": "Categoría"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fuentes"
+                    }
+                  },
+                  "Property": "granularidad"
+                }
+              },
+              "queryRef": "Fuentes.granularidad",
+              "nativeQueryRef": "Granularidad",
+              "displayName": "Granularidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fuentes"
                     }
                   },
                   "Property": "estado"
                 }
               },
-              "queryRef": "Ejecuciones.estado",
+              "queryRef": "Fuentes.estado",
               "nativeQueryRef": "Estado",
               "displayName": "Estado"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Ejecuciones"
-                    }
-                  },
-                  "Property": "procesados"
-                }
-              },
-              "queryRef": "Ejecuciones.procesados",
-              "nativeQueryRef": "Filas",
-              "displayName": "Filas"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Ejecuciones"
-                    }
-                  },
-                  "Property": "duracion_s"
-                }
-              },
-              "queryRef": "Ejecuciones.duracion_s",
-              "nativeQueryRef": "Seg.",
-              "displayName": "Seg."
             }
           ]
         }
@@ -183,7 +183,7 @@
                           "Entity": "Medidas"
                         }
                       },
-                      "Property": "Color estado ejecución"
+                      "Property": "Color estado fuente"
                     }
                   }
                 }
@@ -198,7 +198,7 @@
                 }
               }
             ],
-            "metadata": "Ejecuciones.estado"
+            "metadata": "Fuentes.estado"
           }
         }
       ],
@@ -254,7 +254,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ejecuciones de ingesta'"
+                  "Value": "'Registro de fuentes'"
                 }
               }
             }

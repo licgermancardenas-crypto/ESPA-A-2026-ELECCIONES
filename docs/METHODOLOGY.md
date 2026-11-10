@@ -80,10 +80,27 @@ Los empates totales (mismo cociente y mismos votos) no se resuelven por sorteo: 
 | Eficiencia de escaños | (% escaños) / (% votos) | — |
 | Votos sin escaño | votos a candidaturas sin escaño en la circunscripción | — |
 
-**Continuidad de partidos.** La volatilidad y el swing entre convocatorias solo se calculan sobre
-*series* de partido declaradas explícitamente (tabla de continuidad versionada, pendiente). Una
-coalición no se suma a sus integrantes ni se asume heredera de un partido anterior sin una regla
-documentada (p. ej. AP → PP, CiU → JxCat, Podemos/IU → Unidas Podemos → Sumar).
+**Agrupación y continuidad de partidos.** Tres niveles, de menor a mayor intervención:
+
+1. *Candidatura* (`candidacy_id`): la lista tal como se presentó en cada circunscripción.
+2. *Agrupación oficial* (`gold.results_by_group`): el código de acumulación nacional que asigna el
+   Ministerio del Interior en el fichero 03 (PSC, PSdeG-PSOE, PSE-EE → PSOE; listas territoriales de
+   SUMAR → SUMAR). No es una decisión de ATLAS.
+3. *Familia política* (`gold.results_by_family`, `dbt/seeds/party_families.csv`): tabla revisada a mano
+   que lista, para cada convocatoria, las siglas exactas que forman una familia (p. ej. "Podemos y
+   confluencias" = PODEMOS + EN COMÚ + PODEMOS-COM + PODEMOS-En en 2015). Reglas:
+   - solo se agrupan siglas listadas explícitamente; lo no listado queda como "Otros";
+   - las coaliciones mixtas (Ahora Repúblicas, CEUS, NA+) son una familia propia y no se reparten;
+   - Sumar (2023) y Podemos y confluencias (2015–2019) son familias distintas: no se asume continuidad;
+   - la familia es una herramienta de comparación, no una afirmación sobre identidad jurídica.
+
+Validación: con la agrupación oficial, los escaños nacionales de PP, PSOE, Vox, Cs, Sumar, ERC, Junts,
+PNV y Bildu coinciden con los resultados oficiales de las cinco generales 2015–2023, y "Podemos y
+confluencias" suma 69 / 71 / 42 / 35 escaños (2015 / 2016 / abr-2019 / nov-2019).
+
+La **volatilidad de Pedersen** (`gold.volatility`) se calcula sobre familias. Como "Otros" cuenta como
+una familia y Sumar no se trata como continuación de Podemos, la volatilidad 2019→2023 refleja también
+ese cambio de oferta.
 
 ## 6. Índices compuestos (Political Transformation, Economic Pressure, Housing Pressure, Atlas Territorial Score)
 

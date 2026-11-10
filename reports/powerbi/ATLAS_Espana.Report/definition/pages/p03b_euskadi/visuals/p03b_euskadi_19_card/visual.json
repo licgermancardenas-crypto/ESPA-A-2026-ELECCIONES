@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p03b_euskadi_19_card",
   "position": {
-    "x": 1350,
+    "x": 846,
     "y": 92,
     "z": 1900,
     "width": 240,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Ganador (regional)"
+                  "Property": "Votantes (regional)"
                 }
               },
-              "queryRef": "Medidas.Ganador (regional)",
-              "nativeQueryRef": "Más votado",
-              "displayName": "Más votado"
+              "queryRef": "Medidas.Votantes (regional)",
+              "nativeQueryRef": "Votantes",
+              "displayName": "Votantes"
             }
           ]
         }

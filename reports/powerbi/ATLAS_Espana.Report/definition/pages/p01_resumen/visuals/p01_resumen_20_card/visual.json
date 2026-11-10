@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_20_card",
   "position": {
-    "x": 222,
-    "y": 200,
+    "x": 1044,
+    "y": 96,
     "z": 2000,
     "width": 262,
     "height": 92,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "% municipios que pierden población"
+                  "Property": "Provincias"
                 }
               },
-              "queryRef": "Medidas.% municipios que pierden población",
-              "nativeQueryRef": "Municipios que pierden población",
-              "displayName": "Municipios que pierden población"
+              "queryRef": "Medidas.Provincias",
+              "nativeQueryRef": "Provincias",
+              "displayName": "Provincias"
             }
           ]
         }

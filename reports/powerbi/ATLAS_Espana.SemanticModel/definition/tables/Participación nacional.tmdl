@@ -1,0 +1,64 @@
+table 'Participación nacional'
+	isHidden
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+
+	column geo_level
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_level
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+
+	column censo
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: censo
+
+	column votantes
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votantes
+
+	column votos_validos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos_validos
+
+	column votos_blancos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos_blancos
+
+	column votos_nulos
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: votos_nulos
+
+	column turnout
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: turnout
+
+	partition 'Participación nacional' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "nac_participacion.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"geo_level", type text}, {"geo_id", type text}, {"censo", Int64.Type}, {"votantes", Int64.Type}, {"votos_validos", Int64.Type}, {"votos_blancos", Int64.Type}, {"votos_nulos", Int64.Type}, {"turnout", type number}}, "en-US")
+				in
+				    Tipos
+

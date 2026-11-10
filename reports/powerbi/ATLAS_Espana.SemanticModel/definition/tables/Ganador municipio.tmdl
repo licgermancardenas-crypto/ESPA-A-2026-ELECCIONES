@@ -1,0 +1,51 @@
+table 'Ganador municipio'
+
+	column election_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: election_id
+		isHidden
+
+	column geo_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: geo_id
+		isHidden
+
+	column ganador
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ganador
+
+	column familia_ganador
+		dataType: string
+		summarizeBy: none
+		sourceColumn: familia_ganador
+
+	column cuota_ganador
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: cuota_ganador
+
+	column margen
+		dataType: double
+		formatString: 0.0%
+		summarizeBy: none
+		sourceColumn: margen
+
+	column segundo
+		dataType: string
+		summarizeBy: none
+		sourceColumn: segundo
+
+	partition 'Ganador municipio' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "nac_ganadores_mun.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Tipos = Table.TransformColumnTypes(Encabezados, {{"election_id", type text}, {"geo_id", type text}, {"ganador", type text}, {"familia_ganador", type text}, {"cuota_ganador", type number}, {"margen", type number}, {"segundo", type text}}, "en-US")
+				in
+				    Tipos
+

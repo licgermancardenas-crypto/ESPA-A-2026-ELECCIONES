@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "p01_resumen_21_card",
   "position": {
-    "x": 496,
-    "y": 200,
+    "x": 1318,
+    "y": 96,
     "z": 2100,
     "width": 262,
     "height": 92,
@@ -23,12 +23,12 @@
                       "Entity": "Medidas"
                     }
                   },
-                  "Property": "Tasa de paro"
+                  "Property": "Municipios"
                 }
               },
-              "queryRef": "Medidas.Tasa de paro",
-              "nativeQueryRef": "Paro EPA (último trimestre)",
-              "displayName": "Paro EPA (último trimestre)"
+              "queryRef": "Medidas.Municipios",
+              "nativeQueryRef": "Municipios",
+              "displayName": "Municipios"
             }
           ]
         }

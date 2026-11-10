@@ -1,6 +1,10 @@
 version: 2
 
 seeds:
+  - name: party_families
+    description: Familias políticas por convocatoria (revisión manual, ver docs/METHODOLOGY.md §5).
+    config:
+      column_types: {election_id: varchar, agrupacion_siglas: varchar, familia: varchar}
   - name: election_dates
     description: Fechas de votación (generado desde config/elections.yaml).
     config:
