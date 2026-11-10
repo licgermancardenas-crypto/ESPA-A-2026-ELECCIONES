@@ -1,25 +1,28 @@
 table Convocatorias
+	lineageTag: e34b9409-e212-499b-bead-4c1d4c361a2f
 
 	column election_id
 		dataType: string
+		isHidden
+		lineageTag: 4c528e7d-a0c9-485e-a247-2cdf866f0844
 		summarizeBy: none
 		sourceColumn: [election_id]
-		isHidden
 
 	column Convocatoria
 		dataType: string
+		lineageTag: eb9202e2-204d-4995-913d-b2c08132ded7
 		summarizeBy: none
 		sourceColumn: [Convocatoria]
 		sortByColumn: orden
 
 	column orden
 		dataType: int64
+		isHidden
+		lineageTag: 46aa3386-503c-4ac7-a5f9-06301f62e41e
 		summarizeBy: none
 		sourceColumn: [orden]
-		isHidden
 
 	partition Convocatorias = calculated
 		mode: import
-		source =
-				DISTINCT(SELECTCOLUMNS('Participación regional', "election_id", [election_id], "Convocatoria", [convocatoria], "orden", [orden]))
+		source = DISTINCT(SELECTCOLUMNS('Participación regional', "election_id", [election_id], "Convocatoria", [convocatoria], "orden", [orden]))
 

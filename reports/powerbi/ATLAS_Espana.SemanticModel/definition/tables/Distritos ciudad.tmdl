@@ -1,28 +1,34 @@
 table 'Distritos ciudad'
 	isHidden
+	lineageTag: 840b648f-49b2-4b2f-96e2-3e6d6cfb7c3d
 
 	column cudis
 		dataType: string
+		lineageTag: e3289d29-88d3-4854-9e7d-1f55020f32ba
 		summarizeBy: none
 		sourceColumn: cudis
 
 	column municipio_ine
 		dataType: string
+		lineageTag: af51a218-13ac-4720-90fc-f4326dabab7c
 		summarizeBy: none
 		sourceColumn: municipio_ine
 
 	column path
 		dataType: string
+		lineageTag: f6d5e1ee-65d6-4f69-b11c-ba0e84946013
 		summarizeBy: none
 		sourceColumn: path
 
 	column x
 		dataType: int64
+		lineageTag: e24675f3-59de-4c5f-946a-fd4a7397e6a2
 		summarizeBy: none
 		sourceColumn: x
 
 	column y
 		dataType: int64
+		lineageTag: 74f14d63-cd33-4907-a31c-d9ce3928e695
 		summarizeBy: none
 		sourceColumn: y
 

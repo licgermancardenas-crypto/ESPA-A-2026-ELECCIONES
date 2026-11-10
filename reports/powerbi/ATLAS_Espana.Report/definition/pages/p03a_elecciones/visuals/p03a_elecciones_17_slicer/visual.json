@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03a_elecciones_17_slicer",
   "position": {
     "x": 222,
     "y": 92,
     "z": 1700,
-    "width": 300,
     "height": 58,
+    "width": 300,
     "tabOrder": 1700
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Convocatorias nacionales.convocatoria",
-              "nativeQueryRef": "convocatoria"
+              "nativeQueryRef": "convocatoria",
+              "active": true
             }
           ]
         }

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p06_censo_21_tableEx",
   "position": {
     "x": 794,
     "y": 200,
     "z": 2100,
-    "width": 794,
     "height": 690,
+    "width": 794,
     "tabOrder": 2100
   },
   "visual": {
@@ -108,8 +108,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

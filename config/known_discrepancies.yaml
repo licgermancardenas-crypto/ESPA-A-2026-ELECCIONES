@@ -1,0 +1,15 @@
+# Incoherencias de las FUENTES oficiales detectadas por los controles de calidad.
+# No se corrigen los datos: se documentan para que el control las distinga de errores de ATLAS.
+
+dhondt:
+  - id: "02-197706 ES-PR-38"
+    descripcion: >
+      Congreso 1977, Santa Cruz de Tenerife. Con los votos del fichero oficial, D'Hondt (7 escaños,
+      barrera 3 %) da UCD 5, PSOE 1, AP 1 (AP 27.828 > 2º cociente PSOE 25.475,5), pero el fichero
+      publica PSOE 2 y AP 0. Probables correcciones del escrutinio no reflejadas en los votos publicados.
+
+participacion:
+  anteriores_a: 1992   # municipios con votantes > censo en convocatorias anteriores a este año: aviso, no fallo
+  descripcion: >
+    En las primeras convocatorias (1977–1991) hay municipios con más votantes que censo en los ficheros
+    oficiales (censos desactualizados, voto con certificación). Se publican tal cual.

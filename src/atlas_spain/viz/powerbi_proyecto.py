@@ -81,7 +81,9 @@ FAMILIAS_COLOR = {
     "BNG": "#76B3E0", "Coalición Canaria": "#F2D500", "Más País": "#0FDEC4", "Compromís": "#DF7F2A", "IU": "#9C2B2B",
     "UPN": "#3E6FB4", "NA+ (coalición UPN-PP-Cs)": "#3E6FB4", "PRC": "#A4C639", "CUP": "#FFE600", "Teruel Existe": "#037252",
     "Ahora Repúblicas (coalición)": "#F08A00", "CEUS (coalición)": "#4CAF50", "CPE (coalición)": "#8BC34A",
-    "Se Acabó La Fiesta": "#8B5A2B", "PACMA": "#8EC43F", "UPyD": "#E5007E", "Nueva Canarias": "#7FB5DA", "Otros": "#B8B2C8",
+    "Se Acabó La Fiesta": "#8B5A2B", "PACMA": "#8EC43F", "UPyD": "#E5007E", "Nueva Canarias": "#7FB5DA", "UCD": "#F28C28", "CDS": "#3CB371", "AP / Coalición Popular": "#4A7BC8",
+    "PCE": "#B22222", "Izquierda abertzale (HB / EH)": "#5F9F6F", "PNV-EA (coalición)": "#4E8F3A", "Partido Andalucista": "#3FA34D",
+    "Unió Valenciana": "#E07B39", "PAR": "#F0B83C", "Otros": "#B8B2C8",
 }
 
 

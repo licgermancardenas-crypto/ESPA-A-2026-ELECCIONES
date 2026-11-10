@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03c_historico_19_lineChart",
   "position": {
     "x": 222,
     "y": 160,
     "z": 1900,
-    "width": 900,
     "height": 420,
+    "width": 900,
     "tabOrder": 1900
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Convocatorias nacionales.convocatoria",
-              "nativeQueryRef": "convocatoria"
+              "nativeQueryRef": "convocatoria",
+              "active": true
             }
           ]
         },
@@ -84,8 +85,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

@@ -1,61 +1,73 @@
 table Ejecuciones
+	lineageTag: e7d88498-da2d-4004-963b-1c7768b09fb3
 
 	column execution_id
 		dataType: string
+		lineageTag: 25c6bfa6-153c-4c0c-aac1-d1d335478e04
 		summarizeBy: none
 		sourceColumn: execution_id
 
 	column source_id
 		dataType: string
+		lineageTag: 075ef9bd-4765-4f95-8305-d9bf4eecd031
 		summarizeBy: none
 		sourceColumn: source_id
 
 	column dataset
 		dataType: string
+		lineageTag: 4e876fdf-df35-4060-8815-01931410e406
 		summarizeBy: none
 		sourceColumn: dataset
 
 	column inicio
 		dataType: string
+		lineageTag: daf1cd99-bbc1-4841-a091-56a69590a5b7
 		summarizeBy: none
 		sourceColumn: inicio
 
 	column estado
 		dataType: string
+		lineageTag: 17f1a62d-eb35-4e4d-a513-4af64b6ec797
 		summarizeBy: none
 		sourceColumn: estado
 
 	column descargados
 		dataType: int64
 		formatString: #,0
+		lineageTag: 5a9aaa5b-37d4-474b-a3e6-db4e9dc29755
 		summarizeBy: none
 		sourceColumn: descargados
 
 	column procesados
 		dataType: int64
 		formatString: #,0
+		lineageTag: 06ac57bb-4e1a-4b7c-b30d-89749ab4efe5
 		summarizeBy: none
 		sourceColumn: procesados
 
 	column errores
 		dataType: int64
 		formatString: 0
+		lineageTag: 9983e647-fc39-4db5-8948-df0811cf4f91
 		summarizeBy: none
 		sourceColumn: errores
 
 	column duracion_s
 		dataType: double
 		formatString: #,0.0
+		lineageTag: 2318d449-0ffa-4d7f-a6a5-32a37355b238
 		summarizeBy: none
 		sourceColumn: duracion_s
 
 	column detalle
 		dataType: string
+		lineageTag: 89103d42-c019-4f27-b5c1-4f77e6e7a43b
 		summarizeBy: none
 		sourceColumn: detalle
 
 	column version
 		dataType: string
+		lineageTag: 574f54f7-64c1-4b12-8587-071eb1788310
 		summarizeBy: none
 		sourceColumn: version
 

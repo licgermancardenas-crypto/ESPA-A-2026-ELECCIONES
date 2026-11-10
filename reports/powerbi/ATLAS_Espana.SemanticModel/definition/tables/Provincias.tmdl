@@ -1,84 +1,98 @@
 table Provincias
+	lineageTag: 0e92d5c7-8f62-486c-9c80-9e4e5088b93d
 
 	column geo_id
 		dataType: string
+		isHidden
+		lineageTag: f2ad1995-19c0-4277-968f-b2608c585eb1
 		summarizeBy: none
 		sourceColumn: geo_id
-		isHidden
 
 	column provincia_ine
 		dataType: string
+		isKey
+		lineageTag: 81a20566-43ef-4937-b3eb-16739c9aa14d
 		summarizeBy: none
 		sourceColumn: provincia_ine
-		isKey
 
 	column nombre
 		dataType: string
+		lineageTag: bc8ce7fe-4bbb-45f1-b231-e5ecb98998a2
 		summarizeBy: none
 		sourceColumn: nombre
 		sortByColumn: provincia_ine
 
 	column ccaa_ine
 		dataType: string
+		isHidden
+		lineageTag: faf03a02-7df6-4370-9a5c-05be63518cc6
 		summarizeBy: none
 		sourceColumn: ccaa_ine
-		isHidden
 
 	column pob_actual
 		dataType: int64
+		isHidden
 		formatString: #,0
+		lineageTag: b851d072-0866-40c1-b497-20018fba1783
 		summarizeBy: none
 		sourceColumn: pob_actual
-		isHidden
 
 	column pob_hace10
 		dataType: int64
+		isHidden
 		formatString: #,0
+		lineageTag: 93f7fe37-027d-48d1-ad0d-c080b7540bd9
 		summarizeBy: none
 		sourceColumn: pob_hace10
-		isHidden
 
 	column area_km2
 		dataType: double
 		formatString: #,0
+		lineageTag: ff116099-fe2a-4f7f-903d-9f88eccdf6d6
 		summarizeBy: none
 		sourceColumn: area_km2
 
 	column pib_pc
 		dataType: double
 		formatString: #,0 €
+		lineageTag: 4dd17b19-fc29-40a3-9fbb-abfce465d502
 		summarizeBy: none
 		sourceColumn: pib_pc
 
 	column pib_pc_anyo
 		dataType: int64
 		formatString: 0
+		lineageTag: d4485e7d-3389-4eca-a01b-1b4a95f10a04
 		summarizeBy: none
 		sourceColumn: pib_pc_anyo
 
 	column n_municipios
 		dataType: int64
 		formatString: #,0
+		lineageTag: 1d7a9dd1-2e90-457b-a5bd-3f65d302ce73
 		summarizeBy: none
 		sourceColumn: n_municipios
 
 	column path
 		dataType: string
+		isHidden
+		lineageTag: 1f45f868-a462-495d-bef9-f12e3ca7e765
 		summarizeBy: none
 		sourceColumn: path
-		isHidden
 
 	column cx
 		dataType: int64
+		isHidden
+		lineageTag: 4f79a598-0350-41d3-aaf0-03c3645fefd8
 		summarizeBy: none
 		sourceColumn: cx
-		isHidden
 
 	column cy
 		dataType: int64
+		isHidden
+		lineageTag: 7a177f69-a3b7-488a-9831-2d309b91625c
 		summarizeBy: none
 		sourceColumn: cy
-		isHidden
 
 	partition Provincias = m
 		mode: import

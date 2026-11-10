@@ -1,109 +1,128 @@
 table 'Participación regional'
+	lineageTag: 240440e9-8c3c-4d37-92ad-ca14b87361c6
 
 	column election_id
 		dataType: string
+		isHidden
+		lineageTag: fca383c0-c9af-4014-a2c0-b3afb51d34ef
 		summarizeBy: none
 		sourceColumn: election_id
-		isHidden
 
 	column tipo
 		dataType: string
+		isHidden
+		lineageTag: 8df51823-46bf-4abe-a007-1ec56ddd4384
 		summarizeBy: none
 		sourceColumn: tipo
-		isHidden
 
 	column anyo
 		dataType: int64
 		formatString: 0
+		lineageTag: 9cdfe118-102f-4421-af0d-50d859738965
 		summarizeBy: none
 		sourceColumn: anyo
 
 	column nivel
 		dataType: string
+		lineageTag: cdf6c04f-488f-4fb4-abd1-7bc5da6d292b
 		summarizeBy: none
 		sourceColumn: nivel
 
 	column provincia_ine
 		dataType: string
+		isHidden
+		lineageTag: 1357b7aa-6866-4bec-a8e3-0782429a4143
 		summarizeBy: none
 		sourceColumn: provincia_ine
-		isHidden
 
 	column municipio_ine
 		dataType: string
+		isHidden
+		lineageTag: 08c71b79-a422-4383-bb0f-94d26bc0f037
 		summarizeBy: none
 		sourceColumn: municipio_ine
-		isHidden
 
 	column censo
 		dataType: int64
 		formatString: #,0
+		lineageTag: 1d561876-5727-490c-acd2-ee00208ffc51
 		summarizeBy: none
 		sourceColumn: censo
 
 	column votantes
 		dataType: int64
 		formatString: #,0
+		lineageTag: 2ee3fc31-ae7b-47c1-9dc4-27124bf6781e
 		summarizeBy: none
 		sourceColumn: votantes
 
 	column nulos
 		dataType: int64
 		formatString: #,0
+		lineageTag: d9bd4f14-a09d-4667-95d3-c6136c2895b1
 		summarizeBy: none
 		sourceColumn: nulos
 
 	column blancos
 		dataType: int64
 		formatString: #,0
+		lineageTag: e184c261-bf03-4cf3-b6c4-eb41743c7e01
 		summarizeBy: none
 		sourceColumn: blancos
 
 	column validos
 		dataType: int64
 		formatString: #,0
+		lineageTag: fc68cf39-6c0e-493b-820d-8461831dea06
 		summarizeBy: none
 		sourceColumn: validos
 
 	column votos_candidaturas
 		dataType: int64
 		formatString: #,0
+		lineageTag: ce5125f9-912a-4b27-ba7a-31c96d4e2a0e
 		summarizeBy: none
 		sourceColumn: votos_candidaturas
 
 	column turnout
 		dataType: double
 		formatString: 0.0%
+		lineageTag: e644b680-5f8b-40f8-bbda-4203507ed423
 		summarizeBy: none
 		sourceColumn: turnout
 
 	column ganador
 		dataType: string
+		lineageTag: eaa67868-39e3-473e-8c12-bf9cbf0fd5f5
 		summarizeBy: none
 		sourceColumn: ganador
 
 	column cuota_ganador
 		dataType: double
 		formatString: 0.0%
+		lineageTag: dace26bb-f6da-4433-9526-68ff9cadc48a
 		summarizeBy: none
 		sourceColumn: cuota_ganador
 
 	column convocatoria
 		dataType: string
+		lineageTag: 49bb08d1-5b41-4f7b-895b-1ab8252b3da0
 		summarizeBy: none
 		sourceColumn: convocatoria
 
 	column orden
 		dataType: int64
+		isHidden
+		lineageTag: 70ce79b4-9650-428e-a8ff-e574f02225e5
 		summarizeBy: none
 		sourceColumn: orden
-		isHidden
 
 	column geo_id
 		dataType: string
+		isHidden
+		lineageTag: a1b0f285-7f34-4dbf-82ad-4823441363ba
 		summarizeBy: none
 		sourceColumn: geo_id
-		isHidden
 
 	partition 'Participación regional' = m
 		mode: import

@@ -11,7 +11,15 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
+import yaml
+
+from atlas_spain import paths
 from atlas_spain.warehouse import connect
+
+
+def _conocidas() -> dict:
+    f = paths.CONFIG / "known_discrepancies.yaml"
+    return yaml.safe_load(f.read_text(encoding="utf-8")) if f.exists() else {}
 
 
 @dataclass
@@ -98,14 +106,17 @@ def run_checks(con) -> list[Result]:
         inc = _q(con, """select count(*) from silver.stg_ie_municipios
             where votantes <> votos_blancos + votos_nulos + votos_candidaturas""")[0]
         R.append(Result("votantes_cuadran", "consistency", "fact_turnout", inc, "=0", "pass" if inc == 0 else "fail"))
-        imp = _q(con, """select count(*) filter (where (turnout > 1 and censo >= 1000) or turnout < 0),
-                                count(*) filter (where turnout > 1 and censo < 1000),
-                                string_agg(election_id || ' ' || geo_id, ', ') filter (where turnout > 1)
+        corte = int(_conocidas().get("participacion", {}).get("anteriores_a", 0)) * 100
+        imp = _q(con, f"""select count(*) filter (where ((turnout > 1 and censo >= 1000) or turnout < 0)
+                                                 and cast(substr(election_id, 4, 6) as int) >= {corte}),
+                                count(*) filter (where turnout > 1),
+                                string_agg(election_id || ' ' || geo_id, ', ') filter (where turnout > 1
+                                                 and cast(substr(election_id, 4, 6) as int) >= {corte})
                          from gold.fact_turnout""")
         R.append(Result("participacion_en_rango", "validity", "fact_turnout", imp[0], "=0",
                         "pass" if imp[0] == 0 else "fail",
-                        f"municipios < 1.000 electores con votantes > censo (dato de la fuente, p. ej. voto con "
-                        f"certificación censal): {imp[1]} — {imp[2] or ''}"))
+                        f"{imp[1]} territorios con votantes > censo en la fuente (municipios pequeños o convocatorias "
+                        f"anteriores a {corte // 100}, ver config/known_discrepancies.yaml). Recientes: {imp[2] or 'ninguno'}"))
         neg = _q(con, """
             with m as (select election_id, substr(geo_id,7,2) prov, sum(votos) v from gold.fact_election_results
                        where geo_level='municipio' group by all),
@@ -172,9 +183,12 @@ def seat_reconciliation(con) -> list[Result]:
         if res.seats != d["official"]:
             mism.append(f"{e} {g}")
     if groups:
+        known = {k["id"] for k in _conocidas().get("dhondt", [])}
+        nuevas = [m for m in mism if m not in known]
         out.append(Result("dhondt_reproduce_escanos_oficiales", "consistency", "fact_election_results",
-                          len(mism), "=0", "pass" if not mism else "fail",
-                          f"{len(groups)} circunscripciones; discrepancias: {mism[:10]}"))
+                          len(nuevas), "=0", "pass" if not nuevas else "fail",
+                          f"{len(groups)} circunscripciones; coinciden {len(groups) - len(mism)}; "
+                          f"discrepancias nuevas: {nuevas[:10]}; conocidas de la fuente: {sorted(set(mism) & known)}"))
     return out
 
 

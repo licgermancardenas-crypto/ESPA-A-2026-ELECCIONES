@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03a_elecciones_18_slicer",
   "position": {
     "x": 532,
     "y": 92,
     "z": 1800,
-    "width": 300,
     "height": 58,
+    "width": 300,
     "tabOrder": 1800
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "CCAA.nombre",
-              "nativeQueryRef": "nombre"
+              "nativeQueryRef": "nombre",
+              "active": true
             }
           ]
         }

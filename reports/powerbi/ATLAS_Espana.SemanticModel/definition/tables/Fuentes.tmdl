@@ -1,67 +1,81 @@
 table Fuentes
+	lineageTag: 527b27b4-1b44-439e-a308-0790f9f69ebf
 
 	column source_id
 		dataType: string
+		lineageTag: 3f3dd34c-ef39-4065-a210-06f5bbe9f7d7
 		summarizeBy: none
 		sourceColumn: source_id
 
 	column organismo
 		dataType: string
+		lineageTag: f6058bcb-3140-4778-a8f5-c3554b53c0e5
 		summarizeBy: none
 		sourceColumn: organismo
 
 	column dataset
 		dataType: string
+		lineageTag: 232b1678-798e-4621-bd2c-f06f7e4af361
 		summarizeBy: none
 		sourceColumn: dataset
 
 	column categoria
 		dataType: string
+		lineageTag: 54117bab-c2a0-4a4e-99db-ea853a58edaa
 		summarizeBy: none
 		sourceColumn: categoria
 
 	column granularidad
 		dataType: string
+		lineageTag: fab19010-ee14-41ca-af9f-7ebe4c8b53b4
 		summarizeBy: none
 		sourceColumn: granularidad
 
 	column cobertura_historica
 		dataType: string
+		lineageTag: 937b7765-8464-4bdd-bfd5-e7b848f85290
 		summarizeBy: none
 		sourceColumn: cobertura_historica
 
 	column frecuencia
 		dataType: string
+		lineageTag: 1df802b1-5e10-4cad-a93c-28fd31344903
 		summarizeBy: none
 		sourceColumn: frecuencia
 
 	column licencia
 		dataType: string
+		lineageTag: 2ca9e494-11d3-4bd0-9cef-d4ca411992a8
 		summarizeBy: none
 		sourceColumn: licencia
 
 	column estado
 		dataType: string
+		lineageTag: d4f01d2c-d545-45e9-83b4-3c8bb690cfb5
 		summarizeBy: none
 		sourceColumn: estado
 
 	column http_status
 		dataType: string
+		lineageTag: a51c5282-5037-41ad-b1f2-25003731bb7f
 		summarizeBy: none
 		sourceColumn: http_status
 
 	column metodo_extraccion
 		dataType: string
+		lineageTag: 00e8cd1a-2aaa-488a-9628-8767dfe78380
 		summarizeBy: none
 		sourceColumn: metodo_extraccion
 
 	column conector
 		dataType: string
+		lineageTag: f729fbd1-c804-459a-b6c5-8dce965ac078
 		summarizeBy: none
 		sourceColumn: conector
 
 	column ultima_extraccion_estado
 		dataType: string
+		lineageTag: 5057b3ef-5c09-4b55-bad8-c3af91d73429
 		summarizeBy: none
 		sourceColumn: ultima_extraccion_estado
 

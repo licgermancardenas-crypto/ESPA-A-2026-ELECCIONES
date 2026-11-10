@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p05_economia_23_lineChart",
   "position": {
     "x": 794,
     "y": 536,
     "z": 2300,
-    "width": 794,
     "height": 354,
+    "width": 794,
     "tabOrder": 2300
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "PIB provincia.anyo",
-              "nativeQueryRef": "anyo"
+              "nativeQueryRef": "anyo",
+              "active": true
             }
           ]
         },

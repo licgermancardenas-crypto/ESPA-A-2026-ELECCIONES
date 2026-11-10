@@ -98,6 +98,11 @@ Los empates totales (mismo cociente y mismos votos) no se resuelven por sorteo: 
      más votos y se anota aquí. En municipales 2023, En Comú, Con Andalucía y las listas
      Podemos-IU se agrupan en "Podemos y confluencias" (IU sola se mantiene como IU).
 
+Convocatorias 1977–2015: los antecesores mantienen familia propia ("AP / Coalición Popular" no se
+suma al PP; "PCE" no se suma a IU; "Izquierda abertzale (HB / EH)" no se suma a EH Bildu). Excepciones
+documentadas: "Convergència / Junts" incluye CiU (1979–2015), que también agrupaba a Unió; "IU" incluye
+ICV-EUiA en Cataluña; Amaiur (2011) y Bildu (2011) se asignan a EH Bildu.
+
 Validación: con la agrupación oficial, los escaños nacionales de PP, PSOE, Vox, Cs, Sumar, ERC, Junts,
 PNV y Bildu coinciden con los resultados oficiales de las cinco generales 2015–2023, y "Podemos y
 confluencias" suma 69 / 71 / 42 / 35 escaños (2015 / 2016 / abr-2019 / nov-2019).

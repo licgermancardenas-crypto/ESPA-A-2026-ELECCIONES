@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p04_demografia_25_tableEx",
   "position": {
     "x": 222,
     "y": 578,
     "z": 2500,
-    "width": 1366,
     "height": 312,
+    "width": 1366,
     "tabOrder": 2500
   },
   "visual": {
@@ -138,8 +138,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

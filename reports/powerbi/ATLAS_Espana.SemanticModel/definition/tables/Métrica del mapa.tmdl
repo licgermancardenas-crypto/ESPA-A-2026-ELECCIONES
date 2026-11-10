@@ -1,13 +1,16 @@
 table 'Métrica del mapa'
+	lineageTag: 12359299-bc77-412c-b36f-9a3639904a1c
 
 	column id
 		dataType: int64
+		isHidden
+		lineageTag: 59f87058-e8b6-4430-b783-9a5a93a2ec80
 		summarizeBy: none
 		sourceColumn: [id]
-		isHidden
 
-	column 'Métrica'
+	column Métrica
 		dataType: string
+		lineageTag: 49f889b0-ca90-48fe-bf4f-84dbcf543299
 		summarizeBy: none
 		sourceColumn: [Métrica]
 		sortByColumn: id

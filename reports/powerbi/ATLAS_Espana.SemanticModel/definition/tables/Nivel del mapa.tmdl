@@ -1,19 +1,21 @@
 table 'Nivel del mapa'
+	lineageTag: 2d82a7e5-c8ae-49fc-ac41-3435d2ef5d18
 
 	column id
 		dataType: int64
+		isHidden
+		lineageTag: 7ea50c0f-391b-44b6-ab66-4889d3b78be5
 		summarizeBy: none
 		sourceColumn: [id]
-		isHidden
 
 	column Nivel
 		dataType: string
+		lineageTag: d21c68e2-6c5a-4862-9731-1976d7f6be9f
 		summarizeBy: none
 		sourceColumn: [Nivel]
 		sortByColumn: id
 
 	partition 'Nivel del mapa' = calculated
 		mode: import
-		source =
-				DATATABLE("id", INTEGER, "Nivel", STRING, {{1, "Comunidad autónoma"}, {2, "Provincia"}, {3, "Municipio"}})
+		source = DATATABLE("id", INTEGER, "Nivel", STRING, {{1, "Comunidad autónoma"}, {2, "Provincia"}, {3, "Municipio"}})
 

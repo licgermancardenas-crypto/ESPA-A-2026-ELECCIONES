@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03b_euskadi_24_tableEx",
   "position": {
     "x": 874,
     "y": 570,
     "z": 2400,
-    "width": 714,
     "height": 320,
+    "width": 714,
     "tabOrder": 2400
   },
   "visual": {
@@ -93,8 +93,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

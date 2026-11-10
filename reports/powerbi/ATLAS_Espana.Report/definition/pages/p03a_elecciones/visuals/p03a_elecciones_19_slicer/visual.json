@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03a_elecciones_19_slicer",
   "position": {
     "x": 842,
     "y": 92,
     "z": 1900,
-    "width": 240,
     "height": 58,
+    "width": 240,
     "tabOrder": 1900
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Nivel del mapa.Nivel",
-              "nativeQueryRef": "Nivel"
+              "nativeQueryRef": "Nivel",
+              "active": true
             }
           ]
         }

@@ -1,38 +1,46 @@
 table Calidad
+	lineageTag: be99bb66-39ff-47d8-833f-a90650426049
 
 	column control
 		dataType: string
+		lineageTag: 85ceb642-69d5-44ba-8b65-ebba110a9522
 		summarizeBy: none
 		sourceColumn: control
 
 	column dimension
 		dataType: string
+		lineageTag: bad28520-4a7c-462a-b8cc-329be80ecef2
 		summarizeBy: none
 		sourceColumn: dimension
 
 	column dataset
 		dataType: string
+		lineageTag: 67531c6a-ae48-49f5-bd77-bc6ede0a97d0
 		summarizeBy: none
 		sourceColumn: dataset
 
 	column valor
 		dataType: double
 		formatString: #,0.###
+		lineageTag: 24d9d37a-bf7c-486a-a6c9-3f0413f6a5bd
 		summarizeBy: none
 		sourceColumn: valor
 
 	column umbral
 		dataType: string
+		lineageTag: 24f600e0-1e03-4f76-be74-ce74a900b22f
 		summarizeBy: none
 		sourceColumn: umbral
 
 	column estado
 		dataType: string
+		lineageTag: b0eeaf06-3877-45a3-b8cb-6d6272257b91
 		summarizeBy: none
 		sourceColumn: estado
 
 	column detalle
 		dataType: string
+		lineageTag: 767c4e54-92a1-4662-8b53-7fde21376461
 		summarizeBy: none
 		sourceColumn: detalle
 

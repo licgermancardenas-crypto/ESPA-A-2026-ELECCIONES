@@ -1,75 +1,88 @@
 table 'Elecciones regionales'
+	lineageTag: a2fd688e-58e3-4e90-9eb5-a9af924f1829
 
 	column election_id
 		dataType: string
+		isHidden
+		lineageTag: b143e2d0-f8bb-4c5e-a696-9ec83e2fb751
 		summarizeBy: none
 		sourceColumn: election_id
-		isHidden
 
 	column tipo
 		dataType: string
+		isHidden
+		lineageTag: 23db3f99-2551-4f15-98fc-555d4e791ae7
 		summarizeBy: none
 		sourceColumn: tipo
-		isHidden
 
 	column anyo
 		dataType: int64
 		formatString: 0
+		lineageTag: 0647d39b-126b-4ff2-b15f-ea0ddcceb9e7
 		summarizeBy: none
 		sourceColumn: anyo
 
 	column nivel
 		dataType: string
+		lineageTag: 1cbd9e0a-8a7f-4a5e-98c1-17cda01c9b75
 		summarizeBy: none
 		sourceColumn: nivel
 
 	column provincia_ine
 		dataType: string
+		isHidden
+		lineageTag: dc3bf079-d2df-43d7-958b-b03445028feb
 		summarizeBy: none
 		sourceColumn: provincia_ine
-		isHidden
 
 	column municipio_ine
 		dataType: string
+		isHidden
+		lineageTag: c0398db2-ee23-4770-aecf-30201d7b6f6e
 		summarizeBy: none
 		sourceColumn: municipio_ine
-		isHidden
 
 	column candidatura
 		dataType: string
+		lineageTag: 90f91c51-87fa-47bc-9f8d-2a65b6e8bea1
 		summarizeBy: none
 		sourceColumn: candidatura
 
 	column votos
 		dataType: int64
+		isHidden
 		formatString: #,0
+		lineageTag: 6349f745-3fbb-4572-af36-3cd7423f7268
 		summarizeBy: none
 		sourceColumn: votos
-		isHidden
 
 	column escanos
 		dataType: int64
+		isHidden
 		formatString: 0
+		lineageTag: c0f03abe-8642-47ef-a323-350b249f65c5
 		summarizeBy: none
 		sourceColumn: escanos
-		isHidden
 
 	column convocatoria
 		dataType: string
+		lineageTag: 737f13d8-20d5-45d9-a40a-6cd36e590211
 		summarizeBy: none
 		sourceColumn: convocatoria
 
 	column orden
 		dataType: int64
+		isHidden
+		lineageTag: e46e1b36-b56b-4eec-a99e-8014d18c5c52
 		summarizeBy: none
 		sourceColumn: orden
-		isHidden
 
 	column geo_id
 		dataType: string
+		isHidden
+		lineageTag: 60b3c2b1-17f6-48d1-ad93-93838ec49d05
 		summarizeBy: none
 		sourceColumn: geo_id
-		isHidden
 
 	partition 'Elecciones regionales' = m
 		mode: import

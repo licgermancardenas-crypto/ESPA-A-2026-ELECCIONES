@@ -1,48 +1,56 @@
 table 'Resultados familia'
+	lineageTag: ca894248-18e4-42e3-94c0-a5c0a6b46a8f
 
 	column election_id
 		dataType: string
+		isHidden
+		lineageTag: 067a88a1-ed10-4afb-a04e-35892d406855
 		summarizeBy: none
 		sourceColumn: election_id
-		isHidden
 
 	column geo_level
 		dataType: string
+		isHidden
+		lineageTag: 907f088b-4bd9-4dbe-a7de-61f8c9de4479
 		summarizeBy: none
 		sourceColumn: geo_level
-		isHidden
 
 	column geo_id
 		dataType: string
+		isHidden
+		lineageTag: 7ccccdd8-d750-4d50-a1b8-6f7e5fee396b
 		summarizeBy: none
 		sourceColumn: geo_id
-		isHidden
 
 	column familia
 		dataType: string
+		lineageTag: 2dd241e2-80ba-4ff4-82df-f8f6214f6099
 		summarizeBy: none
 		sourceColumn: familia
 
 	column votos
 		dataType: int64
+		isHidden
 		formatString: #,0
+		lineageTag: 6f310bcf-5210-416a-88de-3c88c6d5a046
 		summarizeBy: none
 		sourceColumn: votos
-		isHidden
 
 	column escanos
 		dataType: int64
+		isHidden
 		formatString: 0
+		lineageTag: 53abcc91-4765-4017-94af-82ead2b2eeda
 		summarizeBy: none
 		sourceColumn: escanos
-		isHidden
 
 	column vote_share
 		dataType: double
+		isHidden
 		formatString: 0.0%
+		lineageTag: 4248cd60-c669-4e13-b153-05df8bfcaffd
 		summarizeBy: none
 		sourceColumn: vote_share
-		isHidden
 
 	partition 'Resultados familia' = m
 		mode: import

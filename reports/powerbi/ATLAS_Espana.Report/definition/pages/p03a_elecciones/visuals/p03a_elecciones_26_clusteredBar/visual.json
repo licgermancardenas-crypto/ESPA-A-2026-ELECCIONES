@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03a_elecciones_26_clusteredBar",
   "position": {
     "x": 1097,
     "y": 248,
     "z": 2600,
-    "width": 490,
     "height": 330,
+    "width": 490,
     "tabOrder": 2600
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Resultados familia.familia",
-              "nativeQueryRef": "familia"
+              "nativeQueryRef": "familia",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "p03a_elecciones_27_tableEx",
   "position": {
     "x": 1097,
     "y": 588,
     "z": 2700,
-    "width": 490,
     "height": 302,
+    "width": 490,
     "tabOrder": 2700
   },
   "visual": {
@@ -93,8 +93,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
