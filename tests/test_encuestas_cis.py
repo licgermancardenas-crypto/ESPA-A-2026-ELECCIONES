@@ -84,3 +84,21 @@ def test_validacion_y_eleccion_inexistente(servicio):
     v = servicio.ejecutar("validacion_cis", {})["resultado"]["convocatorias"]
     assert len(v) == 5 and all(c["participacion_declarada"] > c["participacion_oficial"] for c in v)
     assert servicio.ejecutar("votantes", {"eleccion": "02-200803"})["ejecucion"]["estado"] == "error_peticion"
+
+
+def test_ajuste_regional_reproduce_resultado_de_la_comunidad(servicio):
+    d, _, _ = servicio._encuesta("02-202307", "01")
+    w, info = servicio._pesos(d, "02-202307", "resultado_oficial", "01")
+    assert info["referencia"] == "Andalucía"
+    partido = np.array([v is not None and v not in servicio._NO_PARTIDO for v in d["voto"]])
+    i = servicio.P.nivel("ccaa")["ids"].index("ES-CA-01")
+    for fam in ("PP", "PSOE"):
+        decl = w[partido & (d["voto"] == fam)].sum() / w[partido].sum()
+        assert decl == pytest.approx(servicio.P.serie("ccaa", "voto_familia", "02-202307", fam)[i], abs=1e-6)
+
+
+def test_comparar_comunidades(servicio):
+    d = servicio.ejecutar("votantes_regiones", {"familia": "PP", "dimension": "grupo_edad", "categoria": "65 y más"})["resultado"]
+    assert len(d["filas"]) >= 17 and all(f["ic"][0] <= f["p"] <= f["ic"][1] for f in d["filas"])
+    assert {f["fiabilidad"] for f in d["filas"]} <= {"alta", "media", "baja"}
+    assert servicio.ejecutar("votantes_regiones", {"dimension": "ccaa"})["ejecucion"]["estado"] == "error_peticion"

@@ -911,7 +911,14 @@ function pintarPerfiles(r, params, familia) {
 
 // ───────── VOTANTES (microdatos del CIS) ─────────
 const VISTAS_V = [["perfil", "Quién vota a cada partido"], ["grupo", "Qué vota cada grupo social"], ["ideologia", "Ideología de los votantes"],
-  ["trasvases", "Trasvases desde la elección anterior"], ["evolucion", "Evolución de un electorado"], ["calidad", "Calidad de la encuesta"]];
+  ["trasvases", "Trasvases desde la elección anterior"], ["evolucion", "Evolución de un electorado"], ["regiones", "Comparar comunidades"], ["calidad", "Calidad de la encuesta"]];
+const CATS_V = {
+  grupo_edad: ["18–24", "25–34", "35–44", "45–54", "55–64", "65 y más"], sexo: ["Mujer", "Hombre"],
+  estudios: ["Superiores", "FP", "Secundaria 2ª etapa", "Secundaria 1ª etapa", "Primaria", "Sin estudios"],
+  sitlab: ["Trabaja", "Jubilado/a o pensionista", "En paro", "Estudiante", "Trabajo doméstico no remunerado", "Otra situación"],
+  grupo_ideologia: ["Izquierda (1–2)", "Centro-izquierda (3–4)", "Centro (5–6)", "Centro-derecha (7–8)", "Derecha (9–10)"],
+  tamuni: ["≤ 2.000", "2.001–10.000", "10.001–50.000", "50.001–100.000", "100.001–400.000", "400.001–1.000.000", "> 1.000.000"],
+};
 const DIMS_V = [["grupo_edad", "Edad"], ["sexo", "Sexo"], ["estudios", "Estudios"], ["sitlab", "Situación laboral"], ["grupo_ideologia", "Ideología"],
   ["tamuni", "Tamaño de municipio"], ["ccaa", "Comunidad autónoma"]];
 const ELEC_CIS = [["02-202307", "Generales 2023 (estudio 3420)"], ["02-201911", "Generales nov. 2019 (3269)"], ["02-201904", "Generales abr. 2019 (3248)"],
@@ -921,27 +928,43 @@ const SEQ = ["#2a1856", "#4b2390", "#7b3fd0", "#a21eff", "#c76bff", "#e9b6ff", "
 function uiVotantes(p = {}) {
   cfg(campo("Análisis", `<select id="v-vista">${opciones(VISTAS_V, p.vista || "perfil")}</select>`) +
     `<div id="v-el">${campo("Elección (encuesta postelectoral)", `<select id="v-e">${opciones(ELEC_CIS, p.eleccion || "02-202307")}</select>`)}</div>` +
+    `<div id="v-cc">${campo("Ámbito", `<select id="v-c"><option value="">España</option>${Object.entries(S.terr).filter(([, t]) => t.t === "ccaa" && !/Ceuta|Melilla/.test(t.n))
+      .sort((a, b) => a[1].n.localeCompare(b[1].n)).map(([i, t]) => `<option value="${i.slice(-2)}" ${p.ccaa === i.slice(-2) ? "selected" : ""}>${esc(t.n)}</option>`).join("")}</select>`)}</div>` +
     `<div id="v-di">${campo("Característica", `<select id="v-d">${opciones(DIMS_V, p.dimension || "grupo_edad")}</select>`)}</div>` +
+    `<div id="v-ca">${campo("Categoría a comparar", `<select id="v-k"></select>`)}</div>`  +
     `<div id="v-fa">${campo("Familia política", `<select id="v-f">${opciones([["PSOE", "PSOE"], ["PP", "PP"], ["Vox", "Vox"], ["Sumar", "Sumar"], ["Podemos y confluencias", "Podemos y confluencias"], ["Ciudadanos", "Ciudadanos"], ["Abstención", "Abstención"]], p.familia || "PSOE")}</select>`)}</div>` +
     `<div id="v-aj">${campo("Ponderación", `<select id="v-a">${opciones([["resultado_oficial", "Ajustada al resultado oficial (recomendada)"], ["ninguno", "Pesos del CIS sin ajuste"]], p.ajuste || "resultado_oficial")}</select>`)}</div>` +
     `<p class="note">Microdatos individuales de las encuestas postelectorales del CIS: perfiles de personas que declaran haber votado a cada partido. Sí describen votantes, con margen de error.</p>`, async () => {
     const vista = $("#v-vista").value;
     const params = { ajuste: $("#v-a").value };
-    if (["perfil", "grupo", "ideologia", "trasvases"].includes(vista)) params.eleccion = $("#v-e").value;
-    if (["perfil", "grupo", "evolucion"].includes(vista)) params.dimension = $("#v-d").value;
-    if (vista === "evolucion") params.familia = $("#v-f").value;
+    if (["perfil", "grupo", "ideologia", "trasvases", "regiones"].includes(vista)) params.eleccion = $("#v-e").value;
+    if (["perfil", "grupo", "evolucion", "regiones"].includes(vista)) params.dimension = $("#v-d").value;
+    if (["evolucion", "regiones"].includes(vista)) params.familia = $("#v-f").value;
+    if (vista === "regiones") params.categoria = $("#v-k").value;
+    if (["perfil", "grupo", "ideologia", "trasvases", "evolucion"].includes(vista) && $("#v-c").value) params.ccaa = $("#v-c").value;
     if (["perfil", "grupo", "ideologia"].includes(vista)) params.vista = vista;
-    const metodo = { perfil: "votantes", grupo: "votantes", ideologia: "votantes", trasvases: "trasvases", evolucion: "votantes_evolucion", calidad: "validacion_cis" }[vista];
+    const metodo = { perfil: "votantes", grupo: "votantes", ideologia: "votantes", trasvases: "trasvases", evolucion: "votantes_evolucion", regiones: "votantes_regiones", calidad: "validacion_cis" }[vista];
     const r = await ejecutar(metodo, params);
-    ({ perfil: pintarPerfilVot, grupo: pintarGrupoVot, ideologia: pintarIdeologia, trasvases: pintarTrasvases, evolucion: pintarEvolucionVot, calidad: pintarCalidadCIS })[vista](r, params);
+    ({ perfil: pintarPerfilVot, grupo: pintarGrupoVot, ideologia: pintarIdeologia, trasvases: pintarTrasvases, evolucion: pintarEvolucionVot, regiones: pintarRegionesVot, calidad: pintarCalidadCIS })[vista](r, params);
   }, "Analizar votantes");
   const vis = () => {
     const v = $("#v-vista").value;
     $("#v-el").hidden = ["evolucion", "calidad"].includes(v);
-    $("#v-di").hidden = !["perfil", "grupo", "evolucion"].includes(v);
-    $("#v-fa").hidden = v !== "evolucion";
+    $("#v-cc").hidden = ["regiones", "calidad"].includes(v);
+    $("#v-di").hidden = !["perfil", "grupo", "evolucion", "regiones"].includes(v);
+    $("#v-ca").hidden = v !== "regiones";
+    $("#v-fa").hidden = !["evolucion", "regiones"].includes(v);
     $("#v-aj").hidden = v === "calidad";
+    $$("#v-d option").forEach((o) => (o.hidden = v === "regiones" && o.value === "ccaa"));
+    if (v === "regiones" && $("#v-d").value === "ccaa") $("#v-d").value = "grupo_edad";
+    llenarCat();
   };
+  const llenarCat = () => {
+    const l = CATS_V[$("#v-d").value] || [];
+    $("#v-k").innerHTML = l.map((c) => `<option ${c === p.categoria ? "selected" : ""}>${esc(c)}</option>`).join("");
+    if (!p.categoria && $("#v-d").value === "grupo_edad") $("#v-k").value = "65 y más";
+  };
+  $("#v-d").addEventListener("change", llenarCat);
   $("#v-vista").onchange = vis; vis();
   $("#st-run").click();
 }
@@ -958,7 +981,7 @@ function fichaCIS(d) {
 function pintarPerfilVot(r, params) {
   const d = r.resultado;
   const cats = d.categorias;
-  $("#st-res").innerHTML = cab(`Quién vota a cada partido · ${d.dimension_nombre}`, `${nombrePeriodo(d.eleccion)} · composición del electorado de cada partido (cada fila suma 100 %)`) +
+  $("#st-res").innerHTML = cab(`Quién vota a cada partido · ${d.dimension_nombre} · ${d.ambito}`, `${nombrePeriodo(d.eleccion)} · composición del electorado de cada partido (cada fila suma 100 %) · fiabilidad ${d.fiabilidad}`) +
     kpis([["Entrevistas", fmt.n(d.n), `${fmt.n(d.n_voto)} con voto declarado`], ...d.partidos.slice(0, 4).map((p) => [p, fmt.pct(d.shares[p]), d.ajuste.ajuste === "resultado_oficial" ? "del voto a candidaturas (= oficial)" : "del voto declarado a candidaturas"]),
       ...(d.shares["Abstención"] != null ? [["Abstención declarada", fmt.pct(d.shares["Abstención"]), "de quienes responden"]] : [])]) +
     `<section class="st-card"><h3>Composición por ${esc(d.dimension_nombre.toLowerCase())}</h3><div class="chart" id="vt-bar" style="height:${70 + d.tabla.length * 42}px"></div></section>
@@ -982,7 +1005,7 @@ function pintarPerfilVot(r, params) {
 
 function pintarGrupoVot(r) {
   const d = r.resultado;
-  $("#st-res").innerHTML = cab(`Qué vota cada grupo · ${d.dimension_nombre}`, `${nombrePeriodo(d.eleccion)} · reparto del voto declarado dentro de cada grupo (incluye abstención)`) +
+  $("#st-res").innerHTML = cab(`Qué vota cada grupo · ${d.dimension_nombre} · ${d.ambito}`, `${nombrePeriodo(d.eleccion)} · reparto del voto declarado dentro de cada grupo (incluye abstención) · fiabilidad ${d.fiabilidad}`) +
     `<section class="st-card"><div class="chart" id="vt-gr" style="height:${80 + d.tabla.length * 40}px"></div></section>
     <section class="st-card"><h3>Tabla</h3><div class="st-scroll x"><table class="t vt-tab"><tr><th>Grupo</th>${d.partidos.map((p) => `<th class="n">${esc(p)}</th>`).join("")}<th class="n">n</th></tr>
       ${d.tabla.map((f) => `<tr><td>${esc(f.fila)}</td>${f.celdas.map((c) => `<td class="n" title="${esc(icTxt(c))}">${pc(c)}</td>`).join("")}<td class="n">${fmt.n(f.n)}</td></tr>`).join("")}</table></div>
@@ -1003,7 +1026,7 @@ function pintarGrupoVot(r) {
 function pintarIdeologia(r) {
   const d = r.resultado;
   const filas = d.ideologia.slice().sort((a, b) => a.media - b.media);
-  $("#st-res").innerHTML = cab("Ideología de los votantes", `${nombrePeriodo(d.eleccion)} · autoubicación en la escala 1 (izquierda) – 10 (derecha)`) +
+  $("#st-res").innerHTML = cab(`Ideología de los votantes · ${d.ambito}`, `${nombrePeriodo(d.eleccion)} · autoubicación en la escala 1 (izquierda) – 10 (derecha) · fiabilidad ${d.fiabilidad}`) +
     kpis([["Media del conjunto", fmt.n(d.media_total, 2), "votantes y abstencionistas"], ...filas.slice(0, 1).map((f) => ["Más a la izquierda", esc(f.partido), fmt.n(f.media, 2)]),
       ...filas.slice(-1).map((f) => ["Más a la derecha", esc(f.partido), fmt.n(f.media, 2)])]) +
     `<section class="st-card"><h3>Media con intervalo de confianza del 95 %</h3><div class="chart" id="vt-id" style="height:${80 + filas.length * 40}px"></div></section>
@@ -1040,7 +1063,7 @@ function pintarTrasvases(r) {
   const nodos = [...d.origen.map((p) => ({ name: `${p} `, itemStyle: { color: colPartido(p.trim()) } })), ...d.destino.map((p) => ({ name: ` ${p}`, itemStyle: { color: colPartido(p.trim()) } }))];
   const links = [];
   d.origen.forEach((a, i) => d.destino.forEach((b, j) => { const v = d.flujo[i][j]; if (v > 0.002) links.push({ source: `${a} `, target: ` ${b}`, value: v }); }));
-  $("#st-res").innerHTML = cab(`Trasvases de voto · ${nombrePeriodo(d.anterior)} → ${nombrePeriodo(d.eleccion)}`, "Lo que cada entrevistado declara haber votado en las dos elecciones") +
+  $("#st-res").innerHTML = cab(`Trasvases de voto · ${d.ambito} · ${nombrePeriodo(d.anterior)} → ${nombrePeriodo(d.eleccion)}`, `Lo que cada entrevistado declara haber votado en las dos elecciones · fiabilidad ${d.fiabilidad}`) +
     `<section class="st-card"><div class="chart" id="vt-sk" style="height:520px"></div><p class="note">Grosor: porcentaje sobre todos los entrevistados con ambas respuestas (n = ${fmt.n(d.n)}).</p></section>
     <section class="st-card"><h3>Qué hicieron en ${esc(nombrePeriodo(d.eleccion))} los votantes de cada opción en ${esc(nombrePeriodo(d.anterior))} (cada fila suma 100 %)</h3>
       <div class="st-scroll x"><table class="t vt-tab"><tr><th>Votó en ${esc(d.anterior.slice(3, 7))} ↓ · en ${esc(d.eleccion.slice(3, 7))} →</th>${d.destino.map((c) => `<th class="n">${esc(c)}</th>`).join("")}</tr>
@@ -1057,8 +1080,9 @@ function pintarTrasvases(r) {
 function pintarEvolucionVot(r) {
   const d = r.resultado;
   const els = d.serie.map((s) => s.eleccion);
-  $("#st-res").innerHTML = cab(`Evolución del electorado de ${d.familia} · ${d.dimension_nombre}`, "Composición en cada encuesta postelectoral (2015–2023)") +
-    `<section class="st-card"><div class="chart" id="vt-ev" style="height:380px"></div><p class="note">${d.serie.filter((s) => !s.celdas).map((s) => `${esc(nombrePeriodo(s.eleccion))}: muestra insuficiente (n = ${s.n})`).join(" · ") || "Cada punto es una encuesta distinta."}</p></section>` +
+  $("#st-res").innerHTML = cab(`Evolución del electorado de ${d.familia} · ${d.dimension_nombre} · ${d.ambito}`, "Composición en cada encuesta postelectoral (2015–2023)") +
+    `<section class="st-card"><div class="chart" id="vt-ev" style="height:380px"></div><p class="note">${d.serie.filter((s) => !s.celdas).map((s) => `${esc(nombrePeriodo(s.eleccion))}: muestra insuficiente (${s.n} votantes; mínimo 50)`).join(" · ") || "Cada punto es una encuesta distinta."}
+      ${d.serie.some((s) => s.fiabilidad === "media") ? " Puntos con 50–149 votantes: fiabilidad media." : ""}</p></section>` +
     `<section class="st-card"><h3>Tabla</h3><div class="st-scroll x"><table class="t vt-tab"><tr><th>Elección</th>${d.categorias.map((c) => `<th class="n">${esc(c)}</th>`).join("")}<th class="n">n</th></tr>
       ${d.serie.map((s) => `<tr><td>${esc(nombrePeriodo(s.eleccion))}</td>${(s.celdas || d.categorias.map(() => null)).map((c) => `<td class="n" title="${esc(icTxt(c))}">${pc(c)}</td>`).join("")}<td class="n">${fmt.n(s.n)}</td></tr>`).join("")}</table></div></section>` + repro(r);
   enlazarExport($("#st-res"));
@@ -1082,4 +1106,39 @@ function pintarCalidadCIS(r) {
         <td class="n">${fmt.n(c.error_medio * 100, 1)} pts</td><td><small>${c.filas.slice(0, 5).map((f) => `${esc(f.familia)} ${fmt.pct(f.declarado)} / ${fmt.pct(f.oficial)}`).join(" · ")}</small></td></tr>`).join("")}</table>
       <p class="note">${esc(d.nota)} La participación declarada siempre supera a la real: quien vota contesta más a las encuestas y la abstención se declara menos.</p></section>` + repro(r);
   enlazarExport($("#st-res"));
+}
+
+function pintarRegionesVot(r) {
+  const d = r.resultado;
+  const filas = d.filas.filter((f) => !/Ceuta|Melilla/.test(f.nombre));
+  const fiab = { alta: "#e9b6ff", media: "#a21eff", baja: "#5b4a80" };
+  $("#st-res").innerHTML = cab(`${d.categoria} entre los votantes de ${d.familia}, por comunidad`, `${nombrePeriodo(d.eleccion)} · ${d.dimension_nombre} · España: ${fmt.pct(d.nacional.p)} (IC ${fmt.pct(d.nacional.ic[0])}–${fmt.pct(d.nacional.ic[1])})`) +
+    `<section class="st-card"><div class="chart" id="vt-rg" style="height:${80 + filas.length * 30}px"></div>
+      <p class="note">Barra: estimación; línea: intervalo de confianza del 95 %. Color: fiabilidad según votantes del partido en la muestra (alta ≥ 150, media 50–149, baja &lt; 50). La línea discontinua es el valor de España.</p></section>
+    <div class="row2" style="margin-bottom:16px"><button class="btn btn-primary" id="vt-rg-map">Pintar en el mapa por comunidad</button></div>
+    <section class="st-card"><h3>Tabla</h3><table class="t vt-tab"><tr><th>Comunidad</th><th class="n">${esc(d.categoria)}</th><th class="n">IC 95 %</th><th class="n">Votantes de ${esc(d.familia)} en la muestra</th><th>Fiabilidad</th></tr>
+      ${filas.map((f) => `<tr><td>${esc(f.nombre)}</td><td class="n">${fmt.pct(f.p)}</td><td class="n">${fmt.pct(f.ic[0])} – ${fmt.pct(f.ic[1])}</td><td class="n">${fmt.n(f.n)}</td><td>${f.fiabilidad}</td></tr>`).join("")}</table></section>` +
+    `<p class="st-cis">Fuente: CIS, estudio ${esc(d.estudio)}. Pesos calibrados al resultado oficial de cada comunidad.</p>` + repro(r);
+  enlazarExport($("#st-res"));
+  C.chart($("#vt-rg")).setOption({
+    backgroundColor: "transparent", grid: { left: 200, right: 40, top: 10, bottom: 30 },
+    tooltip: { formatter: (q) => { const f = filas[q.dataIndex]; return f ? `<b>${esc(f.nombre)}</b><br>${fmt.pct(f.p)} (IC ${fmt.pct(f.ic[0])}–${fmt.pct(f.ic[1])})<br>n = ${fmt.n(f.n)} · fiabilidad ${f.fiabilidad}` : ""; } },
+    xAxis: { type: "value", axisLabel: { color: MUTED, formatter: (v) => fmt.pct(v, 0) }, splitLine: { lineStyle: { color: "rgba(176,120,255,.06)" } } },
+    yAxis: { type: "category", inverse: true, data: filas.map((f) => f.nombre), axisLabel: { color: MUTED, fontSize: 11 } },
+    series: [
+      { type: "bar", barWidth: 14, data: filas.map((f) => ({ value: f.p, itemStyle: { color: fiab[f.fiabilidad], borderRadius: 3 } })),
+        markLine: { symbol: "none", data: [{ xAxis: d.nacional.p }], lineStyle: { color: "#fff", type: "dashed" }, label: { color: MUTED, formatter: "España" } } },
+      { type: "custom", renderItem: (pp, api) => { const y = api.coord([0, api.value(0)])[1]; const a = api.coord([api.value(1), 0])[0], b = api.coord([api.value(2), 0])[0];
+        return { type: "line", shape: { x1: a, y1: y, x2: b, y2: y }, style: { stroke: "rgba(255,255,255,.75)", lineWidth: 1.5 } }; },
+        data: filas.map((f, i) => [i, f.ic[0], f.ic[1]]), encode: { y: 0 }, z: 10 },
+    ],
+  }, true);
+  $("#vt-rg-map").onclick = () => {
+    const vals = filas.map((f) => f.p).sort((a, b) => a - b);
+    const q = [0.2, 0.4, 0.6, 0.8].map((k) => vals[Math.floor(k * (vals.length - 1))]);
+    const ramp = ["#2a1856", "#5a2aa8", "#a21eff", "#d47bff", "#f6e0ff"];
+    const col = (v) => ramp[q.filter((x) => v > x).length];
+    S.pintarEspecial("ccaa", Object.fromEntries(filas.map((f) => [f.id, col(f.p)])), `${d.categoria} entre votantes de ${d.familia} (CIS)`,
+      ramp.map((c, i) => [i === 0 ? `≤ ${fmt.pct(q[0], 0)}` : i === 4 ? `> ${fmt.pct(q[3], 0)}` : `${fmt.pct(q[i - 1], 0)}–${fmt.pct(q[i], 0)}`, c]));
+  };
 }

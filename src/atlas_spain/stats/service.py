@@ -498,7 +498,7 @@ class Servicio:
               "tamuni": ["≤ 2.000", "2.001–10.000", "10.001–50.000", "50.001–100.000", "100.001–400.000", "400.001–1.000.000", "> 1.000.000"]}
     _NO_PARTIDO = ("Abstención", "Blanco o nulo", "Nuevos votantes")
 
-    def _encuesta(self, eleccion):
+    def _encuesta(self, eleccion, ccaa=None):
         E = self.P.encuesta
         if E is None:
             raise ErrorPeticion("Microdatos del CIS no cargados (python -m atlas_spain.encuestas.cis).")
@@ -507,10 +507,15 @@ class Servicio:
         if eleccion not in elecs:
             raise ErrorPeticion(f"Sin encuesta postelectoral para {eleccion}. Disponibles: {', '.join(elecs)}")
         m = E["eleccion"] == eleccion
+        if ccaa:
+            ccaa = ccaa.replace("ES-CA-", "")
+            m = m & (E["ccaa"] == ccaa)
+            if not m.any():
+                raise ErrorPeticion(f"Sin entrevistas de la comunidad {ccaa} en esa encuesta.")
         est = next(k for k, v in self.P.meta["encuestas"]["estudios"].items() if v["eleccion"] == eleccion)
         return {k: v[m] for k, v in E.items()}, est, elecs
 
-    def _pesos(self, d, eleccion, ajuste):
+    def _pesos(self, d, eleccion, ajuste, ccaa=None):
         """Pesos del CIS; con ajuste «resultado_oficial», recalibrados para que el voto declarado a candidaturas
         reproduzca el resultado oficial por familia (abstención y blanco/nulo no se ajustan)."""
         w = d["peso"].copy()
@@ -523,7 +528,9 @@ class Servicio:
         for v, wi in zip(voto[partido], w[partido]):
             decl[v] = decl.get(v, 0) + wi
         tot = sum(decl.values())
-        ofi = {f: self.P.serie("pais", "voto_familia", eleccion, f)[0] for f in self.P.categorias("pais", "voto_familia", eleccion)}
+        nivel, i = ("pais", 0) if not ccaa else ("ccaa", self.P.nivel("ccaa")["ids"].index("ES-CA-" + ccaa.replace("ES-CA-", "")))
+        ofi = {f: self.P.serie(nivel, "voto_familia", eleccion, f)[i] for f in self.P.categorias(nivel, "voto_familia", eleccion)}
+        info["referencia"] = "España" if not ccaa else self.P.nivel("ccaa")["nombres"][i]
         ofi = {f: float(v) for f, v in ofi.items() if np.isfinite(v)}
         comunes = [f for f in decl if f in ofi and f != "Otros"]
         otros_ofi = 1 - sum(ofi[f] for f in comunes)
@@ -564,9 +571,10 @@ class Servicio:
         vista «perfil»: composición de los votantes de cada partido por la dimensión, P(grupo | voto).
         vista «grupo»: voto de cada grupo social, P(voto | grupo).
         vista «ideologia»: media de autoubicación (1–10) por partido con IC."""
-        d, est, elecs = self._encuesta(params.get("eleccion"))
+        ccaa = params.get("ccaa")
+        d, est, elecs = self._encuesta(params.get("eleccion"), ccaa)
         eleccion = d["eleccion"][0]
-        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"))
+        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"), ccaa)
         voto = d["voto"]
         valido = np.array([v is not None for v in voto])
         # partidos a mostrar: los de mayor voto ponderado + abstención
@@ -581,6 +589,7 @@ class Servicio:
         dim = params.get("dimension", "grupo_edad")
         meta_est = self.P.meta["encuestas"]["estudios"][est]
         r = {"estudio": est, "eleccion": eleccion, "elecciones": elecs, "titulo": meta_est["titulo"], "modo": meta_est["modo"],
+             "ambito": self._nombre_ccaa(ccaa), "fiabilidad": self._fiabilidad(int(valido.sum())),
              "campo": meta_est["campo"], "url": meta_est["url"], "n": int(len(voto)), "n_voto": int(valido.sum()), "ajuste": ajuste,
              "partidos": partidos, "vista": vista, "dimension": dim, "dimension_nombre": self._DIMS.get(dim, dim),
              # partidos: % del voto a candidaturas; abstención: % de quienes declaran qué hicieron
@@ -592,6 +601,9 @@ class Servicio:
                               "Grupos con pocos casos (n < 50) tienen intervalos muy amplios: interpretar con cautela."]}
         if meta_est["modo"].startswith("telef"):
             r["advertencias"].append("Encuesta telefónica (CATI): el modo de entrevista difiere de las ediciones presenciales anteriores.")
+        if ccaa:
+            r["advertencias"].insert(0, f"Submuestra de {self._nombre_ccaa(ccaa)}: {int(valido.sum())} entrevistas con voto declarado; "
+                                        "la encuesta no se diseñó para ser representativa de cada comunidad (sí estratifica por ella).")
         if vista == "ideologia":
             ide = d["ideologia"]
             filas = []
@@ -631,9 +643,10 @@ class Servicio:
 
     def m_trasvases(self, params):
         """Matriz de trasvases declarados: voto en la elección anterior → voto en la elección del estudio."""
-        d, est, elecs = self._encuesta(params.get("eleccion"))
+        ccaa = params.get("ccaa")
+        d, est, elecs = self._encuesta(params.get("eleccion"), ccaa)
         eleccion = d["eleccion"][0]
-        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"))
+        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"), ccaa)
         a, b = d["voto_anterior"], d["voto"]
         ok = np.array([x is not None and y is not None for x, y in zip(a, b)])
         tot_a, tot_b = {}, {}
@@ -650,6 +663,7 @@ class Servicio:
         total = w[ok].sum()
         meta_est = self.P.meta["encuestas"]["estudios"][est]
         return {"estudio": est, "eleccion": eleccion, "anterior": d["eleccion_anterior"][0], "elecciones": elecs, "titulo": meta_est["titulo"],
+                "ambito": self._nombre_ccaa(ccaa), "fiabilidad": self._fiabilidad(int(ok.sum())),
                 "ajuste": ajuste, "origen": filas, "destino": cols, "n": int(ok.sum()),
                 "flujo": (M / total).tolist(),
                 "destino_de_origen": (M / np.maximum(M.sum(1, keepdims=True), 1e-12)).tolist(),
@@ -669,17 +683,76 @@ class Servicio:
         elecs = sorted({e for e in E["eleccion"] if e})
         cats, nombres = self._orden(dim, sorted({c for c in E[dim] if c is not None}))
         serie = []
+        ccaa = params.get("ccaa")
         for el in elecs:
-            d, est, _ = self._encuesta(el)
-            w, _ = self._pesos(d, el, params.get("ajuste", "resultado_oficial"))
+            try:
+                d, est, _ = self._encuesta(el, ccaa)
+            except ErrorPeticion:
+                serie.append({"eleccion": el, "n": 0, "celdas": None})
+                continue
+            w, _ = self._pesos(d, el, params.get("ajuste", "resultado_oficial"), ccaa)
             den = (d["voto"] == familia) & np.array([c is not None for c in d[dim]])
-            if den.sum() < 20:
+            if den.sum() < 50:  # por debajo de 50 votantes del partido no se estima (intervalos de ±14 puntos o más)
                 serie.append({"eleccion": el, "n": int(den.sum()), "celdas": None})
                 continue
-            serie.append({"eleccion": el, "n": int(den.sum()), "celdas": [self._prop(w, d[dim] == c, den) for c in cats]})
+            serie.append({"eleccion": el, "n": int(den.sum()), "fiabilidad": "media" if den.sum() < 150 else "alta",
+                          "celdas": [self._prop(w, d[dim] == c, den) for c in cats]})
         return {"familia": familia, "dimension": dim, "dimension_nombre": self._DIMS[dim], "categorias": [nombres[c] for c in cats], "serie": serie,
+                "ambito": self._nombre_ccaa(ccaa),
                 "advertencias": ["Cada punto es una encuesta distinta; 2023 es telefónica y las demás presenciales.",
                                  "Las familias siguen la tabla de Atlas (p. ej., Sumar en 2023 y Podemos y confluencias antes)."]}
+
+    def _nombre_ccaa(self, ccaa):
+        if not ccaa:
+            return "España"
+        N = self.P.nivel("ccaa")
+        gid = "ES-CA-" + ccaa.replace("ES-CA-", "")
+        return N["nombres"][N["ids"].index(gid)] if gid in N["ids"] else ccaa
+
+    @staticmethod
+    def _fiabilidad(n):
+        return "alta" if n >= 400 else "media" if n >= 150 else "baja"
+
+    def m_votantes_regiones(self, params):
+        """Un mismo rasgo del electorado de un partido, comunidad por comunidad.
+
+        Ejemplo: % de 65 y más entre los votantes del PP en cada comunidad (P(categoría | partido, comunidad)),
+        con los pesos calibrados al resultado oficial de cada comunidad."""
+        familia, dim, cat = params.get("familia", "PP"), params.get("dimension", "grupo_edad"), params.get("categoria")
+        eleccion = params.get("eleccion")
+        if dim not in self._DIMS or dim == "ccaa":
+            raise ErrorPeticion("Elige una característica distinta de la comunidad.")
+        E = self.P.encuesta
+        if E is None:
+            raise ErrorPeticion("Microdatos del CIS no cargados.")
+        _, est, elecs = self._encuesta(eleccion)
+        eleccion = eleccion or elecs[-1]
+        cats, nombres = self._orden(dim, sorted({c for c in E[dim] if c is not None}))
+        if cat is None or cat not in cats:
+            cat = cats[-1]
+        filas, nacional = [], None
+        for gid, nombre in zip(self.P.nivel("ccaa")["ids"], self.P.nivel("ccaa")["nombres"]):
+            cod = gid[-2:]
+            try:
+                d, _, _ = self._encuesta(eleccion, cod)
+            except ErrorPeticion:
+                continue
+            w, _ = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"), cod)
+            den = (d["voto"] == familia) & np.array([c is not None for c in d[dim]])
+            if den.sum() == 0:
+                continue
+            c = self._prop(w, d[dim] == cat, den)
+            filas.append({"id": gid, "nombre": nombre, **c, "fiabilidad": "baja" if c["n"] < 50 else "media" if c["n"] < 150 else "alta"})
+        d, _, _ = self._encuesta(eleccion)
+        w, _ = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"))
+        den = (d["voto"] == familia) & np.array([c is not None for c in d[dim]])
+        nacional = self._prop(w, d[dim] == cat, den)
+        filas.sort(key=lambda f: -f["p"])
+        return {"familia": familia, "dimension": dim, "dimension_nombre": self._DIMS[dim], "categoria": nombres[cat], "categorias": [nombres[c] for c in cats],
+                "eleccion": eleccion, "estudio": est, "elecciones": elecs, "filas": filas, "nacional": nacional,
+                "advertencias": ["Cada comunidad es una submuestra de la encuesta nacional: las de menos de 50 votantes del partido tienen fiabilidad baja.",
+                                 "Pesos calibrados al resultado oficial de cada comunidad.",
+                                 "Las provincias no tienen muestra suficiente para este análisis (mediana de 135 entrevistas por provincia en 2023)."]}
 
     def m_validacion_cis(self, params):
         """Voto declarado frente a resultado oficial, por convocatoria (sesgo de recuerdo)."""

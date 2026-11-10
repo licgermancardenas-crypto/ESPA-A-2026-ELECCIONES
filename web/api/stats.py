@@ -44,7 +44,9 @@ class handler(BaseHTTPRequestHandler):
         if largo > 200_000:
             return self._responder({"error": "petición demasiado grande"}, 413)
         try:
-            pet = json.loads(self.rfile.read(largo) or b"{}")
-        except json.JSONDecodeError:
-            return self._responder({"error": "cuerpo no es JSON válido"}, 400)
+            pet = json.loads((self.rfile.read(largo) or b"{}").decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            return self._responder({"error": "cuerpo no es JSON válido en UTF-8"}, 400)
+        if not isinstance(pet, dict):
+            return self._responder({"error": "se esperaba un objeto JSON"}, 400)
         self._responder(SERVICIO.ejecutar(pet.get("metodo", ""), pet.get("params") or {}))

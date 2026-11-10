@@ -155,3 +155,10 @@ Cada respuesta incluye `ejecucion`: id, método, versión del motor, huella del 
 **Privacidad:** los microdatos están anonimizados por el CIS y viajan solo dentro de la función de Vercel (`web/api/_lib`, no servida como estático: verificado 404). La web solo recibe resultados agregados.
 
 **Dónde se ve:** Estadística → Votantes (CIS): quién vota a cada partido, qué vota cada grupo, ideología, trasvases (Sankey), evolución, calidad de la encuesta; hallazgo «Quién vota a cada partido: la edad».
+
+### Votantes por comunidad autónoma (10/11/2026)
+
+- Todos los análisis de votantes admiten un **ámbito autonómico**; los pesos se calibran al resultado oficial de esa comunidad (test `test_ajuste_regional_reproduce_resultado_de_la_comunidad`).
+- Nueva vista **Comparar comunidades**: un rasgo del electorado de un partido (p. ej. % de 65+ entre votantes del PP) en cada comunidad, con IC 95 %, fiabilidad y pintado en el mapa.
+- **Fiabilidad:** alta ≥ 150 votantes del partido en la muestra, media 50–149, baja < 50. En la evolución no se estiman puntos con menos de 50 votantes.
+- **Provincias: no.** Muestras por provincia demasiado pequeñas (2023: mediana de 135 entrevistas; solo 6 de 52 superan 300). Para estimar perfiles provinciales haría falta un modelo (regresión multinivel con postestratificación, MRP) con tablas censales de edad × sexo × estudios por provincia (INE, Censo 2021).
