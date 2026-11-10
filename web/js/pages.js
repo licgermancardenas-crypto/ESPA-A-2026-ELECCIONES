@@ -25,7 +25,7 @@ async function comparador() {
   const fams = Object.keys(tot).filter((f) => tot[f] > 0).sort((a, b) => tot[b] - tot[a]);
   C.apiladas($("#c-esc"), els, nombre, hist, S.fam, fams);
   const res = await Promise.all(els.map((e) => S.resumenDe(e)));
-  C.barras($("#c-vol"), els.map((e) => nombre[e]), res.map((r) => r.volatilidad), els.map(() => "#e0a526"), (v) => (v == null ? "—" : fmt.pct(v, 0)));
+  C.barras($("#c-vol"), els.map((e) => nombre[e]), res.map((r) => r.volatilidad), els.map(() => "#c40bff"), (v) => (v == null ? "—" : fmt.pct(v, 0)));
   const r = $("#hemi-r");
   r.max = els.length - 1; r.value = els.length - 1;
   const pintar = () => {

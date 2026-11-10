@@ -4,11 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ATLAS SPAIN</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237b5cff'/%3E%3Cstop offset='.55' stop-color='%23ff8fcf'/%3E%3Cstop offset='1' stop-color='%23e0a526'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <meta name="description" content="Inteligencia política, electoral y territorial de España con datos oficiales.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
@@ -21,7 +18,8 @@
   <!-- ───────── portada ───────── -->
   <section id="hero">
     <div class="hero-inner">
-      <div class="eyebrow">ATLAS Analytics · Inteligencia territorial</div>
+      <img class="hero-logo" src="img/atlas_logo.png" alt="Atlas Analytics" width="260" height="62">
+      <div class="eyebrow">España · inteligencia electoral y territorial</div>
       <h1 class="hero-title"><span><i>España,</i></span><span><i>territorio a territorio.</i></span></h1>
       <p class="hero-sub">Cuarenta y siete años de democracia, ocho mil municipios y treinta y seis mil secciones censales,
         cruzados con datos oficiales de población, renta y voto. Haz clic en cualquier lugar y descubre su historia.</p>
@@ -40,79 +38,98 @@
   </section>
   <div class="hero-legend" id="hero-legend"></div>
 
-  <!-- ───────── barra superior ───────── -->
-  <header id="topbar">
-    <div class="brand" id="brand"><div class="dot"></div>ATLAS SPAIN <small>BETA</small></div>
-    <nav class="nav" id="nav">
-      <button data-view="mapa" class="on">Mapa</button>
-      <button data-view="comparador">Comparador histórico</button>
-      <button data-view="insights">Hallazgos</button>
-      <button data-view="datos">Datos y calidad</button>
-    </nav>
-    <div class="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" placeholder="Busca un municipio, provincia o comunidad…" autocomplete="off">
-      <ul id="q-res"></ul>
+  <!-- ───────── barra lateral ───────── -->
+  <aside id="sidebar">
+    <div class="sb-head">
+      <a class="sb-brand" id="brand" title="Volver al mapa de España">
+        <img class="sb-logo" src="img/atlas_logo.png" alt="Atlas Analytics" width="176" height="42">
+        <img class="sb-iso" src="img/atlas_iso.png" alt="Atlas" width="34" height="34">
+      </a>
+      <button class="sb-toggle" id="sb-toggle" title="Plegar la barra">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg>
+      </button>
     </div>
-  </header>
+    <div class="sb-project"><span>Proyecto</span><b>España · elecciones 1977–2024</b></div>
+    <nav class="sb-nav" id="nav">
+        <button data-view="mapa" class="on" title="Mapa"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>Mapa</span></button>
+        <button data-view="comparador" title="Comparador histórico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 14 4-4 3 3 5-6"/></svg><span>Comparador histórico</span></button>
+        <button data-view="insights" title="Hallazgos"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg><span>Hallazgos</span></button>
+        <button data-view="datos" title="Datos y calidad"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v13c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-13"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/></svg><span>Datos y calidad</span></button>
+    </nav>
+    <div class="sb-scroll" id="sb-scroll">
+      <div id="controls">
+        <h3>Qué ver</h3>
+        <div class="seg" id="capa">
+          <button data-v="elecciones" class="on">Elecciones</button>
+          <button data-v="demografia">Demografía</button>
+          <button data-v="renta">Renta</button>
+        </div>
+        <div id="ctl-elec">
+          <h3>Tipo de elección</h3>
+          <div class="chips" id="tipo"></div>
+          <h3>Convocatoria</h3>
+          <div class="timeline">
+            <div class="tl-label"><b id="tl-nombre">—</b><small id="tl-fecha"></small></div>
+            <div class="row">
+              <button class="play" id="play" title="Reproducir la serie">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" id="play-ico"><path d="M7 4v16l13-8z"/></svg>
+              </button>
+              <input type="range" id="tl" min="0" max="0" value="0">
+            </div>
+          </div>
+          <h3>Métrica</h3>
+          <div class="chips" id="met-elec">
+            <button class="chip on" data-v="ganador">Partido más votado</button>
+            <button class="chip" data-v="participacion">Participación</button>
+            <button class="chip" data-v="margen">Competitividad</button>
+          </div>
+        </div>
+        <div id="ctl-demo" hidden>
+          <h3>Métrica</h3>
+          <div class="chips" id="met-demo">
+            <button class="chip on" data-v="variacion">Variación 10 años</button>
+            <button class="chip" data-v="poblacion">Población</button>
+            <button class="chip" data-v="densidad">Densidad</button>
+            <button class="chip" data-v="largo">Variación desde 1996</button>
+          </div>
+        </div>
+        <div id="ctl-renta" hidden>
+          <p class="note">Renta neta media por persona (Atlas de Distribución de Renta de los Hogares, INE). Disponible por municipio y, al hacer clic en una ciudad, por sección censal.</p>
+        </div>
+        <h3>Mapa base</h3>
+        <div class="seg" id="fondo">
+          <button data-v="oscuro" class="on">Oscuro</button>
+          <button data-v="satelite">Satélite</button>
+          <button data-v="relieve">Relieve 3D</button>
+        </div>
+        <h3>Nivel</h3>
+        <div class="seg" id="nivel">
+          <button data-v="ccaa">Comunidad</button>
+          <button data-v="provincias" class="on">Provincia</button>
+          <button data-v="municipios">Municipio</button>
+        </div>
+        <h3>Leyenda</h3>
+        <div class="legend" id="legend"></div>
+        <p class="note" id="nota"></p>
+    
+      </div>
+    </div>
+    <div class="sb-foot">
+      <span>Datos oficiales · INE · Ministerio del Interior · IGN</span>
+      <span class="sb-beta">BETA</span>
+    </div>
+  </aside>
+
+  <!-- buscador flotante -->
+  <div class="search" id="search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" placeholder="Busca un municipio, provincia o comunidad…" autocomplete="off">
+    <kbd>/</kbd>
+    <ul id="q-res"></ul>
+  </div>
 
   <!-- ───────── vista mapa ───────── -->
   <section class="view" id="v-mapa">
-    <aside id="controls" class="glass interactive">
-      <h3>Qué ver</h3>
-      <div class="seg" id="capa">
-        <button data-v="elecciones" class="on">Elecciones</button>
-        <button data-v="demografia">Demografía</button>
-        <button data-v="renta">Renta</button>
-      </div>
-      <div id="ctl-elec">
-        <h3>Tipo de elección</h3>
-        <div class="chips" id="tipo"></div>
-        <h3>Convocatoria</h3>
-        <div class="timeline">
-          <div class="tl-label"><b id="tl-nombre">—</b><small id="tl-fecha"></small></div>
-          <div class="row">
-            <button class="play" id="play" title="Reproducir la serie">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" id="play-ico"><path d="M7 4v16l13-8z"/></svg>
-            </button>
-            <input type="range" id="tl" min="0" max="0" value="0">
-          </div>
-        </div>
-        <h3>Métrica</h3>
-        <div class="chips" id="met-elec">
-          <button class="chip on" data-v="ganador">Partido más votado</button>
-          <button class="chip" data-v="participacion">Participación</button>
-          <button class="chip" data-v="margen">Competitividad</button>
-        </div>
-      </div>
-      <div id="ctl-demo" hidden>
-        <h3>Métrica</h3>
-        <div class="chips" id="met-demo">
-          <button class="chip on" data-v="variacion">Variación 10 años</button>
-          <button class="chip" data-v="poblacion">Población</button>
-          <button class="chip" data-v="densidad">Densidad</button>
-          <button class="chip" data-v="largo">Variación desde 1996</button>
-        </div>
-      </div>
-      <div id="ctl-renta" hidden>
-        <p class="note">Renta neta media por persona (Atlas de Distribución de Renta de los Hogares, INE). Disponible por municipio y, al hacer clic en una ciudad, por sección censal.</p>
-      </div>
-      <h3>Mapa base</h3>
-      <div class="seg" id="fondo">
-        <button data-v="oscuro" class="on">Oscuro</button>
-        <button data-v="satelite">Satélite</button>
-        <button data-v="relieve">Relieve 3D</button>
-      </div>
-      <h3>Nivel</h3>
-      <div class="seg" id="nivel">
-        <button data-v="ccaa">Comunidad</button>
-        <button data-v="provincias" class="on">Provincia</button>
-        <button data-v="municipios">Municipio</button>
-      </div>
-      <h3>Leyenda</h3>
-      <div class="legend" id="legend"></div>
-      <p class="note" id="nota"></p>
-    </aside>
 
     <aside id="panel" class="glass interactive">
       <div class="panel-head">

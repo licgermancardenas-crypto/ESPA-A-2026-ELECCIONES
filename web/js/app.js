@@ -60,6 +60,8 @@ function initMap() {
     addLevelLayers("ccaa"); addLevelLayers("provincias");
     // capa 3D de la portada: provincias extruidas por población, color del ganador de las últimas generales
     map.addLayer({ id: "hero-3d", type: "fill-extrusion", source: "provincias",
+      // en la portada se omiten Canarias: en su posición real quedarían detrás del texto
+      filter: ["!", ["in", ["get", "id"], ["literal", ["ES-PR-35", "ES-PR-38"]]]],
       paint: { "fill-extrusion-color": ["coalesce", ["feature-state", "c"], "#3b3166"],
         "fill-extrusion-height": ["*", ["coalesce", ["feature-state", "h"], 0], 0],
         "fill-extrusion-opacity": 0.92, "fill-extrusion-vertical-gradient": true } });
@@ -209,13 +211,29 @@ function enterApp(view = "mapa") {
   setTimeout(() => $("#hero").classList.add("gone"), 1200);
   animHero(1, 0, 1100, () => map.setLayoutProperty("hero-3d", "visibility", "none"));
   map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
-  map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: 340, right: 480 }, pitch: 0, bearing: 0, duration: 2200, essential: true });
+  map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: padIzq(), right: 480 }, pitch: 0, bearing: 0, duration: 2200, essential: true });
   setTimeout(() => { setLevelVisibility(S.nivel); refresh(); $("#v-mapa").classList.add("on"); renderPanel(S, null); $("#panel").classList.add("open"); }, 600);
   setView(view);
 }
 $("#go-map").onclick = () => enterApp("mapa");
 $("#go-insights").onclick = () => { enterApp("mapa"); setTimeout(() => setView("insights"), 900); };
 $("#brand").onclick = () => { setView("mapa"); deselect(); };
+
+// ───────── barra lateral plegable ─────────
+// margen izquierdo del encuadre: ancho de la barra + aire
+function padIzq() {
+  const sb = parseFloat(getComputedStyle(document.body).getPropertyValue("--sb")) || 284;
+  return sb + 36;
+}
+try { if (localStorage.getItem("atlas-sb-mini") === "1") document.body.classList.add("sb-mini"); } catch (e) { /* sin almacenamiento */ }
+$("#sb-toggle").onclick = () => {
+  const mini = document.body.classList.toggle("sb-mini");
+  try { localStorage.setItem("atlas-sb-mini", mini ? "1" : "0"); } catch (e) { /* sin almacenamiento */ }
+};
+// atajo: "/" abre el buscador
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "/" && document.activeElement?.tagName !== "INPUT" && document.body.classList.contains("app")) { ev.preventDefault(); $("#q").focus(); }
+});
 
 // ───────── datos electorales ─────────
 async function ganadores(eid) {
@@ -452,7 +470,7 @@ export async function select(id) {
   if (S.capa === "renta" && destino !== "municipios") setNivel("municipios"); else if (S.nivel !== destino) setNivel(destino);
   else dimOthers(id);
   if (feat) {
-    const pad = { top: 70, bottom: 50, left: 340, right: 480 };
+    const pad = { top: 70, bottom: 50, left: padIzq(), right: 480 };
     map.fitBounds(bbox(feat.geometry), { padding: pad, duration: 1800, maxZoom: n === "municipios" ? 12.5 : 9, essential: true,
       pitch: S.fondo === "relieve" ? 60 : 0 });
   }
@@ -475,7 +493,7 @@ export function deselect() {
   removeSecciones();
   for (const n of ["ccaa", "provincias", "municipios"]) if (S.ids[n]) for (const id of S.ids[n]) map.setFeatureState({ source: SRC[n], id }, { dim: 1 });
   if (document.body.classList.contains("app")) {
-    map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: 340, right: 480 }, duration: 1600,
+    map.fitBounds(PENINSULA, { padding: { top: 60, bottom: 40, left: padIzq(), right: 480 }, duration: 1600,
       pitch: S.fondo === "relieve" ? 55 : 0 });
     if (S.nivel === "municipios" && S.capa !== "renta") setNivel("provincias");
   }
@@ -564,6 +582,7 @@ function initSearch() {
 // ───────── vistas ─────────
 export function setView(v) {
   S.view = v;
+  document.body.dataset.view = v;
   $$("#nav button").forEach((b) => b.classList.toggle("on", b.dataset.view === v));
   $("#v-mapa").classList.toggle("on", v === "mapa" && document.body.classList.contains("app"));
   showPage(v);

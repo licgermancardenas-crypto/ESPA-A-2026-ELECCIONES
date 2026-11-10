@@ -59,7 +59,7 @@ async function nacional(S) {
           ${kpi("Más votado", esc(fil[0]?.[0] || "—"), fmt.pct(fil[0]?.[3]), S.fam[fil[0]?.[0]])}
           ${kpi("Nº efectivo de partidos", fmt.n(r.enep, 2), "Laakso–Taagepera", "#a58bff")}
           ${kpi(r.volatilidad != null ? "Volatilidad" : "Desproporcionalidad", r.volatilidad != null ? fmt.pct(r.volatilidad) : fmt.n(r.gallagher, 1),
-            r.volatilidad != null ? "vs. convocatoria anterior" : "Gallagher", "#e0a526")}
+            r.volatilidad != null ? "vs. convocatoria anterior" : "Gallagher", "#c40bff")}
         </div>
         ${conEsc ? `<div class="block"><h4>Reparto de escaños</h4><div class="chart" id="ch-hemi" style="height:190px"></div></div>` : ""}
         <div class="block"><h4>Voto por familia política</h4>${barsHTML(fil.map((f) => [f[0], f[3] / (fil[0]?.[3] || 1), fmt.pct(f[3])]), S.fam)}</div>
@@ -73,7 +73,7 @@ async function nacional(S) {
       body.innerHTML = `
         <div class="kpis">
           ${kpi("Población " + S.anyo, fmt.big(t.pob), fmt.sig(t.pob / t.pob10 - 1) + " en 10 años", "#a58bff", t.pob >= t.pob10 ? "up" : "down")}
-          ${kpi("Desde 1996", fmt.sig(t.pob / t.pob96 - 1), fmt.big(t.pob96) + " en 1996", "#e0a526")}
+          ${kpi("Desde 1996", fmt.sig(t.pob / t.pob96 - 1), fmt.big(t.pob96) + " en 1996", "#c40bff")}
         </div>
         <div class="block"><h4>Población por comunidad</h4>${barsHTML(ccaa.map(([n, p]) => [n, p / ccaa[0][1], fmt.big(p)]), {})}</div>`;
       animarBarras(body);
@@ -121,7 +121,7 @@ function territorio(S, fi) {
         <div class="kpis">
           ${kpi("Población " + S.anyo, fmt.n(pob), v10 != null ? fmt.sig(v10) + ` desde ${S.anyoBase}` : "", "#a58bff", v10 >= 0 ? "up" : "down")}
           ${kpi("Densidad", fmt.n(dens) + "", "hab./km²", "#7b5cff")}
-          ${kpi("Renta neta por persona", fi.renta?.renta ? fmt.eur(fi.renta.renta) : (t.renta ? fmt.eur(t.renta) : "—"), fi.renta?.anyo ? "Atlas de Renta " + fi.renta.anyo : "solo municipios", "#e0a526")}
+          ${kpi("Renta neta por persona", fi.renta?.renta ? fmt.eur(fi.renta.renta) : (t.renta ? fmt.eur(t.renta) : "—"), fi.renta?.anyo ? "Atlas de Renta " + fi.renta.anyo : "solo municipios", "#c40bff")}
           ${kpi("Participación", ultG ? fmt.pct(part[ultG]?.turnout) : "—", ultG ? S.nombreElec[ultG] : "", "#2e9c8f")}
         </div>
         ${ganG ? `<div class="block"><h4>Último ganador</h4><span class="pill"><i style="background:${S.fam[ganG.familia]}"></i>${esc(ganG.familia)} · ${fmt.pct(ganG.vote_share)}</span></div>` : ""}
@@ -171,7 +171,7 @@ function territorio(S, fi) {
       body.innerHTML = `
         <div class="kpis">
           ${kpi("Secciones censales", fmt.n(fi.n_secciones), "seccionado INE 2024", "#7b5cff")}
-          ${kpi("Renta: mínima – máxima", `${fmt.n((r.renta_min || 0) / 1000, 1)}–${fmt.n((r.renta_max || 0) / 1000, 1)} mil €`, "por persona, entre secciones", "#e0a526")}
+          ${kpi("Renta: mínima – máxima", `${fmt.n((r.renta_min || 0) / 1000, 1)}–${fmt.n((r.renta_max || 0) / 1000, 1)} mil €`, "por persona, entre secciones", "#c40bff")}
         </div>
         <div class="block"><h4>Colorear el mapa por</h4><div class="chips" id="sm">${opciones.map(([v, l]) => `<button class="chip ${v === (S.seccMetrica || "renta") ? "on" : ""}" data-v="${v}">${l}</button>`).join("")}</div>
         <div class="legend" id="sleg" style="margin-top:12px"></div></div>

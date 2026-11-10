@@ -4,7 +4,7 @@ import { fmt } from "./util.js";
 const AXIS = { axisLine: { lineStyle: { color: "rgba(160,140,230,.25)" } }, axisLabel: { color: "#9a93b5", fontSize: 11 },
   splitLine: { lineStyle: { color: "rgba(160,140,230,.08)" } }, axisTick: { show: false } };
 const BASE = {
-  backgroundColor: "transparent", textStyle: { fontFamily: "Inter", color: "#ece9f5" },
+  backgroundColor: "transparent", textStyle: { fontFamily: "Arial, Helvetica, sans-serif", color: "#f2ebfa" },
   animationDuration: 1100, animationEasing: "cubicOut", animationDurationUpdate: 700,
   tooltip: { trigger: "axis", backgroundColor: "rgba(13,11,23,.95)", borderColor: "rgba(160,140,230,.32)",
     textStyle: { color: "#ece9f5", fontSize: 12 }, extraCssText: "border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.5)" },
@@ -63,7 +63,7 @@ export function familias(el, elecciones, filas, colores, nombres, { top = 7, are
   }, true);
 }
 
-export function linea(el, labels, valores, color = "#e0a526", formato = fmt.pct) {
+export function linea(el, labels, valores, color = "#e9b6ff", formato = fmt.pct) {
   chart(el).setOption({
     ...BASE, tooltip: { ...BASE.tooltip, valueFormatter: (v) => formato(v) },
     xAxis: { type: "category", data: labels, ...AXIS },
@@ -83,7 +83,7 @@ export function hemiciclo(el, filas, colores) {
       data, label: { show: false }, itemStyle: { borderColor: "#0d0b17", borderWidth: 2 },
       animationType: "expansion", animationDuration: 1300,
     }],
-    graphic: [{ type: "text", left: "center", top: "76%", style: { text: total ? `${total}` : "", fill: "#ece9f5", font: "700 26px 'Space Grotesk'" } }],
+    graphic: [{ type: "text", left: "center", top: "76%", style: { text: total ? `${total}` : "", fill: "#ece9f5", font: "700 26px Arial" } }],
   }, true);
 }
 
