@@ -489,6 +489,225 @@ class Servicio:
             r["asignacion"] = {i: int(c) for i, c in zip(N["ids"], cod) if np.isfinite(c)}
         return r
 
+    # ─────────── votantes (microdatos del CIS) ───────────
+    _DIMS = {"sexo": "Sexo", "grupo_edad": "Edad", "estudios": "Estudios", "sitlab": "Situación laboral",
+             "grupo_ideologia": "Ideología (1–10)", "tamuni": "Tamaño de municipio", "ccaa": "Comunidad autónoma"}
+    _ORDEN = {"grupo_edad": ["18–24", "25–34", "35–44", "45–54", "55–64", "65 y más"],
+              "estudios": ["Sin estudios", "Primaria", "Secundaria 1ª etapa", "Secundaria 2ª etapa", "FP", "Superiores"],
+              "grupo_ideologia": ["Izquierda (1–2)", "Centro-izquierda (3–4)", "Centro (5–6)", "Centro-derecha (7–8)", "Derecha (9–10)"],
+              "tamuni": ["≤ 2.000", "2.001–10.000", "10.001–50.000", "50.001–100.000", "100.001–400.000", "400.001–1.000.000", "> 1.000.000"]}
+    _NO_PARTIDO = ("Abstención", "Blanco o nulo", "Nuevos votantes")
+
+    def _encuesta(self, eleccion):
+        E = self.P.encuesta
+        if E is None:
+            raise ErrorPeticion("Microdatos del CIS no cargados (python -m atlas_spain.encuestas.cis).")
+        elecs = sorted({e for e in E["eleccion"] if e})
+        eleccion = eleccion or elecs[-1]
+        if eleccion not in elecs:
+            raise ErrorPeticion(f"Sin encuesta postelectoral para {eleccion}. Disponibles: {', '.join(elecs)}")
+        m = E["eleccion"] == eleccion
+        est = next(k for k, v in self.P.meta["encuestas"]["estudios"].items() if v["eleccion"] == eleccion)
+        return {k: v[m] for k, v in E.items()}, est, elecs
+
+    def _pesos(self, d, eleccion, ajuste):
+        """Pesos del CIS; con ajuste «resultado_oficial», recalibrados para que el voto declarado a candidaturas
+        reproduzca el resultado oficial por familia (abstención y blanco/nulo no se ajustan)."""
+        w = d["peso"].copy()
+        info = {"ajuste": ajuste or "ninguno"}
+        if ajuste != "resultado_oficial":
+            return w, info
+        voto = d["voto"]
+        partido = np.array([v is not None and v not in self._NO_PARTIDO for v in voto])
+        decl = {}
+        for v, wi in zip(voto[partido], w[partido]):
+            decl[v] = decl.get(v, 0) + wi
+        tot = sum(decl.values())
+        ofi = {f: self.P.serie("pais", "voto_familia", eleccion, f)[0] for f in self.P.categorias("pais", "voto_familia", eleccion)}
+        ofi = {f: float(v) for f, v in ofi.items() if np.isfinite(v)}
+        comunes = [f for f in decl if f in ofi and f != "Otros"]
+        otros_ofi = 1 - sum(ofi[f] for f in comunes)
+        otros_decl = sum(decl[f] for f in decl if f not in comunes) / tot
+        factor = {f: ofi[f] / (decl[f] / tot) for f in comunes}
+        for f in decl:
+            if f not in comunes:
+                factor[f] = otros_ofi / otros_decl if otros_decl > 0 else 1.0
+        w = np.array([wi * factor.get(v, 1.0) if p else wi for wi, v, p in zip(w, voto, partido)])
+        info["factores"] = {k: round(v, 3) for k, v in sorted(factor.items(), key=lambda kv: -decl.get(kv[0], 0))}
+        return w, info
+
+    @staticmethod
+    def _prop(w, mask_num, mask_den, conf=0.95):
+        """Proporción ponderada con IC de Wilson sobre el tamaño efectivo de Kish."""
+        from scipy import stats as st
+        wd = w[mask_den]
+        if wd.sum() <= 0:
+            return None
+        p = w[mask_den & mask_num].sum() / wd.sum()
+        neff = wd.sum() ** 2 / (wd ** 2).sum()
+        z = st.norm.ppf(0.5 + conf / 2)
+        den = 1 + z * z / neff
+        c = (p + z * z / (2 * neff)) / den
+        h = z * np.sqrt(p * (1 - p) / neff + z * z / (4 * neff * neff)) / den
+        return {"p": float(p), "ic": [float(max(0, c - h)), float(min(1, c + h))], "n": int(mask_den.sum()), "n_ef": float(neff)}
+
+    def _orden(self, dim, valores):
+        o = self._ORDEN.get(dim)
+        if dim == "ccaa":
+            nom = dict(zip(self.P.nivel("ccaa")["ids"], self.P.nivel("ccaa")["nombres"]))
+            return sorted(valores, key=lambda c: nom.get(f"ES-CA-{c}", c)), {c: nom.get(f"ES-CA-{c}", c) for c in valores}
+        return ([x for x in o if x in valores] if o else sorted(valores)), {c: c for c in valores}
+
+    def m_votantes(self, params):
+        """Perfiles de votantes con microdatos del CIS.
+
+        vista «perfil»: composición de los votantes de cada partido por la dimensión, P(grupo | voto).
+        vista «grupo»: voto de cada grupo social, P(voto | grupo).
+        vista «ideologia»: media de autoubicación (1–10) por partido con IC."""
+        d, est, elecs = self._encuesta(params.get("eleccion"))
+        eleccion = d["eleccion"][0]
+        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"))
+        voto = d["voto"]
+        valido = np.array([v is not None for v in voto])
+        # partidos a mostrar: los de mayor voto ponderado + abstención
+        tot = {}
+        for v, wi in zip(voto[valido], w[valido]):
+            tot[v] = tot.get(v, 0) + wi
+        n_part = int(params.get("partidos", 7))
+        partidos = [p for p, _ in sorted(tot.items(), key=lambda kv: -kv[1]) if p not in self._NO_PARTIDO and p != "Otros"][:n_part]
+        if params.get("abstencion", True) and "Abstención" in tot:
+            partidos.append("Abstención")
+        vista = params.get("vista", "perfil")
+        dim = params.get("dimension", "grupo_edad")
+        meta_est = self.P.meta["encuestas"]["estudios"][est]
+        r = {"estudio": est, "eleccion": eleccion, "elecciones": elecs, "titulo": meta_est["titulo"], "modo": meta_est["modo"],
+             "campo": meta_est["campo"], "url": meta_est["url"], "n": int(len(voto)), "n_voto": int(valido.sum()), "ajuste": ajuste,
+             "partidos": partidos, "vista": vista, "dimension": dim, "dimension_nombre": self._DIMS.get(dim, dim),
+             # partidos: % del voto a candidaturas; abstención: % de quienes declaran qué hicieron
+             "shares": {p: float(tot.get(p, 0) / (sum(v for k, v in tot.items() if k not in self._NO_PARTIDO) if p not in self._NO_PARTIDO
+                                                  else sum(v for k, v in tot.items() if k != "Nuevos votantes")))
+                        for p in partidos},
+             "advertencias": ["Voto declarado (recuerdo) en una encuesta posterior a la elección: suele sobrerrepresentar al ganador y a la participación.",
+                              "Intervalos de confianza de Wilson sobre el tamaño efectivo de Kish (ponderación); no incluyen el efecto de conglomerados del muestreo.",
+                              "Grupos con pocos casos (n < 50) tienen intervalos muy amplios: interpretar con cautela."]}
+        if meta_est["modo"].startswith("telef"):
+            r["advertencias"].append("Encuesta telefónica (CATI): el modo de entrevista difiere de las ediciones presenciales anteriores.")
+        if vista == "ideologia":
+            ide = d["ideologia"]
+            filas = []
+            for p in partidos:
+                m = (voto == p) & np.isfinite(ide)
+                if m.sum() < 2:
+                    continue
+                wi, x = w[m], ide[m]
+                mu = np.average(x, weights=wi)
+                var = np.average((x - mu) ** 2, weights=wi)
+                neff = wi.sum() ** 2 / (wi ** 2).sum()
+                se = np.sqrt(var / neff)
+                hist = [float(wi[x == k].sum() / wi.sum()) for k in range(1, 11)]
+                filas.append({"partido": p, "media": float(mu), "ic": [float(mu - 1.96 * se), float(mu + 1.96 * se)], "desviacion": float(np.sqrt(var)),
+                              "n": int(m.sum()), "distribucion": hist, "sin_respuesta": float(1 - m.sum() / max(1, (voto == p).sum()))})
+            m = np.isfinite(ide)
+            r["ideologia"] = filas
+            r["media_total"] = float(np.average(ide[m], weights=w[m]))
+            return r
+        if dim not in self._DIMS:
+            raise ErrorPeticion(f"Dimensión no válida: {dim}")
+        g = d[dim]
+        cats, nombres = self._orden(dim, sorted({c for c in g if c is not None}))
+        tabla = []
+        if vista == "perfil":
+            for p in partidos:
+                den = (voto == p) & np.array([c is not None for c in g])
+                tabla.append({"fila": p, "celdas": [self._prop(w, g == c, den) for c in cats], "n": int(den.sum())})
+            den = valido & np.array([c is not None for c in g])
+            tabla.append({"fila": "Total (votantes y abstencionistas con respuesta)", "celdas": [self._prop(w, g == c, den) for c in cats], "n": int(den.sum())})
+        else:
+            for c in cats:
+                den = valido & (g == c)
+                tabla.append({"fila": nombres[c], "celdas": [self._prop(w, voto == p, den) for p in partidos], "n": int(den.sum())})
+        r.update(categorias=[nombres[c] for c in cats], tabla=tabla)
+        return r
+
+    def m_trasvases(self, params):
+        """Matriz de trasvases declarados: voto en la elección anterior → voto en la elección del estudio."""
+        d, est, elecs = self._encuesta(params.get("eleccion"))
+        eleccion = d["eleccion"][0]
+        w, ajuste = self._pesos(d, eleccion, params.get("ajuste", "resultado_oficial"))
+        a, b = d["voto_anterior"], d["voto"]
+        ok = np.array([x is not None and y is not None for x, y in zip(a, b)])
+        tot_a, tot_b = {}, {}
+        for x, y, wi in zip(a[ok], b[ok], w[ok]):
+            tot_a[x] = tot_a.get(x, 0) + wi
+            tot_b[y] = tot_b.get(y, 0) + wi
+        k = int(params.get("partidos", 8))
+        top = lambda t: [p for p, _ in sorted(t.items(), key=lambda kv: -kv[1]) if p not in ("Otros",)][:k]
+        filas, cols = top(tot_a), top(tot_b)
+        M = np.zeros((len(filas), len(cols)))
+        for x, y, wi in zip(a[ok], b[ok], w[ok]):
+            if x in filas and y in cols:
+                M[filas.index(x), cols.index(y)] += wi
+        total = w[ok].sum()
+        meta_est = self.P.meta["encuestas"]["estudios"][est]
+        return {"estudio": est, "eleccion": eleccion, "anterior": d["eleccion_anterior"][0], "elecciones": elecs, "titulo": meta_est["titulo"],
+                "ajuste": ajuste, "origen": filas, "destino": cols, "n": int(ok.sum()),
+                "flujo": (M / total).tolist(),
+                "destino_de_origen": (M / np.maximum(M.sum(1, keepdims=True), 1e-12)).tolist(),
+                "origen_de_destino": (M / np.maximum(M.sum(0, keepdims=True), 1e-12)).tolist(),
+                "advertencias": ["Trasvases declarados por los propios entrevistados (recuerdo de las dos elecciones): el recuerdo de la elección anterior es menos fiable.",
+                                 "«Nuevos votantes»: no tenían edad para votar en la elección anterior. Se excluyen quienes no recuerdan o no contestan.",
+                                 "Las filas y columnas muestran los principales partidos; el resto queda fuera de la matriz."]}
+
+    def m_votantes_evolucion(self, params):
+        """Evolución del perfil de los votantes de una familia en todas las encuestas postelectorales."""
+        familia, dim = params.get("familia", "PSOE"), params.get("dimension", "grupo_edad")
+        if dim not in self._DIMS:
+            raise ErrorPeticion(f"Dimensión no válida: {dim}")
+        E = self.P.encuesta
+        if E is None:
+            raise ErrorPeticion("Microdatos del CIS no cargados.")
+        elecs = sorted({e for e in E["eleccion"] if e})
+        cats, nombres = self._orden(dim, sorted({c for c in E[dim] if c is not None}))
+        serie = []
+        for el in elecs:
+            d, est, _ = self._encuesta(el)
+            w, _ = self._pesos(d, el, params.get("ajuste", "resultado_oficial"))
+            den = (d["voto"] == familia) & np.array([c is not None for c in d[dim]])
+            if den.sum() < 20:
+                serie.append({"eleccion": el, "n": int(den.sum()), "celdas": None})
+                continue
+            serie.append({"eleccion": el, "n": int(den.sum()), "celdas": [self._prop(w, d[dim] == c, den) for c in cats]})
+        return {"familia": familia, "dimension": dim, "dimension_nombre": self._DIMS[dim], "categorias": [nombres[c] for c in cats], "serie": serie,
+                "advertencias": ["Cada punto es una encuesta distinta; 2023 es telefónica y las demás presenciales.",
+                                 "Las familias siguen la tabla de Atlas (p. ej., Sumar en 2023 y Podemos y confluencias antes)."]}
+
+    def m_validacion_cis(self, params):
+        """Voto declarado frente a resultado oficial, por convocatoria (sesgo de recuerdo)."""
+        E = self.P.encuesta
+        if E is None:
+            raise ErrorPeticion("Microdatos del CIS no cargados.")
+        out = []
+        for el in sorted({e for e in E["eleccion"] if e}):
+            d, est, _ = self._encuesta(el)
+            w = d["peso"]
+            voto = d["voto"]
+            partido = np.array([v is not None and v not in self._NO_PARTIDO for v in voto])
+            decl = {}
+            for v, wi in zip(voto[partido], w[partido]):
+                decl[v] = decl.get(v, 0) + wi
+            tot = sum(decl.values())
+            filas = []
+            for f in sorted(decl, key=lambda f: -decl[f])[:8]:
+                o = self.P.serie("pais", "voto_familia", el, f)
+                filas.append({"familia": f, "declarado": decl[f] / tot, "oficial": float(o[0]) if o is not None and np.isfinite(o[0]) else None})
+            valido = np.array([v is not None and v != "Nuevos votantes" for v in voto])
+            part_decl = float(w[valido & (voto != "Abstención")].sum() / w[valido].sum())
+            part_ofi = float(self.P.serie("pais", "participacion", el)[0])
+            out.append({"eleccion": el, "estudio": est, "filas": filas, "participacion_declarada": part_decl, "participacion_oficial": part_ofi,
+                        "error_medio": float(np.mean([abs(x["declarado"] - x["oficial"]) for x in filas if x["oficial"] is not None]))})
+        return {"convocatorias": out, "nota": "Diferencias habituales en encuestas postelectorales; el ajuste «resultado oficial» las corrige recalibrando los pesos.",
+                "advertencias": ["La participación oficial incluye el voto exterior (CERA); la encuesta, solo residentes en España."]}
+
     def m_encuesta(self, params):
         """Evaluación metodológica de una encuesta a partir de su ficha técnica publicada."""
         from atlas_spain.stats import surveys as sv

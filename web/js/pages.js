@@ -45,7 +45,7 @@ async function insightsEstadisticos() {
   try { hs = await getJSON("data/hallazgos_estadisticos.json"); } catch (e) { return; }
   $("#ins-st").innerHTML = hs.map((h, i) => `
     <div class="card st-find" style="animation-delay:${0.05 + i * 0.07}s">
-      <span class="tag">Estadística · ${esc({ descriptiva: "distribución", contraste: "contraste", espacial: "autocorrelación espacial", atipicos: "anomalías", correlacion: "correlación", perfiles: "perfiles territoriales" }[h.metodo] || h.metodo)}</span>
+      <span class="tag">Estadística · ${esc({ descriptiva: "distribución", contraste: "contraste", espacial: "autocorrelación espacial", atipicos: "anomalías", correlacion: "correlación", perfiles: "perfiles territoriales", votantes: "votantes (CIS)" }[h.metodo] || h.metodo)}</span>
       <h3>${esc(h.titulo)}</h3>
       <p class="st-f-meta">${esc(h.territorio)} · ${esc(h.variable)} · ${esc(h.periodo)}</p>
       <p class="st-f-res">${esc(h.resultado)}</p>

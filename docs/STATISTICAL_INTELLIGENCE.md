@@ -141,3 +141,17 @@ Cada respuesta incluye `ejecucion`: id, método, versión del motor, huella del 
 **Dónde se ve:** Estadística → Perfiles (tarjetas, voto por perfil, evolución 1977–2023, participación, mapa); perfil en la pestaña Estadística de cada municipio; variable «perfil» en Probabilidad; hallazgo «Cómo vota cada tipo de municipio».
 
 **Siguiente paso para perfiles de votantes reales:** integrar microdatos de encuestas del CIS (barómetros y postelectorales). La descarga suele requerir registro, que debe hacer el usuario.
+
+## Votantes: microdatos de encuestas del CIS (10/11/2026)
+
+**Qué añade:** perfiles de **personas** (no de territorios): quién vota a cada partido por edad, sexo, estudios, situación laboral, ideología, tamaño de municipio y comunidad; qué vota cada grupo; ideología media por partido; trasvases declarados entre elecciones; evolución de cada electorado 2015–2023.
+
+**Fuente:** encuestas postelectorales de generales del CIS — estudios 3126 (2015), 3145 (2016), 3248 (abril 2019), 3269 (noviembre 2019) y 3420 (2023); 33.265 entrevistas. Descargadas desde www.cis.es mediante el formulario de solicitud del CIS (autorizado por el usuario), guardadas sin modificar en `data/landing/cis/` con su SHA-256 (`data/gold/cis_estudios.json`). Registradas como `CIS-POSTELECTORALES` en `config/sources.yaml`.
+
+**Armonización** (`atlas_spain.encuestas.cis`): recuerdo de voto (variable recodificada del CIS) traducido a las familias de Atlas; voto en la elección anterior; categorías comunes de sexo, edad (tramos), estudios, situación laboral, ideología (1–10), tamaño de municipio y comunidad. El estudio de 2015 se lee del fichero ASCII con su sintaxis SPSS (lector propio, con decimales con coma). Pesos: PESO del CIS en 2015, nov. 2019 y 2023; 1 en 2016 y abril 2019 (afijación proporcional, «ponderación: no procede» según sus fichas técnicas).
+
+**Calidad comprobada:** el voto declarado se desvía del oficial 1,5–2,5 puntos por partido de media y la participación declarada (81–88 %) supera la real (66–72 %). Por eso, por defecto, los pesos se **calibran al resultado oficial** por familia (la abstención no se ajusta); el test `test_ajuste_reproduce_resultado_oficial` lo verifica. Intervalos de Wilson sobre el tamaño efectivo de Kish (no incluyen el efecto de conglomerados). 2023 es telefónica (CATI); las demás, presenciales.
+
+**Privacidad:** los microdatos están anonimizados por el CIS y viajan solo dentro de la función de Vercel (`web/api/_lib`, no servida como estático: verificado 404). La web solo recibe resultados agregados.
+
+**Dónde se ve:** Estadística → Votantes (CIS): quién vota a cada partido, qué vota cada grupo, ideología, trasvases (Sankey), evolución, calidad de la encuesta; hallazgo «Quién vota a cada partido: la edad».

@@ -22,6 +22,8 @@ from pathlib import Path
 import numpy as np
 
 NIVELES = ("municipio", "provincia", "ccaa", "pais")
+ENC_CATEGORICAS = ("estudio", "eleccion", "eleccion_anterior", "voto", "voto_anterior", "sexo", "grupo_edad", "estudios",
+                   "sitlab", "grupo_ideologia", "tamuni", "ccaa")
 
 
 def exportar(destino: Path | None = None) -> Path:
@@ -84,6 +86,20 @@ def exportar(destino: Path | None = None) -> Path:
         arrays["municipio__M"] = np.vstack([arrays["municipio__M"], fila[None, :]])
         meta["niveles"]["municipio"]["claves"].append("perfil||2025")
         meta["perfiles"] = {k: v for k, v in pf.items() if k != "asignacion"}
+    # microdatos de encuestas postelectorales del CIS (atlas_spain.encuestas.cis), codificados por categorías
+    fe = paths.DATA / "gold" / "cis_postelectorales.parquet"
+    if fe.exists():
+        import pandas as pd
+        e = pd.read_parquet(fe)
+        cats = {}
+        for c in ENC_CATEGORICAS:
+            valores = sorted(e[c].dropna().unique().tolist())
+            cats[c] = valores
+            arrays[f"enc__{c}"] = e[c].map({k: i for i, k in enumerate(valores)}).fillna(-1).astype(np.int16).to_numpy()
+        for c in ("edad", "ideologia", "peso"):
+            arrays[f"enc__{c}"] = e[c].astype(np.float32).to_numpy()
+        est = json.loads((paths.DATA / "gold" / "cis_estudios.json").read_text(encoding="utf-8"))
+        meta["encuestas"] = {"categorias": cats, "estudios": est, "n": int(len(e))}
     buf = io.BytesIO()
     np.savez_compressed(buf, meta=np.frombuffer(json.dumps(meta, ensure_ascii=False).encode("utf-8"), np.uint8), **arrays)
     destino.parent.mkdir(parents=True, exist_ok=True)
@@ -108,6 +124,12 @@ class Panel:
                 cortes = np.r_[0, np.cumsum(lon)]
                 self.vecinos[n] = [flat[cortes[i]:cortes[i + 1]].tolist() for i in range(len(lon))]
         self.claves = {n: {k: i for i, k in enumerate(self.meta["niveles"][n]["claves"])} for n in NIVELES}
+        self.encuesta = None
+        if "encuestas" in self.meta:
+            cats = self.meta["encuestas"]["categorias"]
+            self.encuesta = {c: np.array(cats[c] + [None], dtype=object)[z[f"enc__{c}"]] for c in cats}
+            for c in ("edad", "ideologia", "peso"):
+                self.encuesta[c] = z[f"enc__{c}"].astype(float)
         self.catalogo = {v["variable"]: v for v in self.meta["catalogo"]}
 
     def nivel(self, n):

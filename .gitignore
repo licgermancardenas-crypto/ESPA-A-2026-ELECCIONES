@@ -32,3 +32,4 @@ Thumbs.db
 web/data/
 web/.vercel
 web/_lib/
+web/api/_lib/

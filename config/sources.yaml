@@ -352,10 +352,27 @@ sources:
     frecuencia: Mensual
     granularidad: estudio (microdato individual anonimizado)
     licencia: "Uso con cita del CIS; condiciones del banco de datos"
-    restricciones: "Microdatos tras registro. No re-identificar encuestados."
+    restricciones: "Microdatos tras formulario de solicitud (datos del solicitante), sin descarga masiva. No re-identificar encuestados."
     metodo_extraccion: manual_registered
     probe_url: https://www.cis.es/
     connector: null
+
+  - source_id: CIS-POSTELECTORALES
+    organismo: Centro de Investigaciones Sociológicas
+    dataset: "Encuestas postelectorales de generales: microdatos (estudios 3126, 3145, 3248, 3269, 3420)"
+    categoria: encuestas
+    url: https://www.cis.es/es/estudios/catalogo
+    api: "Formulario de descarga por estudio (MDxxxx.zip); ficheros en data/landing/cis con SHA-256"
+    formato: SAV, ASCII + sintaxis SPSS
+    cobertura_territorial: Nacional (comunidad y tamaño de municipio del entrevistado)
+    cobertura_historica: generales 2015–2023
+    frecuencia: Por convocatoria
+    granularidad: entrevista individual anonimizada
+    licencia: "Condiciones de reutilización del CIS; citar el estudio"
+    restricciones: "Voto declarado (recuerdo); márgenes de error; no re-identificar encuestados."
+    metodo_extraccion: manual_registered
+    probe_url: https://www.cis.es/
+    connector: atlas_spain.encuestas.cis
 
   - source_id: EUSKADI-SOCIOMETRO
     organismo: Gobierno Vasco — Gabinete de Prospección Sociológica

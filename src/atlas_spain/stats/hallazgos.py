@@ -162,6 +162,27 @@ def generar() -> list[dict]:
         }
     add(_perfiles, "perfiles", {"tipo": "02", "periodo": gen}, modulo="perfiles")
 
+    # 8. votantes (microdatos del CIS)
+    if S.P.encuesta is not None:
+        def _votantes(d):
+            idx = d["categorias"].index("65 y más")
+            filas = {f["fila"]: f for f in d["tabla"]}
+            pares = [(p, filas[p]["celdas"][idx]["p"]) for p in d["partidos"] if p in filas and p != "Abstención" and filas[p]["n"] >= 100]
+            pares.sort(key=lambda x: -x[1])
+            jov = d["categorias"].index("18–24")
+            ab = filas.get("Abstención")
+            return {
+                "titulo": "Quién vota a cada partido: la edad",
+                "territorio": "España (encuesta postelectoral del CIS)", "variable": "Edad de los votantes (voto declarado)", "periodo": "generales 2023",
+                "resultado": f"Los mayores de 65 años son el {_pct(pares[0][1], 0)} de los votantes de {pares[0][0]} y el {_pct(pares[-1][1], 0)} de los de {pares[-1][0]}.",
+                "contexto": (f"Entre quienes no votaron, los de 18 a 24 años pesan el {_pct(ab['celdas'][jov]['p'], 0)}." if ab else "") +
+                            " Perfiles de personas (microdatos), con la ponderación ajustada al resultado oficial.",
+                "limitacion": "Voto declarado en una encuesta (estudio 3420, telefónica, 10.101 entrevistas): margen de error y sesgo de recuerdo corregido por calibración.",
+                "fuente": "CIS, estudio 3420",
+                "cifras": [[p, _pct(v, 0)] for p, v in pares[:3]],
+            }
+        add(_votantes, "votantes", {"vista": "perfil", "dimension": "grupo_edad", "eleccion": gen, "ajuste": "resultado_oficial"}, modulo="votantes")
+
     destino = paths.ROOT / "web" / "data"
     (destino / "hallazgos_estadisticos.json").write_text(json.dumps(out, ensure_ascii=False, allow_nan=False), encoding="utf-8")
     (destino / "core").mkdir(parents=True, exist_ok=True)

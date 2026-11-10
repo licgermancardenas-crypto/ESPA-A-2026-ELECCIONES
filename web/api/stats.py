@@ -3,7 +3,7 @@
 GET  /api/stats?metodo=catalogo
 POST /api/stats   {"metodo": "...", "params": {...}}
 
-El motor y el panel (data/gold/stat_panel.npz) se copian en web/_lib con
+El motor y el panel (data/gold/stat_panel.npz) se copian en web/api/_lib con
 `python -m atlas_spain.web.estatico`. Solo depende de numpy y scipy.
 """
 
@@ -13,7 +13,7 @@ from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-LIB = Path(__file__).resolve().parent.parent / "_lib"
+LIB = Path(__file__).resolve().parent / "_lib"  # no se publica como estático
 sys.path.insert(0, str(LIB))
 
 from atlas_spain.stats.panel import Panel  # noqa: E402

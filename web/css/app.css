@@ -439,3 +439,9 @@ code.wrap { word-break: break-all; font-size: 11px; color: var(--muted); }
 .fe-perfil { border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 12px; padding: 10px 12px; margin: 10px 0; }
 .fe-perfil small { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 .fe-perfil b { display: block; font-size: 14px; margin: 2px 0 4px; }
+
+/* votantes (CIS) */
+.st-cis { font-size: 11.5px; color: var(--dim); margin: 0 0 14px; line-height: 1.5; }
+.st-cis a { color: var(--violet-2); }
+.vt-tab td.n, .vt-tab th.n { white-space: nowrap; }
+.vt-tab td:first-child { white-space: nowrap; }

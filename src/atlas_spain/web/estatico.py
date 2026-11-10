@@ -217,7 +217,9 @@ def motor():
     """Copia el motor estadístico y el panel a web/_lib para la función serverless (api/stats.py)."""
     import shutil
     from atlas_spain.stats import panel as P
-    lib = paths.ROOT / "web" / "_lib"
+    # dentro de api/: Vercel no sirve como estáticos los archivos de esa carpeta (el panel incluye microdatos del CIS)
+    lib = paths.ROOT / "web" / "api" / "_lib"
+    shutil.rmtree(paths.ROOT / "web" / "_lib", ignore_errors=True)
     shutil.rmtree(lib, ignore_errors=True)
     (lib / "atlas_spain" / "stats").mkdir(parents=True)
     (lib / "atlas_spain" / "__init__.py").write_text('"""Copia mínima para la función serverless."""\n', encoding="utf-8")

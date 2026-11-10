@@ -75,6 +75,9 @@ atlas web                # solo servir (si web/data ya existe)
   anomalías, autocorrelación espacial, probabilidad condicional y evaluación de encuestas sobre el warehouse.
   El cálculo lo hace `atlas_spain.stats` (local: `/api/stats`; publicado: función de Vercel). Ver
   [docs/STATISTICAL_INTELLIGENCE.md](docs/STATISTICAL_INTELLIGENCE.md).
+- **Perfiles territoriales** (tipología de municipios y cómo vota cada tipo) y **Votantes (CIS)**: perfiles de votantes
+  con microdatos de las encuestas postelectorales del CIS 2015–2023 (`python -m atlas_spain.encuestas.cis` lee los
+  `MDxxxx.zip` dejados en `data/landing/cis/`).
 - **Mapa base** a elegir: oscuro, **satélite** (ortofotos PNOA del Instituto Geográfico Nacional, CC BY 4.0) o
   **relieve 3D** (satélite sobre el modelo de elevación de AWS Terrain Tiles; arrastrar con clic derecho para girar).
 - Enlaces directos a una vista: `http://127.0.0.1:8080/#fondo=satelite&sel=ES-MU-28079`.
