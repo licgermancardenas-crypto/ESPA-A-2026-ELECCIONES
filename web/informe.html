@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informe provincial · ATLAS</title>
+  <meta name="description" content="Informe electoral de una provincia: resultados, evolución, quién vota a cada partido y posición en España.">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="css/informe.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body>
+  <div class="barra no-print">
+    <a class="volver" href="./">← Volver a ATLAS</a>
+    <label>Provincia <select id="prov"></select></label>
+    <button id="pdf" disabled>Descargar PDF</button>
+    <span class="ayuda">En el diálogo de impresión elige «Guardar como PDF».</span>
+  </div>
+  <main id="informe"><p class="cargando">Preparando el informe…</p></main>
+  <script type="module" src="js/informe.js"></script>
+</body>
+</html>

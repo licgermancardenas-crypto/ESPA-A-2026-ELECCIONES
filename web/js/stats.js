@@ -810,7 +810,8 @@ export async function fichaEstadistica(el, geoId) {
       <div class="block">${btn(`Distribución en ${esc(S.terr[ambitoId]?.n || nombre)}`, "descriptiva", { x: { variable: "participacion", periodo: gen }, ambito: { nivel: "municipio", dentro: ambitoId }, peso: "censo" })}
       ${btn("Anomalías de participación", "atipicos", { x: { variable: "participacion", periodo: gen, base: genAnt }, ambito: { nivel: "municipio", dentro: ambitoId } })}
       ${btn("Renta y participación", "correlacion", { x: { variable: "renta_persona", periodo: "2024" }, y: { variable: "participacion", periodo: gen }, ambito: { nivel: "municipio", dentro: ambitoId }, metodo: "spearman" })}
-      ${provId ? btn(`Quién vota a cada partido en ${esc(S.terr[provId]?.n || "la provincia")}`, "votantes", { vista: "prov_perfil", provincia: provId, eleccion: "02-202307" }) : ""}</div>
+      ${provId ? btn(`Quién vota a cada partido en ${esc(S.terr[provId]?.n || "la provincia")}`, "votantes", { vista: "prov_perfil", provincia: provId, eleccion: "02-202307" }) : ""}
+      ${provId ? `<a class="chip" href="informe.html?id=${provId}" target="_blank" rel="noopener">Informe de ${esc(S.terr[provId]?.n || "la provincia")} (PDF)</a>` : ""}</div>
       <p class="note">Valores agregados por territorio. Una posición extrema o atípica no implica un error ni una irregularidad.</p>`;
     if (esMun) historiaChart($("#fe-hist", el), (await D.stats("historia", { geo_id: geoId, variable: "participacion", tipo: "02" })).resultado, "proporción");
   }
@@ -1232,7 +1233,8 @@ function pintarProvPerfil(d, provId, dim, avisos) {
         return `<td class="n" title="IC 95 %: ${pct1(lo)} – ${pct1(hi)}" style="background:${dif > 0 ? `rgba(196,11,255,${Math.min(0.5, dif * 3)})` : `rgba(47,111,214,${Math.min(0.5, -dif * 3)})`}">${pct1(v)}<small class="ic">${fmt.n(lo, 0)}–${fmt.n(hi, 0)}</small></td>`; }).join("")}<td class="n">${pct1(f.v)}</td></tr>`).join("")}
       <tr class="pf-ref"><td>Electorado total</td>${pob.map((v) => `<td class="n">${pct1(v)}</td>`).join("")}<td class="n">100 %</td></tr></table></div>
       <p class="note">Debajo de cada cifra, su intervalo del 95 %. Color: más (violeta) o menos (azul) presencia del grupo que en el electorado total de la provincia.</p></section>
-    <p class="st-cis">Fuentes: CIS, estudio ${esc(d.estudio)} (${fmt.n(d.n)} entrevistas en España); INE, Censo anual ${d.censo_anio} (tabla 66601); Ministerio del Interior, resultados de ${esc(u.nombre)}. Método: MRP.</p>` + repro(r);
+    <div class="row2" style="margin-bottom:16px"><a class="btn btn-primary" href="informe.html?id=${provId}" target="_blank" rel="noopener">Informe completo de ${esc(u.nombre)} (PDF)</a></div>
+    <p class="st-cis">Fuentes: CIS, estudio ${esc(d.estudio)} (${fmt.n(d.n)} entrevistas en España); INE, Censo anual ${d.censo_anio}; Ministerio del Interior, resultados de ${esc(u.nombre)}. Método: MRP.</p>` + repro(r);
   enlazarExport($("#st-res"));
   const ys = [...filas.map((f) => f.p), "Electorado total"];
   C.chart($("#vt-pp")).setOption({
