@@ -112,7 +112,7 @@ def exportar() -> dict:
                        coalesce(f.familia, 'Otros') familia,
                        row_number() over (partition by g.election_id, g.geo_level, g.geo_id order by g.votos desc) rk
                 from gold.results_by_group g
-                left join main.party_families f using (election_id, agrupacion_siglas)
+                left join gold.party_family_map f using (election_id, agrupacion_siglas)
                 where g.geo_level in ('ccaa','provincia','municipio'))
             select a.election_id, a.geo_id, a.familia, a.agrupacion_siglas, a.vote_share,
                    a.vote_share - coalesce(b.vote_share, 0) margen, b.familia familia2, t.turnout

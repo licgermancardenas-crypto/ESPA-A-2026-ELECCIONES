@@ -97,6 +97,17 @@ Los empates totales (mismo cociente y mismos votos) no se resuelven por sorteo: 
      sigla (p. ej. "MM" 2019: Más Madrid y una lista local); se asigna la familia del componente con
      más votos y se anota aquí. En municipales 2023, En Comú, Con Andalucía y las listas
      Podemos-IU se agrupan en "Podemos y confluencias" (IU sola se mantiene como IU).
+   - **Asignación complementaria por reglas (11/2026).** Las candidaturas que no figuran en la tabla manual
+     se asignan con reglas explícitas de nombre (`atlas_spain.electoral.familias_regionales` →
+     `dbt/seeds/party_families_extra.csv`, con la regla de cada fila; el mapa único es `gold.party_family_map`,
+     y la tabla manual siempre tiene prioridad). Cubre variantes de siglas de familias existentes
+     (PSN-PSOE, U.P.N., IU-CYL, BCN Canvi-Cs…) y partidos regionales con familia propia: Teruel Existe,
+     Soria ¡Ya!, Por Ávila, UPL, Nueva Canarias, Chunta Aragonesista, Geroa Bai, Foro Asturias, Més per Mallorca,
+     Coalición por Melilla, Caballas, Euskadiko Ezkerra, Eusko Alkartasuna, Aralar, Unidad Alavesa, UPCA,
+     Unió Mallorquina, Partido Riojano, PSP, UPC, Coalición Galega, GIL y Unión Nacional (523 filas). Decisiones:
+     AIC/ATI → Coalición Canaria; CAIC (1977) → PAR; UDC-IDCC (1977) → Convergència / Junts; «La España Olvidada
+     Existe» (europeas 2024) y «Aragón Existe» (municipales 2023) → Teruel Existe; el PSOE histórico (1977–79) no se
+     asigna al PSOE. Las listas locales y de independientes siguen en «Otros».
 
 Convocatorias 1977–2015: los antecesores mantienen familia propia ("AP / Coalición Popular" no se
 suma al PP; "PCE" no se suma a IU; "Izquierda abertzale (HB / EH)" no se suma a EH Bildu). Excepciones

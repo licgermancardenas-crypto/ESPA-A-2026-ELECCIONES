@@ -83,7 +83,13 @@ FAMILIAS_COLOR = {
     "Ahora Repúblicas (coalición)": "#F08A00", "CEUS (coalición)": "#4CAF50", "CPE (coalición)": "#8BC34A",
     "Se Acabó La Fiesta": "#8B5A2B", "PACMA": "#8EC43F", "UPyD": "#E5007E", "Nueva Canarias": "#7FB5DA", "UCD": "#F28C28", "CDS": "#3CB371", "AP / Coalición Popular": "#4A7BC8",
     "PCE": "#B22222", "Izquierda abertzale (HB / EH)": "#5F9F6F", "PNV-EA (coalición)": "#4E8F3A", "Partido Andalucista": "#3FA34D",
-    "Unió Valenciana": "#E07B39", "PAR": "#F0B83C", "Otros": "#B8B2C8",
+    "Unió Valenciana": "#E07B39", "PAR": "#F0B83C",
+    "Soria ¡Ya!": "#2E8B57", "Por Ávila": "#7A5230", "UPL": "#B5174A", "Chunta Aragonesista": "#1F6F8B", "Geroa Bai": "#C0392B",
+    "Foro Asturias": "#2B4C9B", "Més per Mallorca": "#E9A23B", "Coalición por Melilla": "#3D8B5A", "Caballas": "#5C9E31",
+    "Euskadiko Ezkerra": "#C93B3B", "Eusko Alkartasuna": "#76A831", "Aralar": "#C62828", "Unidad Alavesa": "#2F5DA8",
+    "UPCA": "#5B7FC4", "Unió Mallorquina": "#D96C3B", "Partido Riojano": "#8E44AD", "PSP": "#D94848", "UPC": "#E0B400",
+    "Coalición Galega": "#4C8FC0", "GIL": "#6D6D6D", "Unión Nacional": "#5A5A5A",
+    "Otros": "#B8B2C8",
 }
 
 

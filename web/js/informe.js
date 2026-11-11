@@ -130,7 +130,7 @@ function pintar(id, f, mrp, serie, pos) {
   const sucesoras = new Set(Object.values(LINAJE).flat().filter((x) => Object.entries(LINAJE).some(([n, pre]) => pre.includes(x) && R[n])));
   const desaparecidas = Object.values(RA).filter((e) => e.familia !== "Otros" && e.vote_share >= 0.03 && !R[e.familia] && !sucesoras.has(e.familia));
   if (desaparecidas.length) dest.push(`${desaparecidas.map((e) => `${esc(e.familia)} (${fmt.pct(e.vote_share)} en ${esc(corto(gAnt))})`).join(" y ")} no ${desaparecidas.length > 1 ? "figuran" : "figura"} como familia política en ${esc(corto(g))}: no se presentó o su candidatura se cuenta dentro de «Otros».`);
-  const sobre = orden.filter((e) => N[e.familia]).map((e) => ({ f: e.familia, d: e.vote_share - N[e.familia][0], v: e.vote_share })).sort((a, b) => b.d - a.d)[0];
+  const sobre = orden.filter((e) => N[e.familia] && N[e.familia][0] >= 0.03).map((e) => ({ f: e.familia, d: e.vote_share - N[e.familia][0], v: e.vote_share })).sort((a, b) => b.d - a.d)[0];
   if (sobre && sobre.d > 0.01) dest.push(`${esc(sobre.f)} obtiene aquí ${fmt.n(sobre.d * 100, 1)} puntos más que en el conjunto de España (${fmt.pct(sobre.v)} frente a ${fmt.pct(N[sobre.f][0])}).`);
   const loc = locales.filter((a) => a.vote_share >= 0.05);
   if (loc.length) dest.push(`${loc.map((a) => `La candidatura <b>${esc(a.agrupacion_siglas)}</b> obtuvo el ${fmt.pct(a.vote_share)}${a.escanos ? ` y ${a.escanos} escaño${a.escanos > 1 ? "s" : ""}` : ""}`).join("; ")}. En las comparaciones por familia política figura dentro de «Otros».`);
