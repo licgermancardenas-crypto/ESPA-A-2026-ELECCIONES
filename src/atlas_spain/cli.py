@@ -144,9 +144,31 @@ def main(argv=None) -> int:
     pb = sub.add_parser("powerbi", help="genera reports/powerbi/ATLAS_Espana.pbip")
     pb.add_argument("--sin-datos", action="store_true")
     sub.add_parser("status")
+    pr = sub.add_parser("pronostico", help="generales 29-N-2026: backtest + pronóstico + exportación")
+    pr.add_argument("paso", choices=["todo", "backtest", "forecast", "export"], nargs="?", default="todo")
+    pr.add_argument("--corte", help="fecha de corte de encuestas AAAA-MM-DD (por defecto hoy, máx. veda)")
     args = p.parse_args(argv)
-    return {"registry": cmd_registry, "ingest": cmd_ingest, "build": cmd_build,
+    return {"registry": cmd_registry, "ingest": cmd_ingest, "build": cmd_build, "pronostico": cmd_pronostico,
             "quality": cmd_quality, "status": cmd_status, "powerbi": cmd_powerbi, "web": cmd_web}[args.cmd](args)
+
+
+def cmd_pronostico(args) -> int:
+    from datetime import date
+    corte = date.fromisoformat(args.corte) if args.corte else None
+    if args.paso in ("todo", "backtest"):
+        from .pronostico import backtest
+        r = backtest.ejecutar()
+        print("Modelo seleccionado:", r["modelo_seleccionado"], "| σ_nac", r["sigma_nac"], "| σ_prov", r["sigma_prov"])
+    if args.paso in ("todo", "forecast"):
+        from .pronostico import pronostico
+        r = pronostico.ejecutar(corte)
+        n = r["nacional"]
+        print(f"Pronóstico ({n['n_encuestas']} encuestas, corte {n['corte']}):",
+              {b: round(v["media"], 1) for b, v in n["escanos"].items()})
+    if args.paso in ("todo", "export"):
+        from .pronostico import exportar
+        exportar.ejecutar()
+    return 0
 
 
 if __name__ == "__main__":

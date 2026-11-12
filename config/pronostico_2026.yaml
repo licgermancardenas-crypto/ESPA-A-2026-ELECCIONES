@@ -1,0 +1,139 @@
+# Motor de pronóstico — Elecciones generales 29-N-2026 (Congreso de los Diputados, 52 circunscripciones)
+# Todo umbral o parámetro que use la web, el Excel o el Power BI sale de aquí.
+
+eleccion_objetivo:
+  id: "02-202611"
+  fecha: "2026-11-29"
+  convocatoria: "Real Decreto 806/2026, de 5 de octubre (BOE)"
+  candidaturas: "BOE-A-2026-23103 (BOE núm. 273, 3-nov-2026)"
+  escanos_total: 350
+  barrera: 0.03                 # art. 163.1.a LOREG: 3 % de los votos válidos de la circunscripción
+  # Veda: art. 69.7 LOREG. Prohibido publicar sondeos durante los cinco días anteriores a la votación.
+  veda_desde: "2026-11-24"
+
+# ---------------------------------------------------------------------------------------------
+# Bloques de 2026: cada candidatura proclamada (siglas del BOE) se asigna a un bloque.
+# poll: columna de la encuesta nacional que mueve el bloque.
+# previo: de dónde sale su implantación territorial (fuerza relativa por provincia), por orden:
+#   generales 2023 de la MISMA formación (continuidad legal) -> europeas 2024 de la MISMA formación
+#   -> sustituto geográfico (NO es continuidad legal; se marca y aumenta la incertidumbre) -> ninguno.
+# ---------------------------------------------------------------------------------------------
+bloques:
+  PP:       {siglas: ["PP"], poll: PP, previo: {tipo: legal, eleccion: "02-202307", familias: ["PP"]}}
+  UPN_PP:   {siglas: ["UPN-PP"], poll: PP, previo: {tipo: legal, eleccion: "02-202307", familias: ["PP", "UPN"]},
+             nota: "Coalición UPN+PP en Navarra: suma de los dos partidos que la forman (ambos concurrieron en 2023)."}
+  PSOE:     {siglas: ["PSOE", "PSC", "PSdeG-PSOE", "PSIB-PSOE", "PSN-PSOE"], poll: PSOE,
+             previo: {tipo: legal, eleccion: "02-202307", familias: ["PSOE"]}}
+  VOX:      {siglas: ["VOX"], poll: VOX, previo: {tipo: legal, eleccion: "02-202307", familias: ["Vox"]}}
+  FA:       {siglas: ["FA", "COMUNS-FRONT AMPLI", "FRENTE AMPLIO-FRONTE AMPLA", "FRENTE AMPLIO - FRONTE AMPLA",
+                      "FRENTE AMPLIO-FRONTE ZABALA", "CHA-IU-MS-FRENTE AMPLIO", "ARAMÉS-EU-MS"], poll: FA,
+             previo: {tipo: sustituto, eleccion: "02-202307", familias: ["Sumar"]},
+             nota: "Frente Amplio es una coalición nueva (2026). Sin continuidad legal con Sumar: su implantación usa el voto de Sumar en 2023 como SUSTITUTO GEOGRÁFICO."}
+  COMPROMIS: {siglas: ["COMPROMIS-EUPV-PODEM-ERPV"], poll: FV,
+             previo: {tipo: sustituto, eleccion: "02-202307", familias: ["Sumar"]},
+             nota: "Compromís concurrió en 2023 dentro de Sumar. Sustituto geográfico: Sumar 2023. Encuesta: columna FV (Front Valencià)."}
+  UPC:      {siglas: ["NC-BC, PODEMOS, IU, SUMAR"], poll: FA,
+             previo: {tipo: sustituto, eleccion: "02-202307", familias: ["Sumar"]},
+             nota: "Unidad del Pueblo Canario (NC-BC, Podemos, IU, Sumar). Sin columna propia en las encuestas: se mueve con FA."}
+  PODEMOS:  {siglas: ["PODEMOS", "PAZ,CASA Y TRABAJO"], poll: PODEMOS,
+             previo: {tipo: legal, eleccion: "07-202406", familias: ["Podemos y confluencias"]},
+             nota: "Podemos concurrió en 2023 dentro de Sumar; su última candidatura propia de ámbito estatal fue la de las europeas de 2024."}
+  SALF:     {siglas: ["SALF"], poll: SALF, previo: {tipo: legal, eleccion: "07-202406", familias: ["Se Acabó La Fiesta"]},
+             nota: "Debut en generales. Implantación: europeas de 2024 (misma formación)."}
+  ERC:      {siglas: ["ERC"], poll: ERC, previo: {tipo: legal, eleccion: "02-202307", familias: ["ERC"]}}
+  JUNTS:    {siglas: ["JxCat"], poll: JUNTS, previo: {tipo: legal, eleccion: "02-202307", familias: ["Convergència / Junts"]}}
+  BILDU:    {siglas: ["EH BILDU", "EH Bildu"], poll: BILDU, previo: {tipo: legal, eleccion: "02-202307", familias: ["EH Bildu"]}}
+  BILDU_ERC: {siglas: ["EH BILDU-ERC"], poll: BILDU, previo: {tipo: legal, eleccion: "02-202307", familias: ["EH Bildu", "ERC"]},
+             nota: "Coalición EH Bildu+ERC en Navarra."}
+  PNV:      {siglas: ["EAJ-PNV"], poll: PNV, previo: {tipo: legal, eleccion: "02-202307", familias: ["PNV"]}}
+  BNG:      {siglas: ["BNG", "B.N.G."], poll: BNG, previo: {tipo: legal, eleccion: "02-202307", familias: ["BNG"]}}
+  CCA:      {siglas: ["1.ºCAN-CCa", "CCa-1.ºCAN"], poll: CCA, previo: {tipo: legal, eleccion: "02-202307", familias: ["Coalición Canaria"]}}
+  ADELANTE: {siglas: ["ADELANTE ANDALUCÍA"], poll: ADELANTE, previo: {tipo: ninguno},
+             nota: "Sin candidatura propia al Congreso en 2023 ni en las europeas de 2024 cargadas: implantación uniforme en sus 8 provincias."}
+  PACMA:    {siglas: ["PACMA"], poll: null, previo: {tipo: legal, eleccion: "02-202307", familias: ["PACMA"]}}
+  SY:       {siglas: ["SY"], poll: null, previo: {tipo: legal, eleccion: "02-202307", familias: ["Soria ¡Ya!"]}}
+  TE:       {siglas: ["TERUEL EXISTE"], poll: null, previo: {tipo: legal, eleccion: "02-202307", familias: ["Teruel Existe"]}}
+  GBAI:     {siglas: ["GBAI"], poll: null, previo: {tipo: legal, eleccion: "02-202307", familias: ["Geroa Bai"]}}
+# Cualquier otra candidatura proclamada se agrega en OTROS de su circunscripción (previo: "Otros" + familias sin bloque).
+
+# ---------------------------------------------------------------------------------------------
+# Backtesting a ciegas: elecciones previas -> objetivo. Para cada objetivo solo se usan
+# encuestas con fin de campo <= fecha de la elección - 6 días (antes de la veda) y resultados
+# oficiales de elecciones ANTERIORES. Mapeo columna de Wikipedia -> familia de results_by_family.
+# ---------------------------------------------------------------------------------------------
+backtest:
+  - objetivo: "02-201512"
+    fecha: "2015-12-20"
+    previa: "02-201111"
+    pagina: "2015"
+    europeas: "07-201405"
+    polls: {PP: [PP], PSOE: [PSOE], PODEMOS: [Podemos y confluencias], "C's": [Ciudadanos], "IU–UPeC": [IU],
+            "ERC–CatSí": [ERC], DiL: ["Convergència / Junts"], PNV: [PNV], "link=EH Bildu": [EH Bildu],
+            CC: [Coalición Canaria], UPyD: [UPyD], UPYD: [UPyD]}
+    nuevos_desde_europeas: [Podemos y confluencias, Ciudadanos]
+  - objetivo: "02-201606"
+    fecha: "2016-06-26"
+    previa: "02-201512"
+    pagina: "2016"
+    polls: {PP: [PP], PSOE: [PSOE], "link=Unidos Podemos": [Podemos y confluencias], "C's": [Ciudadanos],
+            "ERC–CatSí": [ERC], CDC: ["Convergència / Junts"], PNV: [PNV], "link=EH Bildu": [EH Bildu],
+            CC: [Coalición Canaria], PACMA: [PACMA]}
+    fusiones: {Podemos y confluencias: [Podemos y confluencias, IU]}   # Unidos Podemos = Podemos + IU
+  - objetivo: "02-201904"
+    fecha: "2019-04-28"
+    previa: "02-201606"
+    pagina: "April_2019"
+    europeas: "07-201405"
+    polls: {PP: [PP], PSOE: [PSOE], "link=Unidas Podemos": [Podemos y confluencias], CS: [Ciudadanos], VOX: [Vox],
+            "ERC–Sobiranistes": [ERC], JxCat: ["Convergència / Junts"], PNV: [PNV], "link=EH Bildu": [EH Bildu],
+            PACMA: [PACMA], Compromís: [Compromís], CCA: [Coalición Canaria]}
+    nuevos_desde_europeas: [Vox]
+  - objetivo: "02-201911"
+    fecha: "2019-11-10"
+    previa: "02-201904"
+    pagina: "November_2019"
+    polls: {PP: [PP], PSOE: [PSOE], "link=Unidas Podemos": [Podemos y confluencias], CS: [Ciudadanos], VOX: [Vox],
+            "ERC–Sobiranistes": [ERC], JxCat: ["Convergència / Junts"], PNV: [PNV], "link=EH Bildu": [EH Bildu],
+            Compromís: [Compromís], "CC–NCa": [Coalición Canaria], "link=Más País": [Más País], CUP: [CUP],
+            "NA+": ["NA+ (coalición UPN-PP-Cs)"], BNG: [BNG]}
+  - objetivo: "02-202307"
+    fecha: "2023-07-23"
+    previa: "02-201911"
+    pagina: "2023"
+    polls: {PP: [PP], PSOE: [PSOE], VOX: [Vox], SUMAR: [Sumar], ERC: [ERC], JUNTS: ["Convergència / Junts"],
+            PNV: [PNV], BILDU: [EH Bildu], CUP: [CUP], CCA: [Coalición Canaria], BNG: [BNG]}
+    sustitutos: {Sumar: [Podemos y confluencias, Más País]}   # coalición nueva: sustituto geográfico
+
+encuestas:
+  ventana_dias: 21             # encuestas cuyo fin de campo cae en los 21 días previos al corte
+  vida_media_dias: 7           # pérdida de peso por antigüedad
+  una_por_instituto: true      # solo la última de cada instituto (evita que los trackings diarios pesen más)
+  corte_previo_eleccion_dias: 6
+
+modelos:
+  epsilon_share: 0.002
+  ridge_lambda: [0.03, 0.1, 0.3, 1.0, 3.0]
+  jerarquico_lambda_ccaa: 30.0
+  gbm: {max_iter: 200, learning_rate: 0.05, max_leaf_nodes: 15, min_samples_leaf: 20}
+  orden_complejidad: [persistencia, swing_proporcional, logit_condicional, jerarquico, gbm]
+  tolerancia_logloss: 0.002    # mejora mínima (por voto) para preferir un modelo más complejo
+
+simulacion:
+  n_sims: 10000
+  semilla: 20261129
+  # σ nacional (error de la media de encuestas, en escala logit) y σ provincial: se calibran en el backtesting.
+  sigma_nac_rejilla: [0.03, 0.05, 0.08, 0.11, 0.14, 0.18]
+  sigma_prov_rejilla: [0.06, 0.10, 0.13, 0.16, 0.20, 0.25, 0.30, 0.36, 0.43]
+  factor_sustituto: 1.5        # multiplica σ provincial de bloques sin continuidad legal
+  factor_nuevo: 2.0            # multiplica σ provincial de bloques sin implantación previa
+
+competitividad:
+  - {clase: "Muy competitiva", p_max: 0.55, margen_max: 0.02}
+  - {clase: "Competitiva", p_max: 0.70, margen_max: 0.05}
+  - {clase: "Moderadamente competitiva", p_max: 0.85, margen_max: 0.09}
+  - {clase: "Poco competitiva", p_max: 0.95, margen_max: 0.15}
+  - {clase: "Dominio claro", p_max: 1.01, margen_max: 1.01}
+
+calidad:
+  alta_min: 80                 # sin encuestas provinciales verificadas (20 pts) no se alcanza "Alta"
+  media_min: 45
