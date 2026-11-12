@@ -1,0 +1,374 @@
+﻿provincia_id,provincia,ccaa,bloque,siglas,denominacion,cabeza_lista,tipo_previo,pred,media,p10,p50,p90,p_victoria,escanos_media,escanos_p10,escanos_p90,p_al_menos_1
+01,Araba/Álava,País Vasco,BILDU,EH BILDU,EUSKAL HERRIA BILDU,Mikel Otero Gabirondo,legal,0.2252,0.2241,0.1618,0.2197,0.2926,0.2997,1.1812,1.0,2.0,0.9763
+01,Araba/Álava,País Vasco,FA,FRENTE AMPLIO-FRONTE ZABALA,FRENTE AMPLIO-FRONTE ZABALA,José Damián García-Moreno López,sustituto,0.0736,0.0768,0.044,0.0718,0.1162,0.0007,0.046,0.0,0.0,0.0459
+01,Araba/Álava,País Vasco,PNV,EAJ-PNV,EUZKO ALDERDI JELTZALEA-PARTIDO NACIONALISTA VASCO,Gorka Urtaran Agirre,legal,0.1326,0.1324,0.0929,0.1293,0.1761,0.0087,0.4407,0.0,1.0,0.4403
+01,Araba/Álava,País Vasco,PODEMOS,PODEMOS,PODEMOS,Garbiñe Ruiz Noriega,europeas,0.0321,0.0336,0.0191,0.0311,0.0515,0.0,0.0002,0.0,0.0,0.0002
+01,Araba/Álava,País Vasco,PP,PP,PARTIDO POPULAR,Iñaki Oyarzábal De Miguel,legal,0.1805,0.1793,0.1272,0.1755,0.2362,0.0872,0.9012,0.0,1.0,0.8593
+01,Araba/Álava,País Vasco,PSOE,PSOE,PARTIDO SOCIALISTA DE EUSKADI-EUSKADIKO EZKERRA (PSOE) PSE-EE,Javier Hurtado Domínguez,legal,0.2626,0.2599,0.1911,0.2564,0.3331,0.6037,1.4286,1.0,2.0,0.9957
+01,Araba/Álava,País Vasco,SALF,SALF,SE ACABÓ LA FIESTA,Leire Bengoa Chávarri,europeas,0.0103,0.0108,0.006,0.01,0.0168,0.0,0.0,0.0,0.0,0.0
+01,Araba/Álava,País Vasco,VOX,VOX,VOX,Jonathan Romero Gámiz,legal,0.0644,0.0645,0.0441,0.0624,0.0876,0.0,0.0021,0.0,0.0,0.0021
+01,Araba/Álava,País Vasco,OTROS,OTROS,Otras candidaturas,,legal,0.0186,0.0187,0.0126,0.0179,0.0259,0.0,0.0,0.0,0.0,0.0
+02,Albacete,Castilla-La Mancha,FA,FA,Frente Amplio,Juan Blanco Castellanos,sustituto,0.0373,0.0391,0.0219,0.0364,0.0601,0.0,0.0,0.0,0.0,0.0
+02,Albacete,Castilla-La Mancha,PODEMOS,PODEMOS,PODEMOS,Luisa María García Tárraga,europeas,0.0181,0.019,0.0105,0.0176,0.0293,0.0,0.0,0.0,0.0,0.0
+02,Albacete,Castilla-La Mancha,PP,PP,PARTIDO POPULAR,Francisco Navarro Cebrián,legal,0.3643,0.3617,0.2735,0.3587,0.4528,0.652,1.6915,1.0,2.0,0.9995
+02,Albacete,Castilla-La Mancha,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Amparo Torres Valencoso,legal,0.2959,0.2945,0.215,0.2908,0.3776,0.2573,1.2714,1.0,2.0,0.9887
+02,Albacete,Castilla-La Mancha,SALF,SALF,SE ACABÓ LA FIESTA,Isabel Ferrer de la Cruz,europeas,0.023,0.0243,0.0135,0.0225,0.0372,0.0,0.0,0.0,0.0,0.0
+02,Albacete,Castilla-La Mancha,VOX,VOX,VOX,Rubén Herrero de Castro,legal,0.2488,0.2487,0.1783,0.2437,0.3238,0.0907,1.0371,1.0,1.0,0.9423
+02,Albacete,Castilla-La Mancha,OTROS,OTROS,Otras candidaturas,,legal,0.0125,0.0127,0.0084,0.0122,0.0178,0.0,0.0,0.0,0.0,0.0
+03,Alicante/Alacant,Comunitat Valenciana,COMPROMIS,COMPROMIS-EUPV-PODEM-ERPV,COMPROMÍS: FRONT VALENCIÀ,María Teresa Pérez Díaz,sustituto,0.0961,0.0998,0.0577,0.094,0.1492,0.0011,0.9618,0.0,2.0,0.7987
+03,Alicante/Alacant,Comunitat Valenciana,PP,PP,PARTIDO POPULAR,Macarena Montesinos De Miguel,legal,0.3383,0.3363,0.2516,0.3337,0.4245,0.6291,4.429,3.0,6.0,1.0
+03,Alicante/Alacant,Comunitat Valenciana,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Antonio Alfonso Francés Pérez,legal,0.2769,0.2744,0.199,0.2701,0.3553,0.2398,3.5135,2.0,5.0,1.0
+03,Alicante/Alacant,Comunitat Valenciana,SALF,SALF,SE ACABÓ LA FIESTA,Casimiro Martín Soto,europeas,0.0247,0.026,0.0144,0.024,0.0396,0.0,0.005,0.0,0.0,0.005
+03,Alicante/Alacant,Comunitat Valenciana,VOX,VOX,VOX,David García Gomis,legal,0.2456,0.245,0.1758,0.2405,0.3205,0.13,3.0907,2.0,4.0,1.0
+03,Alicante/Alacant,Comunitat Valenciana,OTROS,OTROS,Otras candidaturas,,legal,0.0183,0.0186,0.0122,0.0179,0.026,0.0,0.0,0.0,0.0,0.0
+04,Almería,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,Tania Ferre Carrión,ninguno,0.0744,0.0807,0.038,0.0724,0.1343,0.0017,0.183,0.0,1.0,0.1759
+04,Almería,Andalucía,FA,FA,Frente Amplio,Zacarías Lucas Lekal Villegas,sustituto,0.0312,0.0326,0.0183,0.0303,0.0498,0.0,0.0002,0.0,0.0,0.0002
+04,Almería,Andalucía,PODEMOS,PODEMOS,PODEMOS,Jésica Jiménez Gómez,europeas,0.0126,0.0133,0.0072,0.0122,0.0206,0.0,0.0,0.0,0.0,0.0
+04,Almería,Andalucía,PP,PP,PARTIDO POPULAR,María Carmen Crespo Díaz,legal,0.334,0.3302,0.2458,0.3271,0.4186,0.6247,2.4065,2.0,3.0,1.0
+04,Almería,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Anabel Mateos Sánchez,legal,0.2226,0.2212,0.1574,0.2166,0.2904,0.0778,1.44,1.0,2.0,0.9919
+04,Almería,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Inmaculada María Jaén Pérez,europeas,0.0255,0.0266,0.0148,0.0245,0.0408,0.0,0.0,0.0,0.0,0.0
+04,Almería,Andalucía,VOX,VOX,VOX,Rocío de Meer Méndez,legal,0.2849,0.2806,0.2046,0.2768,0.3611,0.2958,1.9703,1.0,3.0,0.9997
+04,Almería,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0148,0.0148,0.0098,0.0143,0.0205,0.0,0.0,0.0,0.0,0.0
+05,Ávila,Castilla y León,FA,FA,Frente Amplio,Pablo Garcinuño García,sustituto,0.0261,0.0275,0.0151,0.0255,0.0421,0.0,0.0,0.0,0.0,0.0
+05,Ávila,Castilla y León,PODEMOS,PODEMOS,PODEMOS,Laura Ruiz Ginés,europeas,0.0168,0.0176,0.0096,0.0163,0.0272,0.0,0.0,0.0,0.0,0.0
+05,Ávila,Castilla y León,PP,PP,PARTIDO POPULAR,Héctor Palencia Rubio,legal,0.3845,0.3806,0.2936,0.3785,0.4698,0.8697,1.4897,1.0,2.0,0.9995
+05,Ávila,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Manuel Arribas Maroto,legal,0.2288,0.2285,0.1623,0.2245,0.2988,0.0708,0.767,0.0,1.0,0.7531
+05,Ávila,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Pedro Hermosa González,europeas,0.0167,0.0175,0.0098,0.0162,0.0268,0.0,0.0,0.0,0.0,0.0
+05,Ávila,Castilla y León,VOX,VOX,VOX,Samuel Vázquez Álvarez,legal,0.2244,0.2243,0.1602,0.2198,0.2931,0.0595,0.7433,0.0,1.0,0.7352
+05,Ávila,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.1028,0.1041,0.0705,0.1013,0.1418,0.0,0.0,0.0,0.0,0.0
+06,Badajoz,Extremadura,FA,FA,Frente Amplio,María del Pilar Ramos Duro,sustituto,0.0366,0.0386,0.0215,0.0356,0.0589,0.0,0.0002,0.0,0.0,0.0002
+06,Badajoz,Extremadura,PODEMOS,PODEMOS,PODEMOS,Amparo Botejara Sanz,europeas,0.0172,0.0181,0.01,0.0168,0.0281,0.0,0.0,0.0,0.0,0.0
+06,Badajoz,Extremadura,PP,PP,PARTIDO POPULAR,María Teresa Tortonda Gordillo,legal,0.3543,0.3525,0.2654,0.3493,0.4425,0.5191,2.0186,1.0,3.0,0.9999
+06,Badajoz,Extremadura,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María Yolanda García Seco,legal,0.3451,0.3424,0.2575,0.3399,0.4303,0.4568,1.9454,1.0,3.0,0.9998
+06,Badajoz,Extremadura,SALF,SALF,SE ACABÓ LA FIESTA,Violeta Casado Sarti,europeas,0.015,0.0158,0.0087,0.0146,0.0242,0.0,0.0,0.0,0.0,0.0
+06,Badajoz,Extremadura,VOX,VOX,VOX,Ignacio Hoces Íñiguez,legal,0.2101,0.2106,0.1482,0.2063,0.2782,0.0241,1.0358,1.0,2.0,0.9309
+06,Badajoz,Extremadura,OTROS,OTROS,Otras candidaturas,,legal,0.0217,0.022,0.0144,0.0211,0.0305,0.0,0.0,0.0,0.0,0.0
+07,"Balears, Illes",Illes Balears,FA,ARAMÉS-EU-MS,ARAMÉS-FRONT AMPLI,Carme Gomila Domínguez (ARAMÉS-EU-MS),sustituto,0.0922,0.0955,0.0547,0.0901,0.144,0.0004,0.4557,0.0,1.0,0.4396
+07,"Balears, Illes",Illes Balears,PP,PP,PARTIDO POPULAR,José Vicente Marí Bosó,legal,0.3463,0.3443,0.2606,0.3401,0.4351,0.6581,3.1265,2.0,4.0,1.0
+07,"Balears, Illes",Illes Balears,PSOE,PSIB-PSOE,PARTIDO SOCIALISTA DE LAS ISLAS BALEARES,Francesca Lluch Armengol Socias,legal,0.2755,0.2735,0.1987,0.2695,0.3542,0.2273,2.3792,2.0,3.0,1.0
+07,"Balears, Illes",Illes Balears,SALF,SALF,SE ACABÓ LA FIESTA,Daniel Rodríguez Rincón,europeas,0.0231,0.0243,0.0135,0.0225,0.0373,0.0,0.0001,0.0,0.0,0.0001
+07,"Balears, Illes",Illes Balears,VOX,VOX,VOX,María Isabel Cerezo Sánchez,legal,0.2426,0.2416,0.1728,0.2377,0.3168,0.1142,2.0385,1.0,3.0,0.9996
+07,"Balears, Illes",Illes Balears,OTROS,OTROS,Otras candidaturas,,legal,0.0203,0.0206,0.0137,0.0197,0.0288,0.0,0.0,0.0,0.0,0.0
+08,Barcelona,Cataluña,ERC,ERC,ESQUERRA REPUBLICANA DE CATALUNYA,Gabriel Rufián Romero,legal,0.1724,0.1719,0.1213,0.1687,0.2268,0.0395,6.0411,4.0,8.0,1.0
+08,Barcelona,Cataluña,FA,COMUNS-FRONT AMPLI,Comuns-Front Ampli,Ada Colau Ballano,sustituto,0.0843,0.0872,0.0508,0.0819,0.1301,0.0018,2.8143,1.0,4.0,0.9958
+08,Barcelona,Cataluña,JUNTS,JxCat,JUNTS PER CATALUNYA,Míriam Nogueras i Camero,legal,0.0845,0.085,0.0582,0.0824,0.1148,0.0,2.7327,2.0,4.0,1.0
+08,Barcelona,Cataluña,PP,PP,PARTIT POPULAR / PARTIDO POPULAR,Xavier García Albiol,legal,0.1335,0.1342,0.0932,0.1307,0.1792,0.0072,4.6114,3.0,6.0,1.0
+08,Barcelona,Cataluña,PSOE,PSC,PARTIT DELS SOCIALISTES DE CATALUNYA (PSC-PSOE),Jordi Hereu Boher,legal,0.3251,0.3211,0.2437,0.318,0.4021,0.9497,11.7194,9.0,15.0,1.0
+08,Barcelona,Cataluña,SALF,SALF,SE ACABÓ LA FIESTA,Yolanda López Carreño,europeas,0.0122,0.0128,0.0071,0.0119,0.0197,0.0,0.009,0.0,0.0,0.0088
+08,Barcelona,Cataluña,VOX,VOX,VOX,Juan José Aizcorbe Torra,legal,0.1203,0.12,0.0832,0.1165,0.1619,0.0018,4.0721,3.0,6.0,1.0
+08,Barcelona,Cataluña,OTROS,OTROS,Otras candidaturas,,legal,0.0676,0.0678,0.0461,0.0657,0.0921,0.0,0.0,0.0,0.0,0.0
+09,Burgos,Castilla y León,FA,FA,Frente Amplio,Fernando José Saiz Martínez,sustituto,0.0464,0.0485,0.0268,0.0453,0.074,0.0,0.0006,0.0,0.0,0.0006
+09,Burgos,Castilla y León,PODEMOS,PODEMOS,PODEMOS,Isabel Lara Benítez,europeas,0.021,0.0221,0.0121,0.0204,0.034,0.0,0.0,0.0,0.0,0.0
+09,Burgos,Castilla y León,PP,PP,PARTIDO POPULAR,Ángel Mariano Ibáñez Hernando,legal,0.3814,0.3772,0.2889,0.3737,0.4696,0.7146,1.8565,1.0,2.0,0.9999
+09,Burgos,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Esther Peña Camarero,legal,0.3037,0.3026,0.2222,0.2986,0.389,0.2688,1.3627,1.0,2.0,0.9922
+09,Burgos,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Marcos Santamaría Del Olmo,europeas,0.0166,0.0176,0.0097,0.0164,0.0269,0.0,0.0,0.0,0.0,0.0
+09,Burgos,Castilla y León,VOX,VOX,VOX,Eugenia Landaluce Miranda,legal,0.1966,0.1972,0.1392,0.1929,0.2607,0.0166,0.7802,0.0,1.0,0.7623
+09,Burgos,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.0343,0.0348,0.023,0.0335,0.0483,0.0,0.0,0.0,0.0,0.0
+10,Cáceres,Extremadura,FA,FA,Frente Amplio,Antonio Moreno Pérez,sustituto,0.037,0.039,0.0216,0.0363,0.0594,0.0,0.0,0.0,0.0,0.0
+10,Cáceres,Extremadura,PODEMOS,PODEMOS,PODEMOS,Álvaro Jaén Barbado,europeas,0.0201,0.0211,0.0117,0.0196,0.0326,0.0,0.0,0.0,0.0,0.0
+10,Cáceres,Extremadura,PP,PP,PARTIDO POPULAR,Cristina Elena Teniente Sánchez,legal,0.3551,0.3527,0.2643,0.349,0.4454,0.525,1.6308,1.0,2.0,0.9997
+10,Cáceres,Extremadura,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Irene Pozas García,legal,0.3413,0.3397,0.2527,0.3366,0.4303,0.4525,1.5471,1.0,2.0,0.9983
+10,Cáceres,Extremadura,SALF,SALF,SE ACABÓ LA FIESTA,Emilio José Paniagua Collazos,europeas,0.0134,0.0141,0.0077,0.013,0.0218,0.0,0.0,0.0,0.0,0.0
+10,Cáceres,Extremadura,VOX,VOX,VOX,Marcela Reigía Vales,legal,0.2085,0.2085,0.1476,0.2038,0.2762,0.0225,0.8221,0.0,1.0,0.7995
+10,Cáceres,Extremadura,OTROS,OTROS,Otras candidaturas,,legal,0.0245,0.0249,0.0163,0.0238,0.0348,0.0,0.0,0.0,0.0,0.0
+11,Cádiz,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,María Sánchez Barrada,ninguno,0.0778,0.0835,0.0397,0.0758,0.1359,0.0041,0.4252,0.0,1.0,0.3857
+11,Cádiz,Andalucía,FA,FA,Frente Amplio Andaluz,Esther Francisca Gil de Reboleño Lastortres,sustituto,0.0631,0.0652,0.037,0.0609,0.0989,0.0,0.1817,0.0,1.0,0.1804
+11,Cádiz,Andalucía,PODEMOS,PODEMOS,PODEMOS,Julio de la Torre Lorenzo,europeas,0.0215,0.0223,0.0124,0.0208,0.034,0.0,0.0002,0.0,0.0,0.0002
+11,Cádiz,Andalucía,PP,PP,PARTIDO POPULAR,María José García-Pelayo Jurado,legal,0.2981,0.2933,0.2173,0.2898,0.3759,0.5569,2.8934,2.0,4.0,1.0
+11,Cádiz,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,José Manuel Albares Bueno,legal,0.2668,0.2641,0.1929,0.2597,0.3399,0.3374,2.5567,2.0,3.0,1.0
+11,Cádiz,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Francisco Anselmo Mesa González,europeas,0.0247,0.0257,0.0142,0.0238,0.0395,0.0,0.0008,0.0,0.0,0.0008
+11,Cádiz,Andalucía,VOX,VOX,VOX,Blanca Armario González,legal,0.2134,0.2113,0.1499,0.2076,0.2786,0.1016,1.942,1.0,3.0,0.9997
+11,Cádiz,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0346,0.0346,0.0231,0.0333,0.0477,0.0,0.0,0.0,0.0,0.0
+12,Castellón/Castelló,Comunitat Valenciana,COMPROMIS,COMPROMIS-EUPV-PODEM-ERPV,COMPROMÍS: FRONT VALENCIÀ,Ignasi García Felip,sustituto,0.1083,0.1123,0.0654,0.1057,0.1668,0.0031,0.2413,0.0,1.0,0.2378
+12,Castellón/Castelló,Comunitat Valenciana,PP,PP,PARTIDO POPULAR,Elena Albalat Aguilella,legal,0.3276,0.325,0.2414,0.3216,0.411,0.5711,1.894,1.0,3.0,0.9998
+12,Castellón/Castelló,Comunitat Valenciana,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María Jiménez Román,legal,0.2858,0.2835,0.2072,0.2793,0.365,0.3,1.5845,1.0,2.0,0.9975
+12,Castellón/Castelló,Comunitat Valenciana,SALF,SALF,SE ACABÓ LA FIESTA,Álvaro González Álvaro,europeas,0.0212,0.0224,0.0123,0.0208,0.0344,0.0,0.0,0.0,0.0,0.0
+12,Castellón/Castelló,Comunitat Valenciana,VOX,VOX,VOX,Alberto Teófilo Asarta Cuevas,legal,0.2428,0.2422,0.1738,0.2378,0.3167,0.1258,1.2802,1.0,2.0,0.9856
+12,Castellón/Castelló,Comunitat Valenciana,OTROS,OTROS,Otras candidaturas,,legal,0.0143,0.0146,0.0096,0.0139,0.0203,0.0,0.0,0.0,0.0,0.0
+13,Ciudad Real,Castilla-La Mancha,FA,FA,Frente Amplio,Juana Caro Marín,sustituto,0.0329,0.035,0.0193,0.0325,0.0536,0.0,0.0001,0.0,0.0,0.0001
+13,Ciudad Real,Castilla-La Mancha,PODEMOS,PODEMOS,PODEMOS,María Isabel Ruiz García,europeas,0.015,0.0159,0.0087,0.0146,0.025,0.0,0.0,0.0,0.0,0.0
+13,Ciudad Real,Castilla-La Mancha,PP,PP,PARTIDO POPULAR,María Del Carmen Fúnez de Gregorio,legal,0.3797,0.3782,0.2883,0.3745,0.4728,0.6559,2.1305,1.0,3.0,0.9999
+13,Ciudad Real,Castilla-La Mancha,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Isabel Rodríguez García,legal,0.3113,0.3092,0.2264,0.3054,0.3964,0.2662,1.6382,1.0,2.0,0.9983
+13,Ciudad Real,Castilla-La Mancha,VOX,VOX,VOX,Ricardo Chamorro Delmo,legal,0.2501,0.2504,0.1788,0.2459,0.3282,0.0779,1.2312,1.0,2.0,0.9788
+13,Ciudad Real,Castilla-La Mancha,OTROS,OTROS,Otras candidaturas,,legal,0.011,0.0113,0.0074,0.0108,0.0157,0.0,0.0,0.0,0.0,0.0
+14,Córdoba,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,María del Carmen Sánchez Solís,ninguno,0.0795,0.0854,0.0405,0.0772,0.1416,0.0026,0.2386,0.0,1.0,0.229
+14,Córdoba,Andalucía,FA,FA,FRENTE AMPLIO ANDALUZ,Sebastián Pérez Gallardo,sustituto,0.0686,0.0707,0.0404,0.0664,0.1068,0.0,0.0878,0.0,0.0,0.0872
+14,Córdoba,Andalucía,PODEMOS,PODEMOS,PODEMOS,Ana Belén Calzada Hombrado,europeas,0.0197,0.0205,0.0113,0.0189,0.0318,0.0,0.0,0.0,0.0,0.0
+14,Córdoba,Andalucía,PP,PP,PARTIDO POPULAR,Lorena Guerra Sánchez,legal,0.3311,0.3265,0.2448,0.3243,0.4119,0.7044,2.4888,2.0,3.0,1.0
+14,Córdoba,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Alberto Mayoral de Lamo,legal,0.2637,0.2601,0.1893,0.256,0.3366,0.2465,1.8758,1.0,3.0,0.9993
+14,Córdoba,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Eladio Barrado Prieto,europeas,0.0208,0.0216,0.0121,0.0199,0.0335,0.0,0.0,0.0,0.0,0.0
+14,Córdoba,Andalucía,VOX,VOX,VOX,José Ramírez del Río,legal,0.1999,0.1983,0.1406,0.1934,0.2621,0.0465,1.309,1.0,2.0,0.984
+14,Córdoba,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0167,0.0168,0.011,0.0161,0.0233,0.0,0.0,0.0,0.0,0.0
+15,"Coruña, A",Galicia,BNG,B.N.G.,BLOQUE NACIONALISTA GALEGO,Néstor Rego Candamil,legal,0.159,0.1597,0.1106,0.1557,0.2149,0.0034,1.27,1.0,2.0,0.9757
+15,"Coruña, A",Galicia,FA,FRENTE AMPLIO-FRONTE AMPLA,Frente Amplio-Fronte Ampla,José Luis Piñeiro García (Xosé Lois),sustituto,0.0661,0.0689,0.0393,0.0645,0.1044,0.0,0.1868,0.0,1.0,0.1838
+15,"Coruña, A",Galicia,PODEMOS,PODEMOS,PODEMOS,Isabel Faraldo Calvo,europeas,0.0181,0.0191,0.0104,0.0177,0.0295,0.0,0.0,0.0,0.0,0.0
+15,"Coruña, A",Galicia,PP,PP,PARTIDO POPULAR,Miguel Ángel Tellado Filgueira,legal,0.4091,0.404,0.314,0.4019,0.4959,0.9066,3.9865,3.0,5.0,1.0
+15,"Coruña, A",Galicia,PSOE,PSdeG-PSOE,Partido dos Socialistas de Galicia-PSOE,Obdulia Taboadela Álvarez,legal,0.2511,0.2503,0.1796,0.2466,0.3255,0.09,2.2815,1.0,3.0,0.9999
+15,"Coruña, A",Galicia,SALF,SALF,SE ACABÓ LA FIESTA,María José García Hidalgo,europeas,0.0085,0.0089,0.0049,0.0082,0.0138,0.0,0.0,0.0,0.0,0.0
+15,"Coruña, A",Galicia,VOX,VOX,VOX,Manuel Fuentes Lamas,legal,0.079,0.0799,0.0536,0.0771,0.1096,0.0,0.2752,0.0,1.0,0.2748
+15,"Coruña, A",Galicia,OTROS,OTROS,Otras candidaturas,,legal,0.0092,0.0093,0.0061,0.0089,0.013,0.0,0.0,0.0,0.0,0.0
+16,Cuenca,Castilla-La Mancha,FA,FA,FRENTE AMPLIO,Francisco Javier Martínez Huerta (FA),sustituto,0.0293,0.0312,0.0173,0.0287,0.0479,0.0,0.0,0.0,0.0,0.0
+16,Cuenca,Castilla-La Mancha,PODEMOS,PODEMOS,PODEMOS,José María Oviedo Oviedo,europeas,0.0153,0.0162,0.0089,0.0149,0.0249,0.0,0.0,0.0,0.0,0.0
+16,Cuenca,Castilla-La Mancha,PP,PP,PARTIDO POPULAR,Raquel Oliver Chico,legal,0.3674,0.3634,0.2744,0.361,0.4576,0.5975,1.225,1.0,2.0,0.9909
+16,Cuenca,Castilla-La Mancha,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Luis Carlos Sahuquillo García,legal,0.3244,0.3239,0.2393,0.3201,0.4147,0.3451,1.0813,1.0,2.0,0.9635
+16,Cuenca,Castilla-La Mancha,SALF,SALF,SE ACABÓ LA FIESTA,Rafael García Sáez,europeas,0.016,0.0169,0.0093,0.0156,0.0261,0.0,0.0,0.0,0.0,0.0
+16,Cuenca,Castilla-La Mancha,VOX,VOX,VOX,Ismael Iván Vélez Cipriano,legal,0.2358,0.2363,0.1678,0.2324,0.3102,0.0574,0.6937,0.0,1.0,0.6908
+16,Cuenca,Castilla-La Mancha,OTROS,OTROS,Otras candidaturas,,legal,0.0118,0.012,0.0078,0.0115,0.0169,0.0,0.0,0.0,0.0,0.0
+17,Girona,Cataluña,ERC,ERC,ESQUERRA REPUBLICANA DE CATALUNYA,Teresa Jordà Roura,legal,0.2021,0.2014,0.1451,0.1972,0.262,0.2321,1.5495,1.0,2.0,0.9973
+17,Girona,Cataluña,FA,COMUNS-FRONT AMPLI,Comuns-Front Ampli,Júlia Boada Danés,sustituto,0.0595,0.0621,0.0363,0.058,0.0935,0.0002,0.0824,0.0,0.0,0.082
+17,Girona,Cataluña,JUNTS,JxCat,JUNTS PER CATALUNYA,Marta Madrenas i Mir,legal,0.1679,0.1682,0.1192,0.1645,0.2214,0.081,1.2219,1.0,2.0,0.9782
+17,Girona,Cataluña,PP,PP,PARTIT POPULAR / PARTIDO POPULAR,Diana Moya Redondo,legal,0.0923,0.0932,0.0643,0.0903,0.1259,0.0003,0.3744,0.0,1.0,0.3735
+17,Girona,Cataluña,PSOE,PSC,PARTIT DELS SOCIALISTES DE CATALUNYA (PSC-PSOE),Marc Lamuà Estañol,legal,0.2587,0.2551,0.1894,0.2509,0.3277,0.6835,2.1237,1.0,3.0,1.0
+17,Girona,Cataluña,VOX,VOX,VOX,Ignasi Mulleras Vinzia,legal,0.1098,0.1101,0.0765,0.1067,0.1476,0.0029,0.6481,0.0,1.0,0.6379
+17,Girona,Cataluña,OTROS,OTROS,Otras candidaturas,,legal,0.1097,0.11,0.0763,0.1071,0.1469,0.0,0.0,0.0,0.0,0.0
+18,Granada,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,María Alcantud López,ninguno,0.0776,0.085,0.0408,0.0769,0.1407,0.0034,0.3272,0.0,1.0,0.3061
+18,Granada,Andalucía,FA,FA,Frente Amplio Andaluz,Jesús Fernández Martín,sustituto,0.0566,0.0588,0.0336,0.055,0.0891,0.0,0.0654,0.0,0.0,0.0652
+18,Granada,Andalucía,PODEMOS,PODEMOS,PODEMOS,Alejandra Durán Parra,europeas,0.0222,0.0232,0.013,0.0215,0.0357,0.0,0.0,0.0,0.0,0.0
+18,Granada,Andalucía,PP,PP,PARTIDO POPULAR,Jorge Saavedra Requena,legal,0.3147,0.3084,0.2299,0.3046,0.3936,0.6036,2.6577,2.0,4.0,1.0
+18,Granada,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María José Sánchez Sánchez,legal,0.2637,0.2602,0.1881,0.2561,0.3364,0.2734,2.1667,1.0,3.0,1.0
+18,Granada,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Rosa Alonso Domínguez,europeas,0.0227,0.0236,0.0129,0.022,0.036,0.0,0.0,0.0,0.0,0.0
+18,Granada,Andalucía,VOX,VOX,VOX,Jacobo González-Robatto Perote,legal,0.2251,0.2232,0.1587,0.2186,0.2931,0.1196,1.783,1.0,3.0,0.9985
+18,Granada,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0174,0.0175,0.0116,0.0169,0.0244,0.0,0.0,0.0,0.0,0.0
+19,Guadalajara,Castilla-La Mancha,FA,FA,FRENTE AMPLIO,Ernesto Martín Doménech,sustituto,0.0468,0.0493,0.0278,0.0458,0.0752,0.0,0.0001,0.0,0.0,0.0001
+19,Guadalajara,Castilla-La Mancha,PODEMOS,PODEMOS,PODEMOS,Mario Javier Gallego Pareja,europeas,0.0244,0.0258,0.0144,0.0238,0.0398,0.0,0.0,0.0,0.0,0.0
+19,Guadalajara,Castilla-La Mancha,PP,PP,PARTIDO POPULAR,Itziar Asenjo Domínguez,legal,0.3248,0.323,0.2406,0.3194,0.41,0.5074,1.0981,1.0,2.0,0.9841
+19,Guadalajara,Castilla-La Mancha,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María Jesús Merino Poyo,legal,0.2771,0.276,0.2006,0.2729,0.3561,0.2332,0.9402,1.0,1.0,0.913
+19,Guadalajara,Castilla-La Mancha,SALF,SALF,SE ACABÓ LA FIESTA,José Carlos Albares Gallego,europeas,0.026,0.0273,0.0152,0.0253,0.0419,0.0,0.0,0.0,0.0,0.0
+19,Guadalajara,Castilla-La Mancha,VOX,VOX,VOX,Ángel López Maraver,legal,0.2824,0.2799,0.2055,0.2752,0.3606,0.2594,0.9616,1.0,1.0,0.9269
+19,Guadalajara,Castilla-La Mancha,OTROS,OTROS,Otras candidaturas,,legal,0.0185,0.0187,0.0125,0.018,0.026,0.0,0.0,0.0,0.0,0.0
+20,Gipuzkoa,País Vasco,BILDU,EH BILDU,EUSKAL HERRIA BILDU,Oihana Etxebarrieta Legrand,legal,0.3647,0.3605,0.2762,0.3579,0.4484,0.885,2.8995,2.0,4.0,1.0
+20,Gipuzkoa,País Vasco,FA,FA,Frente Amplio,Rosa Rubio Sánchez,sustituto,0.0623,0.0646,0.0372,0.0608,0.0975,0.0,0.0619,0.0,0.0,0.0619
+20,Gipuzkoa,País Vasco,PNV,EAJ-PNV,EUZKO ALDERDI JELTZALEA-PARTIDO NACIONALISTA VASCO,Maribel Vaquero Montero,legal,0.1828,0.1825,0.1286,0.1786,0.2419,0.023,1.224,1.0,2.0,0.9749
+20,Gipuzkoa,País Vasco,PODEMOS,PODEMOS,PODEMOS,Maite Gartzia Ontiveros,europeas,0.0271,0.0285,0.016,0.0265,0.0436,0.0,0.0,0.0,0.0,0.0
+20,Gipuzkoa,País Vasco,PP,PP,PARTIDO POPULAR,Jon Echeverría Franco,legal,0.089,0.0895,0.0606,0.0867,0.1216,0.0,0.2147,0.0,1.0,0.2145
+20,Gipuzkoa,País Vasco,PSOE,PSOE,PARTIDO SOCIALISTA DE EUSKADI-EUSKADIKO EZKERRA (PSOE) PSE-EE,Rafaela Romero Pozo,legal,0.2241,0.2236,0.1595,0.2198,0.2934,0.092,1.5999,1.0,2.0,0.9968
+20,Gipuzkoa,País Vasco,VOX,VOX,VOX,Juan Dios Dávila Garijo,legal,0.0352,0.0357,0.0236,0.0346,0.0494,0.0,0.0,0.0,0.0,0.0
+20,Gipuzkoa,País Vasco,OTROS,OTROS,Otras candidaturas,,legal,0.0149,0.015,0.01,0.0144,0.0208,0.0,0.0,0.0,0.0,0.0
+21,Huelva,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,Carmen María Martín Carrasco,ninguno,0.0786,0.0848,0.0403,0.0763,0.1395,0.003,0.1462,0.0,1.0,0.1428
+21,Huelva,Andalucía,FA,FA,Frente Amplio Andaluz,Rebeca Martín Sánchez,sustituto,0.0514,0.0534,0.03,0.0496,0.0807,0.0,0.0082,0.0,0.0,0.0082
+21,Huelva,Andalucía,PODEMOS,PODEMOS,PODEMOS,Hermes Gómez Escobar,europeas,0.0181,0.0189,0.0104,0.0175,0.029,0.0,0.0,0.0,0.0,0.0
+21,Huelva,Andalucía,PP,PP,PARTIDO POPULAR,María del Pilar Miranda Plata,legal,0.3145,0.3096,0.2285,0.306,0.3949,0.5479,1.9451,1.0,3.0,0.9995
+21,Huelva,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA DE HUELVA,Gabriel Cruz Santana,legal,0.2916,0.288,0.2096,0.2837,0.3701,0.3977,1.7688,1.0,2.0,0.9995
+21,Huelva,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,José Luis Rubio García,europeas,0.0188,0.0195,0.0108,0.018,0.0301,0.0,0.0,0.0,0.0,0.0
+21,Huelva,Andalucía,VOX,VOX,VOX,Tomás Fernández Ríos,legal,0.2072,0.2059,0.1465,0.2014,0.2706,0.0514,1.1317,1.0,2.0,0.9629
+21,Huelva,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0198,0.0199,0.0131,0.019,0.0276,0.0,0.0,0.0,0.0,0.0
+22,Huesca,Aragón,FA,CHA-IU-MS-FRENTE AMPLIO,CHUNTA ARAGONESISTA-FRENTE AMPLIO ARAGÓN,José Luis Parra Pascau (CHA),sustituto,0.062,0.0647,0.0364,0.0605,0.0976,0.0001,0.0018,0.0,0.0,0.0018
+22,Huesca,Aragón,PODEMOS,PODEMOS,PODEMOS,Vicente Oliver Alexandre,europeas,0.0234,0.0247,0.0137,0.0228,0.038,0.0,0.0,0.0,0.0,0.0
+22,Huesca,Aragón,PP,PP,PARTIDO POPULAR,Ana Isabel Alós López,legal,0.3604,0.3563,0.2705,0.3523,0.4464,0.684,1.3732,1.0,2.0,0.9969
+22,Huesca,Aragón,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Begoña Nasarre Oliva,legal,0.2981,0.2959,0.2183,0.2922,0.3794,0.2921,1.0871,1.0,2.0,0.9599
+22,Huesca,Aragón,SALF,SALF,SE ACABÓ LA FIESTA,Rafael Pedraza Garrido,europeas,0.0197,0.0208,0.0115,0.0192,0.0321,0.0,0.0,0.0,0.0,0.0
+22,Huesca,Aragón,VOX,VOX,VOX,Ester Blanco Sánchez,legal,0.1958,0.1965,0.1385,0.1922,0.2606,0.0238,0.5379,0.0,1.0,0.5372
+22,Huesca,Aragón,OTROS,OTROS,Otras candidaturas,,legal,0.0406,0.041,0.0272,0.0395,0.057,0.0,0.0,0.0,0.0,0.0
+23,Jaén,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,Silvia Cano Contreras,ninguno,0.0779,0.0835,0.0397,0.0749,0.1377,0.0021,0.1337,0.0,1.0,0.1309
+23,Jaén,Andalucía,FA,FA,FRENTE AMPLIO,Antonio Ortega Ruiz (Frente Amplio Andaluz),sustituto,0.039,0.0409,0.0229,0.0381,0.0622,0.0,0.0009,0.0,0.0,0.0009
+23,Jaén,Andalucía,PODEMOS,PODEMOS,PODEMOS,Dolores Rodríguez López,europeas,0.0141,0.0148,0.0082,0.0136,0.0228,0.0,0.0,0.0,0.0,0.0
+23,Jaén,Andalucía,PP,PP,PARTIDO POPULAR,Luis Mariano Camacho Nuñez (Chiqui),legal,0.3186,0.315,0.2348,0.3113,0.3988,0.571,1.9839,1.0,3.0,0.9996
+23,Jaén,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Isabel Uceda Cantero,legal,0.2911,0.2866,0.2112,0.2827,0.3663,0.3692,1.7536,1.0,2.0,0.9997
+23,Jaén,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Juan Javier Reverte López,europeas,0.0169,0.0176,0.0098,0.0163,0.0272,0.0,0.0,0.0,0.0,0.0
+23,Jaén,Andalucía,VOX,VOX,VOX,Francisco José Alcaraz Martos,legal,0.2067,0.2058,0.1453,0.2016,0.2718,0.0577,1.1279,1.0,2.0,0.9583
+23,Jaén,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0357,0.0358,0.0239,0.0344,0.0497,0.0,0.0,0.0,0.0,0.0
+24,León,Castilla y León,FA,FA,Frente Amplio,Rubén Estévez Miguel,sustituto,0.0349,0.0366,0.0202,0.034,0.0564,0.0,0.0,0.0,0.0,0.0
+24,León,Castilla y León,PODEMOS,PODEMOS,PODEMOS,Sixto Martínez Álvarez,europeas,0.0201,0.0212,0.0117,0.0196,0.0327,0.0,0.0,0.0,0.0,0.0
+24,León,Castilla y León,PP,PP,PARTIDO POPULAR,Ester Muñoz de la Iglesia,legal,0.3338,0.332,0.2493,0.3295,0.4186,0.6487,1.7473,1.0,2.0,0.9998
+24,León,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Javier Alfonso Cendón,legal,0.2858,0.284,0.2084,0.2793,0.3661,0.3186,1.3994,1.0,2.0,0.996
+24,León,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Enrique Jesús Pérez Suárez,europeas,0.0162,0.0171,0.0095,0.0158,0.0264,0.0,0.0,0.0,0.0,0.0
+24,León,Castilla y León,VOX,VOX,VOX,Pablo Juan Calvo Liste,legal,0.1911,0.1912,0.1338,0.1873,0.2537,0.0327,0.8533,0.0,1.0,0.8202
+24,León,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.118,0.118,0.0812,0.1144,0.1589,0.0,0.0,0.0,0.0,0.0
+25,Lleida,Cataluña,ERC,ERC,ESQUERRA REPUBLICANA DE CATALUNYA,Inés Granollers i Cunillera,legal,0.2516,0.2505,0.184,0.2466,0.3218,0.4583,1.3976,1.0,2.0,0.9943
+25,Lleida,Cataluña,FA,COMUNS-FRONT AMPLI,Comuns-Front Ampli,Montserrat Cortasa Gras,sustituto,0.0423,0.0446,0.0248,0.0417,0.0679,0.0,0.0014,0.0,0.0,0.0014
+25,Lleida,Cataluña,JUNTS,JxCat,JUNTS PER CATALUNYA,Isidre Gavín i Valls,legal,0.152,0.1525,0.1071,0.1485,0.2032,0.025,0.6887,0.0,1.0,0.6776
+25,Lleida,Cataluña,PP,PP,PARTIDO POPULAR,Roger Melero Serra,legal,0.1204,0.1204,0.0841,0.1173,0.1612,0.0027,0.3126,0.0,1.0,0.3121
+25,Lleida,Cataluña,PSOE,PSC,PARTIT DELS SOCIALISTES DE CATALUNYA (PSC-PSOE),Cristina Morón Molina,legal,0.2597,0.2576,0.1899,0.2534,0.3321,0.5135,1.4466,1.0,2.0,0.9951
+25,Lleida,Cataluña,VOX,VOX,VOX,Rafael Villafranca Merce,legal,0.1047,0.1049,0.0726,0.1018,0.1412,0.0005,0.1531,0.0,1.0,0.1531
+25,Lleida,Cataluña,OTROS,OTROS,Otras candidaturas,,legal,0.0694,0.0696,0.0472,0.0672,0.0948,0.0,0.0,0.0,0.0,0.0
+26,"Rioja, La",La Rioja,FA,FA,FRENTE AMPLIO,Alba Díez Arrea,sustituto,0.0359,0.038,0.021,0.0351,0.0586,0.0,0.0,0.0,0.0,0.0
+26,"Rioja, La",La Rioja,PODEMOS,PODEMOS,PODEMOS,María Aranzazu Carrero Bacigalupe,europeas,0.0196,0.0207,0.0114,0.0191,0.0322,0.0,0.0,0.0,0.0,0.0
+26,"Rioja, La",La Rioja,PP,PP,PARTIDO POPULAR,María Concepción Gamarra Ruiz Clavijo,legal,0.4361,0.4318,0.3354,0.4301,0.5301,0.8,2.1752,2.0,3.0,1.0
+26,"Rioja, La",La Rioja,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Elisa Garrido Jiménez,legal,0.3204,0.3189,0.2356,0.3146,0.4085,0.1996,1.4495,1.0,2.0,0.9954
+26,"Rioja, La",La Rioja,SALF,SALF,SE ACABO LA FIESTA,Juan Aparici Jerez,europeas,0.0156,0.0165,0.009,0.0152,0.0257,0.0,0.0,0.0,0.0,0.0
+26,"Rioja, La",La Rioja,VOX,VOX,VOX,Ángel Alda Pérez,legal,0.1531,0.1545,0.106,0.1499,0.2086,0.0004,0.3753,0.0,1.0,0.3749
+26,"Rioja, La",La Rioja,OTROS,OTROS,Otras candidaturas,,legal,0.0192,0.0196,0.0129,0.0187,0.0272,0.0,0.0,0.0,0.0,0.0
+27,Lugo,Galicia,BNG,BNG,BLOQUE NACIONALISTA GALEGO,Olalla Rodil Fernández,legal,0.1369,0.1381,0.094,0.1342,0.1864,0.0003,0.2697,0.0,1.0,0.2694
+27,Lugo,Galicia,FA,FRENTE AMPLIO-FRONTE AMPLA,FRENTE AMPLIO-FRONTE AMPLA,Reyes Rodríguez García,sustituto,0.0279,0.0296,0.0164,0.0274,0.0458,0.0,0.0,0.0,0.0,0.0
+27,Lugo,Galicia,PODEMOS,PODEMOS,PODEMOS,Ximena Cheda Tuya,europeas,0.0111,0.0117,0.0064,0.0108,0.0183,0.0,0.0,0.0,0.0,0.0
+27,Lugo,Galicia,PP,PP,PARTIDO POPULAR,Francisco José Conde López,legal,0.4733,0.468,0.3736,0.4675,0.5645,0.9424,2.5055,2.0,3.0,1.0
+27,Lugo,Galicia,PSOE,PSdeG-PSOE,PARTIDO DOS SOCIALISTAS DE GALICIA-PSOE,Patricia Otero Rodríguez,legal,0.2681,0.2683,0.1931,0.2641,0.3475,0.0573,1.2234,1.0,2.0,0.9789
+27,Lugo,Galicia,SALF,SALF,SE ACABÓ LA FIESTA,María Ferreiro Carreiras,europeas,0.007,0.0074,0.004,0.0068,0.0115,0.0,0.0,0.0,0.0,0.0
+27,Lugo,Galicia,VOX,VOX,VOX,Jesús Primitivo Rodríguez González,legal,0.0673,0.0684,0.0458,0.0661,0.0937,0.0,0.0014,0.0,0.0,0.0014
+27,Lugo,Galicia,OTROS,OTROS,Otras candidaturas,,legal,0.0084,0.0086,0.0056,0.0082,0.0121,0.0,0.0,0.0,0.0,0.0
+28,Madrid,Comunidad de Madrid,FA,FA,Frente Amplio,Emilio Delgado Orgaz,sustituto,0.0829,0.0867,0.0496,0.0814,0.1309,0.0006,3.1485,2.0,5.0,0.9942
+28,Madrid,Comunidad de Madrid,PODEMOS,PODEMOS,PODEMOS,Irene Montero Gil,europeas,0.0367,0.0387,0.0215,0.0361,0.0593,0.0,0.9553,0.0,2.0,0.671
+28,Madrid,Comunidad de Madrid,PP,PP,PARTIDO POPULAR,Alberto Núñez Feijóo,legal,0.3804,0.375,0.2878,0.3722,0.4656,0.8446,15.3199,12.0,19.0,1.0
+28,Madrid,Comunidad de Madrid,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Pedro Sánchez Pérez-Castejón,legal,0.2454,0.2442,0.1758,0.2398,0.3189,0.1082,9.8029,7.0,13.0,1.0
+28,Madrid,Comunidad de Madrid,SALF,SALF,SE ACABÓ LA FIESTA,Luis Alvise Pérez Fernández,europeas,0.0211,0.022,0.0123,0.0203,0.034,0.0,0.1806,0.0,1.0,0.1641
+28,Madrid,Comunidad de Madrid,VOX,VOX,VOX,Santiago Abascal Conde,legal,0.2159,0.2154,0.1524,0.2117,0.283,0.0466,8.5928,6.0,11.0,1.0
+28,Madrid,Comunidad de Madrid,OTROS,OTROS,Otras candidaturas,,legal,0.0176,0.0179,0.0118,0.0171,0.025,0.0,0.0,0.0,0.0,0.0
+29,Málaga,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,Ana María Jiménez Navarro,ninguno,0.0771,0.0832,0.0395,0.0753,0.1359,0.0021,0.6839,0.0,1.0,0.5718
+29,Málaga,Andalucía,FA,FA,Frente Amplio,Rafael Borrego Peña,sustituto,0.0593,0.0615,0.0349,0.0575,0.0926,0.0,0.3294,0.0,1.0,0.3189
+29,Málaga,Andalucía,PODEMOS,PODEMOS,PODEMOS,Micaela Jiménez Fortes,europeas,0.0209,0.0216,0.012,0.02,0.0333,0.0,0.0008,0.0,0.0,0.0008
+29,Málaga,Andalucía,PP,PP,PARTIDO POPULAR,Elías Bendodo Benasayag,legal,0.3244,0.3193,0.2394,0.3163,0.4058,0.6982,4.17,3.0,5.0,1.0
+29,Málaga,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,José Bernal Gutiérrez,legal,0.2414,0.2385,0.1714,0.2347,0.3109,0.1712,2.9945,2.0,4.0,1.0
+29,Málaga,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Mercedes Gema Jiménez Martín,europeas,0.028,0.0292,0.0161,0.0271,0.0448,0.0,0.009,0.0,0.0,0.009
+29,Málaga,Andalucía,VOX,VOX,VOX,Carlos Hernández Quero,legal,0.2287,0.2265,0.1613,0.222,0.2983,0.1285,2.8124,2.0,4.0,1.0
+29,Málaga,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0201,0.0201,0.0133,0.0194,0.0281,0.0,0.0,0.0,0.0,0.0
+30,Murcia,Región de Murcia,FA,FA,Frente Amplio,Penélope Luna Palazón (FA),sustituto,0.0483,0.0504,0.0286,0.0467,0.077,0.0,0.0952,0.0,0.0,0.0947
+30,Murcia,Región de Murcia,PODEMOS,PODEMOS,PODEMOS,Víctor Manuel Egío García,europeas,0.0183,0.0193,0.0106,0.0178,0.0301,0.0,0.0001,0.0,0.0,0.0001
+30,Murcia,Región de Murcia,PP,PP,PARTIDO POPULAR,Mirian Guardiola Salmerón,legal,0.3636,0.3596,0.2718,0.3561,0.4514,0.6191,4.1356,3.0,5.0,1.0
+30,Murcia,Región de Murcia,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María González Veracruz,legal,0.2099,0.2096,0.1474,0.2053,0.278,0.032,2.2016,1.0,3.0,0.9999
+30,Murcia,Región de Murcia,SALF,SALF,SE ACABÓ LA FIESTA,Raquel Cardeñosa Cuesta,europeas,0.0259,0.0271,0.0149,0.025,0.042,0.0,0.0018,0.0,0.0,0.0018
+30,Murcia,Región de Murcia,VOX,VOX,VOX,Joaquín Robles López,legal,0.316,0.3156,0.2338,0.3121,0.4024,0.3489,3.5657,3.0,5.0,1.0
+30,Murcia,Región de Murcia,OTROS,OTROS,Otras candidaturas,,legal,0.0181,0.0184,0.0121,0.0177,0.0256,0.0,0.0,0.0,0.0,0.0
+31,Navarra,Navarra,BILDU_ERC,EH BILDU-ERC,EUSKAL HERRIA BILDU-ESQUERRA REPUBLICANA DE CATALUNYA,Eneka Maiz Ulaiar (EH BILDU),legal,0.1896,0.189,0.1346,0.1848,0.2498,0.0583,1.1266,1.0,2.0,0.9606
+31,Navarra,Navarra,FA,FRENTE AMPLIO-FRONTE ZABALA,Frente Amplio-Fronte Zabala,Javier Ibáñez Orayen,sustituto,0.0706,0.0735,0.0422,0.0686,0.1107,0.0002,0.0723,0.0,0.0,0.0722
+31,Navarra,Navarra,PODEMOS,PODEMOS,PODEMOS,Virginia Alonso Aparicio,europeas,0.0272,0.0285,0.0158,0.0265,0.0438,0.0,0.0,0.0,0.0,0.0
+31,Navarra,Navarra,PSOE,PSN-PSOE,PARTIDO SOCIALISTA DE NAVARRA-PSOE,Elma Saiz Delgado,legal,0.2473,0.2459,0.1793,0.2422,0.3175,0.2564,1.5861,1.0,2.0,0.9987
+31,Navarra,Navarra,SALF,SALF,SE ACABÓ LA FIESTA,Lidia Martínez Aranguibel,europeas,0.0131,0.0138,0.0077,0.0127,0.0213,0.0,0.0,0.0,0.0,0.0
+31,Navarra,Navarra,UPN_PP,UPN-PP,UNIÓN DEL PUEBLO NAVARRO EN COALICIÓN CON EL PARTIDO POPULAR,Leticia San Martín Rodríguez (UPN),legal,0.3076,0.3047,0.228,0.3009,0.3855,0.6849,2.0943,1.0,3.0,1.0
+31,Navarra,Navarra,VOX,VOX,VOX,María Perpetuo Socorro Sada Ballesteros,legal,0.09,0.09,0.0617,0.0871,0.1219,0.0002,0.1207,0.0,1.0,0.1205
+31,Navarra,Navarra,OTROS,OTROS,Otras candidaturas,,legal,0.0544,0.0547,0.0368,0.053,0.0748,0.0,0.0,0.0,0.0,0.0
+32,Ourense,Galicia,BNG,BNG,BLOQUE NACIONALISTA GALEGO,Noa Presas Bergantiños,legal,0.1301,0.1313,0.0889,0.1271,0.1788,0.0004,0.2312,0.0,1.0,0.2308
+32,Ourense,Galicia,FA,FRENTE AMPLIO-FRONTE AMPLA,Frente Amplio-Fronte Ampla,Cristian González Vázquez,sustituto,0.0294,0.0309,0.0171,0.0285,0.0477,0.0,0.0,0.0,0.0,0.0
+32,Ourense,Galicia,PODEMOS,PODEMOS,PODEMOS,Antonio José Naval Calviño,europeas,0.01,0.0105,0.0058,0.0097,0.0163,0.0,0.0,0.0,0.0,0.0
+32,Ourense,Galicia,PP,PP,PARTIDO POPULAR,Ana Belén Vázquez Blanco,legal,0.4714,0.4666,0.3714,0.4665,0.5628,0.9374,2.5301,2.0,3.0,1.0
+32,Ourense,Galicia,PSOE,PSdeG-PSOE,Partido dos Socialistas de Galicia-PSOE,María del Carmen Rodríguez Dacosta,legal,0.2663,0.2662,0.1915,0.2615,0.3466,0.0622,1.235,1.0,2.0,0.978
+32,Ourense,Galicia,SALF,SALF,SE ACABÓ LA FIESTA,Abel Estévez González,europeas,0.0076,0.008,0.0044,0.0074,0.0124,0.0,0.0,0.0,0.0,0.0
+32,Ourense,Galicia,VOX,VOX,VOX,Maria Jesús Morenza Fernández,legal,0.0754,0.0764,0.0513,0.0738,0.1045,0.0,0.0037,0.0,0.0,0.0037
+32,Ourense,Galicia,OTROS,OTROS,Otras candidaturas,,legal,0.0098,0.01,0.0065,0.0096,0.0142,0.0,0.0,0.0,0.0,0.0
+33,Asturias,Asturias,FA,FA,FRENTE AMPLIU POR ASTURIES,Juan Antonio González Ponte,sustituto,0.0816,0.0846,0.0485,0.0794,0.1271,0.0005,0.2447,0.0,1.0,0.2396
+33,Asturias,Asturias,PODEMOS,PODEMOS,PODEMOS,Manuel Antonio Pravia Fernández,europeas,0.032,0.0335,0.0189,0.0311,0.0511,0.0,0.0011,0.0,0.0,0.0011
+33,Asturias,Asturias,PP,PP,PARTIDO POPULAR,Ángela Pumariega Menéndez,legal,0.3427,0.3393,0.2545,0.3365,0.4275,0.5904,2.8177,2.0,4.0,1.0
+33,Asturias,Asturias,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Adriana Lastra Fernández,legal,0.3102,0.3083,0.2282,0.3048,0.3927,0.3816,2.5142,2.0,3.0,1.0
+33,Asturias,Asturias,SALF,SALF,SE ACABÓ LA FIESTA,Luis Álvarez Pérez,europeas,0.0141,0.0147,0.0081,0.0136,0.0226,0.0,0.0,0.0,0.0,0.0
+33,Asturias,Asturias,VOX,VOX,VOX,José María Figaredo Álvarez-Sala,legal,0.197,0.1968,0.1374,0.1929,0.2615,0.0275,1.4223,1.0,2.0,0.9901
+33,Asturias,Asturias,OTROS,OTROS,Otras candidaturas,,legal,0.0225,0.0228,0.015,0.022,0.0318,0.0,0.0,0.0,0.0,0.0
+34,Palencia,Castilla y León,FA,FA,Frente Amplio,Ana Belén Collantes Martín,sustituto,0.0322,0.0341,0.0189,0.0318,0.0521,0.0,0.0,0.0,0.0,0.0
+34,Palencia,Castilla y León,PODEMOS,PODEMOS,PODEMOS,Alberto Pozo Díez,europeas,0.0153,0.0162,0.0089,0.0149,0.0249,0.0,0.0,0.0,0.0,0.0
+34,Palencia,Castilla y León,PP,PP,PARTIDO POPULAR,Milagros Marcos Ortega,legal,0.3901,0.3858,0.295,0.384,0.479,0.7403,1.4638,1.0,2.0,0.9981
+34,Palencia,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María Luz Martínez Seijo,legal,0.3027,0.3016,0.2216,0.2975,0.3883,0.2442,1.0708,1.0,2.0,0.9525
+34,Palencia,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Fernando Martínez Torres,europeas,0.0168,0.0177,0.0097,0.0163,0.0274,0.0,0.0,0.0,0.0,0.0
+34,Palencia,Castilla y León,VOX,VOX,VOX,Matías Recio Juárez,legal,0.1966,0.1975,0.1398,0.1927,0.2606,0.0155,0.4654,0.0,1.0,0.465
+34,Palencia,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.0463,0.0471,0.0312,0.0454,0.0652,0.0,0.0,0.0,0.0,0.0
+35,"Palmas, Las",Canarias,CCA,1.ºCAN-CCa,MUNICIPALISTAS PRIMERO CANARIAS-COALICIÓN CANARIA,Teodoro Claret Sosa Monzón,legal,0.0567,0.0571,0.0387,0.0551,0.0783,0.0,0.0876,0.0,0.0,0.0876
+35,"Palmas, Las",Canarias,PP,PP,PARTIDO POPULAR,Sergio Ramos Acosta,legal,0.2372,0.236,0.1719,0.2322,0.3055,0.2443,2.4666,2.0,3.0,1.0
+35,"Palmas, Las",Canarias,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,María Dolores Corujo Berriel,legal,0.2861,0.285,0.211,0.2808,0.3652,0.5954,3.0742,2.0,4.0,1.0
+35,"Palmas, Las",Canarias,SALF,SALF,SE ACABÓ LA FIESTA,Clara María Tejera González,europeas,0.0277,0.0291,0.0164,0.027,0.0444,0.0,0.0035,0.0,0.0,0.0034
+35,"Palmas, Las",Canarias,UPC,"NC-BC, PODEMOS, IU, SUMAR",UNIDAD DEL PUEBLO CANARIO UPC,Luis Alberto Campos Jiménez,sustituto,0.0539,0.0561,0.0319,0.0523,0.085,0.0001,0.1352,0.0,1.0,0.1341
+35,"Palmas, Las",Canarias,VOX,VOX,VOX,Andrés Alberto Rodríguez Almeida,legal,0.22,0.2182,0.1566,0.2141,0.285,0.1602,2.2329,1.0,3.0,1.0
+35,"Palmas, Las",Canarias,OTROS,OTROS,Otras candidaturas,,legal,0.1185,0.1186,0.0821,0.1154,0.1587,0.0,0.0,0.0,0.0,0.0
+36,Pontevedra,Galicia,BNG,BNG,BLOQUE NACIONALISTA GALEGO,María Carme da Silva Méndez,legal,0.1509,0.1522,0.1052,0.1481,0.2037,0.0025,1.0617,1.0,2.0,0.9293
+36,Pontevedra,Galicia,FA,FRENTE AMPLIO - FRONTE AMPLA,Frente Amplio - Fronte Ampla,Gloria Alonso Domínguez,sustituto,0.0721,0.0757,0.0433,0.071,0.1137,0.0001,0.1845,0.0,1.0,0.1822
+36,Pontevedra,Galicia,PODEMOS,PODEMOS,PODEMOS,Lucas Meda Herbojo,europeas,0.0184,0.0193,0.0107,0.0179,0.0299,0.0,0.0,0.0,0.0,0.0
+36,Pontevedra,Galicia,PP,PP,Partido Popular,Julio García Comesaña,legal,0.3801,0.3756,0.2885,0.3732,0.4667,0.7889,3.2992,2.0,4.0,1.0
+36,Pontevedra,Galicia,PSOE,PSdeG-PSOE,Partido dos Socialistas de Galicia-PSOE,Abel Fermín Losada Álvarez,legal,0.2819,0.2796,0.2051,0.2753,0.3615,0.2085,2.3276,2.0,3.0,1.0
+36,Pontevedra,Galicia,SALF,SALF,SE ACABÓ LA FIESTA,David Díaz Garrido,europeas,0.0096,0.0101,0.0056,0.0094,0.0155,0.0,0.0,0.0,0.0,0.0
+36,Pontevedra,Galicia,VOX,VOX,VOX,Álvaro José Díaz-Mella López,legal,0.0754,0.0758,0.0511,0.0733,0.1035,0.0,0.127,0.0,1.0,0.1269
+36,Pontevedra,Galicia,OTROS,OTROS,Otras candidaturas,,legal,0.0115,0.0116,0.0077,0.0112,0.0162,0.0,0.0,0.0,0.0,0.0
+37,Salamanca,Castilla y León,FA,FA,Frente Amplio,Miriam Ruiz Arias,sustituto,0.0291,0.0306,0.0168,0.0285,0.0472,0.0,0.0,0.0,0.0,0.0
+37,Salamanca,Castilla y León,PODEMOS,PODEMOS,PODEMOS,María Aurora Zarco Blanco,europeas,0.0174,0.0183,0.01,0.0169,0.0283,0.0,0.0,0.0,0.0,0.0
+37,Salamanca,Castilla y León,PP,PP,PARTIDO POPULAR,María del Carmen Seguín Kattán,legal,0.4318,0.4278,0.3339,0.4264,0.5236,0.8878,2.0384,2.0,3.0,1.0
+37,Salamanca,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,David Serrada Pariente,legal,0.264,0.2641,0.1882,0.2601,0.3457,0.0831,1.0804,1.0,2.0,0.9546
+37,Salamanca,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Luis Eduardo Riesco Lorenzo,europeas,0.0151,0.016,0.0087,0.0147,0.0247,0.0,0.0,0.0,0.0,0.0
+37,Salamanca,Castilla y León,VOX,VOX,VOX,Laura Magdalena Miguel,legal,0.2217,0.2219,0.1572,0.2161,0.2948,0.0291,0.8812,0.0,1.0,0.847
+37,Salamanca,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.021,0.0213,0.0139,0.0205,0.0297,0.0,0.0,0.0,0.0,0.0
+38,Santa Cruz de Tenerife,Canarias,CCA,CCa-1.ºCAN,Coalición Canaria-Municipalistas Primero Canarias,Cristina Valido García,legal,0.1709,0.171,0.1182,0.1673,0.2282,0.0049,1.1673,1.0,2.0,0.961
+38,Santa Cruz de Tenerife,Canarias,PP,PP,PARTIDO POPULAR,Gustavo González De Vega,legal,0.3699,0.3668,0.2781,0.3648,0.4595,0.6234,3.0566,2.0,4.0,1.0
+38,Santa Cruz de Tenerife,Canarias,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,José Antonio Valbuena Alonso,legal,0.3293,0.3268,0.2418,0.3232,0.4165,0.3717,2.6759,2.0,4.0,1.0
+38,Santa Cruz de Tenerife,Canarias,SALF,SALF,SE ACABÓ LA FIESTA,Eduardo Zerolo Álvarez,europeas,0.0273,0.0288,0.0159,0.0267,0.0441,0.0,0.0003,0.0,0.0,0.0003
+38,Santa Cruz de Tenerife,Canarias,UPC,"NC-BC, PODEMOS, IU, SUMAR",UNIDAD DEL PUEBLO CANARIO UPC,María Soledad Collado Mirabal,sustituto,0.0649,0.0682,0.0386,0.064,0.1031,0.0,0.0999,0.0,0.0,0.0993
+38,Santa Cruz de Tenerife,Canarias,VOX,VOX,VOX,Alejandro Santiago Gómez Rodríguez,legal,0.0004,0.0004,0.0003,0.0004,0.0006,0.0,0.0,0.0,0.0,0.0
+38,Santa Cruz de Tenerife,Canarias,OTROS,OTROS,Otras candidaturas,,legal,0.0373,0.038,0.025,0.0366,0.0528,0.0,0.0,0.0,0.0,0.0
+39,Cantabria,Cantabria,FA,FA,FRENTE AMPLIO,María Carmen Martín García,sustituto,0.0461,0.0483,0.0271,0.045,0.0737,0.0,0.0018,0.0,0.0,0.0018
+39,Cantabria,Cantabria,PODEMOS,PODEMOS,PODEMOS,Pablo Gómez Ruiz,europeas,0.0226,0.0239,0.0131,0.0221,0.0369,0.0,0.0,0.0,0.0,0.0
+39,Cantabria,Cantabria,PP,PP,PARTIDO POPULAR,María Isabel Urrutía de los Mozos,legal,0.3996,0.3966,0.3031,0.3946,0.4926,0.7661,2.3207,2.0,3.0,1.0
+39,Cantabria,Cantabria,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Susana Herrán Martín,legal,0.2972,0.2968,0.2173,0.2919,0.3827,0.2006,1.602,1.0,2.0,0.9979
+39,Cantabria,Cantabria,VOX,VOX,VOX,Emilio Jesús Del Valle Rodríguez,legal,0.2192,0.2187,0.1537,0.2143,0.2892,0.0333,1.0755,1.0,2.0,0.9432
+39,Cantabria,Cantabria,OTROS,OTROS,Otras candidaturas,,legal,0.0153,0.0156,0.0102,0.015,0.0218,0.0,0.0,0.0,0.0,0.0
+40,Segovia,Castilla y León,FA,FA,Frente Amplio,Víctor Javier Borreguero García,sustituto,0.0428,0.0451,0.0251,0.042,0.0689,0.0,0.0001,0.0,0.0,0.0001
+40,Segovia,Castilla y León,PODEMOS,PODEMOS,PODEMOS,María Soledad Alba Monfort,europeas,0.0207,0.0218,0.0121,0.0201,0.0338,0.0,0.0,0.0,0.0,0.0
+40,Segovia,Castilla y León,PP,PP,PARTIDO POPULAR,Pablo Pérez Coronado,legal,0.419,0.4141,0.3222,0.4119,0.509,0.8658,1.5408,1.0,2.0,0.9991
+40,Segovia,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,José Luis Aceves Galindo,legal,0.2676,0.268,0.1941,0.2644,0.3481,0.1065,0.8951,0.0,1.0,0.8596
+40,Segovia,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Jesús Angel Gascón Ames,europeas,0.0182,0.0192,0.0106,0.0179,0.0294,0.0,0.0,0.0,0.0,0.0
+40,Segovia,Castilla y León,VOX,VOX,VOX,Gonzalo Babé Romero,legal,0.2156,0.2155,0.152,0.2103,0.2855,0.0277,0.564,0.0,1.0,0.5611
+40,Segovia,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.0161,0.0163,0.0107,0.0157,0.0228,0.0,0.0,0.0,0.0,0.0
+41,Sevilla,Andalucía,ADELANTE,ADELANTE ANDALUCÍA,ADELANTE ANDALUCÍA,Luis María de los Santos Castillo,ninguno,0.0791,0.0851,0.0403,0.0768,0.1409,0.0033,0.8132,0.0,2.0,0.6442
+41,Sevilla,Andalucía,FA,FA,Frente Amplio Andaluz,Enrique Fernando Santiago Romero,sustituto,0.0698,0.0728,0.0412,0.0681,0.1104,0.0003,0.6149,0.0,1.0,0.5651
+41,Sevilla,Andalucía,PODEMOS,PODEMOS,PODEMOS,Mar Cambrollé Jurado,europeas,0.0267,0.0276,0.0155,0.0258,0.0421,0.0,0.0099,0.0,0.0,0.0099
+41,Sevilla,Andalucía,PP,PP,PARTIDO POPULAR,Juan Bravo Baena,legal,0.2905,0.2876,0.2116,0.2835,0.3689,0.4519,4.0074,3.0,5.0,1.0
+41,Sevilla,Andalucía,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Alfonso Rodríguez Gómez de Celis,legal,0.2993,0.2934,0.2158,0.29,0.374,0.5026,4.1055,3.0,5.0,1.0
+41,Sevilla,Andalucía,SALF,SALF,SE ACABÓ LA FIESTA,Juan Antonio Sánchez Murillo González,europeas,0.0244,0.0255,0.0142,0.0236,0.0391,0.0,0.007,0.0,0.0,0.007
+41,Sevilla,Andalucía,VOX,VOX,VOX,María de los Reyes Romero Vilches,legal,0.1902,0.188,0.1324,0.1835,0.2492,0.0419,2.4421,2.0,3.0,0.9999
+41,Sevilla,Andalucía,OTROS,OTROS,Otras candidaturas,,legal,0.0199,0.0199,0.0131,0.0191,0.0277,0.0,0.0,0.0,0.0,0.0
+42,Soria,Castilla y León,FA,FA,Frente Amplio,Ángel Alberto Flores Gaitán,sustituto,0.0169,0.018,0.0099,0.0166,0.0277,0.0,0.0,0.0,0.0,0.0
+42,Soria,Castilla y León,PODEMOS,PODEMOS,PODEMOS,María Luisa Muñoz González,europeas,0.0154,0.0162,0.0089,0.0151,0.0251,0.0,0.0,0.0,0.0,0.0
+42,Soria,Castilla y León,PP,PP,PARTIDO POPULAR,Tomás Cabezón Casas,legal,0.3274,0.3249,0.2433,0.3228,0.4104,0.7884,1.118,1.0,2.0,0.9883
+42,Soria,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Luis Alfonso Rey de las Heras,legal,0.2436,0.2433,0.1767,0.2387,0.3152,0.2069,0.8237,0.0,1.0,0.8206
+42,Soria,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,José María Lorenzo Córdoba Alós,europeas,0.0122,0.0129,0.0071,0.012,0.0199,0.0,0.0,0.0,0.0,0.0
+42,Soria,Castilla y León,VOX,VOX,VOX,Andrea Martínez Ruiz,legal,0.1415,0.1421,0.0982,0.1381,0.1908,0.0047,0.0583,0.0,0.0,0.0583
+42,Soria,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.2429,0.2426,0.1758,0.2381,0.3159,0.0,0.0,0.0,0.0,0.0
+43,Tarragona,Cataluña,ERC,ERC,ESQUERRA REPUBLICANA DE CATALUNYA,Norma Pujol Farré,legal,0.2016,0.2003,0.1452,0.1965,0.2609,0.1543,1.4512,1.0,2.0,0.9952
+43,Tarragona,Cataluña,FA,COMUNS-FRONT AMPLI,Comuns-Front Ampli,Ester Roca Domodel (COMUNS-FRONT AMPLI),sustituto,0.0601,0.0625,0.0362,0.0586,0.0937,0.0,0.0696,0.0,0.0,0.0694
+43,Tarragona,Cataluña,JUNTS,JxCat,JUNTS PER CATALUNYA,Josep Maria Cruset i Domènech,legal,0.0926,0.093,0.0638,0.0904,0.1256,0.0002,0.3135,0.0,1.0,0.3128
+43,Tarragona,Cataluña,PP,PP,PARTIT POPULAR / PARTIDO POPULAR,Mónica Landete Oliva,legal,0.1286,0.1289,0.0901,0.1255,0.1733,0.0077,0.8127,0.0,1.0,0.7848
+43,Tarragona,Cataluña,PSOE,PSC,PARTIT DELS SOCIALISTES DE CATALUNYA (PSC-PSOE),Ione Montalvo Aguirrezabala,legal,0.2867,0.2839,0.2121,0.2804,0.3611,0.8027,2.2884,2.0,3.0,1.0
+43,Tarragona,Cataluña,SALF,SALF,SE ACABÓ LA FIESTA,Jorge Sánchez Castro,europeas,0.014,0.0146,0.0081,0.0135,0.0224,0.0,0.0,0.0,0.0,0.0
+43,Tarragona,Cataluña,VOX,VOX,VOX,Jordi Albert de la Fuente i Miró,legal,0.1572,0.1572,0.1108,0.1536,0.2082,0.0351,1.0646,1.0,2.0,0.9407
+43,Tarragona,Cataluña,OTROS,OTROS,Otras candidaturas,,legal,0.0592,0.0595,0.0405,0.0575,0.0812,0.0,0.0,0.0,0.0,0.0
+44,Teruel,Aragón,PODEMOS,PODEMOS,PODEMOS,Rafael Carlos Esteban Martín,europeas,0.0145,0.0153,0.0084,0.0141,0.0236,0.0,0.0,0.0,0.0,0.0
+44,Teruel,Aragón,PP,PP,PARTIDO POPULAR,José Alberto Herrero Bono,legal,0.315,0.3141,0.2336,0.31,0.3994,0.7019,1.308,1.0,2.0,0.9959
+44,Teruel,Aragón,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Herminio Rufino Sancho Íniguez,legal,0.2475,0.2466,0.1775,0.2424,0.3213,0.2373,1.0011,1.0,1.0,0.9286
+44,Teruel,Aragón,SALF,SALF,SE ACABÓ LA FIESTA,Carlos Aranda Anquela,europeas,0.0187,0.0196,0.0108,0.0182,0.0303,0.0,0.0,0.0,0.0,0.0
+44,Teruel,Aragón,VOX,VOX,VOX,Daniel Alda Chercoles,legal,0.1931,0.1939,0.1368,0.1898,0.2575,0.0608,0.6909,0.0,1.0,0.6876
+44,Teruel,Aragón,OTROS,OTROS,Otras candidaturas,,legal,0.2112,0.2105,0.1492,0.2068,0.2786,0.0,0.0,0.0,0.0,0.0
+45,Toledo,Castilla-La Mancha,FA,FA,Frente Amplio,José Alejandro Ávila Sánchez (FRENTE AMPLIO),sustituto,0.0424,0.0447,0.0251,0.0416,0.068,0.0,0.0031,0.0,0.0,0.0031
+45,Toledo,Castilla-La Mancha,PODEMOS,PODEMOS,PODEMOS,María Ángeles Castellanos Valverde,europeas,0.0172,0.0181,0.0099,0.0167,0.028,0.0,0.0,0.0,0.0,0.0
+45,Toledo,Castilla-La Mancha,PP,PP,PARTIDO POPULAR,Carlos Velázquez Romo,legal,0.3412,0.3401,0.2546,0.3359,0.4308,0.5471,2.3244,2.0,3.0,1.0
+45,Toledo,Castilla-La Mancha,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Milagros Tolón Jaime,legal,0.2758,0.2754,0.1976,0.2711,0.3593,0.2019,1.7852,1.0,2.0,0.9993
+45,Toledo,Castilla-La Mancha,SALF,SALF,SE ACABÓ LA FIESTA,Antonio Cuñarro Alonso,europeas,0.0196,0.0207,0.0114,0.019,0.0317,0.0,0.0,0.0,0.0,0.0
+45,Toledo,Castilla-La Mancha,VOX,VOX,VOX,Manuel Mariscal Zabala,legal,0.2905,0.2876,0.2097,0.2834,0.3702,0.251,1.8873,1.0,3.0,0.9998
+45,Toledo,Castilla-La Mancha,OTROS,OTROS,Otras candidaturas,,legal,0.0134,0.0135,0.0089,0.0129,0.0189,0.0,0.0,0.0,0.0,0.0
+46,Valencia/València,Comunitat Valenciana,COMPROMIS,COMPROMIS-EUPV-PODEM-ERPV,COMPROMÍS: FRONT VALENCIÀ,Àgueda Micó Micó,sustituto,0.1279,0.1317,0.0783,0.125,0.1943,0.0091,1.9764,1.0,3.0,0.9889
+46,Valencia/València,Comunitat Valenciana,PP,PP,PARTIDO POPULAR,María José Catalá Verdet,legal,0.3144,0.3124,0.232,0.3084,0.3975,0.5438,5.3827,4.0,7.0,1.0
+46,Valencia/València,Comunitat Valenciana,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Pilar Bernabé García,legal,0.2819,0.28,0.2044,0.2762,0.3611,0.3319,4.7639,3.0,6.0,1.0
+46,Valencia/València,Comunitat Valenciana,SALF,SALF,SE ACABÓ LA FIESTA,Kevin Pérez Hernández,europeas,0.024,0.0252,0.014,0.0233,0.0388,0.0,0.0189,0.0,0.0,0.0188
+46,Valencia/València,Comunitat Valenciana,VOX,VOX,VOX,Ignacio Gil Lázaro,legal,0.2333,0.232,0.1663,0.2284,0.3033,0.1152,3.8581,3.0,5.0,1.0
+46,Valencia/València,Comunitat Valenciana,OTROS,OTROS,Otras candidaturas,,legal,0.0184,0.0186,0.0122,0.0179,0.026,0.0,0.0,0.0,0.0,0.0
+47,Valladolid,Castilla y León,FA,FA,Frente Amplio,Abdul Gadiri Diallo Bah (FRENTE AMPLIO),sustituto,0.0468,0.0493,0.0277,0.046,0.0753,0.0,0.0029,0.0,0.0,0.0029
+47,Valladolid,Castilla y León,PODEMOS,PODEMOS,PODEMOS,María Almudena Villarreal Vidal,europeas,0.0216,0.0226,0.0126,0.021,0.0348,0.0,0.0,0.0,0.0,0.0
+47,Valladolid,Castilla y León,PP,PP,PARTIDO POPULAR,María Pardo Álvarez,legal,0.3775,0.374,0.2827,0.3724,0.465,0.7386,2.2395,2.0,3.0,1.0
+47,Valladolid,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Óscar Puente Santiago,legal,0.2844,0.2829,0.206,0.2783,0.3657,0.2022,1.5672,1.0,2.0,0.9973
+47,Valladolid,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,Onecha López Merino,europeas,0.0186,0.0196,0.0109,0.0183,0.03,0.0,0.0,0.0,0.0,0.0
+47,Valladolid,Castilla y León,VOX,VOX,VOX,Pablo Sáez Alonso-Muñumer,legal,0.2299,0.2301,0.1637,0.2257,0.3018,0.0592,1.1904,1.0,2.0,0.9723
+47,Valladolid,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.0211,0.0214,0.0141,0.0206,0.0297,0.0,0.0,0.0,0.0,0.0
+48,Bizkaia,País Vasco,BILDU,EH Bildu,EUSKAL HERRIA BILDU,Oskar Matute Garcia de Jalón,legal,0.2474,0.2458,0.1791,0.2419,0.3172,0.3671,2.3431,2.0,3.0,1.0
+48,Bizkaia,País Vasco,FA,FA,FRENTE AMPLIO,Lander Martínez Hierro,sustituto,0.0654,0.0681,0.039,0.0636,0.1034,0.0004,0.209,0.0,1.0,0.2054
+48,Bizkaia,País Vasco,PNV,EAJ-PNV,EUZKO ALDERDI JELTZALEA-PARTIDO NACIONALISTA VASCO,Idoia Sagastizabal Unzetabarrenetxea,legal,0.2232,0.2219,0.1602,0.2177,0.2881,0.2136,2.0689,1.0,3.0,1.0
+48,Bizkaia,País Vasco,PODEMOS,PODEMOS,PODEMOS,Jose Manuel de Pablos Bajo,europeas,0.0294,0.0306,0.0172,0.0284,0.0466,0.0,0.0012,0.0,0.0,0.0012
+48,Bizkaia,País Vasco,PP,PP,PARTIDO POPULAR,Esther Martínez Fernández,legal,0.1213,0.1212,0.0841,0.1182,0.1621,0.0026,0.9467,0.0,1.0,0.8772
+48,Bizkaia,País Vasco,PSOE,PSOE,PARTIDO SOCIALISTA DE EUSKADI-EUSKADIKO EZKERRA (PSOE) PSE-EE,Patxi López Alvarez,legal,0.2544,0.2529,0.1864,0.2491,0.3247,0.4163,2.424,2.0,3.0,1.0
+48,Bizkaia,País Vasco,VOX,VOX,VOX,Marco Antonio Moreno Asla,legal,0.0453,0.0457,0.0307,0.044,0.0629,0.0,0.0071,0.0,0.0,0.0071
+48,Bizkaia,País Vasco,OTROS,OTROS,Otras candidaturas,,legal,0.0136,0.0137,0.0091,0.0131,0.0189,0.0,0.0,0.0,0.0,0.0
+49,Zamora,Castilla y León,FA,FA,Frente Amplio,Diego Bernardo Rosas,sustituto,0.03,0.0315,0.0174,0.0294,0.0483,0.0,0.0,0.0,0.0,0.0
+49,Zamora,Castilla y León,PODEMOS,PODEMOS,PODEMOS,Miguel Ángel Guerra Cosme,europeas,0.015,0.0158,0.0086,0.0145,0.0245,0.0,0.0,0.0,0.0,0.0
+49,Zamora,Castilla y León,PP,PP,PARTIDO POPULAR,María Montserrat Chimeno Viñas,legal,0.4154,0.4125,0.3205,0.4098,0.5085,0.8398,1.5601,1.0,2.0,0.9994
+49,Zamora,Castilla y León,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Antidio Fagúndez Campo,legal,0.2839,0.2831,0.2046,0.2797,0.3659,0.1463,0.9679,1.0,1.0,0.9045
+49,Zamora,Castilla y León,SALF,SALF,SE ACABÓ LA FIESTA,María Cynthia Garrote Ballestero,europeas,0.0136,0.0144,0.0078,0.0132,0.0223,0.0,0.0,0.0,0.0,0.0
+49,Zamora,Castilla y León,VOX,VOX,VOX,Miguel Suárez Arca,legal,0.2015,0.2017,0.141,0.1975,0.2686,0.0139,0.472,0.0,1.0,0.4714
+49,Zamora,Castilla y León,OTROS,OTROS,Otras candidaturas,,legal,0.0406,0.041,0.0272,0.0394,0.057,0.0,0.0,0.0,0.0,0.0
+50,Zaragoza,Aragón,FA,CHA-IU-MS-FRENTE AMPLIO,Chunta Aragonesista-Frente Amplio Aragón,Marina Rodríguez Hernando (CHA),sustituto,0.0714,0.0745,0.042,0.0695,0.1135,0.0,0.1742,0.0,1.0,0.1717
+50,Zaragoza,Aragón,PODEMOS,PODEMOS,PODEMOS,Alicia Arteaga Lahuerta,europeas,0.0265,0.0279,0.0157,0.0259,0.0428,0.0,0.0004,0.0,0.0,0.0004
+50,Zaragoza,Aragón,PP,PP,PARTIDO POPULAR,María del Rocío Dívar Conde,legal,0.3337,0.3312,0.2499,0.3284,0.4166,0.6603,2.824,2.0,4.0,1.0
+50,Zaragoza,Aragón,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Fernando Ángel Beltrán Blázquez,legal,0.2684,0.2667,0.1935,0.2631,0.3434,0.2329,2.1808,1.0,3.0,0.9999
+50,Zaragoza,Aragón,SALF,SALF,SE ACABÓ LA FIESTA,María Cristina Falcón Aldana,europeas,0.0217,0.0228,0.0126,0.0213,0.035,0.0,0.0,0.0,0.0,0.0
+50,Zaragoza,Aragón,VOX,VOX,VOX,María Carmen Rouco Laliena,legal,0.2327,0.2309,0.1652,0.2269,0.3009,0.1068,1.8206,1.0,3.0,0.9991
+50,Zaragoza,Aragón,OTROS,OTROS,Otras candidaturas,,legal,0.0456,0.0461,0.0307,0.0445,0.0635,0.0,0.0,0.0,0.0,0.0
+51,Ceuta,Ceuta,PODEMOS,"PAZ,CASA Y TRABAJO",PODEMOS,Ramón Rodríguez Casaubón,europeas,0.0153,0.0161,0.0089,0.015,0.0248,0.0,0.0,0.0,0.0,0.0
+51,Ceuta,Ceuta,PP,PP,PARTIDO POPULAR,Rafael Martínez Peñalver Mateos,legal,0.3376,0.3354,0.2487,0.3321,0.4247,0.4307,0.4307,0.0,1.0,0.4307
+51,Ceuta,Ceuta,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Luis Manuel Tovar Gálvez,legal,0.2782,0.279,0.2022,0.2749,0.3608,0.1604,0.1604,0.0,1.0,0.1604
+51,Ceuta,Ceuta,SALF,SALF,SE ACABO LA FIESTA,Carlos José Pavón Fumadó,europeas,0.0302,0.032,0.0177,0.0296,0.0492,0.0,0.0,0.0,0.0,0.0
+51,Ceuta,Ceuta,VOX,VOX,VOX,Ana Belén Cifuentes Cánovas,legal,0.3324,0.3312,0.2458,0.3275,0.4215,0.4089,0.4089,0.0,1.0,0.4089
+51,Ceuta,Ceuta,OTROS,OTROS,Otras candidaturas,,legal,0.0063,0.0064,0.0041,0.0061,0.009,0.0,0.0,0.0,0.0,0.0
+52,Melilla,Melilla,PP,PP,PARTIDO POPULAR,Sofía Acedo Reyes,legal,0.4485,0.4431,0.3484,0.4424,0.5401,0.9368,0.9368,1.0,1.0,0.9368
+52,Melilla,Melilla,PSOE,PSOE,PARTIDO SOCIALISTA OBRERO ESPAÑOL,Riduan Moh Abdelkader,legal,0.2176,0.2198,0.1543,0.2161,0.2915,0.0232,0.0232,0.0,0.0,0.0232
+52,Melilla,Melilla,SALF,SALF,SE ACABÓ LA FIESTA,Susana Morillo Espinosa,europeas,0.0238,0.0251,0.0139,0.0232,0.0385,0.0,0.0,0.0,0.0,0.0
+52,Melilla,Melilla,VOX,VOX,VOX,José Miguel Tasende Souto,legal,0.2386,0.2393,0.1698,0.2345,0.3146,0.04,0.04,0.0,0.0,0.04
+52,Melilla,Melilla,OTROS,OTROS,Otras candidaturas,,legal,0.0716,0.0726,0.0483,0.07,0.0999,0.0,0.0,0.0,0.0,0.0
