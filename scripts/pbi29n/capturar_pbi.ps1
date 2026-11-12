@@ -2,11 +2,11 @@
 # Requiere haber guardado antes el proyecto con datos (SemanticModel\.pbi\cache.abf).
 # Uso: powershell -File capturar_pbi.ps1 -paginas "p01_panel,p02_mapa|Organización gobernante 2023=Participación 2023" -salida C:\carpeta
 #      cada página admite cambios de segmentador tras "|" separados por "|" (valor_actual=valor_nuevo)
-param([string]$paginas, [string]$salida, [int]$espera = 35, [string]$clics = "")
+param([string]$paginas, [string]$salida, [int]$espera = 35, [string]$clics = "", [int]$inicio = 1)
 $raiz = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $pan = Join-Path $PSScriptRoot "pantalla.ps1"
 New-Item -ItemType Directory -Force $salida | Out-Null
-$i = 0
+$i = $inicio - 1
 foreach ($item in $paginas.Split(",")) {
   $i++
   $partes = $item.Split("|"); $pg = $partes[0]; $cambios = @($partes | Select-Object -Skip 1)

@@ -195,7 +195,7 @@ def laminas(canal: str, caps: Path, X: dict):
     y = parrafo(d, (M, y + 6), f"Validado sobre 2015, 2016, abril y noviembre de 2019 y 2023, prediciendo cada elección solo con información previa. "
                 f"Error medio: {num(s['mae_pp'])} puntos por candidatura; repetir el resultado anterior se equivoca {num(p['mae_pp'])}.",
                 fuente(30), BLANCO, W - 2 * M)
-    img = Image.open(caps / ("validacion.png" if canal == "web" else "08_p08_validacion.png")).convert("RGB")
+    img = Image.open(caps / ("validacion.png" if canal == "web" else "15_p08_validacion.png")).convert("RGB")
     caja = (290, 150, 1890, 700) if canal == "web" else (int(img.width * 222 / 1600), int(img.height * 92 / 900), img.width, int(img.height * 494 / 900))
     pegar(im, img.crop(caja), (M, y + 30, W - M, H - 160))
     L.append(im)

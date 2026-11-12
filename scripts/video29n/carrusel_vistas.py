@@ -38,12 +38,12 @@ VISTAS = {
         "laminas": [
             ("01_p01_panel", "Panel nacional", "Probabilidades nacionales, escaños esperados y mapa del favorito.", (222, 190, 1600, 894)),
             ("02_p02_mapa", "Mapa nacional", "Diez métricas por circunscripción, dibujadas con DAX y la cartografía del INE.", (592, 88, 1600, 894)),
-            ("03_p03_provincia", "Mapa por provincia", "Municipios: más votada en 2023. Al lado, el pronóstico 2026 de la circunscripción.", (532, 88, 1600, 894)),
-            ("04_p04_circunscripciones", "Circunscripciones", "Las 52 contiendas con favorito, probabilidad, intervalo, margen y escaños.", (222, 160, 1600, 600)),
-            ("05_p05_ficha", "Ficha y escenarios", "Voto y escaños por candidatura, y qué pasa en cada escenario nacional.", (532, 92, 1600, 894)),
-            ("06_p06_evolucion", "Evolución 2015–2023", "La candidatura más votada en cada circunscripción en cinco generales.", (222, 92, 1600, 312)),
-            ("07_p07_encuestas", "Encuestas", "Serie de estimaciones y encuestas usadas en la media.", (222, 92, 1600, 512)),
-            ("08_p08_validacion", "Validación", "Cinco modelos comparados a ciegas; se elige el más simple que no pierde precisión.", (222, 92, 1600, 494)),
+            ("07_p03_provincia", "Mapa por provincia", "Municipios: más votada en 2023. Al lado, el pronóstico 2026 de la circunscripción.", (532, 88, 1600, 894)),
+            ("10_p04_circunscripciones", "Circunscripciones", "Las 52 contiendas con favorito, probabilidad, intervalo, margen y escaños.", (222, 160, 1600, 600)),
+            ("11_p05_ficha", "Ficha y escenarios", "Voto y escaños por candidatura, y qué pasa en cada escenario nacional.", (532, 92, 1600, 894)),
+            ("13_p06_evolucion", "Evolución 2015–2023", "La candidatura más votada en cada circunscripción en cinco generales.", (222, 92, 1600, 312)),
+            ("14_p07_encuestas", "Encuestas", "Serie de estimaciones y encuestas usadas en la media.", (222, 92, 1600, 512)),
+            ("15_p08_validacion", "Validación", "Cinco modelos comparados a ciegas; se elige el más simple que no pierde precisión.", (222, 92, 1600, 494)),
         ],
     },
 }
