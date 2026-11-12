@@ -1,0 +1,11 @@
+id,metrica,columna,descripcion
+1,Favorito 2026,c_fav,Candidatura con más probabilidad de ser la más votada
+2,Probabilidad del favorito,c_prob,Probabilidad de que el favorito sea la más votada
+3,Competitividad 2026,c_comp,Clase según probabilidad y margen
+4,Cambio frente a 2023,c_cambio,Color del favorito donde cambia la más votada
+5,Más votada 2023,c_g2023,Resultado oficial 2023
+6,Calidad del dato,c_cal,Puntuación 0-100
+7,Voto PP,c_v_pp,Voto pronosticado del PP
+8,Voto PSOE,c_v_psoe,Voto pronosticado del PSOE
+9,Voto Vox,c_v_vox,Voto pronosticado de Vox
+10,Voto Frente Amplio,c_v_fa,Voto pronosticado de Frente Amplio

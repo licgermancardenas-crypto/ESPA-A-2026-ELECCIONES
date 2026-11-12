@@ -1,0 +1,33 @@
+table 'Métrica del mapa'
+	lineageTag: 6799c9d5-7b88-4928-b9de-cd83670f8c75
+
+	column id
+		dataType: int64
+		isHidden
+		lineageTag: 73684744-ef5e-4123-845b-98c638694a4d
+		summarizeBy: none
+		sourceColumn: [id]
+
+	column Métrica
+		dataType: string
+		lineageTag: 3c9dc44e-33d8-40eb-9928-01ea59a668ed
+		summarizeBy: none
+		sourceColumn: [Métrica]
+		sortByColumn: id
+
+	partition 'Métrica del mapa' = calculated
+		mode: import
+		source =
+				DATATABLE("id", INTEGER, "Métrica", STRING, {
+				    {1, "Favorito 2026"},
+				    {2, "Probabilidad del favorito"},
+				    {3, "Competitividad 2026"},
+				    {4, "Cambio frente a 2023"},
+				    {5, "Más votada 2023"},
+				    {6, "Calidad del dato"},
+				    {7, "Voto PP"},
+				    {8, "Voto PSOE"},
+				    {9, "Voto Vox"},
+				    {10, "Voto Frente Amplio"}
+				})
+

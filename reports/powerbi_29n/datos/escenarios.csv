@@ -1,0 +1,964 @@
+provincia_id,escenario,orden,bloque,candidatura,voto,escanos,color
+01,Base,0,BILDU,EH Bildu,0.2241,1.18,#9acd32
+01,Base,0,FA,Frente Amplio y confluencias,0.0768,0.05,#d6338a
+01,Base,0,PNV,EAJ-PNV,0.1324,0.44,#2e8b57
+01,Base,0,PODEMOS,Podemos,0.0336,0.0,#7b3f98
+01,Base,0,PP,Partido Popular,0.1793,0.9,#1d84ce
+01,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2599,1.43,#e30613
+01,Base,0,SALF,Se Acabó La Fiesta,0.0108,0.0,#8a6d3b
+01,Base,0,VOX,Vox,0.0645,0.0,#5ac035
+01,Favorable al PSOE,1,BILDU,EH Bildu,0.2225,1.17,#9acd32
+01,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0759,0.05,#d6338a
+01,Favorable al PSOE,1,PNV,EAJ-PNV,0.1307,0.41,#2e8b57
+01,Favorable al PSOE,1,PODEMOS,Podemos,0.0334,0.0,#7b3f98
+01,Favorable al PSOE,1,PP,Partido Popular,0.1642,0.78,#1d84ce
+01,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2792,1.59,#e30613
+01,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0108,0.0,#8a6d3b
+01,Favorable al PSOE,1,VOX,Vox,0.0645,0.0,#5ac035
+01,Favorable al PP,2,BILDU,EH Bildu,0.2249,1.18,#9acd32
+01,Favorable al PP,2,FA,Frente Amplio y confluencias,0.078,0.05,#d6338a
+01,Favorable al PP,2,PNV,EAJ-PNV,0.1329,0.46,#2e8b57
+01,Favorable al PP,2,PODEMOS,Podemos,0.0336,0.0,#7b3f98
+01,Favorable al PP,2,PP,Partido Popular,0.1935,1.01,#1d84ce
+01,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2423,1.29,#e30613
+01,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.011,0.0,#8a6d3b
+01,Favorable al PP,2,VOX,Vox,0.0646,0.0,#5ac035
+02,Base,0,FA,Frente Amplio y confluencias,0.0391,0.0,#d6338a
+02,Base,0,PODEMOS,Podemos,0.019,0.0,#7b3f98
+02,Base,0,PP,Partido Popular,0.3617,1.69,#1d84ce
+02,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2945,1.27,#e30613
+02,Base,0,SALF,Se Acabó La Fiesta,0.0243,0.0,#8a6d3b
+02,Base,0,VOX,Vox,0.2487,1.04,#5ac035
+02,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0395,0.0,#d6338a
+02,Favorable al PSOE,1,PODEMOS,Podemos,0.019,0.0,#7b3f98
+02,Favorable al PSOE,1,PP,Partido Popular,0.3362,1.52,#1d84ce
+02,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3201,1.45,#e30613
+02,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0243,0.0,#8a6d3b
+02,Favorable al PSOE,1,VOX,Vox,0.2482,1.03,#5ac035
+02,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0389,0.0,#d6338a
+02,Favorable al PP,2,PODEMOS,Podemos,0.0188,0.0,#7b3f98
+02,Favorable al PP,2,PP,Partido Popular,0.388,1.86,#1d84ce
+02,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2719,1.13,#e30613
+02,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0241,0.0,#8a6d3b
+02,Favorable al PP,2,VOX,Vox,0.2455,1.01,#5ac035
+03,Base,0,COMPROMIS,Compromís: Front Valencià,0.0998,0.96,#f28b25
+03,Base,0,PP,Partido Popular,0.3363,4.43,#1d84ce
+03,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2744,3.51,#e30613
+03,Base,0,SALF,Se Acabó La Fiesta,0.026,0.01,#8a6d3b
+03,Base,0,VOX,Vox,0.245,3.09,#5ac035
+03,Favorable al PSOE,1,COMPROMIS,Compromís: Front Valencià,0.0998,0.96,#f28b25
+03,Favorable al PSOE,1,PP,Partido Popular,0.308,4.01,#1d84ce
+03,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3011,3.9,#e30613
+03,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0261,0.01,#8a6d3b
+03,Favorable al PSOE,1,VOX,Vox,0.2463,3.11,#5ac035
+03,Favorable al PP,2,COMPROMIS,Compromís: Front Valencià,0.0993,0.94,#f28b25
+03,Favorable al PP,2,PP,Partido Popular,0.3649,4.86,#1d84ce
+03,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2491,3.14,#e30613
+03,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0258,0.01,#8a6d3b
+03,Favorable al PP,2,VOX,Vox,0.2423,3.06,#5ac035
+04,Base,0,ADELANTE,Adelante Andalucía,0.0807,0.18,#2fa36b
+04,Base,0,FA,Frente Amplio y confluencias,0.0326,0.0,#d6338a
+04,Base,0,PODEMOS,Podemos,0.0133,0.0,#7b3f98
+04,Base,0,PP,Partido Popular,0.3302,2.41,#1d84ce
+04,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2212,1.44,#e30613
+04,Base,0,SALF,Se Acabó La Fiesta,0.0266,0.0,#8a6d3b
+04,Base,0,VOX,Vox,0.2806,1.97,#5ac035
+04,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0812,0.19,#2fa36b
+04,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0323,0.0,#d6338a
+04,Favorable al PSOE,1,PODEMOS,Podemos,0.0135,0.0,#7b3f98
+04,Favorable al PSOE,1,PP,Partido Popular,0.3072,2.2,#1d84ce
+04,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2417,1.63,#e30613
+04,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0268,0.0,#8a6d3b
+04,Favorable al PSOE,1,VOX,Vox,0.2824,1.97,#5ac035
+04,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0802,0.18,#2fa36b
+04,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0328,0.0,#d6338a
+04,Favorable al PP,2,PODEMOS,Podemos,0.0131,0.0,#7b3f98
+04,Favorable al PP,2,PP,Partido Popular,0.3551,2.64,#1d84ce
+04,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2026,1.27,#e30613
+04,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0264,0.0,#8a6d3b
+04,Favorable al PP,2,VOX,Vox,0.2751,1.92,#5ac035
+05,Base,0,FA,Frente Amplio y confluencias,0.0275,0.0,#d6338a
+05,Base,0,PODEMOS,Podemos,0.0176,0.0,#7b3f98
+05,Base,0,PP,Partido Popular,0.3806,1.49,#1d84ce
+05,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2285,0.77,#e30613
+05,Base,0,SALF,Se Acabó La Fiesta,0.0175,0.0,#8a6d3b
+05,Base,0,VOX,Vox,0.2243,0.74,#5ac035
+05,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0275,0.0,#d6338a
+05,Favorable al PSOE,1,PODEMOS,Podemos,0.0179,0.0,#7b3f98
+05,Favorable al PSOE,1,PP,Partido Popular,0.3553,1.33,#1d84ce
+05,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2495,0.91,#e30613
+05,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0177,0.0,#8a6d3b
+05,Favorable al PSOE,1,VOX,Vox,0.2273,0.76,#5ac035
+05,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0272,0.0,#d6338a
+05,Favorable al PP,2,PODEMOS,Podemos,0.0173,0.0,#7b3f98
+05,Favorable al PP,2,PP,Partido Popular,0.4067,1.68,#1d84ce
+05,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2074,0.6,#e30613
+05,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0174,0.0,#8a6d3b
+05,Favorable al PP,2,VOX,Vox,0.2205,0.71,#5ac035
+06,Base,0,FA,Frente Amplio y confluencias,0.0386,0.0,#d6338a
+06,Base,0,PODEMOS,Podemos,0.0181,0.0,#7b3f98
+06,Base,0,PP,Partido Popular,0.3525,2.02,#1d84ce
+06,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3424,1.95,#e30613
+06,Base,0,SALF,Se Acabó La Fiesta,0.0158,0.0,#8a6d3b
+06,Base,0,VOX,Vox,0.2106,1.04,#5ac035
+06,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0386,0.0,#d6338a
+06,Favorable al PSOE,1,PODEMOS,Podemos,0.018,0.0,#7b3f98
+06,Favorable al PSOE,1,PP,Partido Popular,0.3258,1.82,#1d84ce
+06,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3694,2.15,#e30613
+06,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0159,0.0,#8a6d3b
+06,Favorable al PSOE,1,VOX,Vox,0.2105,1.03,#5ac035
+06,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0388,0.0,#d6338a
+06,Favorable al PP,2,PODEMOS,Podemos,0.018,0.0,#7b3f98
+06,Favorable al PP,2,PP,Partido Popular,0.3795,2.21,#1d84ce
+06,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3172,1.76,#e30613
+06,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0158,0.0,#8a6d3b
+06,Favorable al PP,2,VOX,Vox,0.2086,1.04,#5ac035
+07,Base,0,FA,Frente Amplio y confluencias,0.0955,0.46,#d6338a
+07,Base,0,PP,Partido Popular,0.3443,3.13,#1d84ce
+07,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2735,2.38,#e30613
+07,Base,0,SALF,Se Acabó La Fiesta,0.0243,0.0,#8a6d3b
+07,Base,0,VOX,Vox,0.2416,2.04,#5ac035
+07,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0967,0.47,#d6338a
+07,Favorable al PSOE,1,PP,Partido Popular,0.3184,2.84,#1d84ce
+07,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2968,2.63,#e30613
+07,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0244,0.0,#8a6d3b
+07,Favorable al PSOE,1,VOX,Vox,0.2429,2.05,#5ac035
+07,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0953,0.45,#d6338a
+07,Favorable al PP,2,PP,Partido Popular,0.3708,3.41,#1d84ce
+07,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2525,2.14,#e30613
+07,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0238,0.0,#8a6d3b
+07,Favorable al PP,2,VOX,Vox,0.2373,2.0,#5ac035
+08,Base,0,ERC,ERC,0.1719,6.04,#f5b400
+08,Base,0,FA,Frente Amplio y confluencias,0.0872,2.81,#d6338a
+08,Base,0,JUNTS,Junts per Catalunya,0.085,2.73,#20c0b0
+08,Base,0,PP,Partido Popular,0.1342,4.61,#1d84ce
+08,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3211,11.72,#e30613
+08,Base,0,SALF,Se Acabó La Fiesta,0.0128,0.01,#8a6d3b
+08,Base,0,VOX,Vox,0.12,4.07,#5ac035
+08,Favorable al PSOE,1,ERC,ERC,0.1668,5.85,#f5b400
+08,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0843,2.69,#d6338a
+08,Favorable al PSOE,1,JUNTS,Junts per Catalunya,0.0825,2.62,#20c0b0
+08,Favorable al PSOE,1,PP,Partido Popular,0.1192,4.03,#1d84ce
+08,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3511,12.85,#e30613
+08,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0126,0.01,#8a6d3b
+08,Favorable al PSOE,1,VOX,Vox,0.1168,3.94,#5ac035
+08,Favorable al PP,2,ERC,ERC,0.1747,6.16,#f5b400
+08,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0905,2.95,#d6338a
+08,Favorable al PP,2,JUNTS,Junts per Catalunya,0.0872,2.83,#20c0b0
+08,Favorable al PP,2,PP,Partido Popular,0.1514,5.29,#1d84ce
+08,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2917,10.58,#e30613
+08,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.013,0.01,#8a6d3b
+08,Favorable al PP,2,VOX,Vox,0.1226,4.19,#5ac035
+09,Base,0,FA,Frente Amplio y confluencias,0.0485,0.0,#d6338a
+09,Base,0,PODEMOS,Podemos,0.0221,0.0,#7b3f98
+09,Base,0,PP,Partido Popular,0.3772,1.86,#1d84ce
+09,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3026,1.36,#e30613
+09,Base,0,SALF,Se Acabó La Fiesta,0.0176,0.0,#8a6d3b
+09,Base,0,VOX,Vox,0.1972,0.78,#5ac035
+09,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0485,0.0,#d6338a
+09,Favorable al PSOE,1,PODEMOS,Podemos,0.0218,0.0,#7b3f98
+09,Favorable al PSOE,1,PP,Partido Popular,0.3525,1.69,#1d84ce
+09,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3261,1.52,#e30613
+09,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0174,0.0,#8a6d3b
+09,Favorable al PSOE,1,VOX,Vox,0.1987,0.79,#5ac035
+09,Favorable al PP,2,FA,Frente Amplio y confluencias,0.048,0.0,#d6338a
+09,Favorable al PP,2,PODEMOS,Podemos,0.0219,0.0,#7b3f98
+09,Favorable al PP,2,PP,Partido Popular,0.4059,2.04,#1d84ce
+09,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2775,1.2,#e30613
+09,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0175,0.0,#8a6d3b
+09,Favorable al PP,2,VOX,Vox,0.1947,0.76,#5ac035
+10,Base,0,FA,Frente Amplio y confluencias,0.039,0.0,#d6338a
+10,Base,0,PODEMOS,Podemos,0.0211,0.0,#7b3f98
+10,Base,0,PP,Partido Popular,0.3527,1.63,#1d84ce
+10,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3397,1.55,#e30613
+10,Base,0,SALF,Se Acabó La Fiesta,0.0141,0.0,#8a6d3b
+10,Base,0,VOX,Vox,0.2085,0.82,#5ac035
+10,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0387,0.0,#d6338a
+10,Favorable al PSOE,1,PODEMOS,Podemos,0.0211,0.0,#7b3f98
+10,Favorable al PSOE,1,PP,Partido Popular,0.324,1.43,#1d84ce
+10,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3673,1.75,#e30613
+10,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0142,0.0,#8a6d3b
+10,Favorable al PSOE,1,VOX,Vox,0.2098,0.83,#5ac035
+10,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0389,0.0,#d6338a
+10,Favorable al PP,2,PODEMOS,Podemos,0.0212,0.0,#7b3f98
+10,Favorable al PP,2,PP,Partido Popular,0.3814,1.83,#1d84ce
+10,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3118,1.35,#e30613
+10,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0143,0.0,#8a6d3b
+10,Favorable al PP,2,VOX,Vox,0.2074,0.81,#5ac035
+11,Base,0,ADELANTE,Adelante Andalucía,0.0835,0.43,#2fa36b
+11,Base,0,FA,Frente Amplio y confluencias,0.0652,0.18,#d6338a
+11,Base,0,PODEMOS,Podemos,0.0223,0.0,#7b3f98
+11,Base,0,PP,Partido Popular,0.2933,2.89,#1d84ce
+11,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2641,2.56,#e30613
+11,Base,0,SALF,Se Acabó La Fiesta,0.0257,0.0,#8a6d3b
+11,Base,0,VOX,Vox,0.2113,1.94,#5ac035
+11,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0834,0.42,#2fa36b
+11,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0647,0.18,#d6338a
+11,Favorable al PSOE,1,PODEMOS,Podemos,0.0225,0.0,#7b3f98
+11,Favorable al PSOE,1,PP,Partido Popular,0.2708,2.62,#1d84ce
+11,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2868,2.82,#e30613
+11,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0255,0.0,#8a6d3b
+11,Favorable al PSOE,1,VOX,Vox,0.2119,1.95,#5ac035
+11,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0836,0.42,#2fa36b
+11,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0646,0.17,#d6338a
+11,Favorable al PP,2,PODEMOS,Podemos,0.0222,0.0,#7b3f98
+11,Favorable al PP,2,PP,Partido Popular,0.316,3.18,#1d84ce
+11,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2424,2.3,#e30613
+11,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0258,0.0,#8a6d3b
+11,Favorable al PP,2,VOX,Vox,0.2108,1.92,#5ac035
+12,Base,0,COMPROMIS,Compromís: Front Valencià,0.1123,0.24,#f28b25
+12,Base,0,PP,Partido Popular,0.325,1.89,#1d84ce
+12,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2835,1.58,#e30613
+12,Base,0,SALF,Se Acabó La Fiesta,0.0224,0.0,#8a6d3b
+12,Base,0,VOX,Vox,0.2422,1.28,#5ac035
+12,Favorable al PSOE,1,COMPROMIS,Compromís: Front Valencià,0.1122,0.24,#f28b25
+12,Favorable al PSOE,1,PP,Partido Popular,0.3014,1.71,#1d84ce
+12,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3065,1.77,#e30613
+12,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0223,0.0,#8a6d3b
+12,Favorable al PSOE,1,VOX,Vox,0.2431,1.28,#5ac035
+12,Favorable al PP,2,COMPROMIS,Compromís: Front Valencià,0.1114,0.22,#f28b25
+12,Favorable al PP,2,PP,Partido Popular,0.3502,2.09,#1d84ce
+12,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2621,1.41,#e30613
+12,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0223,0.0,#8a6d3b
+12,Favorable al PP,2,VOX,Vox,0.2395,1.27,#5ac035
+13,Base,0,FA,Frente Amplio y confluencias,0.035,0.0,#d6338a
+13,Base,0,PODEMOS,Podemos,0.0159,0.0,#7b3f98
+13,Base,0,PP,Partido Popular,0.3782,2.13,#1d84ce
+13,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3092,1.64,#e30613
+13,Base,0,VOX,Vox,0.2504,1.23,#5ac035
+13,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0357,0.0,#d6338a
+13,Favorable al PSOE,1,PODEMOS,Podemos,0.0161,0.0,#7b3f98
+13,Favorable al PSOE,1,PP,Partido Popular,0.3485,1.91,#1d84ce
+13,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3363,1.86,#e30613
+13,Favorable al PSOE,1,VOX,Vox,0.252,1.24,#5ac035
+13,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0349,0.0,#d6338a
+13,Favorable al PP,2,PODEMOS,Podemos,0.0158,0.0,#7b3f98
+13,Favorable al PP,2,PP,Partido Popular,0.4071,2.34,#1d84ce
+13,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2845,1.45,#e30613
+13,Favorable al PP,2,VOX,Vox,0.2464,1.21,#5ac035
+14,Base,0,ADELANTE,Adelante Andalucía,0.0854,0.24,#2fa36b
+14,Base,0,FA,Frente Amplio y confluencias,0.0707,0.09,#d6338a
+14,Base,0,PODEMOS,Podemos,0.0205,0.0,#7b3f98
+14,Base,0,PP,Partido Popular,0.3265,2.49,#1d84ce
+14,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2601,1.88,#e30613
+14,Base,0,SALF,Se Acabó La Fiesta,0.0216,0.0,#8a6d3b
+14,Base,0,VOX,Vox,0.1983,1.31,#5ac035
+14,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0866,0.24,#2fa36b
+14,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0719,0.1,#d6338a
+14,Favorable al PSOE,1,PODEMOS,Podemos,0.0204,0.0,#7b3f98
+14,Favorable al PSOE,1,PP,Partido Popular,0.301,2.24,#1d84ce
+14,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2815,2.09,#e30613
+14,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0217,0.0,#8a6d3b
+14,Favorable al PSOE,1,VOX,Vox,0.1999,1.33,#5ac035
+14,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0847,0.24,#2fa36b
+14,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0699,0.08,#d6338a
+14,Favorable al PP,2,PODEMOS,Podemos,0.0204,0.0,#7b3f98
+14,Favorable al PP,2,PP,Partido Popular,0.3507,2.72,#1d84ce
+14,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2396,1.67,#e30613
+14,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0213,0.0,#8a6d3b
+14,Favorable al PP,2,VOX,Vox,0.1965,1.3,#5ac035
+15,Base,0,BNG,BNG,0.1597,1.27,#7ec8e3
+15,Base,0,FA,Frente Amplio y confluencias,0.0689,0.19,#d6338a
+15,Base,0,PODEMOS,Podemos,0.0191,0.0,#7b3f98
+15,Base,0,PP,Partido Popular,0.404,3.99,#1d84ce
+15,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2503,2.28,#e30613
+15,Base,0,SALF,Se Acabó La Fiesta,0.0089,0.0,#8a6d3b
+15,Base,0,VOX,Vox,0.0799,0.28,#5ac035
+15,Favorable al PSOE,1,BNG,BNG,0.1612,1.28,#7ec8e3
+15,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0698,0.2,#d6338a
+15,Favorable al PSOE,1,PODEMOS,Podemos,0.0195,0.0,#7b3f98
+15,Favorable al PSOE,1,PP,Partido Popular,0.3765,3.66,#1d84ce
+15,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.274,2.56,#e30613
+15,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0089,0.0,#8a6d3b
+15,Favorable al PSOE,1,VOX,Vox,0.0806,0.3,#5ac035
+15,Favorable al PP,2,BNG,BNG,0.157,1.25,#7ec8e3
+15,Favorable al PP,2,FA,Frente Amplio y confluencias,0.068,0.17,#d6338a
+15,Favorable al PP,2,PODEMOS,Podemos,0.0187,0.0,#7b3f98
+15,Favorable al PP,2,PP,Partido Popular,0.4329,4.32,#1d84ce
+15,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2278,2.02,#e30613
+15,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0087,0.0,#8a6d3b
+15,Favorable al PP,2,VOX,Vox,0.0779,0.23,#5ac035
+16,Base,0,FA,Frente Amplio y confluencias,0.0312,0.0,#d6338a
+16,Base,0,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+16,Base,0,PP,Partido Popular,0.3634,1.23,#1d84ce
+16,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3239,1.08,#e30613
+16,Base,0,SALF,Se Acabó La Fiesta,0.0169,0.0,#8a6d3b
+16,Base,0,VOX,Vox,0.2363,0.69,#5ac035
+16,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0315,0.0,#d6338a
+16,Favorable al PSOE,1,PODEMOS,Podemos,0.0164,0.0,#7b3f98
+16,Favorable al PSOE,1,PP,Partido Popular,0.3399,1.14,#1d84ce
+16,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3475,1.18,#e30613
+16,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0167,0.0,#8a6d3b
+16,Favorable al PSOE,1,VOX,Vox,0.2358,0.68,#5ac035
+16,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0309,0.0,#d6338a
+16,Favorable al PP,2,PODEMOS,Podemos,0.016,0.0,#7b3f98
+16,Favorable al PP,2,PP,Partido Popular,0.3883,1.34,#1d84ce
+16,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3022,0.99,#e30613
+16,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0168,0.0,#8a6d3b
+16,Favorable al PP,2,VOX,Vox,0.2338,0.67,#5ac035
+17,Base,0,ERC,ERC,0.2014,1.55,#f5b400
+17,Base,0,FA,Frente Amplio y confluencias,0.0621,0.08,#d6338a
+17,Base,0,JUNTS,Junts per Catalunya,0.1682,1.22,#20c0b0
+17,Base,0,PP,Partido Popular,0.0932,0.37,#1d84ce
+17,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2551,2.12,#e30613
+17,Base,0,VOX,Vox,0.1101,0.65,#5ac035
+17,Favorable al PSOE,1,ERC,ERC,0.1988,1.53,#f5b400
+17,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0614,0.08,#d6338a
+17,Favorable al PSOE,1,JUNTS,Junts per Catalunya,0.1649,1.2,#20c0b0
+17,Favorable al PSOE,1,PP,Partido Popular,0.0855,0.25,#1d84ce
+17,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2723,2.32,#e30613
+17,Favorable al PSOE,1,VOX,Vox,0.1088,0.63,#5ac035
+17,Favorable al PP,2,ERC,ERC,0.2037,1.57,#f5b400
+17,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0638,0.1,#d6338a
+17,Favorable al PP,2,JUNTS,Junts per Catalunya,0.1694,1.23,#20c0b0
+17,Favorable al PP,2,PP,Partido Popular,0.101,0.51,#1d84ce
+17,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2392,1.94,#e30613
+17,Favorable al PP,2,VOX,Vox,0.1115,0.66,#5ac035
+18,Base,0,ADELANTE,Adelante Andalucía,0.085,0.33,#2fa36b
+18,Base,0,FA,Frente Amplio y confluencias,0.0588,0.07,#d6338a
+18,Base,0,PODEMOS,Podemos,0.0232,0.0,#7b3f98
+18,Base,0,PP,Partido Popular,0.3084,2.66,#1d84ce
+18,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2602,2.17,#e30613
+18,Base,0,SALF,Se Acabó La Fiesta,0.0236,0.0,#8a6d3b
+18,Base,0,VOX,Vox,0.2232,1.78,#5ac035
+18,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.085,0.33,#2fa36b
+18,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0584,0.06,#d6338a
+18,Favorable al PSOE,1,PODEMOS,Podemos,0.0233,0.0,#7b3f98
+18,Favorable al PSOE,1,PP,Partido Popular,0.2847,2.41,#1d84ce
+18,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2841,2.43,#e30613
+18,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0233,0.0,#8a6d3b
+18,Favorable al PSOE,1,VOX,Vox,0.2234,1.78,#5ac035
+18,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0843,0.32,#2fa36b
+18,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0586,0.06,#d6338a
+18,Favorable al PP,2,PODEMOS,Podemos,0.0233,0.0,#7b3f98
+18,Favorable al PP,2,PP,Partido Popular,0.3326,2.92,#1d84ce
+18,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2394,1.93,#e30613
+18,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0237,0.0,#8a6d3b
+18,Favorable al PP,2,VOX,Vox,0.2205,1.77,#5ac035
+19,Base,0,FA,Frente Amplio y confluencias,0.0493,0.0,#d6338a
+19,Base,0,PODEMOS,Podemos,0.0258,0.0,#7b3f98
+19,Base,0,PP,Partido Popular,0.323,1.1,#1d84ce
+19,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.276,0.94,#e30613
+19,Base,0,SALF,Se Acabó La Fiesta,0.0273,0.0,#8a6d3b
+19,Base,0,VOX,Vox,0.2799,0.96,#5ac035
+19,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0493,0.0,#d6338a
+19,Favorable al PSOE,1,PODEMOS,Podemos,0.026,0.0,#7b3f98
+19,Favorable al PSOE,1,PP,Partido Popular,0.3008,1.02,#1d84ce
+19,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2981,1.02,#e30613
+19,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.027,0.0,#8a6d3b
+19,Favorable al PSOE,1,VOX,Vox,0.2798,0.96,#5ac035
+19,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0492,0.0,#d6338a
+19,Favorable al PP,2,PODEMOS,Podemos,0.0256,0.0,#7b3f98
+19,Favorable al PP,2,PP,Partido Popular,0.3456,1.18,#1d84ce
+19,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2556,0.85,#e30613
+19,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0274,0.0,#8a6d3b
+19,Favorable al PP,2,VOX,Vox,0.2781,0.96,#5ac035
+20,Base,0,BILDU,EH Bildu,0.3605,2.9,#9acd32
+20,Base,0,FA,Frente Amplio y confluencias,0.0646,0.06,#d6338a
+20,Base,0,PNV,EAJ-PNV,0.1825,1.22,#2e8b57
+20,Base,0,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+20,Base,0,PP,Partido Popular,0.0895,0.21,#1d84ce
+20,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2236,1.6,#e30613
+20,Base,0,VOX,Vox,0.0357,0.0,#5ac035
+20,Favorable al PSOE,1,BILDU,EH Bildu,0.3536,2.83,#9acd32
+20,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0639,0.06,#d6338a
+20,Favorable al PSOE,1,PNV,EAJ-PNV,0.1801,1.2,#2e8b57
+20,Favorable al PSOE,1,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+20,Favorable al PSOE,1,PP,Partido Popular,0.0824,0.13,#1d84ce
+20,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.241,1.77,#e30613
+20,Favorable al PSOE,1,VOX,Vox,0.0353,0.0,#5ac035
+20,Favorable al PP,2,BILDU,EH Bildu,0.3648,2.93,#9acd32
+20,Favorable al PP,2,FA,Frente Amplio y confluencias,0.065,0.06,#d6338a
+20,Favorable al PP,2,PNV,EAJ-PNV,0.1841,1.24,#2e8b57
+20,Favorable al PP,2,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+20,Favorable al PP,2,PP,Partido Popular,0.0972,0.32,#1d84ce
+20,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2096,1.44,#e30613
+20,Favorable al PP,2,VOX,Vox,0.0357,0.0,#5ac035
+21,Base,0,ADELANTE,Adelante Andalucía,0.0848,0.15,#2fa36b
+21,Base,0,FA,Frente Amplio y confluencias,0.0534,0.01,#d6338a
+21,Base,0,PODEMOS,Podemos,0.0189,0.0,#7b3f98
+21,Base,0,PP,Partido Popular,0.3096,1.95,#1d84ce
+21,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.288,1.77,#e30613
+21,Base,0,SALF,Se Acabó La Fiesta,0.0195,0.0,#8a6d3b
+21,Base,0,VOX,Vox,0.2059,1.13,#5ac035
+21,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0851,0.15,#2fa36b
+21,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0537,0.01,#d6338a
+21,Favorable al PSOE,1,PODEMOS,Podemos,0.0189,0.0,#7b3f98
+21,Favorable al PSOE,1,PP,Partido Popular,0.2854,1.74,#1d84ce
+21,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3111,1.96,#e30613
+21,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0193,0.0,#8a6d3b
+21,Favorable al PSOE,1,VOX,Vox,0.2066,1.14,#5ac035
+21,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0847,0.14,#2fa36b
+21,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0528,0.01,#d6338a
+21,Favorable al PP,2,PODEMOS,Podemos,0.0188,0.0,#7b3f98
+21,Favorable al PP,2,PP,Partido Popular,0.3345,2.15,#1d84ce
+21,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2659,1.57,#e30613
+21,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0194,0.0,#8a6d3b
+21,Favorable al PP,2,VOX,Vox,0.2042,1.12,#5ac035
+22,Base,0,FA,Frente Amplio y confluencias,0.0647,0.0,#d6338a
+22,Base,0,PODEMOS,Podemos,0.0247,0.0,#7b3f98
+22,Base,0,PP,Partido Popular,0.3563,1.37,#1d84ce
+22,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2959,1.09,#e30613
+22,Base,0,SALF,Se Acabó La Fiesta,0.0208,0.0,#8a6d3b
+22,Base,0,VOX,Vox,0.1965,0.54,#5ac035
+22,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0654,0.0,#d6338a
+22,Favorable al PSOE,1,PODEMOS,Podemos,0.0246,0.0,#7b3f98
+22,Favorable al PSOE,1,PP,Partido Popular,0.3288,1.23,#1d84ce
+22,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3208,1.2,#e30613
+22,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0213,0.0,#8a6d3b
+22,Favorable al PSOE,1,VOX,Vox,0.1978,0.57,#5ac035
+22,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0636,0.0,#d6338a
+22,Favorable al PP,2,PODEMOS,Podemos,0.0245,0.0,#7b3f98
+22,Favorable al PP,2,PP,Partido Popular,0.3819,1.53,#1d84ce
+22,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2748,0.98,#e30613
+22,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0205,0.0,#8a6d3b
+22,Favorable al PP,2,VOX,Vox,0.1938,0.49,#5ac035
+23,Base,0,ADELANTE,Adelante Andalucía,0.0835,0.13,#2fa36b
+23,Base,0,FA,Frente Amplio y confluencias,0.0409,0.0,#d6338a
+23,Base,0,PODEMOS,Podemos,0.0148,0.0,#7b3f98
+23,Base,0,PP,Partido Popular,0.315,1.98,#1d84ce
+23,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2866,1.75,#e30613
+23,Base,0,SALF,Se Acabó La Fiesta,0.0176,0.0,#8a6d3b
+23,Base,0,VOX,Vox,0.2058,1.13,#5ac035
+23,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0837,0.13,#2fa36b
+23,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0407,0.0,#d6338a
+23,Favorable al PSOE,1,PODEMOS,Podemos,0.0149,0.0,#7b3f98
+23,Favorable al PSOE,1,PP,Partido Popular,0.2919,1.79,#1d84ce
+23,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3107,1.95,#e30613
+23,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0176,0.0,#8a6d3b
+23,Favorable al PSOE,1,VOX,Vox,0.2044,1.12,#5ac035
+23,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0823,0.12,#2fa36b
+23,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0405,0.0,#d6338a
+23,Favorable al PP,2,PODEMOS,Podemos,0.0146,0.0,#7b3f98
+23,Favorable al PP,2,PP,Partido Popular,0.3375,2.16,#1d84ce
+23,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2656,1.58,#e30613
+23,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0175,0.0,#8a6d3b
+23,Favorable al PP,2,VOX,Vox,0.2065,1.14,#5ac035
+24,Base,0,FA,Frente Amplio y confluencias,0.0366,0.0,#d6338a
+24,Base,0,PODEMOS,Podemos,0.0212,0.0,#7b3f98
+24,Base,0,PP,Partido Popular,0.332,1.75,#1d84ce
+24,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.284,1.4,#e30613
+24,Base,0,SALF,Se Acabó La Fiesta,0.0171,0.0,#8a6d3b
+24,Base,0,VOX,Vox,0.1912,0.85,#5ac035
+24,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0369,0.0,#d6338a
+24,Favorable al PSOE,1,PODEMOS,Podemos,0.0213,0.0,#7b3f98
+24,Favorable al PSOE,1,PP,Partido Popular,0.3062,1.55,#1d84ce
+24,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.31,1.6,#e30613
+24,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0171,0.0,#8a6d3b
+24,Favorable al PSOE,1,VOX,Vox,0.1901,0.85,#5ac035
+24,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0359,0.0,#d6338a
+24,Favorable al PP,2,PODEMOS,Podemos,0.0212,0.0,#7b3f98
+24,Favorable al PP,2,PP,Partido Popular,0.3561,1.92,#1d84ce
+24,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.261,1.23,#e30613
+24,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0169,0.0,#8a6d3b
+24,Favorable al PP,2,VOX,Vox,0.1907,0.85,#5ac035
+25,Base,0,ERC,ERC,0.2505,1.4,#f5b400
+25,Base,0,FA,Frente Amplio y confluencias,0.0446,0.0,#d6338a
+25,Base,0,JUNTS,Junts per Catalunya,0.1525,0.69,#20c0b0
+25,Base,0,PP,Partido Popular,0.1204,0.31,#1d84ce
+25,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2576,1.45,#e30613
+25,Base,0,VOX,Vox,0.1049,0.15,#5ac035
+25,Favorable al PSOE,1,ERC,ERC,0.2461,1.37,#f5b400
+25,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0443,0.0,#d6338a
+25,Favorable al PSOE,1,JUNTS,Junts per Catalunya,0.1509,0.68,#20c0b0
+25,Favorable al PSOE,1,PP,Partido Popular,0.1098,0.2,#1d84ce
+25,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2762,1.61,#e30613
+25,Favorable al PSOE,1,VOX,Vox,0.1034,0.14,#5ac035
+25,Favorable al PP,2,ERC,ERC,0.2537,1.41,#f5b400
+25,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0446,0.0,#d6338a
+25,Favorable al PP,2,JUNTS,Junts per Catalunya,0.1524,0.68,#20c0b0
+25,Favorable al PP,2,PP,Partido Popular,0.1315,0.45,#1d84ce
+25,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2424,1.31,#e30613
+25,Favorable al PP,2,VOX,Vox,0.1055,0.16,#5ac035
+26,Base,0,FA,Frente Amplio y confluencias,0.038,0.0,#d6338a
+26,Base,0,PODEMOS,Podemos,0.0207,0.0,#7b3f98
+26,Base,0,PP,Partido Popular,0.4318,2.18,#1d84ce
+26,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3189,1.45,#e30613
+26,Base,0,SALF,Se Acabó La Fiesta,0.0165,0.0,#8a6d3b
+26,Base,0,VOX,Vox,0.1545,0.38,#5ac035
+26,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0384,0.0,#d6338a
+26,Favorable al PSOE,1,PODEMOS,Podemos,0.021,0.0,#7b3f98
+26,Favorable al PSOE,1,PP,Partido Popular,0.4,1.96,#1d84ce
+26,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3465,1.63,#e30613
+26,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0167,0.0,#8a6d3b
+26,Favorable al PSOE,1,VOX,Vox,0.1576,0.41,#5ac035
+26,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0376,0.0,#d6338a
+26,Favorable al PP,2,PODEMOS,Podemos,0.0206,0.0,#7b3f98
+26,Favorable al PP,2,PP,Partido Popular,0.461,2.37,#1d84ce
+26,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2929,1.27,#e30613
+26,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0163,0.0,#8a6d3b
+26,Favorable al PP,2,VOX,Vox,0.1521,0.36,#5ac035
+27,Base,0,BNG,BNG,0.1381,0.27,#7ec8e3
+27,Base,0,FA,Frente Amplio y confluencias,0.0296,0.0,#d6338a
+27,Base,0,PODEMOS,Podemos,0.0117,0.0,#7b3f98
+27,Base,0,PP,Partido Popular,0.468,2.51,#1d84ce
+27,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2683,1.22,#e30613
+27,Base,0,SALF,Se Acabó La Fiesta,0.0074,0.0,#8a6d3b
+27,Base,0,VOX,Vox,0.0684,0.0,#5ac035
+27,Favorable al PSOE,1,BNG,BNG,0.1391,0.28,#7ec8e3
+27,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0306,0.0,#d6338a
+27,Favorable al PSOE,1,PODEMOS,Podemos,0.0121,0.0,#7b3f98
+27,Favorable al PSOE,1,PP,Partido Popular,0.4389,2.32,#1d84ce
+27,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2936,1.4,#e30613
+27,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0076,0.0,#8a6d3b
+27,Favorable al PSOE,1,VOX,Vox,0.0695,0.0,#5ac035
+27,Favorable al PP,2,BNG,BNG,0.1348,0.23,#7ec8e3
+27,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0288,0.0,#d6338a
+27,Favorable al PP,2,PODEMOS,Podemos,0.0115,0.0,#7b3f98
+27,Favorable al PP,2,PP,Partido Popular,0.4972,2.68,#1d84ce
+27,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.245,1.09,#e30613
+27,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0072,0.0,#8a6d3b
+27,Favorable al PP,2,VOX,Vox,0.0671,0.0,#5ac035
+28,Base,0,FA,Frente Amplio y confluencias,0.0867,3.15,#d6338a
+28,Base,0,PODEMOS,Podemos,0.0387,0.96,#7b3f98
+28,Base,0,PP,Partido Popular,0.375,15.32,#1d84ce
+28,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2442,9.8,#e30613
+28,Base,0,SALF,Se Acabó La Fiesta,0.022,0.18,#8a6d3b
+28,Base,0,VOX,Vox,0.2154,8.59,#5ac035
+28,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0885,3.21,#d6338a
+28,Favorable al PSOE,1,PODEMOS,Podemos,0.0399,1.01,#7b3f98
+28,Favorable al PSOE,1,PP,Partido Popular,0.3339,13.59,#1d84ce
+28,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2767,11.18,#e30613
+28,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0224,0.19,#8a6d3b
+28,Favorable al PSOE,1,VOX,Vox,0.2203,8.81,#5ac035
+28,Favorable al PP,2,FA,Frente Amplio y confluencias,0.085,3.08,#d6338a
+28,Favorable al PP,2,PODEMOS,Podemos,0.0383,0.93,#7b3f98
+28,Favorable al PP,2,PP,Partido Popular,0.4165,17.07,#1d84ce
+28,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2127,8.47,#e30613
+28,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0215,0.16,#8a6d3b
+28,Favorable al PP,2,VOX,Vox,0.2084,8.29,#5ac035
+29,Base,0,ADELANTE,Adelante Andalucía,0.0832,0.68,#2fa36b
+29,Base,0,FA,Frente Amplio y confluencias,0.0615,0.33,#d6338a
+29,Base,0,PODEMOS,Podemos,0.0216,0.0,#7b3f98
+29,Base,0,PP,Partido Popular,0.3193,4.17,#1d84ce
+29,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2385,2.99,#e30613
+29,Base,0,SALF,Se Acabó La Fiesta,0.0292,0.01,#8a6d3b
+29,Base,0,VOX,Vox,0.2265,2.81,#5ac035
+29,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0831,0.68,#2fa36b
+29,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.062,0.35,#d6338a
+29,Favorable al PSOE,1,PODEMOS,Podemos,0.022,0.0,#7b3f98
+29,Favorable al PSOE,1,PP,Partido Popular,0.2942,3.79,#1d84ce
+29,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2628,3.36,#e30613
+29,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0295,0.01,#8a6d3b
+29,Favorable al PSOE,1,VOX,Vox,0.2258,2.8,#5ac035
+29,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0831,0.68,#2fa36b
+29,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0612,0.34,#d6338a
+29,Favorable al PP,2,PODEMOS,Podemos,0.0216,0.0,#7b3f98
+29,Favorable al PP,2,PP,Partido Popular,0.3438,4.54,#1d84ce
+29,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2173,2.66,#e30613
+29,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0288,0.01,#8a6d3b
+29,Favorable al PP,2,VOX,Vox,0.2242,2.77,#5ac035
+30,Base,0,FA,Frente Amplio y confluencias,0.0504,0.1,#d6338a
+30,Base,0,PODEMOS,Podemos,0.0193,0.0,#7b3f98
+30,Base,0,PP,Partido Popular,0.3596,4.14,#1d84ce
+30,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2096,2.2,#e30613
+30,Base,0,SALF,Se Acabó La Fiesta,0.0271,0.0,#8a6d3b
+30,Base,0,VOX,Vox,0.3156,3.57,#5ac035
+30,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0508,0.1,#d6338a
+30,Favorable al PSOE,1,PODEMOS,Podemos,0.0194,0.0,#7b3f98
+30,Favorable al PSOE,1,PP,Partido Popular,0.3326,3.78,#1d84ce
+30,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2303,2.48,#e30613
+30,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0276,0.0,#8a6d3b
+30,Favorable al PSOE,1,VOX,Vox,0.3206,3.64,#5ac035
+30,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0497,0.09,#d6338a
+30,Favorable al PP,2,PODEMOS,Podemos,0.0189,0.0,#7b3f98
+30,Favorable al PP,2,PP,Partido Popular,0.3881,4.5,#1d84ce
+30,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.1902,1.95,#e30613
+30,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0267,0.0,#8a6d3b
+30,Favorable al PP,2,VOX,Vox,0.3081,3.46,#5ac035
+31,Base,0,BILDU_ERC,EH Bildu–ERC (Navarra),0.189,1.13,#7fb22c
+31,Base,0,FA,Frente Amplio y confluencias,0.0735,0.07,#d6338a
+31,Base,0,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+31,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2459,1.59,#e30613
+31,Base,0,SALF,Se Acabó La Fiesta,0.0138,0.0,#8a6d3b
+31,Base,0,UPN_PP,UPN–PP (Navarra),0.3047,2.09,#3aa0e6
+31,Base,0,VOX,Vox,0.09,0.12,#5ac035
+31,Favorable al PSOE,1,BILDU_ERC,EH Bildu–ERC (Navarra),0.1889,1.12,#7fb22c
+31,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0752,0.08,#d6338a
+31,Favorable al PSOE,1,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+31,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2672,1.79,#e30613
+31,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0137,0.0,#8a6d3b
+31,Favorable al PSOE,1,UPN_PP,UPN–PP (Navarra),0.2801,1.89,#3aa0e6
+31,Favorable al PSOE,1,VOX,Vox,0.0915,0.12,#5ac035
+31,Favorable al PP,2,BILDU_ERC,EH Bildu–ERC (Navarra),0.1881,1.12,#7fb22c
+31,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0728,0.07,#d6338a
+31,Favorable al PP,2,PODEMOS,Podemos,0.0285,0.0,#7b3f98
+31,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.228,1.42,#e30613
+31,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0138,0.0,#8a6d3b
+31,Favorable al PP,2,UPN_PP,UPN–PP (Navarra),0.3261,2.28,#3aa0e6
+31,Favorable al PP,2,VOX,Vox,0.0885,0.11,#5ac035
+32,Base,0,BNG,BNG,0.1313,0.23,#7ec8e3
+32,Base,0,FA,Frente Amplio y confluencias,0.0309,0.0,#d6338a
+32,Base,0,PODEMOS,Podemos,0.0105,0.0,#7b3f98
+32,Base,0,PP,Partido Popular,0.4666,2.53,#1d84ce
+32,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2662,1.24,#e30613
+32,Base,0,SALF,Se Acabó La Fiesta,0.008,0.0,#8a6d3b
+32,Base,0,VOX,Vox,0.0764,0.0,#5ac035
+32,Favorable al PSOE,1,BNG,BNG,0.1331,0.24,#7ec8e3
+32,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0312,0.0,#d6338a
+32,Favorable al PSOE,1,PODEMOS,Podemos,0.0106,0.0,#7b3f98
+32,Favorable al PSOE,1,PP,Partido Popular,0.4389,2.35,#1d84ce
+32,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2905,1.4,#e30613
+32,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0082,0.0,#8a6d3b
+32,Favorable al PSOE,1,VOX,Vox,0.0773,0.0,#5ac035
+32,Favorable al PP,2,BNG,BNG,0.1291,0.2,#7ec8e3
+32,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0306,0.0,#d6338a
+32,Favorable al PP,2,PODEMOS,Podemos,0.0104,0.0,#7b3f98
+32,Favorable al PP,2,PP,Partido Popular,0.4949,2.71,#1d84ce
+32,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2415,1.08,#e30613
+32,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0079,0.0,#8a6d3b
+32,Favorable al PP,2,VOX,Vox,0.0757,0.0,#5ac035
+33,Base,0,FA,Frente Amplio y confluencias,0.0846,0.24,#d6338a
+33,Base,0,PODEMOS,Podemos,0.0335,0.0,#7b3f98
+33,Base,0,PP,Partido Popular,0.3393,2.82,#1d84ce
+33,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3083,2.51,#e30613
+33,Base,0,SALF,Se Acabó La Fiesta,0.0147,0.0,#8a6d3b
+33,Base,0,VOX,Vox,0.1968,1.42,#5ac035
+33,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0855,0.26,#d6338a
+33,Favorable al PSOE,1,PODEMOS,Podemos,0.0333,0.0,#7b3f98
+33,Favorable al PSOE,1,PP,Partido Popular,0.3117,2.53,#1d84ce
+33,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3329,2.77,#e30613
+33,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0148,0.0,#8a6d3b
+33,Favorable al PSOE,1,VOX,Vox,0.1987,1.44,#5ac035
+33,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0836,0.23,#d6338a
+33,Favorable al PP,2,PODEMOS,Podemos,0.0335,0.0,#7b3f98
+33,Favorable al PP,2,PP,Partido Popular,0.3645,3.08,#1d84ce
+33,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2861,2.29,#e30613
+33,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0146,0.0,#8a6d3b
+33,Favorable al PP,2,VOX,Vox,0.1948,1.4,#5ac035
+34,Base,0,FA,Frente Amplio y confluencias,0.0341,0.0,#d6338a
+34,Base,0,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+34,Base,0,PP,Partido Popular,0.3858,1.46,#1d84ce
+34,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3016,1.07,#e30613
+34,Base,0,SALF,Se Acabó La Fiesta,0.0177,0.0,#8a6d3b
+34,Base,0,VOX,Vox,0.1975,0.47,#5ac035
+34,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0342,0.0,#d6338a
+34,Favorable al PSOE,1,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+34,Favorable al PSOE,1,PP,Partido Popular,0.3604,1.33,#1d84ce
+34,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3262,1.19,#e30613
+34,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0176,0.0,#8a6d3b
+34,Favorable al PSOE,1,VOX,Vox,0.1984,0.48,#5ac035
+34,Favorable al PP,2,FA,Frente Amplio y confluencias,0.034,0.0,#d6338a
+34,Favorable al PP,2,PODEMOS,Podemos,0.0161,0.0,#7b3f98
+34,Favorable al PP,2,PP,Partido Popular,0.4098,1.6,#1d84ce
+34,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2785,0.96,#e30613
+34,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0179,0.0,#8a6d3b
+34,Favorable al PP,2,VOX,Vox,0.1967,0.44,#5ac035
+35,Base,0,CCA,Coalición Canaria,0.0571,0.09,#ffd500
+35,Base,0,PP,Partido Popular,0.236,2.47,#1d84ce
+35,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.285,3.07,#e30613
+35,Base,0,SALF,Se Acabó La Fiesta,0.0291,0.0,#8a6d3b
+35,Base,0,UPC,Unidad del Pueblo Canario,0.0561,0.14,#b23a8f
+35,Base,0,VOX,Vox,0.2182,2.23,#5ac035
+35,Favorable al PSOE,1,CCA,Coalición Canaria,0.057,0.08,#ffd500
+35,Favorable al PSOE,1,PP,Partido Popular,0.2163,2.2,#1d84ce
+35,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3081,3.38,#e30613
+35,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0289,0.0,#8a6d3b
+35,Favorable al PSOE,1,UPC,Unidad del Pueblo Canario,0.0558,0.14,#b23a8f
+35,Favorable al PSOE,1,VOX,Vox,0.2159,2.2,#5ac035
+35,Favorable al PP,2,CCA,Coalición Canaria,0.0574,0.09,#ffd500
+35,Favorable al PP,2,PP,Partido Popular,0.256,2.73,#1d84ce
+35,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2627,2.78,#e30613
+35,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0293,0.0,#8a6d3b
+35,Favorable al PP,2,UPC,Unidad del Pueblo Canario,0.0565,0.14,#b23a8f
+35,Favorable al PP,2,VOX,Vox,0.2195,2.25,#5ac035
+36,Base,0,BNG,BNG,0.1522,1.06,#7ec8e3
+36,Base,0,FA,Frente Amplio y confluencias,0.0757,0.18,#d6338a
+36,Base,0,PODEMOS,Podemos,0.0193,0.0,#7b3f98
+36,Base,0,PP,Partido Popular,0.3756,3.3,#1d84ce
+36,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2796,2.33,#e30613
+36,Base,0,SALF,Se Acabó La Fiesta,0.0101,0.0,#8a6d3b
+36,Base,0,VOX,Vox,0.0758,0.13,#5ac035
+36,Favorable al PSOE,1,BNG,BNG,0.1526,1.07,#7ec8e3
+36,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0771,0.2,#d6338a
+36,Favorable al PSOE,1,PODEMOS,Podemos,0.0197,0.0,#7b3f98
+36,Favorable al PSOE,1,PP,Partido Popular,0.3454,2.99,#1d84ce
+36,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3061,2.61,#e30613
+36,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0104,0.0,#8a6d3b
+36,Favorable al PSOE,1,VOX,Vox,0.0768,0.13,#5ac035
+36,Favorable al PP,2,BNG,BNG,0.1505,1.04,#7ec8e3
+36,Favorable al PP,2,FA,Frente Amplio y confluencias,0.074,0.17,#d6338a
+36,Favorable al PP,2,PODEMOS,Podemos,0.0191,0.0,#7b3f98
+36,Favorable al PP,2,PP,Partido Popular,0.405,3.61,#1d84ce
+36,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2547,2.05,#e30613
+36,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.01,0.0,#8a6d3b
+36,Favorable al PP,2,VOX,Vox,0.0751,0.13,#5ac035
+37,Base,0,FA,Frente Amplio y confluencias,0.0306,0.0,#d6338a
+37,Base,0,PODEMOS,Podemos,0.0183,0.0,#7b3f98
+37,Base,0,PP,Partido Popular,0.4278,2.04,#1d84ce
+37,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2641,1.08,#e30613
+37,Base,0,SALF,Se Acabó La Fiesta,0.016,0.0,#8a6d3b
+37,Base,0,VOX,Vox,0.2219,0.88,#5ac035
+37,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0308,0.0,#d6338a
+37,Favorable al PSOE,1,PODEMOS,Podemos,0.0184,0.0,#7b3f98
+37,Favorable al PSOE,1,PP,Partido Popular,0.4006,1.9,#1d84ce
+37,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2879,1.21,#e30613
+37,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0163,0.0,#8a6d3b
+37,Favorable al PSOE,1,VOX,Vox,0.2244,0.9,#5ac035
+37,Favorable al PP,2,FA,Frente Amplio y confluencias,0.03,0.0,#d6338a
+37,Favorable al PP,2,PODEMOS,Podemos,0.0178,0.0,#7b3f98
+37,Favorable al PP,2,PP,Partido Popular,0.4546,2.18,#1d84ce
+37,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2429,0.96,#e30613
+37,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0158,0.0,#8a6d3b
+37,Favorable al PP,2,VOX,Vox,0.218,0.85,#5ac035
+38,Base,0,CCA,Coalición Canaria,0.171,1.17,#ffd500
+38,Base,0,PP,Partido Popular,0.3668,3.06,#1d84ce
+38,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3268,2.68,#e30613
+38,Base,0,SALF,Se Acabó La Fiesta,0.0288,0.0,#8a6d3b
+38,Base,0,UPC,Unidad del Pueblo Canario,0.0682,0.1,#b23a8f
+38,Base,0,VOX,Vox,0.0004,0.0,#5ac035
+38,Favorable al PSOE,1,CCA,Coalición Canaria,0.1718,1.18,#ffd500
+38,Favorable al PSOE,1,PP,Partido Popular,0.3372,2.76,#1d84ce
+38,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3554,2.96,#e30613
+38,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0289,0.0,#8a6d3b
+38,Favorable al PSOE,1,UPC,Unidad del Pueblo Canario,0.0681,0.1,#b23a8f
+38,Favorable al PSOE,1,VOX,Vox,0.0004,0.0,#5ac035
+38,Favorable al PP,2,CCA,Coalición Canaria,0.1708,1.17,#ffd500
+38,Favorable al PP,2,PP,Partido Popular,0.3952,3.34,#1d84ce
+38,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2997,2.39,#e30613
+38,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0288,0.0,#8a6d3b
+38,Favorable al PP,2,UPC,Unidad del Pueblo Canario,0.0675,0.09,#b23a8f
+38,Favorable al PP,2,VOX,Vox,0.0004,0.0,#5ac035
+39,Base,0,FA,Frente Amplio y confluencias,0.0483,0.0,#d6338a
+39,Base,0,PODEMOS,Podemos,0.0239,0.0,#7b3f98
+39,Base,0,PP,Partido Popular,0.3966,2.32,#1d84ce
+39,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2968,1.6,#e30613
+39,Base,0,VOX,Vox,0.2187,1.08,#5ac035
+39,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0485,0.0,#d6338a
+39,Favorable al PSOE,1,PODEMOS,Podemos,0.0241,0.0,#7b3f98
+39,Favorable al PSOE,1,PP,Partido Popular,0.3682,2.12,#1d84ce
+39,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.323,1.8,#e30613
+39,Favorable al PSOE,1,VOX,Vox,0.2205,1.08,#5ac035
+39,Favorable al PP,2,FA,Frente Amplio y confluencias,0.048,0.0,#d6338a
+39,Favorable al PP,2,PODEMOS,Podemos,0.0239,0.0,#7b3f98
+39,Favorable al PP,2,PP,Partido Popular,0.425,2.53,#1d84ce
+39,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2724,1.4,#e30613
+39,Favorable al PP,2,VOX,Vox,0.2154,1.06,#5ac035
+40,Base,0,FA,Frente Amplio y confluencias,0.0451,0.0,#d6338a
+40,Base,0,PODEMOS,Podemos,0.0218,0.0,#7b3f98
+40,Base,0,PP,Partido Popular,0.4141,1.54,#1d84ce
+40,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.268,0.9,#e30613
+40,Base,0,SALF,Se Acabó La Fiesta,0.0192,0.0,#8a6d3b
+40,Base,0,VOX,Vox,0.2155,0.56,#5ac035
+40,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0451,0.0,#d6338a
+40,Favorable al PSOE,1,PODEMOS,Podemos,0.0224,0.0,#7b3f98
+40,Favorable al PSOE,1,PP,Partido Popular,0.3858,1.39,#1d84ce
+40,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.293,1.01,#e30613
+40,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0197,0.0,#8a6d3b
+40,Favorable al PSOE,1,VOX,Vox,0.2175,0.6,#5ac035
+40,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0449,0.0,#d6338a
+40,Favorable al PP,2,PODEMOS,Podemos,0.0213,0.0,#7b3f98
+40,Favorable al PP,2,PP,Partido Popular,0.4406,1.69,#1d84ce
+40,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2465,0.78,#e30613
+40,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.019,0.0,#8a6d3b
+40,Favorable al PP,2,VOX,Vox,0.2117,0.53,#5ac035
+41,Base,0,ADELANTE,Adelante Andalucía,0.0851,0.81,#2fa36b
+41,Base,0,FA,Frente Amplio y confluencias,0.0728,0.61,#d6338a
+41,Base,0,PODEMOS,Podemos,0.0276,0.01,#7b3f98
+41,Base,0,PP,Partido Popular,0.2876,4.01,#1d84ce
+41,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2934,4.11,#e30613
+41,Base,0,SALF,Se Acabó La Fiesta,0.0255,0.01,#8a6d3b
+41,Base,0,VOX,Vox,0.188,2.44,#5ac035
+41,Favorable al PSOE,1,ADELANTE,Adelante Andalucía,0.0858,0.83,#2fa36b
+41,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0726,0.61,#d6338a
+41,Favorable al PSOE,1,PODEMOS,Podemos,0.0277,0.01,#7b3f98
+41,Favorable al PSOE,1,PP,Partido Popular,0.2612,3.59,#1d84ce
+41,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3196,4.52,#e30613
+41,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0257,0.01,#8a6d3b
+41,Favorable al PSOE,1,VOX,Vox,0.1876,2.44,#5ac035
+41,Favorable al PP,2,ADELANTE,Adelante Andalucía,0.0848,0.8,#2fa36b
+41,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0725,0.61,#d6338a
+41,Favorable al PP,2,PODEMOS,Podemos,0.0275,0.01,#7b3f98
+41,Favorable al PP,2,PP,Partido Popular,0.3159,4.46,#1d84ce
+41,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2669,3.68,#e30613
+41,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0254,0.01,#8a6d3b
+41,Favorable al PP,2,VOX,Vox,0.1872,2.44,#5ac035
+42,Base,0,FA,Frente Amplio y confluencias,0.018,0.0,#d6338a
+42,Base,0,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+42,Base,0,PP,Partido Popular,0.3249,1.12,#1d84ce
+42,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2433,0.82,#e30613
+42,Base,0,SALF,Se Acabó La Fiesta,0.0129,0.0,#8a6d3b
+42,Base,0,VOX,Vox,0.1421,0.06,#5ac035
+42,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0178,0.0,#d6338a
+42,Favorable al PSOE,1,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+42,Favorable al PSOE,1,PP,Partido Popular,0.3021,1.02,#1d84ce
+42,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2633,0.94,#e30613
+42,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0129,0.0,#8a6d3b
+42,Favorable al PSOE,1,VOX,Vox,0.1421,0.04,#5ac035
+42,Favorable al PP,2,FA,Frente Amplio y confluencias,0.018,0.0,#d6338a
+42,Favorable al PP,2,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+42,Favorable al PP,2,PP,Partido Popular,0.3474,1.24,#1d84ce
+42,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2241,0.7,#e30613
+42,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0129,0.0,#8a6d3b
+42,Favorable al PP,2,VOX,Vox,0.1416,0.07,#5ac035
+43,Base,0,ERC,ERC,0.2003,1.45,#f5b400
+43,Base,0,FA,Frente Amplio y confluencias,0.0625,0.07,#d6338a
+43,Base,0,JUNTS,Junts per Catalunya,0.093,0.31,#20c0b0
+43,Base,0,PP,Partido Popular,0.1289,0.81,#1d84ce
+43,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2839,2.29,#e30613
+43,Base,0,SALF,Se Acabó La Fiesta,0.0146,0.0,#8a6d3b
+43,Base,0,VOX,Vox,0.1572,1.06,#5ac035
+43,Favorable al PSOE,1,ERC,ERC,0.1978,1.43,#f5b400
+43,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.062,0.07,#d6338a
+43,Favorable al PSOE,1,JUNTS,Junts per Catalunya,0.0916,0.29,#20c0b0
+43,Favorable al PSOE,1,PP,Partido Popular,0.1192,0.69,#1d84ce
+43,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3012,2.47,#e30613
+43,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0144,0.0,#8a6d3b
+43,Favorable al PSOE,1,VOX,Vox,0.1547,1.04,#5ac035
+43,Favorable al PP,2,ERC,ERC,0.2016,1.47,#f5b400
+43,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0635,0.07,#d6338a
+43,Favorable al PP,2,JUNTS,Junts per Catalunya,0.094,0.33,#20c0b0
+43,Favorable al PP,2,PP,Partido Popular,0.1403,0.93,#1d84ce
+43,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2664,2.11,#e30613
+43,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0147,0.0,#8a6d3b
+43,Favorable al PP,2,VOX,Vox,0.1594,1.08,#5ac035
+44,Base,0,PODEMOS,Podemos,0.0153,0.0,#7b3f98
+44,Base,0,PP,Partido Popular,0.3141,1.31,#1d84ce
+44,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2466,1.0,#e30613
+44,Base,0,SALF,Se Acabó La Fiesta,0.0196,0.0,#8a6d3b
+44,Base,0,VOX,Vox,0.1939,0.69,#5ac035
+44,Favorable al PSOE,1,PODEMOS,Podemos,0.0153,0.0,#7b3f98
+44,Favorable al PSOE,1,PP,Partido Popular,0.2908,1.18,#1d84ce
+44,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2673,1.1,#e30613
+44,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0197,0.0,#8a6d3b
+44,Favorable al PSOE,1,VOX,Vox,0.1946,0.73,#5ac035
+44,Favorable al PP,2,PODEMOS,Podemos,0.0153,0.0,#7b3f98
+44,Favorable al PP,2,PP,Partido Popular,0.3378,1.46,#1d84ce
+44,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2269,0.9,#e30613
+44,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0196,0.0,#8a6d3b
+44,Favorable al PP,2,VOX,Vox,0.191,0.65,#5ac035
+45,Base,0,FA,Frente Amplio y confluencias,0.0447,0.0,#d6338a
+45,Base,0,PODEMOS,Podemos,0.0181,0.0,#7b3f98
+45,Base,0,PP,Partido Popular,0.3401,2.32,#1d84ce
+45,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2754,1.79,#e30613
+45,Base,0,SALF,Se Acabó La Fiesta,0.0207,0.0,#8a6d3b
+45,Base,0,VOX,Vox,0.2876,1.89,#5ac035
+45,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0445,0.0,#d6338a
+45,Favorable al PSOE,1,PODEMOS,Podemos,0.0181,0.0,#7b3f98
+45,Favorable al PSOE,1,PP,Partido Popular,0.315,2.11,#1d84ce
+45,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2998,1.99,#e30613
+45,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0207,0.0,#8a6d3b
+45,Favorable al PSOE,1,VOX,Vox,0.2884,1.89,#5ac035
+45,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0444,0.0,#d6338a
+45,Favorable al PP,2,PODEMOS,Podemos,0.0181,0.0,#7b3f98
+45,Favorable al PP,2,PP,Partido Popular,0.3659,2.54,#1d84ce
+45,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.253,1.59,#e30613
+45,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0204,0.0,#8a6d3b
+45,Favorable al PP,2,VOX,Vox,0.2847,1.86,#5ac035
+46,Base,0,COMPROMIS,Compromís: Front Valencià,0.1317,1.98,#f28b25
+46,Base,0,PP,Partido Popular,0.3124,5.38,#1d84ce
+46,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.28,4.76,#e30613
+46,Base,0,SALF,Se Acabó La Fiesta,0.0252,0.02,#8a6d3b
+46,Base,0,VOX,Vox,0.232,3.86,#5ac035
+46,Favorable al PSOE,1,COMPROMIS,Compromís: Front Valencià,0.1321,1.99,#f28b25
+46,Favorable al PSOE,1,PP,Partido Popular,0.2855,4.86,#1d84ce
+46,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3073,5.28,#e30613
+46,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0253,0.02,#8a6d3b
+46,Favorable al PSOE,1,VOX,Vox,0.2313,3.86,#5ac035
+46,Favorable al PP,2,COMPROMIS,Compromís: Front Valencià,0.1329,2.0,#f28b25
+46,Favorable al PP,2,PP,Partido Popular,0.3395,5.91,#1d84ce
+46,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2523,4.22,#e30613
+46,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0251,0.01,#8a6d3b
+46,Favorable al PP,2,VOX,Vox,0.2317,3.85,#5ac035
+47,Base,0,FA,Frente Amplio y confluencias,0.0493,0.0,#d6338a
+47,Base,0,PODEMOS,Podemos,0.0226,0.0,#7b3f98
+47,Base,0,PP,Partido Popular,0.374,2.24,#1d84ce
+47,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2829,1.57,#e30613
+47,Base,0,SALF,Se Acabó La Fiesta,0.0196,0.0,#8a6d3b
+47,Base,0,VOX,Vox,0.2301,1.19,#5ac035
+47,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0493,0.0,#d6338a
+47,Favorable al PSOE,1,PODEMOS,Podemos,0.0228,0.0,#7b3f98
+47,Favorable al PSOE,1,PP,Partido Popular,0.3489,2.04,#1d84ce
+47,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3082,1.78,#e30613
+47,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0198,0.0,#8a6d3b
+47,Favorable al PSOE,1,VOX,Vox,0.2295,1.17,#5ac035
+47,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0485,0.0,#d6338a
+47,Favorable al PP,2,PODEMOS,Podemos,0.0222,0.0,#7b3f98
+47,Favorable al PP,2,PP,Partido Popular,0.4017,2.45,#1d84ce
+47,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2598,1.38,#e30613
+47,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0194,0.0,#8a6d3b
+47,Favorable al PP,2,VOX,Vox,0.2273,1.17,#5ac035
+48,Base,0,BILDU,EH Bildu,0.2458,2.34,#9acd32
+48,Base,0,FA,Frente Amplio y confluencias,0.0681,0.21,#d6338a
+48,Base,0,PNV,EAJ-PNV,0.2219,2.07,#2e8b57
+48,Base,0,PODEMOS,Podemos,0.0306,0.0,#7b3f98
+48,Base,0,PP,Partido Popular,0.1212,0.95,#1d84ce
+48,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2529,2.42,#e30613
+48,Base,0,VOX,Vox,0.0457,0.01,#5ac035
+48,Favorable al PSOE,1,BILDU,EH Bildu,0.2425,2.3,#9acd32
+48,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0666,0.18,#d6338a
+48,Favorable al PSOE,1,PNV,EAJ-PNV,0.2196,2.05,#2e8b57
+48,Favorable al PSOE,1,PODEMOS,Podemos,0.0303,0.0,#7b3f98
+48,Favorable al PSOE,1,PP,Partido Popular,0.111,0.82,#1d84ce
+48,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2716,2.64,#e30613
+48,Favorable al PSOE,1,VOX,Vox,0.0448,0.0,#5ac035
+48,Favorable al PP,2,BILDU,EH Bildu,0.2499,2.38,#9acd32
+48,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0687,0.22,#d6338a
+48,Favorable al PP,2,PNV,EAJ-PNV,0.224,2.1,#2e8b57
+48,Favorable al PP,2,PODEMOS,Podemos,0.031,0.0,#7b3f98
+48,Favorable al PP,2,PP,Partido Popular,0.1316,1.07,#1d84ce
+48,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2351,2.21,#e30613
+48,Favorable al PP,2,VOX,Vox,0.0459,0.01,#5ac035
+49,Base,0,FA,Frente Amplio y confluencias,0.0315,0.0,#d6338a
+49,Base,0,PODEMOS,Podemos,0.0158,0.0,#7b3f98
+49,Base,0,PP,Partido Popular,0.4125,1.56,#1d84ce
+49,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2831,0.97,#e30613
+49,Base,0,SALF,Se Acabó La Fiesta,0.0144,0.0,#8a6d3b
+49,Base,0,VOX,Vox,0.2017,0.47,#5ac035
+49,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0315,0.0,#d6338a
+49,Favorable al PSOE,1,PODEMOS,Podemos,0.0159,0.0,#7b3f98
+49,Favorable al PSOE,1,PP,Partido Popular,0.3872,1.43,#1d84ce
+49,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3048,1.06,#e30613
+49,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0147,0.0,#8a6d3b
+49,Favorable al PSOE,1,VOX,Vox,0.2047,0.51,#5ac035
+49,Favorable al PP,2,FA,Frente Amplio y confluencias,0.031,0.0,#d6338a
+49,Favorable al PP,2,PODEMOS,Podemos,0.0158,0.0,#7b3f98
+49,Favorable al PP,2,PP,Partido Popular,0.441,1.72,#1d84ce
+49,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2596,0.85,#e30613
+49,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.014,0.0,#8a6d3b
+49,Favorable al PP,2,VOX,Vox,0.1981,0.43,#5ac035
+50,Base,0,FA,Frente Amplio y confluencias,0.0745,0.17,#d6338a
+50,Base,0,PODEMOS,Podemos,0.0279,0.0,#7b3f98
+50,Base,0,PP,Partido Popular,0.3312,2.82,#1d84ce
+50,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2667,2.18,#e30613
+50,Base,0,SALF,Se Acabó La Fiesta,0.0228,0.0,#8a6d3b
+50,Base,0,VOX,Vox,0.2309,1.82,#5ac035
+50,Favorable al PSOE,1,FA,Frente Amplio y confluencias,0.0749,0.18,#d6338a
+50,Favorable al PSOE,1,PODEMOS,Podemos,0.0281,0.0,#7b3f98
+50,Favorable al PSOE,1,PP,Partido Popular,0.3037,2.55,#1d84ce
+50,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2903,2.42,#e30613
+50,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0231,0.0,#8a6d3b
+50,Favorable al PSOE,1,VOX,Vox,0.2338,1.85,#5ac035
+50,Favorable al PP,2,FA,Frente Amplio y confluencias,0.0749,0.18,#d6338a
+50,Favorable al PP,2,PODEMOS,Podemos,0.0279,0.0,#7b3f98
+50,Favorable al PP,2,PP,Partido Popular,0.3562,3.08,#1d84ce
+50,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2437,1.94,#e30613
+50,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0227,0.0,#8a6d3b
+50,Favorable al PP,2,VOX,Vox,0.2286,1.8,#5ac035
+51,Base,0,PODEMOS,Podemos,0.0161,0.0,#7b3f98
+51,Base,0,PP,Partido Popular,0.3354,0.43,#1d84ce
+51,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.279,0.16,#e30613
+51,Base,0,SALF,Se Acabó La Fiesta,0.032,0.0,#8a6d3b
+51,Base,0,VOX,Vox,0.3312,0.41,#5ac035
+51,Favorable al PSOE,1,PODEMOS,Podemos,0.0162,0.0,#7b3f98
+51,Favorable al PSOE,1,PP,Partido Popular,0.3123,0.3,#1d84ce
+51,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.3027,0.27,#e30613
+51,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0316,0.0,#8a6d3b
+51,Favorable al PSOE,1,VOX,Vox,0.3309,0.43,#5ac035
+51,Favorable al PP,2,PODEMOS,Podemos,0.0159,0.0,#7b3f98
+51,Favorable al PP,2,PP,Partido Popular,0.3589,0.55,#1d84ce
+51,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2584,0.08,#e30613
+51,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.0317,0.0,#8a6d3b
+51,Favorable al PP,2,VOX,Vox,0.3287,0.37,#5ac035
+52,Base,0,PP,Partido Popular,0.4431,0.94,#1d84ce
+52,Base,0,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2198,0.02,#e30613
+52,Base,0,SALF,Se Acabó La Fiesta,0.0251,0.0,#8a6d3b
+52,Base,0,VOX,Vox,0.2393,0.04,#5ac035
+52,Favorable al PSOE,1,PP,Partido Popular,0.4193,0.89,#1d84ce
+52,Favorable al PSOE,1,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.2384,0.05,#e30613
+52,Favorable al PSOE,1,SALF,Se Acabó La Fiesta,0.0254,0.0,#8a6d3b
+52,Favorable al PSOE,1,VOX,Vox,0.2429,0.06,#5ac035
+52,Favorable al PP,2,PP,Partido Popular,0.47,0.97,#1d84ce
+52,Favorable al PP,2,PSOE,"PSOE (incl. PSC, PSdeG, PSIB, PSN)",0.1999,0.0,#e30613
+52,Favorable al PP,2,SALF,Se Acabó La Fiesta,0.025,0.0,#8a6d3b
+52,Favorable al PP,2,VOX,Vox,0.2339,0.03,#5ac035

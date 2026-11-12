@@ -1,0 +1,86 @@
+table 'Encuestas usadas'
+	lineageTag: 1f65fe52-8db6-4ef9-8e74-00ee5c33d415
+
+	column instituto
+		dataType: string
+		lineageTag: 2760952b-d7d2-49f0-9d17-cd75a5ca0ee4
+		summarizeBy: none
+		sourceColumn: instituto
+
+	column medio
+		dataType: string
+		lineageTag: 9c30aa28-a73c-494b-8fd6-e6cb40218e0c
+		summarizeBy: none
+		sourceColumn: medio
+
+	column campo_inicio
+		dataType: string
+		lineageTag: 9f6a07bf-68f8-4264-9092-054c14740d9a
+		summarizeBy: none
+		sourceColumn: campo_inicio
+
+	column campo_fin
+		dataType: string
+		lineageTag: eacff2d4-bcf8-4e66-ad99-bb341bab151c
+		summarizeBy: none
+		sourceColumn: campo_fin
+
+	column muestra
+		dataType: string
+		lineageTag: 51973dff-1bad-4fde-a336-5a59e530566f
+		summarizeBy: none
+		sourceColumn: muestra
+
+	column PP
+		dataType: string
+		lineageTag: 8dff83a6-eeeb-4ce4-8440-b1d771e64ca5
+		summarizeBy: none
+		sourceColumn: PP
+
+	column PSOE
+		dataType: string
+		lineageTag: 3976c17a-dfef-4122-a5df-b1c217345e2c
+		summarizeBy: none
+		sourceColumn: PSOE
+
+	column VOX
+		dataType: string
+		lineageTag: 0b7320c1-7d72-44f3-9cc7-6f9d6cfbc388
+		summarizeBy: none
+		sourceColumn: VOX
+
+	column FA
+		dataType: string
+		lineageTag: c3ab7a23-1be9-4047-9b31-053986532774
+		summarizeBy: none
+		sourceColumn: FA
+
+	column PODEMOS
+		dataType: string
+		lineageTag: 9e7679a5-15ef-4551-8e11-a9c819b40448
+		summarizeBy: none
+		sourceColumn: PODEMOS
+
+	column SALF
+		dataType: string
+		lineageTag: 7f73158e-33a8-4116-a323-91b562c6d977
+		summarizeBy: none
+		sourceColumn: SALF
+
+	column fuente_original
+		dataType: string
+		lineageTag: 8375e7b5-d93a-47af-a516-8bb7e46f5b84
+		summarizeBy: none
+		sourceColumn: fuente_original
+
+	partition 'Encuestas usadas' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "encuestas_usadas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"instituto", "medio", "campo_inicio", "campo_fin", "muestra", "PP", "PSOE", "VOX", "FA", "PODEMOS", "SALF", "fuente_original"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"instituto", type text}, {"medio", type text}, {"campo_inicio", type text}, {"campo_fin", type text}, {"muestra", type text}, {"PP", type text}, {"PSOE", type text}, {"VOX", type text}, {"FA", type text}, {"PODEMOS", type text}, {"SALF", type text}, {"fuente_original", type text}}, "en-US")
+				in
+				    Tipos
+

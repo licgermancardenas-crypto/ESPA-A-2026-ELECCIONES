@@ -1,0 +1,34 @@
+table 'Dist PP Vox'
+	lineageTag: e15b43ce-2f67-4d84-adad-2574fcceb1c6
+
+	column escanos
+		dataType: int64
+		formatString: 0
+		lineageTag: c780a869-eb82-44bf-83f1-276cc986d27e
+		summarizeBy: none
+		sourceColumn: escanos
+
+	column simulaciones
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4a52c906-7b28-480d-be0c-00df64de6f17
+		summarizeBy: none
+		sourceColumn: simulaciones
+
+	column mayoria
+		dataType: string
+		lineageTag: 9ecbb13b-4f14-4b25-b6ff-6ff4c5d6e827
+		summarizeBy: none
+		sourceColumn: mayoria
+
+	partition 'Dist PP Vox' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "dist_pp_vox.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"escanos", "simulaciones", "mayoria"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"escanos", Int64.Type}, {"simulaciones", Int64.Type}, {"mayoria", type text}}, "en-US")
+				in
+				    Tipos
+

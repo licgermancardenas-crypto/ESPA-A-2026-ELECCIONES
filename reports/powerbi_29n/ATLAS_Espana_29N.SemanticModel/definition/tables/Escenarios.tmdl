@@ -1,0 +1,67 @@
+table Escenarios
+	lineageTag: 7b64bd59-2a9f-441e-89e2-d0e532a0578f
+
+	column provincia_id
+		dataType: string
+		lineageTag: 969be203-e4e2-4cf7-8542-01cc55e36bdd
+		summarizeBy: none
+		sourceColumn: provincia_id
+
+	column escenario
+		dataType: string
+		lineageTag: 28c029af-69ca-43ea-9ccb-390b5fe55495
+		summarizeBy: none
+		sourceColumn: escenario
+		sortByColumn: orden
+
+	column orden
+		dataType: int64
+		isHidden
+		lineageTag: 88de7178-a0f9-47f4-9e32-e1f5328c498a
+		summarizeBy: none
+		sourceColumn: orden
+
+	column bloque
+		dataType: string
+		lineageTag: bd813bec-dd30-4964-bc86-e2eb26d67735
+		summarizeBy: none
+		sourceColumn: bloque
+
+	column candidatura
+		dataType: string
+		lineageTag: 34d10592-454c-45f5-be4c-51edc267d141
+		summarizeBy: none
+		sourceColumn: candidatura
+
+	column voto
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d27fac3f-1f71-4086-bcf3-43b65193e544
+		summarizeBy: none
+		sourceColumn: voto
+
+	column escanos
+		dataType: double
+		formatString: 0.0
+		lineageTag: 97c64a1a-a6a2-4897-9991-93ab70e1ec62
+		summarizeBy: none
+		sourceColumn: escanos
+
+	column color
+		dataType: string
+		isHidden
+		lineageTag: 4ba57fda-d1d3-4c28-8eaa-4460201d2f87
+		summarizeBy: none
+		sourceColumn: color
+
+	partition Escenarios = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "escenarios.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"provincia_id", "escenario", "orden", "bloque", "candidatura", "voto", "escanos", "color"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"provincia_id", type text}, {"escenario", type text}, {"orden", Int64.Type}, {"bloque", type text}, {"candidatura", type text}, {"voto", type number}, {"escanos", type number}, {"color", type text}}, "en-US")
+				in
+				    Tipos
+

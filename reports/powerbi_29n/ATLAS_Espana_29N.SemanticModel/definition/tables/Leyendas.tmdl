@@ -1,0 +1,39 @@
+table Leyendas
+	isHidden
+	lineageTag: 38fcb7eb-e3a1-4ddd-a197-06d0fc85bc23
+
+	column metrica_id
+		dataType: int64
+		lineageTag: 348c9946-8c67-4c4c-98f4-f1fc0e65ec06
+		summarizeBy: none
+		sourceColumn: metrica_id
+
+	column orden
+		dataType: int64
+		lineageTag: 2728b9dd-132c-4d7c-8eaf-72bae21a3410
+		summarizeBy: none
+		sourceColumn: orden
+
+	column color
+		dataType: string
+		lineageTag: 1d47b23d-9336-4e54-8cbd-b09f5a807ebb
+		summarizeBy: none
+		sourceColumn: color
+
+	column etiqueta
+		dataType: string
+		lineageTag: a33d04b6-e549-4633-9130-cc49c45ce7d8
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+	partition Leyendas = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "leyendas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"metrica_id", "orden", "color", "etiqueta"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"metrica_id", Int64.Type}, {"orden", Int64.Type}, {"color", type text}, {"etiqueta", type text}}, "en-US")
+				in
+				    Tipos
+

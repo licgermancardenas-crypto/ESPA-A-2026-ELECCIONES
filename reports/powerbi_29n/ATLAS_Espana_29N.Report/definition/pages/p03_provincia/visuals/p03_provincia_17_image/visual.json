@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p03_provincia_17_image",
+  "position": {
+    "x": 532,
+    "y": 88,
+    "z": 1700,
+    "width": 760,
+    "height": 806,
+    "tabOrder": 1700
+  },
+  "visual": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageUrl'"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Mapa provincial"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "imageScaling": [
+        {
+          "properties": {
+            "imageScalingType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

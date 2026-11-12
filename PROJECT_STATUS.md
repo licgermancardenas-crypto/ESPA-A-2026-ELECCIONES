@@ -1,5 +1,28 @@
 # PROJECT STATUS — ATLAS SPAIN
 
+## Pronóstico generales 29-N-2026 (actualizado 12-nov-2026)
+
+Elecciones a Cortes Generales del 29 de noviembre de 2026 (Real Decreto 806/2026). Se pronostican las
+**52 circunscripciones del Congreso (350 escaños)**. Motor en `src/atlas_spain/pronostico/`, parámetros en
+`config/pronostico_2026.yaml`, comando `atlas pronostico todo [--corte AAAA-MM-DD]`.
+
+| Pieza | Estado | Ruta |
+|---|---|---|
+| Candidaturas proclamadas (BOE-A-2026-23103): 534 + 21 no proclamadas, 350 escaños | ✅ verificado contra totales publicados | `pronostico/candidaturas.py` |
+| Encuestas 2015–2026 (Wikipedia con enlace a la original; **pendiente de verificación**) | ✅ 558 encuestas 2023–2026 | `pronostico/encuestas_wiki.py` |
+| Equivalencias (solo continuidad legal; sustitutos geográficos marcados) | ✅ | `config/pronostico_2026.yaml` |
+| 5 modelos + backtesting a ciegas (origen móvil 2015–2023) + calibración Monte Carlo | ✅ swing proporcional elegido por parsimonia | `pronostico/backtest.py` |
+| Tests (incluye 3 pruebas de ausencia de fuga) | ✅ 11 tests | `tests/test_pronostico.py` |
+| Web estática (Vercel, despliegue automático desde GitHub, raíz `web29n/`) | ✅ https://atlas-espana-29n.vercel.app | `web29n/` |
+| Excel ejecutivo + 68 mapas PNG 300 ppp | ✅ | `reports/excel/ATLAS_Espana_29N.xlsx`, `reports/mapas_29n/` |
+| Power BI PBIP por código (9 páginas, mapas SVG en DAX), validado en Desktop con caché | ✅ | `reports/powerbi_29n/ATLAS_Espana_29N.pbip` |
+| Capturas reales web (escritorio y móvil) y Power BI | ✅ | `reports/capturas/` |
+| Piezas LinkedIn y videos | ver `reports/linkedin/`, `reports/video/` | `scripts/video29n/` |
+
+Veda (art. 69.7 LOREG): no difundir sondeos desde el 24-nov-2026. El pronóstico se congela con encuestas hasta el corte.
+
+---
+
 Actualizado: 9 de noviembre de 2026 · Fase: **cimientos de datos (pasos 1–6 del roadmap, parciales)**.
 Frontend web y Atlas AI todavía no están construidos; hay un tablero de Power BI sobre los datos reales.
 

@@ -1,0 +1,268 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "p08_validacion_17_tableEx",
+  "position": {
+    "x": 222,
+    "y": 332,
+    "z": 1700,
+    "height": 562,
+    "width": 680,
+    "tabOrder": 1700
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "eleccion"
+                }
+              },
+              "queryRef": "Backtest.eleccion",
+              "nativeQueryRef": "Elección",
+              "displayName": "Elección"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "modelo"
+                }
+              },
+              "queryRef": "Backtest.modelo",
+              "nativeQueryRef": "Modelo",
+              "displayName": "Modelo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "mae_pp"
+                }
+              },
+              "queryRef": "Backtest.mae_pp",
+              "nativeQueryRef": "Error",
+              "displayName": "Error"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "acierto_ganador"
+                }
+              },
+              "queryRef": "Backtest.acierto_ganador",
+              "nativeQueryRef": "Acierto",
+              "displayName": "Acierto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "kl"
+                }
+              },
+              "queryRef": "Backtest.kl",
+              "nativeQueryRef": "KL",
+              "displayName": "KL"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Backtest"
+                    }
+                  },
+                  "Property": "error_escanos"
+                }
+              },
+              "queryRef": "Backtest.error_escanos",
+              "nativeQueryRef": "Escaños",
+              "displayName": "Escaños"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Backtest"
+                  }
+                },
+                "Property": "eleccion"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1D1631'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F8F6FC'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E4DFEE'"
+                    }
+                  }
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Métricas por elección'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

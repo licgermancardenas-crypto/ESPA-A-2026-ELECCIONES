@@ -1,0 +1,55 @@
+metrica_id,orden,color,etiqueta
+1,0,#1d84ce,Partido Popular (42)
+1,1,#e30613,"PSOE (incl. PSC, PSdeG, PSIB, PSN) (8)"
+1,2,#9acd32,EH Bildu (1)
+1,3,#3aa0e6,UPN–PP (Navarra) (1)
+2,0,#EEE8F8,menos de 40 %
+2,1,#D3C4F0,40-50 %
+2,2,#AE95E3,50-60 %
+2,3,#8467BD,60-75 %
+2,4,#5B3F99,75-90 %
+2,5,#33215F,90 % o más
+3,0,#ff6b9a,Muy competitiva (13)
+3,1,#f2b84b,Competitiva (18)
+3,2,#a21eff,Moderadamente competitiva (12)
+3,3,#4f8dff,Poco competitiva (9)
+3,4,#32a155,Dominio claro (0)
+4,0,#E4DFEE,Sin cambio (48)
+4,1,#1d84ce,Partido Popular (2)
+4,2,#3aa0e6,UPN–PP (Navarra) (1)
+4,3,#e30613,"PSOE (incl. PSC, PSdeG, PSIB, PSN) (1)"
+5,0,#1d84ce,PP (40)
+5,1,#e30613,PSOE (10)
+5,2,#9acd32,EH Bildu (1)
+5,3,#2e8b57,PNV (1)
+6,0,#32A155,Alta (0)
+6,1,#E0A526,Media (52)
+6,2,#C8102E,Baja (0)
+7,0,#EEE8F8,menos de 5 %
+7,1,#D3C4F0,5-10 %
+7,2,#AE95E3,10-20 %
+7,3,#8467BD,20-30 %
+7,4,#5B3F99,30-40 %
+7,5,#33215F,40 % o más
+7,6,#D9D3E6,No concurre
+8,0,#EEE8F8,menos de 5 %
+8,1,#D3C4F0,5-10 %
+8,2,#AE95E3,10-20 %
+8,3,#8467BD,20-30 %
+8,4,#5B3F99,30-40 %
+8,5,#33215F,40 % o más
+8,6,#D9D3E6,No concurre
+9,0,#EEE8F8,menos de 5 %
+9,1,#D3C4F0,5-10 %
+9,2,#AE95E3,10-20 %
+9,3,#8467BD,20-30 %
+9,4,#5B3F99,30-40 %
+9,5,#33215F,40 % o más
+9,6,#D9D3E6,No concurre
+10,0,#EEE8F8,menos de 5 %
+10,1,#D3C4F0,5-10 %
+10,2,#AE95E3,10-20 %
+10,3,#8467BD,20-30 %
+10,4,#5B3F99,30-40 %
+10,5,#33215F,40 % o más
+10,6,#D9D3E6,No concurre

@@ -1,0 +1,337 @@
+table Provincias
+	lineageTag: 1adc9bef-4e68-42fb-bd3c-df3384e98806
+
+	column provincia_id
+		dataType: string
+		isKey
+		lineageTag: 6e84757c-6280-405b-b896-69e62b72848d
+		summarizeBy: none
+		sourceColumn: provincia_id
+
+	column provincia
+		dataType: string
+		lineageTag: 855819f3-040d-4c03-b13d-a04832ff82c8
+		summarizeBy: none
+		sourceColumn: provincia
+		sortByColumn: provincia_id
+
+	column ccaa
+		dataType: string
+		lineageTag: 51eee6b2-6cdc-4459-bf4a-7cc86b6d8738
+		summarizeBy: none
+		sourceColumn: ccaa
+
+	column escanos
+		dataType: int64
+		formatString: 0
+		lineageTag: d181be16-98f3-4b93-9c2a-0286ab7e4872
+		summarizeBy: none
+		sourceColumn: escanos
+
+	column favorito
+		dataType: string
+		lineageTag: 21e8aa3a-c61b-4baf-a8c6-6cd2bace142e
+		summarizeBy: none
+		sourceColumn: favorito
+
+	column favorito_bloque
+		dataType: string
+		lineageTag: a87a65f1-1070-4fe6-9a5c-89e50b5b2536
+		summarizeBy: none
+		sourceColumn: favorito_bloque
+
+	column favorito_siglas
+		dataType: string
+		lineageTag: da8d453f-77b3-4d29-bbe2-89950ff37a77
+		summarizeBy: none
+		sourceColumn: favorito_siglas
+
+	column p_victoria
+		dataType: double
+		formatString: 0%
+		lineageTag: 15810b87-9b21-42c4-ac10-b7b07d05020c
+		summarizeBy: none
+		sourceColumn: p_victoria
+
+	column voto_favorito
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d0183b12-a5c5-429f-b0a0-56075b5eae4f
+		summarizeBy: none
+		sourceColumn: voto_favorito
+
+	column voto_p10
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e318be4f-3ecc-438a-b7c5-844fb5445eb4
+		summarizeBy: none
+		sourceColumn: voto_p10
+
+	column voto_p90
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e575b3fe-6b02-4a46-a0da-85674fdad239
+		summarizeBy: none
+		sourceColumn: voto_p90
+
+	column margen_p50
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a8bda458-90d2-48aa-aec5-6ac4faf148c3
+		summarizeBy: none
+		sourceColumn: margen_p50
+
+	column margen_p10
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a61917ad-e18c-4d86-85e5-05fefd6b2bbd
+		summarizeBy: none
+		sourceColumn: margen_p10
+
+	column margen_p90
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a8af7878-19b8-4bb6-9ada-eaa662439ccb
+		summarizeBy: none
+		sourceColumn: margen_p90
+
+	column escanos_favorito
+		dataType: double
+		formatString: 0.0
+		lineageTag: 823cf2ba-c5a1-4f4c-832b-e7680ba11364
+		summarizeBy: none
+		sourceColumn: escanos_favorito
+
+	column competitividad
+		dataType: string
+		lineageTag: bc7f4f22-3a0d-4f0b-b46c-9aa28cb5eac4
+		summarizeBy: none
+		sourceColumn: competitividad
+
+	column calidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 79e37537-1242-496d-b3dd-af9d7cd9d4be
+		summarizeBy: none
+		sourceColumn: calidad
+
+	column calidad_clase
+		dataType: string
+		lineageTag: bc75cca2-84da-4c0b-a34a-9f839bd66298
+		summarizeBy: none
+		sourceColumn: calidad_clase
+
+	column ganador_2023
+		dataType: string
+		lineageTag: a231aad0-7b63-4562-8a9c-f561ac46e91d
+		summarizeBy: none
+		sourceColumn: ganador_2023
+
+	column voto_ganador_2023
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 11e97f9a-9801-47d2-97b3-e6c4483f495d
+		summarizeBy: none
+		sourceColumn: voto_ganador_2023
+
+	column cambia_2023
+		dataType: string
+		lineageTag: af83bf80-725e-4f0f-bfb9-c61a3b4185f8
+		summarizeBy: none
+		sourceColumn: cambia_2023
+
+	column c_fav
+		dataType: string
+		isHidden
+		lineageTag: fbaab195-b47a-49bc-ac27-a2d4b7434556
+		summarizeBy: none
+		sourceColumn: c_fav
+
+	column c_prob
+		dataType: string
+		isHidden
+		lineageTag: 87174a51-6286-4616-81c0-8490ee163cbd
+		summarizeBy: none
+		sourceColumn: c_prob
+
+	column c_comp
+		dataType: string
+		isHidden
+		lineageTag: 46ee04c8-8938-4e43-8a6d-476f6924dfa9
+		summarizeBy: none
+		sourceColumn: c_comp
+
+	column c_cambio
+		dataType: string
+		isHidden
+		lineageTag: 71a7b767-45be-4df2-add7-b509142565ec
+		summarizeBy: none
+		sourceColumn: c_cambio
+
+	column c_g2023
+		dataType: string
+		isHidden
+		lineageTag: 66e98316-a631-4f1b-9430-7d08260da255
+		summarizeBy: none
+		sourceColumn: c_g2023
+
+	column c_cal
+		dataType: string
+		isHidden
+		lineageTag: 5b904bb8-ec5a-4523-8cfb-c4e13b0ce25b
+		summarizeBy: none
+		sourceColumn: c_cal
+
+	column c_v_pp
+		dataType: string
+		isHidden
+		lineageTag: 3afc9032-64e8-4c56-91c1-4d5edafc8daa
+		summarizeBy: none
+		sourceColumn: c_v_pp
+
+	column c_v_psoe
+		dataType: string
+		isHidden
+		lineageTag: 9134e772-d678-462c-ad67-e67de48a746e
+		summarizeBy: none
+		sourceColumn: c_v_psoe
+
+	column c_v_vox
+		dataType: string
+		isHidden
+		lineageTag: 5075cb53-526f-4847-ae7d-bd12917b4b79
+		summarizeBy: none
+		sourceColumn: c_v_vox
+
+	column c_v_fa
+		dataType: string
+		isHidden
+		lineageTag: 781a7ce2-e28e-4d07-95ea-ce65249b5a4b
+		summarizeBy: none
+		sourceColumn: c_v_fa
+
+	column c_201512
+		dataType: string
+		isHidden
+		lineageTag: 1accd1a7-ee8c-4a87-bc64-c2144c0b432b
+		summarizeBy: none
+		sourceColumn: c_201512
+
+	column c_201606
+		dataType: string
+		isHidden
+		lineageTag: 498a8119-d219-43b0-9484-e5bbd6be24d8
+		summarizeBy: none
+		sourceColumn: c_201606
+
+	column c_201904
+		dataType: string
+		isHidden
+		lineageTag: 744a51a1-c6ac-4830-9333-e9c6aff1714a
+		summarizeBy: none
+		sourceColumn: c_201904
+
+	column c_201911
+		dataType: string
+		isHidden
+		lineageTag: ddcd24ff-df8a-4411-9eab-d43c11d15b7f
+		summarizeBy: none
+		sourceColumn: c_201911
+
+	column c_202307
+		dataType: string
+		isHidden
+		lineageTag: 173b8e1c-67f3-4fcd-839e-287971792a01
+		summarizeBy: none
+		sourceColumn: c_202307
+
+	column g_201512
+		dataType: string
+		lineageTag: bfe31eed-059a-472d-b851-ba5f5111bd9d
+		summarizeBy: none
+		sourceColumn: g_201512
+
+	column g_201606
+		dataType: string
+		lineageTag: a44e5ad8-f2b8-4308-92d7-cc839fb25b0b
+		summarizeBy: none
+		sourceColumn: g_201606
+
+	column g_201904
+		dataType: string
+		lineageTag: 8554298a-62f8-4134-8b90-3bff707251b6
+		summarizeBy: none
+		sourceColumn: g_201904
+
+	column g_201911
+		dataType: string
+		lineageTag: f204f40f-7b34-48b0-a08a-ea128ce2ab64
+		summarizeBy: none
+		sourceColumn: g_201911
+
+	column g_202307
+		dataType: string
+		lineageTag: ebd75903-2ab2-4626-aeea-12d36049f98e
+		summarizeBy: none
+		sourceColumn: g_202307
+
+	column path
+		dataType: string
+		isHidden
+		lineageTag: a61957b0-e6f6-4c13-8a73-0586f7566fed
+		summarizeBy: none
+		sourceColumn: path
+
+	column etiqueta
+		dataType: string
+		isHidden
+		lineageTag: 3b52e8d7-6cac-4ec4-92cb-a41dfde046c9
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+	column borde_prov
+		dataType: string
+		isHidden
+		lineageTag: 6d2c86fa-82e6-4299-bee2-b8e8e95e2064
+		summarizeBy: none
+		sourceColumn: borde_prov
+
+	column cx
+		dataType: int64
+		isHidden
+		lineageTag: e4057c0b-381d-4c8c-8c1f-358aebc5a2b5
+		summarizeBy: none
+		sourceColumn: cx
+
+	column cy
+		dataType: int64
+		isHidden
+		lineageTag: ce1c7e91-8565-4136-a349-e2b94809b307
+		summarizeBy: none
+		sourceColumn: cy
+
+	column ancho
+		dataType: int64
+		isHidden
+		lineageTag: 0559f597-7351-4bf6-931f-61d6e26e78fb
+		summarizeBy: none
+		sourceColumn: ancho
+
+	column alto
+		dataType: int64
+		isHidden
+		lineageTag: 5bdb497b-9912-437c-916c-f78026c4d626
+		summarizeBy: none
+		sourceColumn: alto
+
+	partition Provincias = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "provincias.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"provincia_id", "provincia", "ccaa", "escanos", "favorito", "favorito_bloque", "favorito_siglas", "p_victoria", "voto_favorito", "voto_p10", "voto_p90", "margen_p50", "margen_p10", "margen_p90", "escanos_favorito", "competitividad", "calidad", "calidad_clase", "ganador_2023", "voto_ganador_2023", "cambia_2023", "c_fav", "c_prob", "c_comp", "c_cambio", "c_g2023", "c_cal", "c_v_pp", "c_v_psoe", "c_v_vox", "c_v_fa", "c_201512", "c_201606", "c_201904", "c_201911", "c_202307", "g_201512", "g_201606", "g_201904", "g_201911", "g_202307", "path", "etiqueta", "borde_prov", "cx", "cy", "ancho", "alto"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"provincia_id", type text}, {"provincia", type text}, {"ccaa", type text}, {"escanos", Int64.Type}, {"favorito", type text}, {"favorito_bloque", type text}, {"favorito_siglas", type text}, {"p_victoria", type number}, {"voto_favorito", type number}, {"voto_p10", type number}, {"voto_p90", type number}, {"margen_p50", type number}, {"margen_p10", type number}, {"margen_p90", type number}, {"escanos_favorito", type number}, {"competitividad", type text}, {"calidad", Int64.Type}, {"calidad_clase", type text}, {"ganador_2023", type text}, {"voto_ganador_2023", type number}, {"cambia_2023", type text}, {"c_fav", type text}, {"c_prob", type text}, {"c_comp", type text}, {"c_cambio", type text}, {"c_g2023", type text}, {"c_cal", type text}, {"c_v_pp", type text}, {"c_v_psoe", type text}, {"c_v_vox", type text}, {"c_v_fa", type text}, {"c_201512", type text}, {"c_201606", type text}, {"c_201904", type text}, {"c_201911", type text}, {"c_202307", type text}, {"g_201512", type text}, {"g_201606", type text}, {"g_201904", type text}, {"g_201911", type text}, {"g_202307", type text}, {"path", type text}, {"etiqueta", type text}, {"borde_prov", type text}, {"cx", Int64.Type}, {"cy", Int64.Type}, {"ancho", Int64.Type}, {"alto", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

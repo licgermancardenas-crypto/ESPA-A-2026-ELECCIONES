@@ -1,0 +1,343 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "p05_ficha_22_tableEx",
+  "position": {
+    "x": 532,
+    "y": 176,
+    "z": 2200,
+    "height": 330,
+    "width": 1068,
+    "tabOrder": 2200
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "siglas"
+                }
+              },
+              "queryRef": "Candidaturas.siglas",
+              "nativeQueryRef": "Candidatura",
+              "displayName": "Candidatura"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "cabeza_lista"
+                }
+              },
+              "queryRef": "Candidaturas.cabeza_lista",
+              "nativeQueryRef": "Cabeza de lista",
+              "displayName": "Cabeza de lista"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "voto_medio"
+                }
+              },
+              "queryRef": "Candidaturas.voto_medio",
+              "nativeQueryRef": "Voto",
+              "displayName": "Voto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "voto_p10"
+                }
+              },
+              "queryRef": "Candidaturas.voto_p10",
+              "nativeQueryRef": "P10",
+              "displayName": "P10"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "voto_p90"
+                }
+              },
+              "queryRef": "Candidaturas.voto_p90",
+              "nativeQueryRef": "P90",
+              "displayName": "P90"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "p_victoria"
+                }
+              },
+              "queryRef": "Candidaturas.p_victoria",
+              "nativeQueryRef": "P(más votada)",
+              "displayName": "P(más votada)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "escanos_media"
+                }
+              },
+              "queryRef": "Candidaturas.escanos_media",
+              "nativeQueryRef": "Escaños",
+              "displayName": "Escaños"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "p_escano"
+                }
+              },
+              "queryRef": "Candidaturas.p_escano",
+              "nativeQueryRef": "P(≥1 esc.)",
+              "displayName": "P(≥1 esc.)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Candidaturas"
+                    }
+                  },
+                  "Property": "implantacion"
+                }
+              },
+              "queryRef": "Candidaturas.implantacion",
+              "nativeQueryRef": "Implantación",
+              "displayName": "Implantación"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Candidaturas"
+                  }
+                },
+                "Property": "voto_medio"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1D1631'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F8F6FC'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Color candidatura"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Candidaturas.siglas"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E4DFEE'"
+                    }
+                  }
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pronóstico por candidatura'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+table Limitaciones
+	lineageTag: dae5a364-d67b-49bd-b9a2-e0ceabd44ff0
+
+	column orden
+		dataType: int64
+		lineageTag: 4f5957c2-edd1-46a9-bd05-157e3c9b5a1d
+		summarizeBy: none
+		sourceColumn: orden
+
+	column limitacion
+		dataType: string
+		lineageTag: afe15da7-af00-418d-9a72-b2ba93423a07
+		summarizeBy: none
+		sourceColumn: limitacion
+
+	partition Limitaciones = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "limitaciones.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"orden", "limitacion"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"orden", Int64.Type}, {"limitacion", type text}}, "en-US")
+				in
+				    Tipos
+

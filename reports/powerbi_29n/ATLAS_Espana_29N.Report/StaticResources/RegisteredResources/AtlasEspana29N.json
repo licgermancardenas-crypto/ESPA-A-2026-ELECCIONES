@@ -1,0 +1,225 @@
+{
+  "name": "ATLAS España 29N",
+  "dataColors": [
+    "#C8102E",
+    "#1F4E9C",
+    "#5B3F99",
+    "#E0A526",
+    "#7A5FB5",
+    "#2E9C8F",
+    "#9A93AD",
+    "#E06C3C"
+  ],
+  "foreground": "#1D1631",
+  "foregroundNeutralSecondary": "#6B6480",
+  "foregroundNeutralTertiary": "#9A93AD",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F4F1F9",
+  "backgroundNeutral": "#E4DFEE",
+  "tableAccent": "#5B3F99",
+  "good": "#2E9C8F",
+  "neutral": "#E0A526",
+  "bad": "#C8102E",
+  "maximum": "#C8102E",
+  "center": "#F4F1F9",
+  "minimum": "#1F4E9C",
+  "hyperlink": "#5B3F99",
+  "visitedHyperlink": "#5B3F99",
+  "textClasses": {
+    "callout": {
+      "fontSize": 26,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D1631"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D1631"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D1631"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#1D1631"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E4DFEE"
+              }
+            },
+            "radius": 12
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#5B3F99"
+              }
+            },
+            "transparency": 88,
+            "position": "Outer",
+            "preset": "Custom",
+            "shadowSpread": 0,
+            "shadowBlur": 10,
+            "angle": 90,
+            "shadowDistance": 3
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "title": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#1D1631"
+              }
+            },
+            "fontSize": 11,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "padding": [
+          {
+            "top": 8,
+            "bottom": 8,
+            "left": 10,
+            "right": 10
+          }
+        ],
+        "visualHeader": [
+          {
+            "foreground": {
+              "solid": {
+                "color": "#6B6480"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F4F1F9"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E9E4F2"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "textbox": {
+      "*": {
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "padding": [
+          {
+            "top": 4,
+            "bottom": 4,
+            "left": 6,
+            "right": 6
+          }
+        ]
+      }
+    },
+    "actionButton": {
+      "*": {
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "padding": [
+          {
+            "top": 0,
+            "bottom": 0,
+            "left": 0,
+            "right": 0
+          }
+        ]
+      }
+    },
+    "image": {
+      "*": {
+        "padding": [
+          {
+            "top": 4,
+            "bottom": 4,
+            "left": 4,
+            "right": 4
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "padding": [
+          {
+            "top": 4,
+            "bottom": 4,
+            "left": 8,
+            "right": 8
+          }
+        ]
+      }
+    }
+  }
+}

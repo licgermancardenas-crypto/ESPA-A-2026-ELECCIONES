@@ -1,0 +1,40 @@
+table 'Encuestas serie'
+	lineageTag: ffc58edd-dcc6-4124-9e35-669cfcd87ee4
+
+	column instituto
+		dataType: string
+		lineageTag: e32f47e9-6da6-4a47-961a-d12e2148b5b9
+		summarizeBy: none
+		sourceColumn: instituto
+
+	column campo_fin
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: b05f13ad-fe84-4032-a4d4-435140bd1e19
+		summarizeBy: none
+		sourceColumn: campo_fin
+
+	column partido
+		dataType: string
+		lineageTag: 761d91f1-8511-4e75-ae37-64113f62e5d7
+		summarizeBy: none
+		sourceColumn: partido
+
+	column estimacion
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2c95c816-cf99-4bec-936e-fc26f370c93b
+		summarizeBy: none
+		sourceColumn: estimacion
+
+	partition 'Encuestas serie' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "encuestas_serie.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"instituto", "campo_fin", "partido", "estimacion"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"instituto", type text}, {"campo_fin", type date}, {"partido", type text}, {"estimacion", type number}}, "en-US")
+				in
+				    Tipos
+

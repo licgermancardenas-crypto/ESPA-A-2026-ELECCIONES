@@ -1,0 +1,343 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "p07_encuestas_16_tableEx",
+  "position": {
+    "x": 222,
+    "y": 522,
+    "z": 1600,
+    "height": 372,
+    "width": 1378,
+    "tabOrder": 1600
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "instituto"
+                }
+              },
+              "queryRef": "Encuestas usadas.instituto",
+              "nativeQueryRef": "Instituto",
+              "displayName": "Instituto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "medio"
+                }
+              },
+              "queryRef": "Encuestas usadas.medio",
+              "nativeQueryRef": "Medio",
+              "displayName": "Medio"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "campo_fin"
+                }
+              },
+              "queryRef": "Encuestas usadas.campo_fin",
+              "nativeQueryRef": "Fin de campo",
+              "displayName": "Fin de campo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "muestra"
+                }
+              },
+              "queryRef": "Encuestas usadas.muestra",
+              "nativeQueryRef": "Muestra",
+              "displayName": "Muestra"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "PP"
+                }
+              },
+              "queryRef": "Encuestas usadas.PP",
+              "nativeQueryRef": "PP",
+              "displayName": "PP"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "PSOE"
+                }
+              },
+              "queryRef": "Encuestas usadas.PSOE",
+              "nativeQueryRef": "PSOE",
+              "displayName": "PSOE"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "VOX"
+                }
+              },
+              "queryRef": "Encuestas usadas.VOX",
+              "nativeQueryRef": "Vox",
+              "displayName": "Vox"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "FA"
+                }
+              },
+              "queryRef": "Encuestas usadas.FA",
+              "nativeQueryRef": "FA",
+              "displayName": "FA"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "PODEMOS"
+                }
+              },
+              "queryRef": "Encuestas usadas.PODEMOS",
+              "nativeQueryRef": "Podemos",
+              "displayName": "Podemos"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "SALF"
+                }
+              },
+              "queryRef": "Encuestas usadas.SALF",
+              "nativeQueryRef": "SALF",
+              "displayName": "SALF"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Encuestas usadas"
+                    }
+                  },
+                  "Property": "fuente_original"
+                }
+              },
+              "queryRef": "Encuestas usadas.fuente_original",
+              "nativeQueryRef": "Fuente original",
+              "displayName": "Fuente original"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Encuestas usadas"
+                  }
+                },
+                "Property": "campo_fin"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1D1631'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F8F6FC'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E4DFEE'"
+                    }
+                  }
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Encuestas usadas en la media (una por instituto, 21 días)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

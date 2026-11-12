@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "p01_panel",
+    "p02_mapa",
+    "p03_provincia",
+    "p04_circunscripciones",
+    "p05_ficha",
+    "p06_evolucion",
+    "p07_encuestas",
+    "p08_validacion",
+    "p09_datos"
+  ],
+  "activePageName": "p01_panel"
+}

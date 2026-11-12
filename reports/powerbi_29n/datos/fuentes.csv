@@ -1,0 +1,5 @@
+fuente,origen,url,tipo,estado,control
+Candidaturas proclamadas al Congreso,"BOE-A-2026-23103 (BOE núm. 273, 3-nov-2026)",https://www.boe.es/boe/dias/2026/11/03/pdfs/BOE-A-2026-23103.pdf,Oficial,Verificada,534 proclamadas y 21 no proclamadas (coincide con el total publicado); 350 escaños; SHA-256 registrado
+Resultados oficiales Congreso 2011–2023 y europeas 2014–2024,Ministerio del Interior (Infoelectoral),https://infoelectoral.interior.gob.es,Oficial,Verificada,D'Hondt reproduce los escaños oficiales en las 52 circunscripciones (tests del warehouse)
+Encuestas de intención de voto,Wikipedia (en) con enlace a cada publicación original,https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Spanish_general_election,Secundaria,Pendiente de verificación,558 encuestas 2023–2026; 19 en la ventana de cálculo; cada fila conserva la URL original
+Cartografía provincial,INE · secciones censales 2024 (disueltas por provincia),https://www.ine.es,Oficial,Verificada,"52 provincias, 0 huérfanas"

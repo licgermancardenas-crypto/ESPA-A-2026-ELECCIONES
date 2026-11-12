@@ -1,0 +1,50 @@
+table Fuentes
+	lineageTag: 73bf4331-9164-4c06-ad47-eb42bfe87491
+
+	column fuente
+		dataType: string
+		lineageTag: e5aaba79-1b82-44e6-b105-3bf3d9627656
+		summarizeBy: none
+		sourceColumn: fuente
+
+	column origen
+		dataType: string
+		lineageTag: e162b247-8c6d-4b9f-869d-199f9a3f6de4
+		summarizeBy: none
+		sourceColumn: origen
+
+	column url
+		dataType: string
+		lineageTag: 0245c123-11b1-47cd-97cf-872cd666f54c
+		summarizeBy: none
+		sourceColumn: url
+
+	column tipo
+		dataType: string
+		lineageTag: d74a6614-bfcc-463f-a0b9-b4847ad81dd3
+		summarizeBy: none
+		sourceColumn: tipo
+
+	column estado
+		dataType: string
+		lineageTag: ea1a65be-819b-4367-b95f-751e64e3a60a
+		summarizeBy: none
+		sourceColumn: estado
+
+	column control
+		dataType: string
+		lineageTag: e1121604-a468-415e-a197-35f762bb4d29
+		summarizeBy: none
+		sourceColumn: control
+
+	partition Fuentes = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "fuentes.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"fuente", "origen", "url", "tipo", "estado", "control"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"fuente", type text}, {"origen", type text}, {"url", type text}, {"tipo", type text}, {"estado", type text}, {"control", type text}}, "en-US")
+				in
+				    Tipos
+

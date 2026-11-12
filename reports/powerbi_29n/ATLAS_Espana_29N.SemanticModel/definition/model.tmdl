@@ -1,0 +1,32 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["CarpetaDatos", "Provincias", "Municipios", "Candidaturas", "Escenarios", "Escaños nacional", "Dist PP Vox", "Encuestas serie", "Encuestas usadas", "Backtest", "Modelos", "Error encuestas", "Fuentes", "Limitaciones", "Leyendas", "Métrica del mapa", "Medidas"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Provincias
+ref table Municipios
+ref table Candidaturas
+ref table Escenarios
+ref table 'Escaños nacional'
+ref table 'Dist PP Vox'
+ref table 'Encuestas serie'
+ref table 'Encuestas usadas'
+ref table Backtest
+ref table Modelos
+ref table 'Error encuestas'
+ref table Fuentes
+ref table Limitaciones
+ref table Leyendas
+ref table 'Métrica del mapa'
+ref table Medidas
+
+ref cultureInfo es-ES
+

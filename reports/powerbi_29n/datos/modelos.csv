@@ -1,0 +1,6 @@
+modelo,kl,mae_pp,acierto_ganador,error_escanos,seleccionado
+persistencia,0.1418,4.3557,0.5625,55.75,0
+swing_proporcional,0.0687,2.2639,0.875,19.0,1
+logit_condicional,0.0734,2.4684,0.8654,19.5,0
+jerarquico,0.0735,2.4504,0.8798,18.25,0
+gbm,0.0955,3.4461,0.8221,30.5,0

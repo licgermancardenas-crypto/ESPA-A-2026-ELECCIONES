@@ -1,0 +1,61 @@
+table Backtest
+	lineageTag: c13debc3-67f5-43f0-bc55-befe94bbd8de
+
+	column eleccion
+		dataType: string
+		lineageTag: 519664b4-8b4a-4ce6-ad16-2d685311a92a
+		summarizeBy: none
+		sourceColumn: eleccion
+
+	column modelo
+		dataType: string
+		lineageTag: 9ec0ebe2-9cef-41fb-9d26-056011b311dd
+		summarizeBy: none
+		sourceColumn: modelo
+
+	column lambda
+		dataType: double
+		formatString: 0.00
+		lineageTag: 7deb97e5-6482-4a44-bbcd-5d8f2b60edc5
+		summarizeBy: none
+		sourceColumn: lambda
+
+	column kl
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d5a19091-0899-423b-a3cb-f77d70d20a93
+		summarizeBy: none
+		sourceColumn: kl
+
+	column mae_pp
+		dataType: double
+		formatString: 0.00
+		lineageTag: 95a3dced-87b1-41f8-a656-7c1df06179c0
+		summarizeBy: none
+		sourceColumn: mae_pp
+
+	column acierto_ganador
+		dataType: double
+		formatString: 0%
+		lineageTag: 58176a56-a9c4-4e5b-ab92-7f68c78ec04b
+		summarizeBy: none
+		sourceColumn: acierto_ganador
+
+	column error_escanos
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ede6aab-4936-43a2-b28f-21bd12a12575
+		summarizeBy: none
+		sourceColumn: error_escanos
+
+	partition Backtest = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "backtest.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"eleccion", "modelo", "lambda", "kl", "mae_pp", "acierto_ganador", "error_escanos"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"eleccion", type text}, {"modelo", type text}, {"lambda", type number}, {"kl", type number}, {"mae_pp", type number}, {"acierto_ganador", type number}, {"error_escanos", Int64.Type}}, "en-US")
+				in
+				    Tipos
+

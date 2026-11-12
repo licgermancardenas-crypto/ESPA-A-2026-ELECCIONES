@@ -1,0 +1,433 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "p04_circunscripcione_18_tableEx",
+  "position": {
+    "x": 222,
+    "y": 160,
+    "z": 1800,
+    "height": 734,
+    "width": 1378,
+    "tabOrder": 1800
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "provincia"
+                }
+              },
+              "queryRef": "Provincias.provincia",
+              "nativeQueryRef": "Circunscripción",
+              "displayName": "Circunscripción"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "ccaa"
+                }
+              },
+              "queryRef": "Provincias.ccaa",
+              "nativeQueryRef": "Comunidad",
+              "displayName": "Comunidad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "escanos"
+                }
+              },
+              "queryRef": "Provincias.escanos",
+              "nativeQueryRef": "Escaños",
+              "displayName": "Escaños"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "favorito_siglas"
+                }
+              },
+              "queryRef": "Provincias.favorito_siglas",
+              "nativeQueryRef": "Favorito",
+              "displayName": "Favorito"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "p_victoria"
+                }
+              },
+              "queryRef": "Provincias.p_victoria",
+              "nativeQueryRef": "P(victoria)",
+              "displayName": "P(victoria)"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "voto_favorito"
+                }
+              },
+              "queryRef": "Provincias.voto_favorito",
+              "nativeQueryRef": "Voto",
+              "displayName": "Voto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "voto_p10"
+                }
+              },
+              "queryRef": "Provincias.voto_p10",
+              "nativeQueryRef": "P10",
+              "displayName": "P10"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "voto_p90"
+                }
+              },
+              "queryRef": "Provincias.voto_p90",
+              "nativeQueryRef": "P90",
+              "displayName": "P90"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "margen_p50"
+                }
+              },
+              "queryRef": "Provincias.margen_p50",
+              "nativeQueryRef": "Margen",
+              "displayName": "Margen"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "escanos_favorito"
+                }
+              },
+              "queryRef": "Provincias.escanos_favorito",
+              "nativeQueryRef": "Esc. favorito",
+              "displayName": "Esc. favorito"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "competitividad"
+                }
+              },
+              "queryRef": "Provincias.competitividad",
+              "nativeQueryRef": "Competitividad",
+              "displayName": "Competitividad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "ganador_2023"
+                }
+              },
+              "queryRef": "Provincias.ganador_2023",
+              "nativeQueryRef": "Más votada 2023",
+              "displayName": "Más votada 2023"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Provincias"
+                    }
+                  },
+                  "Property": "calidad"
+                }
+              },
+              "queryRef": "Provincias.calidad",
+              "nativeQueryRef": "Calidad",
+              "displayName": "Calidad"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Provincias"
+                  }
+                },
+                "Property": "p_victoria"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1D1631'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F8F6FC'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Color favorito"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Provincias.favorito_siglas"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Color competitividad"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "Provincias.competitividad"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E4DFEE'"
+                    }
+                  }
+                }
+              }
+            },
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tabla de contiendas'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

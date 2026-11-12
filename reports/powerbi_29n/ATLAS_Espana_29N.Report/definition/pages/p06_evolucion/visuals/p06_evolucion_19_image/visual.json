@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p06_evolucion_19_image",
+  "position": {
+    "x": 1326,
+    "y": 92,
+    "z": 1900,
+    "width": 270,
+    "height": 220,
+    "tabOrder": 1900
+  },
+  "visual": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageUrl'"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Medidas"
+                    }
+                  },
+                  "Property": "Mapa 2023"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "imageScaling": [
+        {
+          "properties": {
+            "imageScalingType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

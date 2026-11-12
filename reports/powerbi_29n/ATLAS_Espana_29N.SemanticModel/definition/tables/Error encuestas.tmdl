@@ -1,0 +1,33 @@
+table 'Error encuestas'
+	lineageTag: 37e7b06b-d937-42cd-9e2c-8a51cf83ef7c
+
+	column eleccion
+		dataType: string
+		lineageTag: b2c701f2-b2f9-4a11-83fa-93cbf6233b69
+		summarizeBy: none
+		sourceColumn: eleccion
+
+	column bloque
+		dataType: string
+		lineageTag: 12eb564b-8aff-4a84-af08-06b4c9708e94
+		summarizeBy: none
+		sourceColumn: bloque
+
+	column error_log
+		dataType: double
+		formatString: 0.000
+		lineageTag: 0da5663f-7b5e-405f-aca4-4a8ccfcc7558
+		summarizeBy: none
+		sourceColumn: error_log
+
+	partition 'Error encuestas' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "error_encuestas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"eleccion", "bloque", "error_log"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"eleccion", type text}, {"bloque", type text}, {"error_log", type number}}, "en-US")
+				in
+				    Tipos
+

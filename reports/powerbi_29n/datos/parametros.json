@@ -1,0 +1,22 @@
+{
+ "ancho_nac": 1268,
+ "alto_nac": 900,
+ "caja_can": [
+  6,
+  691,
+  377,
+  203
+ ],
+ "corte": "2026-11-12",
+ "modelo": "swing_proporcional",
+ "n_encuestas": 19,
+ "p_pp_primero": 0.7988,
+ "p_psoe_primero": 0.1868,
+ "p_mayoria": 0.9531,
+ "muy_competitivas": 13,
+ "acierto": 0.875,
+ "mae": 2.2639,
+ "sigma_nac": 0.08,
+ "sigma_prov": 0.25,
+ "generado": "2026-11-12 21:02 UTC"
+}

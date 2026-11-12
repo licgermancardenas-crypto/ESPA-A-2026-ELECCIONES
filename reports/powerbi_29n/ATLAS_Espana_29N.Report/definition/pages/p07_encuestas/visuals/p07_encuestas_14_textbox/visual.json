@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p07_encuestas_14_textbox",
+  "position": {
+    "x": 10,
+    "y": 490,
+    "z": 1400,
+    "width": 180,
+    "height": 300,
+    "tabOrder": 1400
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Cómo navegar",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "9pt",
+                      "color": "#E0A526",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Ctrl+clic en los botones en Power BI Desktop",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Los segmentadores filtran y resaltan los mapas",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Veda",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "9pt",
+                      "color": "#E0A526",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Art. 69.7 LOREG: sin difusión de sondeos desde el 24-nov. Pronóstico congelado con encuestas hasta esa fecha.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "8.5pt",
+                      "color": "#CFC7E2"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Web: atlas-espana-29n.vercel.app",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "8.5pt",
+                      "color": "#E9B6FF"
+                    },
+                    "url": "https://atlas-espana-29n.vercel.app"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

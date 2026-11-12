@@ -1,0 +1,61 @@
+table 'Escaños nacional'
+	lineageTag: 8bc144e1-203c-47f5-a5a1-51bfbf66e90f
+
+	column bloque
+		dataType: string
+		lineageTag: 545850ef-1bf8-4e0a-9d0d-f1d5bc779607
+		summarizeBy: none
+		sourceColumn: bloque
+
+	column nombre
+		dataType: string
+		lineageTag: a39af50b-3314-4a5b-8d7f-82aaf1a4f692
+		summarizeBy: none
+		sourceColumn: nombre
+
+	column media
+		dataType: double
+		formatString: 0.0
+		lineageTag: 5027aa30-6f27-4565-9094-9a78e30b0e8a
+		summarizeBy: none
+		sourceColumn: media
+
+	column p10
+		dataType: double
+		formatString: 0
+		lineageTag: ca91bef0-e022-43b7-991a-78eebe8632e8
+		summarizeBy: none
+		sourceColumn: p10
+
+	column p50
+		dataType: double
+		formatString: 0
+		lineageTag: 7f8df691-4e90-4236-86f9-5b37c47915a8
+		summarizeBy: none
+		sourceColumn: p50
+
+	column p90
+		dataType: double
+		formatString: 0
+		lineageTag: d768e055-7271-411c-808a-65bea802b2ca
+		summarizeBy: none
+		sourceColumn: p90
+
+	column color
+		dataType: string
+		isHidden
+		lineageTag: bc9d51bb-0d01-42a6-8274-8306446ae8b5
+		summarizeBy: none
+		sourceColumn: color
+
+	partition 'Escaños nacional' = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "escanos_nacional.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"bloque", "nombre", "media", "p10", "p50", "p90", "color"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"bloque", type text}, {"nombre", type text}, {"media", type number}, {"p10", type number}, {"p50", type number}, {"p90", type number}, {"color", type text}}, "en-US")
+				in
+				    Tipos
+

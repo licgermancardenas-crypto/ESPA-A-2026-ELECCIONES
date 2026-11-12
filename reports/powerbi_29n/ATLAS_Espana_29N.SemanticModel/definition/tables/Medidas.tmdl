@@ -1,0 +1,262 @@
+table Medidas
+	lineageTag: 4626e9ff-6d5f-438c-99a3-81418e5e0550
+
+	measure Corte = "Encuestas hasta 2026-11-12 · 19 encuestas · modelo swing_proporcional · 10.000 simulaciones"
+		lineageTag: 9116c3b7-23a3-48c6-a9b3-853d28000f3c
+
+	measure Circunscripciones = COUNTROWS(Provincias)
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: bb513e02-c200-4b1f-b0e5-f6b9b51eabba
+
+	measure 'Escaños totales' = SUM(Provincias[escanos])
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: 56a7c26c-4d32-4699-8633-6d677f509159
+
+	measure 'Prob PP primero' = 0.7988
+		formatString: 0%
+		displayFolder: KPI
+		lineageTag: 2bd68e5a-fe3e-4807-bf6c-975b7c5893a1
+
+	measure 'Prob PSOE primero' = 0.1868
+		formatString: 0%
+		displayFolder: KPI
+		lineageTag: f9666fc0-486e-4a4d-b08c-59358f010b49
+
+	measure 'Prob mayoria PP Vox' = 0.9531
+		formatString: 0%
+		displayFolder: KPI
+		lineageTag: f62afc87-463c-4989-80cf-fd863d95f7e6
+
+	measure 'Muy competitivas' = CALCULATE(COUNTROWS(Provincias), Provincias[competitividad] = "Muy competitiva") + 0
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: 326045c3-3ab4-4ba1-8e07-eaa1f6f9b7c1
+
+	measure 'Cambian vs 2023' = CALCULATE(COUNTROWS(Provincias), Provincias[cambia_2023] = "Sí") + 0
+		formatString: #,0
+		displayFolder: KPI
+		lineageTag: 1a794abe-2e9d-4ebb-a67e-920b479ec9f9
+
+	measure 'Acierto backtest' = 0.875
+		formatString: 0%
+		displayFolder: KPI
+		lineageTag: 71c93e12-7e00-4494-aa2d-52931639d6b6
+
+	measure 'Error medio backtest' = 2.2639
+		formatString: 0.00
+		displayFolder: KPI
+		lineageTag: 3a24e5c1-d1a7-4028-830d-1ed7e7a9a3bc
+
+	measure 'Escaños esperados' = SUM('Escaños nacional'[media])
+		formatString: 0
+		displayFolder: Escaños
+		lineageTag: 19da4a81-baeb-49b8-8e25-00a386c0b72a
+
+	measure 'Escaños P10' = SUM('Escaños nacional'[p10])
+		formatString: 0
+		displayFolder: Escaños
+		lineageTag: 056e28c8-99a9-4a97-a262-2a197b64ea0c
+
+	measure 'Escaños P90' = SUM('Escaños nacional'[p90])
+		formatString: 0
+		displayFolder: Escaños
+		lineageTag: 291ccb4a-a677-48a7-8d4f-18b735446c0c
+
+	measure Simulaciones = SUM('Dist PP Vox'[simulaciones])
+		formatString: #,0
+		displayFolder: Escaños
+		lineageTag: dab725c1-1b99-4fb7-a432-a51fd8fb6d75
+
+	measure 'Escaños esperados circ' = SUM(Candidaturas[escanos_media])
+		formatString: 0.0
+		displayFolder: Escaños
+		lineageTag: 08ead7b9-9d81-4f80-b5ec-548628968590
+
+	measure 'Escaños escenario' = SUM(Escenarios[escanos])
+		formatString: 0.0
+		displayFolder: Escaños
+		lineageTag: caffda90-a8e0-443a-a196-1cf23bd43f9c
+
+	measure 'Estimación media' = AVERAGE('Encuestas serie'[estimacion])
+		formatString: 0.0%
+		displayFolder: Encuestas
+		lineageTag: 007d4941-fdb7-4d85-96c7-a2f055a9a730
+
+	measure 'Error medio pp' = AVERAGE(Backtest[mae_pp])
+		formatString: 0.00
+		displayFolder: Validación
+		lineageTag: 79ad425a-c9cb-4c1f-96de-952d7092ab91
+
+	measure 'Acierto ganador' = AVERAGE(Backtest[acierto_ganador])
+		formatString: 0%
+		displayFolder: Validación
+		lineageTag: f194e614-d12f-4006-9169-34c4cd551930
+
+	measure 'Circ seleccionada' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[provincia]) & " · " & SELECTEDVALUE(Provincias[escanos]) & " escaños", "Elige una circunscripción")
+		displayFolder: Ficha
+		lineageTag: 33721602-1980-42c7-992c-24f6455e68c9
+
+	measure 'Favorito sel' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[favorito]), "—")
+		displayFolder: Ficha
+		lineageTag: a818a114-8dff-46db-8243-317928aebb23
+
+	measure 'P victoria sel' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[p_victoria]))
+		formatString: 0%
+		displayFolder: Ficha
+		lineageTag: 39c75215-517c-4c3f-a7c5-0b595e6f6bc4
+
+	measure 'Voto favorito sel' = IF(HASONEVALUE(Provincias[provincia_id]), FORMAT(SELECTEDVALUE(Provincias[voto_favorito]), "0.0%") & " [" & FORMAT(SELECTEDVALUE(Provincias[voto_p10]), "0%") & "–" & FORMAT(SELECTEDVALUE(Provincias[voto_p90]), "0%") & "]", "—")
+		displayFolder: Ficha
+		lineageTag: dff5772f-6aa7-4048-a810-668b80a7fd6a
+
+	measure 'Competitividad sel' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[competitividad]), "—")
+		displayFolder: Ficha
+		lineageTag: e056928a-1d69-47f6-b579-cdb850549d8a
+
+	measure 'Calidad sel' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[calidad_clase]) & " · " & SELECTEDVALUE(Provincias[calidad]) & "/100", "—")
+		displayFolder: Ficha
+		lineageTag: 8c688fdf-aee3-4d9d-9871-3b8398bcdab7
+
+	measure 'Ganador 2023 sel' = IF(HASONEVALUE(Provincias[provincia_id]), SELECTEDVALUE(Provincias[ganador_2023]) & " (" & FORMAT(SELECTEDVALUE(Provincias[voto_ganador_2023]), "0.0%") & ")", "—")
+		displayFolder: Ficha
+		lineageTag: 7aa17484-ffb1-4a5e-88df-0f10a7971141
+
+	measure 'Color candidatura' = SELECTEDVALUE(Candidaturas[color], "#FFFFFF")
+		displayFolder: Formato
+		lineageTag: db18c4d4-849a-459e-86c8-e9f30ba9e3a4
+
+	measure 'Color escaños' = SELECTEDVALUE('Escaños nacional'[color], "#9A93AD")
+		displayFolder: Formato
+		lineageTag: 86315004-3cb9-43a4-ae7f-7b4feb2e7bc9
+
+	measure 'Color escenario' = SELECTEDVALUE(Escenarios[color], "#FFFFFF")
+		displayFolder: Formato
+		lineageTag: 68bc7767-42dc-4e37-88c6-79c71e160e22
+
+	measure 'Color favorito' = SELECTEDVALUE(Provincias[c_fav], "#FFFFFF")
+		displayFolder: Formato
+		lineageTag: 92d2b27f-82a2-4e6d-9273-3ccddfdc9132
+
+	measure 'Color competitividad' = SELECTEDVALUE(Provincias[c_comp], "#FFFFFF")
+		displayFolder: Formato
+		lineageTag: 7d62fb09-0cf9-449e-ac1d-ab12c021feae
+
+	measure 'Mapa nacional' =
+			VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+			VAR sel = VALUES(Provincias[provincia_id])
+			VAR todo = COUNTROWS(sel) = COUNTROWS(ALL(Provincias))
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", IF(todo || Provincias[provincia_id] IN sel, SWITCH(idm, 1, Provincias[c_fav], 2, Provincias[c_prob], 3, Provincias[c_comp], 4, Provincias[c_cambio], 5, Provincias[c_g2023], 6, Provincias[c_cal], 7, Provincias[c_v_pp], 8, Provincias[c_v_psoe], 9, Provincias[c_v_vox], Provincias[c_v_fa]), "#E4DFEE"))
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR titulo = "<text x='1278' y='60' font-family='Segoe UI Semibold' font-size='24' fill='#1D1631'>" & SELECTEDVALUE('Métrica del mapa'[Métrica], "Favorito 2026") & "</text>"
+			VAR ley = CONCATENATEX(FILTER(ALL(Leyendas), Leyendas[metrica_id] = idm), "<rect x='1278' y='" & (84 + Leyendas[orden] * 30) & "' width='20' height='15' rx='3' fill='" & Leyendas[color] & "' stroke='#B9AEDB' stroke-width='0.6'/><text x='1306' y='" & (97 + Leyendas[orden] * 30) & "' font-family='Segoe UI' font-size='17' fill='#1D1631'>" & Leyendas[etiqueta] & "</text>", "", Leyendas[orden], ASC)
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' stroke-linejoin='round' transform='scale(0.5)'>" & grupos & "</g>" & IF(todo, "", "<g fill='none' stroke='#1D1631' stroke-width='4' transform='scale(0.5)'>" & CONCATENATEX(FILTER(ALL(Provincias), Provincias[provincia_id] IN sel), "<path d='" & Provincias[path] & "'/>", "") & "</g>") & "<rect x='6' y='691' width='377' height='203' rx='10' fill='none' stroke='#B9AEDB' stroke-dasharray='6 5'/><text x='18' y='713' font-family='Segoe UI' font-size='15' fill='#6B6480'>Canarias</text>" & titulo & ley
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1648 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: ac1a7b02-1633-45df-8d45-b9524c1b4521
+		dataCategory: ImageUrl
+
+	measure 'Mapa provincial' =
+			VAR pid = SELECTEDVALUE(Provincias[provincia_id], "28")
+			VAR pw = CALCULATE(MAX(Provincias[ancho]), ALL(Provincias), Provincias[provincia_id] = pid)
+			VAR ph = CALCULATE(MAX(Provincias[alto]), ALL(Provincias), Provincias[provincia_id] = pid)
+			VAR borde = CALCULATE(MAX(Provincias[borde_prov]), ALL(Provincias), Provincias[provincia_id] = pid)
+			VAR t = ADDCOLUMNS(FILTER(ALL(Municipios), Municipios[provincia_id] = pid && Municipios[path_prov] <> ""), "@c", Municipios[color])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Municipios[path_prov] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='0.8' stroke-linejoin='round' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<g fill='none' stroke='#1D1631' stroke-width='3' transform='scale(0.5)'><path d='" & borde & "'/></g>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & pw & " " & ph & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 32b5a8be-16f8-4811-b9c3-1900e484a6f2
+		dataCategory: ImageUrl
+
+	measure 'Leyenda del mapa' =
+			VAR idm = SELECTEDVALUE('Métrica del mapa'[id], 1)
+			VAR n = CALCULATE(COUNTROWS(Leyendas), ALL(Leyendas), Leyendas[metrica_id] = idm)
+			VAR cuerpo = "<text x='4' y='18' font-family='Segoe UI Semibold' font-size='16' fill='#1D1631'>" & SELECTEDVALUE('Métrica del mapa'[Métrica], "Favorito 2026") & "</text>" & CONCATENATEX(FILTER(ALL(Leyendas), Leyendas[metrica_id] = idm), "<rect x='4' y='" & (32 + Leyendas[orden] * 26) & "' width='20' height='15' rx='3' fill='" & Leyendas[color] & "' stroke='#B9AEDB' stroke-width='0.6'/><text x='32' y='" & (45 + Leyendas[orden] * 26) & "' font-family='Segoe UI' font-size='15' fill='#1D1631'>" & Leyendas[etiqueta] & "</text>", "", Leyendas[orden], ASC)
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 420 & " " & (44 + n * 26) & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 16681aa2-fb0a-4f0e-aa62-650a521f6d45
+		dataCategory: ImageUrl
+
+	measure 'Mapa ubicación' =
+			VAR pid = SELECTEDVALUE(Provincias[provincia_id], "28")
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", IF(Provincias[provincia_id] = pid, "#5B3F99", "#E4DFEE"))
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>" & "<rect x='6' y='691' width='377' height='203' rx='10' fill='none' stroke='#B9AEDB' stroke-dasharray='6 5'/><text x='18' y='713' font-family='Segoe UI' font-size='15' fill='#6B6480'>Canarias</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 87546577-b7d9-4abc-9ab0-cfaafe5f7761
+		dataCategory: ImageUrl
+
+	measure 'Mapa 2015' =
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", Provincias[c_201512])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<text x='1248' y='70' text-anchor='end' font-family='Segoe UI Black' font-size='72' fill='#1D1631'>2015</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 5f116061-ce6b-4c3d-9b61-4b29f365b605
+		dataCategory: ImageUrl
+
+	measure 'Mapa 2016' =
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", Provincias[c_201606])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<text x='1248' y='70' text-anchor='end' font-family='Segoe UI Black' font-size='72' fill='#1D1631'>2016</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 836f9893-9613-41c0-a37f-d39cc6396eb7
+		dataCategory: ImageUrl
+
+	measure 'Mapa Abr 2019' =
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", Provincias[c_201904])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<text x='1248' y='70' text-anchor='end' font-family='Segoe UI Black' font-size='72' fill='#1D1631'>Abr 2019</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 03f5b383-817d-439d-a259-8ccf0e145210
+		dataCategory: ImageUrl
+
+	measure 'Mapa Nov 2019' =
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", Provincias[c_201911])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<text x='1248' y='70' text-anchor='end' font-family='Segoe UI Black' font-size='72' fill='#1D1631'>Nov 2019</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: 7a751096-223e-4deb-9200-03346825b119
+		dataCategory: ImageUrl
+
+	measure 'Mapa 2023' =
+			VAR t = ADDCOLUMNS(ALL(Provincias), "@c", Provincias[c_202307])
+			VAR grupos = CONCATENATEX(DISTINCT(SELECTCOLUMNS(t, "@c", [@c])), VAR col = [@c] RETURN "<g fill='" & col & "'>" & CONCATENATEX(FILTER(t, [@c] = col), "<path d='" & Provincias[path] & "'/>", "") & "</g>", "")
+			VAR cuerpo = "<g stroke='#FFFFFF' stroke-width='1.6' transform='scale(0.5)'>" & grupos & "</g>"
+			    & "<text x='1248' y='70' text-anchor='end' font-family='Segoe UI Black' font-size='72' fill='#1D1631'>2023</text>"
+			VAR svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " & 1268 & " " & 900 & "'>" & cuerpo & "</svg>"
+			RETURN "data:image/svg+xml;utf8," & SUBSTITUTE(SUBSTITUTE(svg, "%", "%25"), "#", "%23")
+		displayFolder: Mapas
+		lineageTag: f476c77c-8380-448b-a37e-68800a90385e
+		dataCategory: ImageUrl
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 2463f059-1219-4451-896c-f62003b91bd4
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition Medidas = calculated
+		mode: import
+		source = {BLANK()}
+

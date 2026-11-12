@@ -1,0 +1,222 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p09_datos_17_textbox",
+  "position": {
+    "x": 912,
+    "y": 92,
+    "z": 1700,
+    "width": 688,
+    "height": 802,
+    "tabOrder": 1700
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Qué se pronostica",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Las 52 circunscripciones del Congreso (350 escaños). Por contienda: favorito, probabilidad de ser la más votada, voto con intervalo 80 %, margen, escaños por candidatura (D'Hondt, barrera 3 %), competitividad, escenarios y calidad del dato.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Modelo",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Voto provincial = media nacional de encuestas × fuerza relativa previa de la provincia (swing proporcional), normalizado. Media de encuestas: ventana de 21 días, vida media 7 días, una por instituto, peso √muestra.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Equivalencias",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Solo continuidad legal. Frente Amplio, Compromís y Unidad del Pueblo Canario usan Sumar 2023 como sustituto geográfico (declarado, 1,5× incertidumbre). Podemos y SALF: europeas 2024 de la misma formación.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Fuentes",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Candidaturas: BOE-A-2026-23103. Resultados: Ministerio del Interior. Cartografía: INE. Encuestas: Wikipedia (secundaria, enlace a la original).",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Veda",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Art. 69.7 LOREG: no se difunden sondeos en los cinco días previos a la votación.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

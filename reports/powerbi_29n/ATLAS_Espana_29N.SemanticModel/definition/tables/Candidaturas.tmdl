@@ -1,0 +1,113 @@
+table Candidaturas
+	lineageTag: 9b2700bd-ff88-414d-8b99-6e16bbd00ca2
+
+	column provincia_id
+		dataType: string
+		lineageTag: f7ebb84a-8235-4289-aa95-673cfb5e6556
+		summarizeBy: none
+		sourceColumn: provincia_id
+
+	column bloque
+		dataType: string
+		lineageTag: 96406b5b-8e82-49f3-8cce-4d73ff35f1ff
+		summarizeBy: none
+		sourceColumn: bloque
+
+	column candidatura
+		dataType: string
+		lineageTag: 80d1325b-62ad-42f1-a340-5a37a853dc5a
+		summarizeBy: none
+		sourceColumn: candidatura
+
+	column siglas
+		dataType: string
+		lineageTag: f9b41a51-864b-4f7f-aadb-3b014e3bba9c
+		summarizeBy: none
+		sourceColumn: siglas
+
+	column cabeza_lista
+		dataType: string
+		lineageTag: 81495d66-848d-41d1-ae3b-b53512747ed6
+		summarizeBy: none
+		sourceColumn: cabeza_lista
+
+	column implantacion
+		dataType: string
+		lineageTag: 086028e8-d22f-4ba6-a54d-d3b12975241e
+		summarizeBy: none
+		sourceColumn: implantacion
+
+	column voto_medio
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fec6f311-e449-4742-bfc1-ef4cfabcfb0c
+		summarizeBy: none
+		sourceColumn: voto_medio
+
+	column voto_p10
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8d00a917-7d6b-4ed9-b07a-5a391dbfb1a4
+		summarizeBy: none
+		sourceColumn: voto_p10
+
+	column voto_p90
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f196210d-01b2-4b0a-828b-95060f8c13d0
+		summarizeBy: none
+		sourceColumn: voto_p90
+
+	column p_victoria
+		dataType: double
+		formatString: 0%
+		lineageTag: 02fe95ac-5067-496b-808e-f4cff3716c55
+		summarizeBy: none
+		sourceColumn: p_victoria
+
+	column escanos_media
+		dataType: double
+		formatString: 0.0
+		lineageTag: 7cf1742e-6b9f-453e-976e-6c7304f0c0a9
+		summarizeBy: sum
+		sourceColumn: escanos_media
+
+	column escanos_p10
+		dataType: double
+		formatString: 0
+		lineageTag: 62cd7ad9-8e96-4dc0-b8e1-96278c459e9a
+		summarizeBy: none
+		sourceColumn: escanos_p10
+
+	column escanos_p90
+		dataType: double
+		formatString: 0
+		lineageTag: 0fd6a50d-a1c1-4a4a-afad-0f5e9e7520a0
+		summarizeBy: none
+		sourceColumn: escanos_p90
+
+	column p_escano
+		dataType: double
+		formatString: 0%
+		lineageTag: 0f1a582b-9f30-4462-8565-b52cb50c922f
+		summarizeBy: none
+		sourceColumn: p_escano
+
+	column color
+		dataType: string
+		isHidden
+		lineageTag: 553ef73f-2c7d-4e5a-815e-230fb1f7782a
+		summarizeBy: none
+		sourceColumn: color
+
+	partition Candidaturas = m
+		mode: import
+		source =
+				let
+				    Origen = Csv.Document(File.Contents(CarpetaDatos & "candidaturas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Encabezados = Table.PromoteHeaders(Origen, [PromoteAllScalars = true]),
+				    Seleccion = Table.SelectColumns(Encabezados, {"provincia_id", "bloque", "candidatura", "siglas", "cabeza_lista", "implantacion", "voto_medio", "voto_p10", "voto_p90", "p_victoria", "escanos_media", "escanos_p10", "escanos_p90", "p_escano", "color"}),
+				    Tipos = Table.TransformColumnTypes(Seleccion, {{"provincia_id", type text}, {"bloque", type text}, {"candidatura", type text}, {"siglas", type text}, {"cabeza_lista", type text}, {"implantacion", type text}, {"voto_medio", type number}, {"voto_p10", type number}, {"voto_p90", type number}, {"p_victoria", type number}, {"escanos_media", type number}, {"escanos_p10", type number}, {"escanos_p90", type number}, {"p_escano", type number}, {"color", type text}}, "en-US")
+				in
+				    Tipos
+

@@ -1,0 +1,172 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "p08_validacion_18_textbox",
+  "position": {
+    "x": 912,
+    "y": 502,
+    "z": 1800,
+    "width": 688,
+    "height": 392,
+    "tabOrder": 1800
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Cómo se valida",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Cada elección se predice solo con resultados anteriores y encuestas cerradas 6 días antes. Los modelos con parámetros se entrenan con transiciones previas; λ se elige dentro de ellas. Hay un test automático que demuestra que el resultado objetivo no altera la predicción.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Selección",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Se elige el modelo más simple cuya KL no supera a la mejor en más de 0,002: swing proporcional (error 2.26 pp, acierto 88%).",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Incertidumbre",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "12pt",
+                      "color": "#1D1631",
+                      "fontWeight": "bold"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "σ nacional 0.08 (error común de las encuestas) y σ provincial 0.25, calibrados por log score y cobertura del intervalo 80 % en voto y escaños.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "10pt",
+                      "color": "#1D1631"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

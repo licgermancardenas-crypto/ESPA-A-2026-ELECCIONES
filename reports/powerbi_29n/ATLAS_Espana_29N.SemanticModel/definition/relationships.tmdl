@@ -1,0 +1,12 @@
+relationship rel_cand_prov
+	fromColumn: Candidaturas.provincia_id
+	toColumn: Provincias.provincia_id
+
+relationship rel_esc_prov
+	fromColumn: Escenarios.provincia_id
+	toColumn: Provincias.provincia_id
+
+relationship rel_mun_prov
+	fromColumn: Municipios.provincia_id
+	toColumn: Provincias.provincia_id
+

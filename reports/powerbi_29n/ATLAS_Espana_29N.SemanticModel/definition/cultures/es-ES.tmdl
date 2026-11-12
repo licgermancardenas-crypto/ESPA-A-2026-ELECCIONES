@@ -1,0 +1,1562 @@
+cultureInfo es-ES
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "medidas.corte": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Corte"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "medidas.prob_pp_primero": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Prob PP primero"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PP primero en escaños": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.prob_mayoria_pp_vox": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Prob mayoria PP Vox"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Mayoría PP + Vox (≥176)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.prob_psoe_primero": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Prob PSOE primero"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PSOE primero en escaños": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.muy_competitivas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Muy competitivas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Circunscripciones muy competitivas": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.cambian_vs_2023": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Cambian vs 2023"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Cambian de más votada vs 2023": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.acierto_backtest": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Acierto backtest"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Acierto del ganador (backtest)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.circ_seleccionada": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Circ seleccionada"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Circunscripción": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.favorito_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Favorito sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Favorito": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.p_victoria_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "P victoria sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P(más votada)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.voto_favorito_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Voto favorito sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Voto [IC 80 %]": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.competitividad_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Competitividad sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Competitividad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.ganador_2023_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Ganador 2023 sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Más votada en 2023": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "medidas.calidad_sel": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Medidas",
+			          "ConceptualProperty": "Calidad sel"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Calidad del dato": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.provincia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "provincia"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Circunscripción": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.favorito_siglas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "favorito_siglas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Favorito": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.p_victoria": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "p_victoria"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "P(victoria)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.competitividad": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "competitividad"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Competitividad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.ccaa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "ccaa"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Comunidad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.escanos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "escanos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Escaños": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.voto_favorito": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "voto_favorito"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Voto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.voto_p10": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "voto_p10"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P10": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.voto_p90": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "voto_p90"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P90": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.margen_p50": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "margen_p50"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Margen": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.escanos_favorito": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "escanos_favorito"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Esc. favorito": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.ganador_2023": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "ganador_2023"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Más votada 2023": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.calidad": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "calidad"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Calidad": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.g_201512": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "g_201512"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "2015": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.g_201606": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "g_201606"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "2016": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.g_201904": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "g_201904"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Abr 2019": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.g_201911": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "g_201911"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Nov 2019": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.g_202307": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "g_202307"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "2023": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "provincias.favorito": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Provincias",
+			          "ConceptualProperty": "favorito"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Favorito 2026": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.siglas": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "siglas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Candidatura": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.voto_medio": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "voto_medio"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Voto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.escanos_media": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "escanos_media"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Esc.": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Escaños": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.cabeza_lista": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "cabeza_lista"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Cabeza de lista": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.voto_p10": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "voto_p10"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P10": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.voto_p90": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "voto_p90"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P90": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.p_victoria": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "p_victoria"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P(más votada)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.p_escano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "p_escano"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P(≥1 esc.)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "candidaturas.implantacion": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Candidaturas",
+			          "ConceptualProperty": "implantacion"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Implantación": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "municipios.municipio": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Municipios",
+			          "ConceptualProperty": "municipio"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Municipio": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Municipios": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "municipios.ganador_2023": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Municipios",
+			          "ConceptualProperty": "ganador_2023"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Más votada 2023": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "municipios.voto_ganador_2023": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Municipios",
+			          "ConceptualProperty": "voto_ganador_2023"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "%": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.instituto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "instituto"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Instituto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.medio": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "medio"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Medio": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.campo_fin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "campo_fin"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fin de campo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.muestra": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "muestra"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Muestra": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.pp": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "PP"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PP": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.psoe": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "PSOE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "PSOE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.vox": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "VOX"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Vox": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.fa": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "FA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "FA": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.podemos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "PODEMOS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Podemos": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.salf": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "SALF"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "SALF": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "encuestas_usadas.fuente_original": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Encuestas usadas",
+			          "ConceptualProperty": "fuente_original"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fuente original": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.modelo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "modelo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Modelo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.kl": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "kl"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "KL": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.mae_pp": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "mae_pp"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Error (pp)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.acierto_ganador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "acierto_ganador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Acierto ganador": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.error_escanos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "error_escanos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Escaños mal asignados": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "modelos.seleccionado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Modelos",
+			          "ConceptualProperty": "seleccionado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Elegido": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.eleccion": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "eleccion"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Elección": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.modelo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "modelo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Modelo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.mae_pp": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "mae_pp"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Error": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.acierto_ganador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "acierto_ganador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Acierto": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.kl": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "kl"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "KL": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "backtest.error_escanos": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Backtest",
+			          "ConceptualProperty": "error_escanos"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Escaños": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fuentes.fuente": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fuentes",
+			          "ConceptualProperty": "fuente"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fuente": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fuentes.tipo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fuentes",
+			          "ConceptualProperty": "tipo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tipo": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fuentes.estado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fuentes",
+			          "ConceptualProperty": "estado"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Estado": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fuentes.control": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fuentes",
+			          "ConceptualProperty": "control"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Control": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "limitaciones.limitacion": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Limitaciones",
+			          "ConceptualProperty": "limitacion"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Limitación": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+
